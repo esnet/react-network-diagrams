@@ -11,12 +11,12 @@ var Node = React.createClass({
         return {
             radius: 5,
             selected: false,
-            shape: "circle"
+            shape: "circle",
+            style: {}
         };
     },
 
     render: function() {
-        var style = { };
         var nodeClasses = "map-node";
         var labelClasses = "map-node-label";
 
@@ -28,11 +28,6 @@ var Node = React.createClass({
         if (this.props.muted) {
             nodeClasses += " muted";
             labelClasses += " muted";
-        }
-
-        if(!_.isUndefined(this.props.classed)) {
-            nodeClasses += " " + this.props.classed;
-            labelClasses += " " + this.props.classed;
         }
 
         var basicOffset = this.props.radius * 1.33;
@@ -141,11 +136,14 @@ var Node = React.createClass({
         } else {
             nodeClasses += " map-node-shape-circle";
             labelClasses += " map-node-label-circle";
+
+            console.log("style", this.props.style)
+
             nodeElement = (
               <circle cx={this.props.x}
                       cy={this.props.y}
                       r={this.props.radius}
-                      style={style}
+                      style={this.props.style}
                       className={nodeClasses} />
             );
         }
@@ -157,6 +155,7 @@ var Node = React.createClass({
                 <text x={labelX}
                       y={labelY}
                       textAnchor={textAnchor}
+                      style={this.props.labelStyle}
                       className={labelClasses} >{this.props.label}</text>
             </g>
         );

@@ -1,0 +1,42 @@
+{
+  "name": "esnet-react-maps",
+  "version": "0.0.1",
+  "private": "true",
+  "main": "entry.js",
+  "author": "ESnet Tools Team <tools@es.net>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:esnet/esnet-react-maps.git"
+  },
+  "scripts": {
+    "build-global": "rm -rf build/global && NODE_ENV=production webpack ./entry.js build/global/react-maps.js && NODE_ENV=production COMPRESS=1 webpack ./entry.js build/global/react-maps.min.js && echo \"gzipped, the global build is `gzip -c build/global/react-maps.min.js | wc -c` bytes\"",
+    "start": "webpack-dev-server  --config webpack.examples.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "underscore": "^1.7.0",
+    "d3": "^3.5.5",
+    "victor": "^0.2.6"
+  },
+  "peerDependencies": {
+    "react": "0.12.x"
+  },
+  "devDependencies": {
+    "bundle-loader": "^0.5.0",
+    "url-loader": "^0.5.5",
+    "file-loader": "^0.7.2",
+    "jsx-loader": "^0.12.2",
+    "json-loader": "^0.5.1",
+    "style-loader": "^0.8.0",
+    "css-loader": "^0.9.0",
+    "webpack-dev-server": "^1.6.5",
+    "react-router": "^0.12.x",
+    "react": "^0.12.x",
+    "underscore": "^1.7.0",
+    "highlight.js": "^8.4.0",
+    "react-markdown-el": "^1.0.2",
+    "raw-loader": "^0.5.1",
+    "babel-core": "^5.1.13",
+    "babel-loader": "^5.0.0"
+  }
+}

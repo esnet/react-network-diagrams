@@ -5,6 +5,7 @@ var Vector = require("victor");
 var _      = require("underscore");
 
 var LinearEdge = require("./edge-linear");
+var ArcEdge = require("./edge-arc");
 
 require("../styles/map.css");
 

@@ -93,6 +93,7 @@ var Node = React.createClass({
             cloudPath += "l-25,0 c-10,0 -10,-10 -5,-15";
             cloudPath += "c5,-5 15,-5 15,0 c0,-15 25,-15 25,-5 c10,-10 25,15 10,20 Z";
             nodeElement = <path d={cloudPath}
+                                style={this.props.style}
                                 className={nodeClasses} />;
 
             switch (this.props.labelPosition) {
@@ -121,6 +122,7 @@ var Node = React.createClass({
                     y={y}
                     width={width}
                     height={width}
+                    style={this.props.style}
                     className={nodeClasses} />
             );
 
@@ -136,8 +138,6 @@ var Node = React.createClass({
         } else {
             nodeClasses += " map-node-shape-circle";
             labelClasses += " map-node-label-circle";
-
-            console.log("style", this.props.style)
 
             nodeElement = (
               <circle cx={this.props.x}

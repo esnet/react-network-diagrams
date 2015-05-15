@@ -5,15 +5,15 @@
 	stroke: #FF4E00;
 }
 
-.map-node-shape-cloud {
-    stroke: #000 !important; /* stupid cloud class in global main.css */
-    fill: #fff;
-    opacity: 1.0 !important; /* stupid cloud class in global main.css */
-}
-.map-node-label-cloud {
-	fill: #6D6E71;
-	stroke: none;
-}
+//.map-node-shape-cloud {
+//    stroke: #000 !important; /* stupid cloud class in global main.css */
+//    fill: #fff;
+//    opacity: 1.0 !important; /* stupid cloud class in global main.css */
+//}
+//.map-node-label-cloud {
+//	fill: #6D6E71;
+//	stroke: none;
+//}
 
 path.map-edge.map-linear-edge {
     cursor: pointer;

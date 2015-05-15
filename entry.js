@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-    //Map components
-    Map: require('./lib/components/map.jsx'),
-    Legend: require('./lib/components/map.jsx'),
+    Map: require("./lib/components/map.jsx"),
+    TrafficMap: require("./lib/components/traffic-map.jsx"),
+    Legend: require("./lib/components/map.jsx")
 }

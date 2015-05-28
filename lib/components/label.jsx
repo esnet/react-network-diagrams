@@ -1,8 +1,6 @@
-"use strict";
+import React from "react";
 
-var React  = require("react");
-
-require("../styles/map.css");
+import "../styles/map.css";
 
 var Label = React.createClass({
     render: function() {

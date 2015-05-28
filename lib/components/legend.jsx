@@ -1,9 +1,7 @@
-"use strict";
+import React from "react";
+import _ from "underscore";
 
-var React  = require("react");
-var _      = require("underscore");
-
-require("../styles/map.css");
+import "../styles/map.css";
 
 var Legend = React.createClass({
 
@@ -12,7 +10,7 @@ var Legend = React.createClass({
             x: 0,
             y: 0,
             lineHeight: 20,
-            columns: true,  // if not then all items are done in one column
+            columns: true,
             itemsPerColumn: 4,
             columnWidth: 100,
             exampleWidth: 20,
@@ -25,19 +23,16 @@ var Legend = React.createClass({
     },
 
     render: function() {
-        var self = this;
-        var curX = this.props.x;
-        var curY = this.props.y;
+        let curX = this.props.x;
+        let curY = this.props.y;
+        const lineCenter = this.props.lineHeight / 2;
 
-        var elements = [];
-        var lineCenter = this.props.lineHeight / 2;
-
-        if(this.props.nodeTypes.length > 0) {
-            _.each(this.props.nodeTypes, function(node) {
-                var textX = curX + self.props.exampleWidth ;//+ self.props.gutter;
-                var textY = curY + lineCenter ;
-                var classed = "map-node " + node.classed;
-
+        let elements = [];
+        if (this.props.nodeTypes.length > 0) {
+            _.each(this.props.nodeTypes, node => {
+                let textX = curX + this.props.exampleWidth;
+                let textY = curY + lineCenter;
+                let classed = "map-node " + node.classed;
                 elements.push(
                     <g>
                         <circle cx={curX}
@@ -45,35 +40,35 @@ var Legend = React.createClass({
                                 r={node.radius}
                                 className={classed} />
                         <text x={textX}
-                              y={textY+4}
+                              y={textY + 4}
                               textAnchor={"begin"}>
                             {node.text}
                         </text>
                     </g>
                 );
-                curY += self.props.lineHeight;
+                curY += this.props.lineHeight;
             });
 
-            if(this.props.columns) {
+            if (this.props.columns) {
                 curX += this.props.columnWidth;
                 curY = this.props.y;
             }
         }
 
         if (this.props.edgeTypes.length > 0) {
-            _.each(this.props.edgeTypes, function(edge) {
-                var x = curX;
-                var y = curY + lineCenter - edge.strokeWidth/2;
-                var textX = x + self.props.exampleWidth + self.props.gutter;
-                var textY = curY + lineCenter;
+            _.each(this.props.edgeTypes, edge => {
+                const x = curX;
+                const y = curY + lineCenter - edge.strokeWidth / 2;
+                const textX = x + this.props.exampleWidth + this.props.gutter;
+                const textY = curY + lineCenter;
 
                 elements.push(
                     <g>
                         <line x1={x}
                               y1={y}
-                              x2={x+self.props.exampleWidth}
+                              x2={x + this.props.exampleWidth}
                               y2={y}
-                              stroke={self.props.edgeColor}
+                              stroke={this.props.edgeColor}
                               strokeWidth={edge.strokeWidth} />
                         <text x={textX} y={textY} textAnchor={"begin"}>
                             {edge.text}
@@ -81,31 +76,30 @@ var Legend = React.createClass({
                     </g>
                 );
 
-                curY += self.props.lineHeight;
+                curY += this.props.lineHeight;
             });
 
-            if(this.props.columns) {
+            if (this.props.columns) {
                 curX += this.props.columnWidth;
                 curY = this.props.y;
             }
         }
 
         if (this.props.colorSwatches.length > 0) {
-            var width = this.props.exampleWidth;
-            var height = this.props.lineHeight - 4;
-            var itemCount = 0;
+            const width = this.props.exampleWidth;
+            const height = this.props.lineHeight - 4;
+            let itemCount = 0;
 
-            _.each(this.props.colorSwatches, function(color) {
-                if(itemCount && itemCount % self.props.itemsPerColumn === 0) {
-                    curX += self.props.columnWidth;
-                    curY = self.props.y;
+            _.each(this.props.colorSwatches, color => {
+                if (itemCount && itemCount % this.props.itemsPerColumn === 0) {
+                    curX += this.props.columnWidth;
+                    curY = this.props.y;
                 }
 
-                var x = curX;
-                var y = curY;
-
-                var textX = x + self.props.exampleWidth + self.props.gutter;
-                var textY = curY + lineCenter;
+                const x = curX;
+                const y = curY;
+                const textX = x + this.props.exampleWidth + this.props.gutter;
+                const textY = curY + lineCenter;
 
                 elements.push(
                     <g>
@@ -121,11 +115,11 @@ var Legend = React.createClass({
                     </g>
                 );
 
-                curY += self.props.lineHeight;
+                curY += this.props.lineHeight;
                 itemCount += 1;
             });
 
-            if(this.props.columns) {
+            if (this.props.columns) {
                 curX += this.props.columnWidth;
                 curY = this.props.y;
             }
@@ -138,6 +132,5 @@ var Legend = React.createClass({
         );
     }
 });
-
 
 module.exports = Legend;

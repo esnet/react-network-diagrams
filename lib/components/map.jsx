@@ -1,26 +1,23 @@
-"use strict";
+import React from "react";
+import d3 from "d3";
+import _ from "underscore";
 
-var React = require("react");
-var d3 = require("d3");
-var _ = require("underscore");
+import Node from "./node";
+import Label from "./label";
+import Legend from "./legend";
+import SimpleEdge from "./edge-simple";
+import BidirectionalEdge from "./edge-bidirectional";
 
-var Node = require("./node");
-var Label = require("./label");
-var Legend = require("./legend");
-
-var SimpleEdge   = require("./edge-simple");
-var BidirectionalEdge   = require("./edge-bidirectional");
-
-require("../styles/map.css");
+import "../styles/map.css";
 
 /**
  *
  * Base level map
  *
  */
-var Map = React.createClass({
+var BaseMap = React.createClass({
 
-    displayName: "Map",
+    displayName: "BaseMap",
 
     getDefaultProps: function() {
         return {
@@ -36,16 +33,12 @@ var Map = React.createClass({
     },
 
     render: function() {
-        var self = this;
-        var xScale = d3.scale.linear()
-                       .range([this.props.margin,
-                               this.props.width - this.props.margin]);
-        var yScale = d3.scale.linear()
-                       .range([this.props.margin,
-                               this.props.height - this.props.margin]);
-                      
-        var hasSelectedNode = this.props.selection.nodes.length;
-        var hasSelectedEdge = this.props.selection.edges.length;
+        const xScale = d3.scale.linear().range([this.props.margin,
+                                                this.props.width - this.props.margin]);
+        const yScale = d3.scale.linear().range([this.props.margin,
+                                                this.props.height - this.props.margin]);
+        const hasSelectedNode = this.props.selection.nodes.length;
+        const hasSelectedEdge = this.props.selection.edges.length;
 
         //
         // Build a mapping of edge names to the edges themselves
@@ -53,15 +46,15 @@ var Map = React.createClass({
 
         var edgeMap = {};
         _.each(this.props.topology.edges, function(edge) {
-            edgeMap[edge.source + "--" + edge.target] = edge;
-            edgeMap[edge.target + "--" + edge.source] = edge;
+            edgeMap[`${edge.source}--${edge.target}`] = edge;
+            edgeMap[`${edge.target}--${edge.source}`] = edge;
         });
 
         //
         // Build a list of nodes (each a Node) from our topology
         //
 
-        var secondarySelectedNodes = [];
+        let secondarySelectedNodes = [];
         _.each(this.props.selection.edges, function(edgeName) {
             var edge = edgeMap[edgeName];
             if (edge) {
@@ -70,16 +63,19 @@ var Map = React.createClass({
             }
         });
 
-        var nodeCoordinates = {}; //maps node name to scaled x and y position
-        var nodes = _.map(this.props.topology.nodes, function(node) {
-            var x = xScale(node.x);
-            var y = yScale(node.y);
+        // maps node name to scaled x and y position
+        let nodeCoordinates = {};
+        let nodes = _.map(this.props.topology.nodes, node => {
+            const x = xScale(node.x);
+            const y = yScale(node.y);
             nodeCoordinates[node.name] = {x: x, y: y};
-            var label = _.isUndefined(node.label) ? node.name : node.label;
-            var nodeSelected = _.contains(self.props.selection.nodes, node.name);
-            var edgeSelected = _.contains(secondarySelectedNodes, node.name);
-            var selected = nodeSelected || edgeSelected;
-            var muted = (hasSelectedNode && !selected) || (hasSelectedEdge && !selected);
+
+            const label = _.isUndefined(node.label) ? node.name : node.label;
+            const nodeSelected = _.contains(this.props.selection.nodes, node.name);
+            const edgeSelected = _.contains(secondarySelectedNodes, node.name);
+            const selected = nodeSelected || edgeSelected;
+            const muted = (hasSelectedNode && !selected) || (hasSelectedEdge && !selected);
+
             return (
                 <Node x={x}
                       y={y}
@@ -95,11 +91,9 @@ var Map = React.createClass({
                       shape={node.shape}
                       selected={selected}
                       muted={muted}
-                      onSelectionChange={self.props.onSelectionChange}/>
+                      onSelectionChange={this.props.onSelectionChange}/>
             );
         });
-
-
 
         //
         // Build a axillary structure to help us build the paths
@@ -112,18 +106,15 @@ var Map = React.createClass({
         //                                 [KANS] => [PATH2]
         //
 
-        var nodePaths = {};
-        
-        var i;
-        _.each(this.props.paths, function(path) {
-            var pathName = path.name;
-            var pathSteps = path.steps;
-            var node, next;
-            var a, z;
-            for (i = 0; i < pathSteps.length-1; i++) {
-
-                node = pathSteps[i];
-                next = pathSteps[i+1];
+        let nodePaths = {};
+        _.each(this.props.paths, path => {
+            const pathName = path.name;
+            const pathSteps = path.steps;
+            for (let i = 0; i < pathSteps.length - 1; i++) {
+                let node = pathSteps[i];
+                let next = pathSteps[i + 1];
+                let a;
+                let z;
 
                 // We store our target based on geography, west to east etc A->Z
                 if (nodeCoordinates[node].x < nodeCoordinates[next].x ||
@@ -150,42 +141,41 @@ var Map = React.createClass({
         // tell us which edges are touched by a path
         //
 
-        var edgePathMap = {};
-        _.each(this.props.paths, function(path) {
-            var pathSteps = path.steps;
+        let edgePathMap = {};
+        _.each(this.props.paths, path => {
+            const pathSteps = path.steps;
             if (pathSteps.length > 1) {
-                for (i = 0; i < pathSteps.length-1; i++) {
-                    var source = pathSteps[i];
-                    var destination = pathSteps[i+1];
-                    var sourceToDestinationName = source + "--" + destination;
-                    var destinationToSourceName = destination + "--" + source;
+                for (let i = 0; i < pathSteps.length - 1; i++) {
+                    const source = pathSteps[i];
+                    const destination = pathSteps[i + 1];
+                    const sourceToDestinationName = `${source}--${destination}`;
+                    const destinationToSourceName = `${destination}--${source}`;
                     edgePathMap[sourceToDestinationName] = path;
                     edgePathMap[destinationToSourceName] = path;
                 }
             }
         });
-        
-        var edges = _.map(this.props.topology.edges, function(edge) {
-            var selected = _.contains(self.props.selection.edges, edge.name);
 
-            //either 'simple' or 'bi-directional' edges.
-            var edgeDrawingMethod = self.props.edgeDrawingMethod;
+        let edges = _.map(this.props.topology.edges, edge => {
+            const selected = _.contains(this.props.selection.edges, edge.name);
+
+            // either 'simple' or 'bi-directional' edges.
+            const edgeDrawingMethod = this.props.edgeDrawingMethod;
 
             // either 'linear' or 'curved'
-            var edgeShape = "linear";
-            if(!_.isUndefined(edge.shape) && !_.isNull(edge.shape)) {
+            let edgeShape = "linear";
+            if (!_.isUndefined(edge.shape) && !_.isNull(edge.shape)) {
                 edgeShape = edge.shape;
             }
-            
-            var curveDirection = "left";
-            if(!_.isUndefined(edge.curveDirection) && !_.isNull(edge.curveDirection)) {
+
+            let curveDirection = "left";
+            if (!_.isUndefined(edge.curveDirection) && !_.isNull(edge.curveDirection)) {
                 curveDirection = edge.curveDirection;
             }
 
-            var muted = (hasSelectedEdge && !selected) || hasSelectedNode;
+            const muted = (hasSelectedEdge && !selected) || hasSelectedNode;
 
             if (edgeDrawingMethod === "simple") {
-            
                 return (
                     <SimpleEdge x1={nodeCoordinates[edge.source].x}
                                 x2={nodeCoordinates[edge.target].x}
@@ -202,11 +192,9 @@ var Map = React.createClass({
                                 name={edge.name}
                                 selected={selected}
                                 muted={muted}
-                                onSelectionChange={self.props.onSelectionChange}/>
+                                onSelectionChange={this.props.onSelectionChange}/>
                 );
-
             } else if (edgeDrawingMethod === "bidirectionalArrow") {
-            
                 return (
                     <BidirectionalEdge x1={nodeCoordinates[edge.source].x}
                                        x2={nodeCoordinates[edge.target].x}
@@ -225,10 +213,9 @@ var Map = React.createClass({
                                        name={edge.name}
                                        selected={selected}
                                        muted={muted}
-                                       onSelectionChange={self.props.onSelectionChange} />
+                                       onSelectionChange={this.props.onSelectionChange} />
                 );
             } else if (edgeDrawingMethod === "pathBidirectionalArrow") {
-
                 if (_.has(edgePathMap, edge.name)) {
                     return (
                         <BidirectionalEdge x1={nodeCoordinates[edge.source].x}
@@ -247,7 +234,7 @@ var Map = React.createClass({
                                                    name={edge.name}
                                                    selected={selected}
                                                    muted={muted}
-                                                   onSelectionChange={self.props.onSelectionChange}/>
+                                                   onSelectionChange={this.props.onSelectionChange}/>
                     );
                 } else {
                     return (
@@ -266,7 +253,7 @@ var Map = React.createClass({
                                     name={edge.name}
                                     selected={selected}
                                     muted={muted}
-                                    onSelectionChange={self.props.onSelectionChange}/>
+                                    onSelectionChange={this.props.onSelectionChange}/>
                     );
                 }
             }
@@ -275,19 +262,21 @@ var Map = React.createClass({
         //
         // Build the paths
         //
-        
-        var paths = _.map(this.props.paths, function(path) {
-            var pathSegments = [];
-            var pathName = path.name;
-            var pathSteps = path.steps;
-            var a, z, dir;
+
+        let paths = _.map(this.props.paths, path => {
+            const pathName = path.name;
+            const pathSteps = path.steps;
+            let pathSegments = [];
+
             if (pathSteps.length > 1) {
-                for (i = 0; i < pathSteps.length-1; i++) {
+                for (let i = 0; i < pathSteps.length - 1; i++) {
+                    let a;
+                    let z;
+                    let dir;
+                    const source = pathSteps[i];
+                    const destination = pathSteps[i + 1];
 
-                    var source = pathSteps[i];
-                    var destination = pathSteps[i+1];
-
-                    //Get the position of path (if multiple paths run parallel)
+                    // Get the position of path (if multiple paths run parallel)
                     if (nodeCoordinates[source].x < nodeCoordinates[destination].x ||
                         nodeCoordinates[source].y < nodeCoordinates[destination].y) {
                         a = source; z = destination;
@@ -296,49 +285,57 @@ var Map = React.createClass({
                         a = destination; z = source;
                         dir = -1;
                     }
-                    var pathsToDest = nodePaths[a].targetMap[z];
-                    var pathIndex = _.indexOf(pathsToDest, pathName);
-                    var pos = (pathIndex - (pathsToDest.length-1)/2 )*dir;
 
-                    //Get the edge from edgeMap
-                    var edgeName = source + "--" + destination;
-                    var edge = edgeMap[edgeName];
+                    const pathsToDest = nodePaths[a].targetMap[z];
+                    const pathIndex = _.indexOf(pathsToDest, pathName);
+                    const pos = (pathIndex - (pathsToDest.length - 1) / 2) * dir;
 
-                    //Get the shape of the edge (linear or curved) and if curved,
-                    //get the curve direction
-                    var edgeShape = "linear"; // either 'linear' or 'curved'
+                    // Get the edge from edgeMap
+                    const edgeName = `${source}--${destination}`;
+                    const edge = edgeMap[edgeName];
+
+                    // Get the shape of the edge (linear or curved) and if curved,
+                    // get the curve direction
+                    let edgeShape = "linear";
                     if (edge && !_.isUndefined(edge.shape) && !_.isNull(edge.shape)) {
                         edgeShape = edge.shape;
                     }
-                    var curveDirection = "left"; // either 'left' or 'right'
+
+                    // either 'left' or 'right'
+                    let curveDirection = "left";
                     if (edge && !_.isUndefined(edge.curveDirection) && !_.isNull(edge.curveDirection)) {
                         curveDirection = edge.curveDirection;
                     }
 
-                    //Construct this path segment as a simple (i.e. line only) path piece
-                    //The width of the path is currently a prop of the map, but it would
-                    //be nice to expand this to optionally be a prop of that line segement
-                    if (self.props.edgeDrawingMethod === "simple") {
+                    //
+                    // Construct this path segment as a simple (i.e. line only) path piece
+                    // The width of the path is currently a prop of the map, but it would
+                    // be nice to expand this to optionally be a prop of that line segement
+                    //
+
+                    if (this.props.edgeDrawingMethod === "simple") {
                         pathSegments.push(
                             <SimpleEdge x1={nodeCoordinates[source].x}
                                         y1={nodeCoordinates[source].y}
                                         x2={nodeCoordinates[destination].x}
                                         y2={nodeCoordinates[destination].y}
-                                        position={pos*6}
+                                        position={pos * 6}
                                         source={source}
                                         target={destination}
                                         shape={edgeShape}
                                         curveDirection={curveDirection}
-                                        width={self.props.pathWidth}
+                                        width={this.props.pathWidth}
                                         classed={"path-" + pathName}
-                                        key={pathName + "--" + edgeName}
-                                        name={pathName + "--" + edgeName} />
+                                        key={`${pathName}--${edgeName}`}
+                                        name={`${pathName}--${edgeName}`} />
                         );
                     }
                 }
             }
             return (
-                <g>{pathSegments}</g>
+                <g>
+                    {pathSegments}
+                </g>
             );
         });
 
@@ -346,7 +343,7 @@ var Map = React.createClass({
         // Build the labels
         //
 
-        var labels = _.map(this.props.topology.labels, function(label) {
+        let labels = _.map(this.props.topology.labels, function(label) {
             var x = xScale(label.x);
             var y = yScale(label.y);
             return (
@@ -362,8 +359,8 @@ var Map = React.createClass({
         // Build the legend
         //
 
-        var legend = null;
-        if(!_.isNull(this.props.legendItems)){
+        let legend = null;
+        if (!_.isNull(this.props.legendItems)) {
             legend = (
                 <Legend x={this.props.legendItems.x}
                         y={this.props.legendItems.y}
@@ -379,15 +376,16 @@ var Map = React.createClass({
                  className={"map-container"}
                  onClick={this._click}>
                 <g>
-                {edges}
-                {paths}
-                {nodes}
-                {labels}
-                {legend}
+                    {edges}
+                    {paths}
+                    {nodes}
+                    {labels}
+                    {legend}
                 </g>
             </svg>
         );
     },
+
     _click: function() {
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange(null);
@@ -395,4 +393,4 @@ var Map = React.createClass({
     }
 });
 
-module.exports = Map;
+module.exports = BaseMap;

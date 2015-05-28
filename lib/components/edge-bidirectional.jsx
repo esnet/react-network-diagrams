@@ -1,13 +1,8 @@
-"use strict";
+import React from "react";
+import LinearEdge from "./edge-linear";
+import ArcEdge from "./edge-arc";
 
-var React  = require("react");
-var Vector = require("victor");
-var _      = require("underscore");
-
-var LinearEdge = require("./edge-linear");
-var ArcEdge = require("./edge-arc");
-
-require("../styles/map.css");
+import "../styles/map.css";
 
 var BidirectionalEdge = React.createClass({
 
@@ -24,14 +19,14 @@ var BidirectionalEdge = React.createClass({
     },
 
     render: function() {
-        var paths = [];
+        let paths = [];
 
-        var sourceToTargetName = this.props.source + "--" + this.props.target;
-        var targetToSourceName = this.props.target + "--" + this.props.source;
+        const sourceToTargetName = `${this.props.source}--${this.props.target}`;
+        const targetToSourceName = `${this.props.target}--${this.props.source}`;
 
-        //Position of the bidirectional lines relative to the center line
-        var position = this.props.width*0.75;
-        
+        // Position of the bidirectional lines relative to the center line
+        let position = this.props.width * 0.75;
+
         if (this.props.shape === "curved") {
             return (
                 <g>
@@ -46,7 +41,6 @@ var BidirectionalEdge = React.createClass({
                              width={this.props.width}
                              classed={this.props.classed}
                              key={sourceToTargetName}
-                             
                              curveDirection={this.props.curveDirection}
                              offset={this.props.offset}
                              selected={this.props.selected}
@@ -78,7 +72,7 @@ var BidirectionalEdge = React.createClass({
                              position={0}
                              width={5}
                              classed={this.props.classed}
-                             key={sourceToTargetName+"-event-region"}
+                             key={`${sourceToTargetName}-event-region`}
                              onSelectionChange={this.props.onSelectionChange}
                              curveDirection={this.props.curveDirection}
                              offset={this.props.offset}
@@ -116,7 +110,7 @@ var BidirectionalEdge = React.createClass({
                                 key={targetToSourceName}
                                 selected={this.props.selected}
                                 muted={this.props.muted}
-                                onSelectionChange={this.props.onSelectionChange}  />
+                                onSelectionChange={this.props.onSelectionChange} />
 
                     <LinearEdge name={this.props.name}
                                 x1={this.props.x2}
@@ -126,10 +120,9 @@ var BidirectionalEdge = React.createClass({
                                 width={5}
                                 position={0}
                                 className={this.props.classed}
-                                key={targetToSourceName + "-event-region"}
+                                key={`${targetToSourceName}-event-region`}
                                 onSelectionChange={this.props.onSelectionChange}
                                 invisible={true} />
- 
                 </g>
             );
         }
@@ -139,8 +132,7 @@ var BidirectionalEdge = React.createClass({
                 {paths}
             </g>
         );
-    },
-
+    }
 });
 
 module.exports = BidirectionalEdge;

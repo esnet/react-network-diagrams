@@ -1,10 +1,7 @@
-"use strict";
+import React from "react";
+import _ from "underscore";
 
-var React  = require("react");
-var Vector = require("victor");
-var _      = require("underscore");
-
-require("../styles/map.css");
+import "../styles/map.css";
 
 var SimpleEdge = React.createClass({
 
@@ -19,20 +16,19 @@ var SimpleEdge = React.createClass({
     },
 
     render: function() {
-        var classed = "map-edge";
-
+        // Class for edge
+        let classed = "map-edge";
         if (this.props.selected) {
             classed += " selected";
         }
-
         if (this.props.muted) {
             classed += " muted";
         }
-
         if (!_.isUndefined(this.props.classed)) {
             classed += " " + this.props.classed;
         }
 
+        // Render based on shape
         if (this.props.shape === "curved") {
             return (
                 <ArcEdge x1={this.props.x1}

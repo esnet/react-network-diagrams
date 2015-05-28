@@ -1,28 +1,19 @@
-"use strict";
+import React from "react";
+import Router from "react-router";
 
-var React = require("react/addons");
-var Router = require("react-router");
+import App from "./app";
+import Intro from "./intro";
+import TrafficMapExample from "./trafficmap_example";
 
-var {Route,
-     DefaultRoute,
-     RouteHandler,
-     Link} = Router;
+var {Route, DefaultRoute} = Router;
 
-var App = require("./app");
-
-var Intro = require("./intro");
-var TrafficMapExample = require("./trafficmap_example");
-
-var {DefaultRoute, Route, Routes} = require("react-router");
-
-var routes = (
+const routes = (
   <Route path="/" handler={App}>
     <DefaultRoute name="intro" handler={Intro} />
     <Route name="trafficmap" handler={TrafficMapExample} />
   </Route>
 );
 
-Router.run(routes, function (Handler) {
-  React.render(<Handler/>, document.getElementById('content'));
+Router.run(routes, Handler => {
+    React.render(<Handler/>, document.getElementById("content"));
 });
-

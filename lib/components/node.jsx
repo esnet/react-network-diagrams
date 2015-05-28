@@ -1,9 +1,6 @@
-"use strict";
+import React from "react";
 
-var React  = require("react");
-var _      = require("underscore");
-
-require("../styles/map.css");
+import "../styles/map.css";
 
 var Node = React.createClass({
 
@@ -17,25 +14,25 @@ var Node = React.createClass({
     },
 
     render: function() {
-        var nodeClasses = "map-node";
-        var labelClasses = "map-node-label";
-
+        let nodeClasses = "map-node";
+        let labelClasses = "map-node-label";
         if (this.props.selected) {
             nodeClasses += " selected";
             labelClasses += " selected";
         }
-
         if (this.props.muted) {
             nodeClasses += " muted";
             labelClasses += " muted";
         }
 
-        var basicOffset = this.props.radius * 1.33;
-        var fontOffset = 8; // 0.8 * font size? ish..
-        var labelX = this.props.x;
-        var labelY = this.props.y;
-        var textAnchor = "middle";
+        const basicOffset = this.props.radius * 1.33;
 
+        // 0.8 * font size? ish..
+        const fontOffset = 8;
+
+        let labelX = this.props.x;
+        let labelY = this.props.y;
+        let textAnchor = "middle";
         switch (this.props.labelPosition) {
             case "left":
                 labelX -= basicOffset;
@@ -85,13 +82,15 @@ var Node = React.createClass({
                 break;
         }
 
-        var nodeElement;
+        let nodeElement;
         if (this.props.shape === "cloud") {
             nodeClasses += " map-node-shape-cloud";
             labelClasses += " map-node-label-cloud";
-            var cloudPath = "M" + this.props.x + "," + (this.props.y+5);
+
+            let cloudPath = `M${this.props.x},${this.props.y + 5}`;
             cloudPath += "l-25,0 c-10,0 -10,-10 -5,-15";
             cloudPath += "c5,-5 15,-5 15,0 c0,-15 25,-15 25,-5 c10,-10 25,15 10,20 Z";
+
             nodeElement = <path d={cloudPath}
                                 style={this.props.style}
                                 className={nodeClasses} />;
@@ -107,16 +106,16 @@ var Node = React.createClass({
                 case "bottomrigh":
                     labelY -= 15;
                     break;
+                default:
+                    break;
             }
-
             labelX -= 3;
-
         } else if (this.props.shape === "square") {
             nodeClasses += " map-node-shape-square";
             labelClasses += " map-node-shape-square";
-            var x = this.props.x - this.props.radius;
-            var y = this.props.y - this.props.radius;
-            var width = 2 * this.props.radius;
+            const x = this.props.x - this.props.radius;
+            const y = this.props.y - this.props.radius;
+            const width = 2 * this.props.radius;
             nodeElement = (
               <rect x={x}
                     y={y}
@@ -133,18 +132,19 @@ var Node = React.createClass({
                 case "right":
                     labelX += 2;
                     break;
+                default:
+                    break;
             }
-
         } else {
             nodeClasses += " map-node-shape-circle";
             labelClasses += " map-node-label-circle";
 
             nodeElement = (
-              <circle cx={this.props.x}
-                      cy={this.props.y}
-                      r={this.props.radius}
-                      style={this.props.style}
-                      className={nodeClasses} />
+                <circle cx={this.props.x}
+                        cy={this.props.y}
+                        r={this.props.radius}
+                        style={this.props.style}
+                        className={nodeClasses} />
             );
         }
 
@@ -162,11 +162,11 @@ var Node = React.createClass({
     },
 
     _click: function(e) {
+        e.stopPropagation();
+
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange("node", this.props.name);
         }
-
-        e.stopPropagation();
     },
 
     _mouseOver: function() {

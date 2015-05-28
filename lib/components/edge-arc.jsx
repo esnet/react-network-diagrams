@@ -1,10 +1,11 @@
-"use strict";
+import React from "react";
+import Victor from "victor";
+import _ from "underscore";
 
-var React  = require("react");
-var Vector = require("victor");
-var _      = require("underscore");
+import "../styles/map.css";
 
-require("../styles/map.css");
+// Alias
+var Vector = Victor;
 
 /**
  * This component draws a curved path between a source and target. The
@@ -36,113 +37,110 @@ var ArcEdge = React.createClass({
     },
 
     render: function() {
-        var classed = "map-edge map-curved-edge";
-        
+        // Class
+        let classed = "map-edge map-curved-edge";
         if (this.props.selected) {
             classed += " selected";
         }
-
         if (this.props.muted) {
             classed += " muted";
         }
-
         if (this.props.invisible) {
             classed += " edge-event-region";
         }
-
         if (!_.isUndefined(this.props.classed)) {
             classed += " " + this.props.classed;
         }
 
-        var source = new Vector(this.props.x1, this.props.y1);
-        var target = new Vector(this.props.x2, this.props.y2);
+        const source = new Vector(this.props.x1, this.props.y1);
+        const target = new Vector(this.props.x2, this.props.y2);
 
-        var diff = target.clone().subtract(source);
-        var norm = diff.clone().norm();
-        var len = diff.length();
+        const diff = target.clone().subtract(source);
+        const norm = diff.clone().norm();
+        const len = diff.length();
 
         //
         // XXX(jdugan): this doesn't work for horizontal lines
         //
-        var angle = 90;
+        let angle = 90;
         if (diff.y < 0 && this.props.curveDirection === "left" ||
             diff.y > 0 && this.props.curveDirection === "right") {
             angle = -90;
         }
 
-        var perp = norm.clone().rotateDeg(angle);
-        var mid = new Vector(len/2, len/2);
-        var midpt = norm.clone().multiply(mid).add(source);
+        const perp = norm.clone().rotateDeg(angle);
+        const mid = new Vector(len / 2, len / 2);
+        const midpt = norm.clone().multiply(mid).add(source);
 
-        var offset = new Vector(this.props.offset, this.props.offset);
+        let offset = new Vector(this.props.offset, this.props.offset);
         offset.multiply(perp);
 
-        var control = midpt.clone().add(offset);
+        const control = midpt.clone().add(offset);
 
         //
         // If the curved edge has multiple paths, with this path being at
         // 'position' (this.props.position) then calculate those the curve
         // to be offset from the centerline of the arced path
         //
-        
-        var position = this.props.position;
-        var arrowWidth = this.props.arrowWidth || this.props.width*1.5;
-        var arrowLength = this.props.arrowHeight || this.props.width*2;
 
-        //Positioned lines bend from source, to sourceBendControl, to
-        //targetBendControl, and end at target.
-        var bendOffset = 15; //this.props.position !== 0 ? 15 : 8;
-        var bendScalar = new Vector(bendOffset, bendOffset);
+        const position = this.props.position;
+        const arrowWidth = this.props.arrowWidth || this.props.width * 1.5;
+        const arrowLength = this.props.arrowHeight || this.props.width * 2;
 
-        var sourceToControl = control.clone().subtract(source);
-        var sourceToControlNormalize = sourceToControl.clone().norm();
+        // Positioned lines bend from source, to sourceBendControl, to
+        // targetBendControl, and end at target.
+        const bendOffset = 15;
+        const bendScalar = new Vector(bendOffset, bendOffset);
 
-        var targetToControl = control.clone().subtract(target);
-        var targetToControlNormalize = targetToControl.clone().norm();
-        
-        var sourceBend = sourceToControlNormalize.clone().multiply(bendScalar).add(source);
-        var targetBend = targetToControlNormalize.clone().multiply(bendScalar).add(target);
+        const sourceToControl = control.clone().subtract(source);
+        const sourceToControlNormalize = sourceToControl.clone().norm();
 
-        var sourceBendPerp = new Vector(-sourceToControlNormalize.y, sourceToControlNormalize.x);
-        var sourceBendPerpScalar = new Vector(position, position);
-        var sourceBendControl = sourceBendPerp.clone().multiply(sourceBendPerpScalar).add(sourceBend);
+        const targetToControl = control.clone().subtract(target);
+        const targetToControlNormalize = targetToControl.clone().norm();
 
-        var targetBendPerp = new Vector(-targetToControlNormalize.y, targetToControlNormalize.x);
-        var targetBendPerpScalar = new Vector(-position, -position);
-        var targetBendControl = targetBendPerp.clone().multiply(targetBendPerpScalar).add(targetBend);
+        const sourceBend = sourceToControlNormalize.clone().multiply(bendScalar).add(source);
+        const targetBend = targetToControlNormalize.clone().multiply(bendScalar).add(target);
 
-        //Draw an arrow at the target end
-        var arrowLengthScalar = new Vector(-arrowLength, -arrowLength);
-        var arrowLeftScalar = new Vector(arrowWidth/2, arrowWidth/2);
-        var arrowRightScalar = new Vector(-arrowWidth/2, -arrowWidth/2);
-        var arrowHead = targetToControlNormalize.clone().multiply(arrowLengthScalar).add(targetBendControl);
-        var arrowBaseLeft = targetBendPerp.clone().multiply(arrowLeftScalar).add(targetBendControl);
-        var arrowBaseRight= targetBendPerp.clone().multiply(arrowRightScalar).add(targetBendControl);
+        const sourceBendPerp = new Vector(-sourceToControlNormalize.y, sourceToControlNormalize.x);
+        const sourceBendPerpScalar = new Vector(position, position);
+        const sourceBendControl = sourceBendPerp.clone().multiply(sourceBendPerpScalar).add(sourceBend);
 
-        //Arc options
-        var y = this.props.offset;
-        var radius = (len*len + 4*y*y)/(8*y);
-        var rotation = 0;
-        var largeArcFlag = 0;
-        var sweepFlag = angle === 90 ? 0 : 1;
+        const targetBendPerp = new Vector(-targetToControlNormalize.y, targetToControlNormalize.x);
+        const targetBendPerpScalar = new Vector(-position, -position);
+        const targetBendControl = targetBendPerp.clone().multiply(targetBendPerpScalar).add(targetBend);
 
-        //Line and Arc SVG path
-        var path = "";
+        // Draw an arrow at the target end
+        const arrowLengthScalar = new Vector(-arrowLength, -arrowLength);
+        const arrowLeftScalar = new Vector(arrowWidth / 2, arrowWidth / 2);
+        const arrowRightScalar = new Vector(-arrowWidth / 2, -arrowWidth / 2);
+        const arrowHead = targetToControlNormalize.clone().multiply(arrowLengthScalar).add(targetBendControl);
+        const arrowBaseLeft = targetBendPerp.clone().multiply(arrowLeftScalar).add(targetBendControl);
+        const arrowBaseRight = targetBendPerp.clone().multiply(arrowRightScalar).add(targetBendControl);
+
+        // Arc options
+        const y = this.props.offset;
+        const radius = (len * len + 4 * y * y) / (8 * y);
+        const rotation = 0;
+        const largeArcFlag = 0;
+        const sweepFlag = angle === 90 ? 0 : 1;
+
+        // Line and Arc SVG path
+        let path = "";
         path += "M" + source.x + "," + source.y;
         path += " L " + sourceBendControl.x + " " + sourceBendControl.y;
         path += " A " + radius + " " + radius + " " + rotation + " " +
-                largeArcFlag + " " + sweepFlag + " "+ targetBendControl.x + " " + targetBendControl.y;
+                largeArcFlag + " " + sweepFlag + " " + targetBendControl.x + " " + targetBendControl.y;
 
         if (!this.props.arrow) {
             path += " L " + target.x + " " + target.y;
         }
 
-        //Arrow SVG path
-        var arrow = "M" + arrowHead.x + "," + arrowHead.y + " ";
+        // Arrow SVG path
+        let arrow = "M" + arrowHead.x + "," + arrowHead.y + " ";
         arrow += "L" + arrowBaseLeft.x + "," + arrowBaseLeft.y;
         arrow += "L" + arrowBaseRight.x + "," + arrowBaseRight.y;
 
-        var opacity = 1.0;
+        let opacity = 1.0;
         if (this.props.invisible) {
             opacity = 0;
         }
@@ -164,11 +162,13 @@ var ArcEdge = React.createClass({
     },
 
     handleClick: function(e) {
+        e.stopPropagation();
+
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange("edge", this.props.name);
         }
-        e.stopPropagation();
-    },
+    }
 });
 
 module.exports = ArcEdge;
+

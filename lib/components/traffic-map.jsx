@@ -1,9 +1,8 @@
-"use strict";
+import React from "react";
+import _ from "underscore";
+import BaseMap from "./map";
 
-var React = require("react/addons");
-var _ = require("underscore");
-
-var Map = require("./map");
+import "../styles/map.css";
 
 /**
  * Props:
@@ -48,8 +47,8 @@ var TrafficMap = React.createClass({
         return {
             edgeThinknessMap: {
                 "100G": 5,
-                "10G":  3,
-                "1G":   1.5,
+                "10G": 3,
+                "1G": 1.5,
                 "subG": 1
             },
             edgeColorMap: [],
@@ -104,8 +103,8 @@ var TrafficMap = React.createClass({
 
     _selectEdgeColor: function(bps) {
         var gbps = bps / 1.0e9;
-        for(var i = 0; i < this.props.edgeColorMap.length; i++) {
-            var row = this.props.edgeColorMap[i];
+        for (let i = 0; i < this.props.edgeColorMap.length; i++) {
+            const row = this.props.edgeColorMap[i];
             if (gbps >= row.range[0]) {
                 return row.color;
             }
@@ -120,35 +119,35 @@ var TrafficMap = React.createClass({
             return null;
         }
 
-        //Extents of the raw topology for scaling into width and height of the map
-        var min_x = _.min(this.props.topology.nodes, function(node) { return node.x }).x;
-        var min_y = _.min(this.props.topology.nodes, function(node) { return node.y }).y;
-        var max_x = _.max(this.props.topology.nodes, function(node) { return node.x }).x;
-        var max_y = _.max(this.props.topology.nodes, function(node) { return node.y }).y;
-        max_x -= min_x;
-        max_y -= min_y;
+        // Extents of the raw topology for scaling into width and height of the map
+        const minX = _.min(this.props.topology.nodes, node => node.x).x;
+        const minY = _.min(this.props.topology.nodes, node => node.y).y;
+        let maxX = _.max(this.props.topology.nodes, node => node.x).x;
+        let maxY = _.max(this.props.topology.nodes, node => node.y).y;
+        maxX -= minX;
+        maxY -= minY;
 
-        //Create a node list
-        topology.nodes = _.map(this.props.topology.nodes, (node) => {
+        // Create a node list
+        topology.nodes = _.map(this.props.topology.nodes, node => {
+            // Scale the node positions onto a normalized 0 to 1 scale
+            node.x = (node.x - minX) / maxX;
+            node.y = (node.y - minY) / maxY;
 
-            //Scale the node positions onto a normalized 0 to 1 scale
-            node.x = (node.x - min_x)/max_x;
-            node.y = (node.y - min_y)/max_y;
-
-            //Radius is based on the type of node, given in the nodeSizeMap
+            // Radius is based on the type of node, given in the nodeSizeMap
             node.radius = this._nodeSize[node.type];
-            
+
             node.labelPosition = node.label_position;
             node.style = this.props.stylesMap[node.type].node;
             node.labelStyle = this.props.stylesMap[node.type].label;
             node.shape = this._nodeShape(node.name);
+
             return node;
         });
 
-        //Create the tologogy list
-        topology.edges = _.map(this.props.topology.edges, (edge) => {
-            var edgeName = edge.source + "--" + edge.target;
-            return {
+        // Create the tologogy list
+        topology.edges = _.map(this.props.topology.edges, edge => {
+            var edgeName = `${edge.source}--${edge.target}`;
+            return ({
                 width: this._edgeThickness(edge.capacity),
                 classed: edge.capacity,
                 source: edge.source,
@@ -159,16 +158,16 @@ var TrafficMap = React.createClass({
                 shape: this._edgeShape(edgeName),
                 curveDirection: this._edgeCurveDirection(edgeName),
                 offset: this._edgeCurveOffset(edgeName)
-            }
+            });
         });
 
-        //Colorize the topology
+        // Colorize the topology
         if (this.props.traffic) {
-            _.each(topology.edges, (edge) => {
-                var sourceTargetName = edge.source + "--" + edge.target;
-                var targetSourceName = edge.target + "--" + edge.source;
-                var sourceTargetTraffic = this.props.traffic.get(sourceTargetName);
-                var targetSourceTraffic = this.props.traffic.get(targetSourceName);
+            _.each(topology.edges, edge => {
+                const sourceTargetName = `${edge.source}--${edge.target}`;
+                const targetSourceName = `${edge.target}--${edge.source}`;
+                const sourceTargetTraffic = this.props.traffic.get(sourceTargetName);
+                const targetSourceTraffic = this.props.traffic.get(targetSourceName);
                 edge.sourceTargetColor = this._selectEdgeColor(sourceTargetTraffic);
                 edge.targetSourceColor = this._selectEdgeColor(targetSourceTraffic);
             });
@@ -181,14 +180,14 @@ var TrafficMap = React.createClass({
     },
 
     render: function() {
-        var topo = this._normalizedTopology();
+        const topo = this._normalizedTopology();
         return (
-            <Map topology={topo}
-                 width={this.props.width}
-                 height={this.props.height}
-                 margin={this.props.margin}
-                 edgeDrawingMethod={"bidirectionalArrow"}
-                 onSelectionChange={this.handleSelectionChanged} />
+            <BaseMap topology={topo}
+                     width={this.props.width}
+                     height={this.props.height}
+                     margin={this.props.margin}
+                     edgeDrawingMethod={"bidirectionalArrow"}
+                     onSelectionChange={this.handleSelectionChanged} />
         );
     }
 });

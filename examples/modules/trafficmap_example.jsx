@@ -1,7 +1,8 @@
 import React from "react";
 import _ from "underscore";
 import {Event} from "pond";
-import {TrafficMap} from "../../entry";
+
+import TrafficMap from "../../lib/components/traffic-map";
 
 // Test data
 import topo from "../data/portal_topo.json";

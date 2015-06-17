@@ -1,0 +1,20 @@
+{
+  "name": "esnet-react-maps",
+  "version": "0.0.1",
+  "private": "true",
+  "main": "lib",
+  "author": "ESnet Tools Team <tools@es.net>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:esnet/esnet-react-maps.git"
+  },
+  "dependencies": {
+    "underscore": "^1.7.0",
+    "d3": "^3.5.5",
+    "victor": "^0.2.6",
+    "pond": "git+ssh://git@github.com/esnet/pond.git#HEAD"
+  },
+  "peerDependencies": {
+    "react": "0.13.x"
+  }
+}

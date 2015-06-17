@@ -1,0 +1,8 @@
+lib
+examples
+docs
+build/global
+*.config.js
+index.html
+.eslintrc
+.gitignore

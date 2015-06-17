@@ -23,7 +23,7 @@ if (process.env.COMPRESS) {
 module.exports = {
 
   output: {
-    library: ["ESnet", "ReactMaps"],
+    library: ["ESnet", "Maps"],
     libraryTarget: 'assign'
   },
 

@@ -186,8 +186,8 @@ export default React.createClass({
     },
 
     _handleSelectionChanged: function(selectionType, selection) {
-        if (this.props.handleSelectionChanged) {
-            this.props.handleSelectionChanged(selectionType, selection);
+        if (this.props.onSelectionChange) {
+            this.props.onSelectionChange(selectionType, selection);
         }
     },
 

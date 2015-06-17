@@ -3,7 +3,7 @@ import Router from "react-router";
 
 import "../styles/app.css";
 
-var {RouteHandler, Link} = Router;
+let {RouteHandler, Link} = Router;
 let logo = document.createElement("img");
 logo.src = require("../img/logo.png");
 

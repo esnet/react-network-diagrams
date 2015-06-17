@@ -3,7 +3,7 @@ import _ from "underscore";
 
 import "../styles/map.css";
 
-var Legend = React.createClass({
+export default React.createClass({
 
     getDefaultProps: function() {
         return {
@@ -133,4 +133,3 @@ var Legend = React.createClass({
     }
 });
 
-module.exports = Legend;

@@ -5,7 +5,7 @@ import App from "./app";
 import Intro from "./intro";
 import TrafficMapExample from "./trafficmap_example";
 
-var {Route, DefaultRoute} = Router;
+let {Route, DefaultRoute} = Router;
 
 const routes = (
   <Route path="/" handler={App}>

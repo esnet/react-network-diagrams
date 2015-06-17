@@ -15,7 +15,7 @@ import "../styles/map.css";
  *
  * The color and width of the edge may also be supplied.
  */
-var LinearEdge = React.createClass({
+export default React.createClass({
 
     getDefaultProps: function() {
         return {
@@ -136,5 +136,3 @@ var LinearEdge = React.createClass({
         e.stopPropagation();
     }
 });
-
-module.exports = LinearEdge;

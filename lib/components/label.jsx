@@ -2,10 +2,9 @@ import React from "react";
 
 import "../styles/map.css";
 
-var Label = React.createClass({
+export default React.createClass({
     render: function() {
-        var textAnchor;
-
+        let textAnchor;
         switch (this.props.labelPosition) {
             case "left":
                 textAnchor = "end";
@@ -30,4 +29,3 @@ var Label = React.createClass({
     }
 });
 
-module.exports = Label;

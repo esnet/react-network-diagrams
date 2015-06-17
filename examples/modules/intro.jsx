@@ -1,6 +1,6 @@
 import React from "react";
 
-var Intro = React.createClass({
+export default React.createClass({
 
     render: function() {
         return (
@@ -31,5 +31,3 @@ var Intro = React.createClass({
         );
     }
 });
-
-module.exports = Intro;

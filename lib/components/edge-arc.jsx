@@ -5,7 +5,7 @@ import _ from "underscore";
 import "../styles/map.css";
 
 // Alias
-var Vector = Victor;
+let Vector = Victor;
 
 /**
  * This component draws a curved path between a source and target. The
@@ -21,7 +21,7 @@ var Vector = Victor;
  *
  * Stroke color and width can also be supplied.
  */
-var ArcEdge = React.createClass({
+export default React.createClass({
 
     getDefaultProps: function() {
         return {
@@ -169,6 +169,4 @@ var ArcEdge = React.createClass({
         }
     }
 });
-
-module.exports = ArcEdge;
 

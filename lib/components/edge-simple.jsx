@@ -3,7 +3,7 @@ import _ from "underscore";
 
 import "../styles/map.css";
 
-var SimpleEdge = React.createClass({
+export default React.createClass({
 
     getDefaultProps: function() {
         return {
@@ -64,5 +64,4 @@ var SimpleEdge = React.createClass({
     }
 });
 
-module.exports = SimpleEdge;
 

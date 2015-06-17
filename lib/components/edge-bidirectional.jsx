@@ -4,7 +4,7 @@ import ArcEdge from "./edge-arc";
 
 import "../styles/map.css";
 
-var BidirectionalEdge = React.createClass({
+export default React.createClass({
 
     getDefaultProps: function() {
         return {
@@ -134,6 +134,4 @@ var BidirectionalEdge = React.createClass({
         );
     }
 });
-
-module.exports = BidirectionalEdge;
 

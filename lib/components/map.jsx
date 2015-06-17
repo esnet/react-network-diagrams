@@ -15,7 +15,7 @@ import "../styles/map.css";
  * Base level map
  *
  */
-var BaseMap = React.createClass({
+export default React.createClass({
 
     displayName: "BaseMap",
 
@@ -44,7 +44,7 @@ var BaseMap = React.createClass({
         // Build a mapping of edge names to the edges themselves
         //
 
-        var edgeMap = {};
+        let edgeMap = {};
         _.each(this.props.topology.edges, function(edge) {
             edgeMap[`${edge.source}--${edge.target}`] = edge;
             edgeMap[`${edge.target}--${edge.source}`] = edge;
@@ -56,7 +56,7 @@ var BaseMap = React.createClass({
 
         let secondarySelectedNodes = [];
         _.each(this.props.selection.edges, function(edgeName) {
-            var edge = edgeMap[edgeName];
+            let edge = edgeMap[edgeName];
             if (edge) {
                 secondarySelectedNodes.push(edge.source);
                 secondarySelectedNodes.push(edge.target);
@@ -344,8 +344,8 @@ var BaseMap = React.createClass({
         //
 
         let labels = _.map(this.props.topology.labels, function(label) {
-            var x = xScale(label.x);
-            var y = yScale(label.y);
+            const x = xScale(label.x);
+            const y = yScale(label.y);
             return (
                 <Label x={x}
                        y={y}
@@ -393,4 +393,3 @@ var BaseMap = React.createClass({
     }
 });
 
-module.exports = BaseMap;

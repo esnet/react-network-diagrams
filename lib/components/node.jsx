@@ -2,7 +2,7 @@ import React from "react";
 
 import "../styles/map.css";
 
-var Node = React.createClass({
+export default React.createClass({
 
     getDefaultProps: function() {
         return {
@@ -174,4 +174,3 @@ var Node = React.createClass({
 
 });
 
-module.exports = Node;

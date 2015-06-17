@@ -28,7 +28,7 @@ let traffic = new Event(timestamp, edgeTraffic);
 // Example
 //
 
-let TrafficMapExample = React.createClass({
+export default React.createClass({
 
     render: function() {
         // Maps link capacity to line thickness
@@ -42,7 +42,7 @@ let TrafficMapExample = React.createClass({
         // Maps edge name to edge shape. Current options are linear (default)
         // or curved. If curved you can specify the direction and offset to control
         // the curve.
-        var edgeShapeMap = {
+        const edgeShapeMap = {
             "AMST--BOST": {
                 "shape": "curved",
                 "direction": "right",
@@ -140,4 +140,3 @@ let TrafficMapExample = React.createClass({
     }
 });
 
-module.exports = TrafficMapExample;

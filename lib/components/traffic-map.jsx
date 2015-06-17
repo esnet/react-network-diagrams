@@ -39,9 +39,15 @@ import "../styles/map.css";
  *              "direction": "right",
  *              "offset": 15
  *          }
+ *
+ *  callbacks:
+ *
+ *  handleSelectionChange(selectionType, selection):
+ *      will be called when the use selects an object in the map, be it a node or a link
+ *
  */
 
-var TrafficMap = React.createClass({
+export default React.createClass({
 
     getDefaultProps: function() {
         return {
@@ -82,7 +88,7 @@ var TrafficMap = React.createClass({
     },
 
     _edgeCurveDirection(name) {
-        var direction;
+        let direction;
         if (_.has(this.props.edgeShapeMap, name)) {
             if (this.props.edgeShapeMap[name].shape === "curved") {
                 return this.props.edgeShapeMap[name].direction;
@@ -92,7 +98,7 @@ var TrafficMap = React.createClass({
     },
 
     _edgeCurveOffset(name) {
-        var offset;
+        let offset;
         if (_.has(this.props.edgeShapeMap, name)) {
             if (this.props.edgeShapeMap[name].shape === "curved") {
                 return this.props.edgeShapeMap[name].offset;
@@ -102,7 +108,7 @@ var TrafficMap = React.createClass({
     },
 
     _selectEdgeColor: function(bps) {
-        var gbps = bps / 1.0e9;
+        const gbps = bps / 1.0e9;
         for (let i = 0; i < this.props.edgeColorMap.length; i++) {
             const row = this.props.edgeColorMap[i];
             if (gbps >= row.range[0]) {
@@ -113,7 +119,7 @@ var TrafficMap = React.createClass({
     },
 
     _normalizedTopology: function() {
-        var topology = {};
+        let topology = {};
 
         if (_.isNull(this.props.topology)) {
             return null;
@@ -146,7 +152,7 @@ var TrafficMap = React.createClass({
 
         // Create the tologogy list
         topology.edges = _.map(this.props.topology.edges, edge => {
-            var edgeName = `${edge.source}--${edge.target}`;
+            const edgeName = `${edge.source}--${edge.target}`;
             return ({
                 width: this._edgeThickness(edge.capacity),
                 classed: edge.capacity,
@@ -179,6 +185,12 @@ var TrafficMap = React.createClass({
         return topology;
     },
 
+    _handleSelectionChanged: function(selectionType, selection) {
+        if (this.props.handleSelectionChanged) {
+            this.props.handleSelectionChanged(selectionType, selection);
+        }
+    },
+
     render: function() {
         const topo = this._normalizedTopology();
         return (
@@ -187,9 +199,8 @@ var TrafficMap = React.createClass({
                      height={this.props.height}
                      margin={this.props.margin}
                      edgeDrawingMethod={"bidirectionalArrow"}
-                     onSelectionChange={this.handleSelectionChanged} />
+                     onSelectionChange={this._handleSelectionChanged} />
         );
     }
 });
 
-module.exports = TrafficMap;

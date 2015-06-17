@@ -1,8 +1,11 @@
-lib
-examples
-docs
+lib/
+!build/npm/lib
+examples/
+docs/
 build/global
-*.config.js
 index.html
 .eslintrc
 .gitignore
+*.config.js
+.DS_Store
+npm-debug.log

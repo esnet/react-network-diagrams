@@ -18,7 +18,8 @@
     "underscore": "^1.7.0",
     "d3": "^3.5.5",
     "victor": "^0.2.6",
-    "pond": "git+ssh://git@github.com/esnet/pond.git#HEAD"
+    "pond": "git+ssh://git@github.com/esnet/pond.git#HEAD",
+    "babel": "^5.5.8"
   },
   "peerDependencies": {
     "react": "0.13.x"

@@ -1,3 +1,6 @@
+//Import the require hook for babel runtime
+import "babel/register";
+
 import React from "react";
 import Router from "react-router";
 

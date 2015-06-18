@@ -1,0 +1,42 @@
+.map-node.selected {
+	fill: #FF4E00;
+}
+.map-edge-highlight.selected {
+	stroke: #FF4E00;
+}
+
+//.map-node-shape-cloud {
+//    stroke: #000 !important; /* stupid cloud class in global main.css */
+//    fill: #fff;
+//    opacity: 1.0 !important; /* stupid cloud class in global main.css */
+//}
+//.map-node-label-cloud {
+//	fill: #6D6E71;
+//	stroke: none;
+//}
+
+path.map-edge.map-linear-edge {
+    cursor: pointer;
+}
+
+path.map-path-line {
+    stroke: steelblue;
+    fill: none;
+}
+
+.chartcontainer.chartrow {
+    background: #F5F5F5;
+    padding-top: 5px;
+    padding-left: 5px;
+    border-style: solid;
+    border-radius: 2px;
+    border-color: #E4E4E4;
+    border-width: 1px;
+}
+
+
+.construction {
+    stroke: brown;
+    stroke-width: 1px;
+    fill: brown;
+}

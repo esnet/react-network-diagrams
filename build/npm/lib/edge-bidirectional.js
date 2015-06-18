@@ -18,7 +18,7 @@ var _edgeArc = require("./edge-arc");
 
 var _edgeArc2 = _interopRequireDefault(_edgeArc);
 
-require("../styles/map.css");
+require("./map.css");
 
 exports["default"] = _react2["default"].createClass({
     displayName: "edge-bidirectional",

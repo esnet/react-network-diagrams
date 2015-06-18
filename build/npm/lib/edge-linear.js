@@ -18,7 +18,7 @@ var _underscore = require("underscore");
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
-require("../styles/map.css");
+require("./map.css");
 
 /**
  * This component draws a linear bent path between a source and target. The

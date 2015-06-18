@@ -18,7 +18,7 @@ var _underscore = require("underscore");
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
-require("../styles/map.css");
+require("./map.css");
 
 // Alias
 var Vector = _victor2["default"];

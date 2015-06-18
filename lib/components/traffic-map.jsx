@@ -2,7 +2,7 @@ import React from "react";
 import _ from "underscore";
 import BaseMap from "./map";
 
-import "../styles/map.css";
+import "./map.css";
 
 /**
  * Props:

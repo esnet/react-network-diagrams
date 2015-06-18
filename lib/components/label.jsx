@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../styles/map.css";
+import "./map.css";
 
 export default React.createClass({
     render: function() {

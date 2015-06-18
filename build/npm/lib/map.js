@@ -38,7 +38,7 @@ var _edgeBidirectional = require("./edge-bidirectional");
 
 var _edgeBidirectional2 = _interopRequireDefault(_edgeBidirectional);
 
-require("../styles/map.css");
+require("./map.css");
 
 /**
  *

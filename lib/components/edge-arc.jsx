@@ -2,7 +2,7 @@ import React from "react";
 import Victor from "victor";
 import _ from "underscore";
 
-import "../styles/map.css";
+import "./map.css";
 
 // Alias
 let Vector = Victor;

@@ -8,7 +8,7 @@ import Legend from "./legend";
 import SimpleEdge from "./edge-simple";
 import BidirectionalEdge from "./edge-bidirectional";
 
-import "../styles/map.css";
+import "./map.css";
 
 /**
  *

@@ -1,7 +1,7 @@
 import React from "react";
 import _ from "underscore";
 
-import "../styles/map.css";
+import "./map.css";
 
 export default React.createClass({
 

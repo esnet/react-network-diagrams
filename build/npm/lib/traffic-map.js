@@ -18,7 +18,7 @@ var _map = require("./map");
 
 var _map2 = _interopRequireDefault(_map);
 
-require("../styles/map.css");
+require("./map.css");
 
 /**
  * Props:

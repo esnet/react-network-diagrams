@@ -2,7 +2,7 @@ import React from "react";
 import Vector from "victor";
 import _ from "underscore";
 
-import "../styles/map.css";
+import "./map.css";
 
 /**
  * This component draws a linear bent path between a source and target. The

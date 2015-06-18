@@ -14,7 +14,7 @@ var _underscore = require("underscore");
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
-require("../styles/map.css");
+require("./map.css");
 
 exports["default"] = _react2["default"].createClass({
     displayName: "legend",

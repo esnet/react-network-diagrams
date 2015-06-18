@@ -10,7 +10,7 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-require("../styles/map.css");
+require("./map.css");
 
 exports["default"] = _react2["default"].createClass({
     displayName: "label",

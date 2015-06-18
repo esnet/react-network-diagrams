@@ -1,5 +1,5 @@
 module.exports = {
-    Map: require("./build/lib/components/map"),
-    TrafficMap: require("./build/lib/components/traffic-map"),
-    Legend: require("./build/lib/components/map")
+    Map: require("./build/npm/lib/map.js"),
+    TrafficMap: require("./build/npm/lib/traffic-map.js"),
+    Legend: require("./build/npm/lib/map.js")
 }

@@ -31,7 +31,27 @@ let traffic = new Event(timestamp, edgeTraffic);
 
 export default React.createClass({
 
+    getInitialState: function() {
+        return {
+            selectionType: null,
+            selection: null
+        }
+    },
+
+    handleSelectionChanged: function(selectionType, selection) {
+        this.setState({
+            "selectionType": selectionType,
+            "selection": selection
+        });
+    },
+
     render: function() {
+
+        let mapSelection = {
+            nodes: this.state.selectionType === "node" ? [this.state.selection] : [],
+            edges: this.state.selectionType === "edge" ? [this.state.selection] : []
+        };
+
         // Maps link capacity to line thickness
         const edgeThinknessMap = {
             "100G": 5,
@@ -89,28 +109,36 @@ export default React.createClass({
             "CERN": "square"
         };
 
+        const siteStyle = {
+            node: {
+                normal: {fill: "#B0B0B0", stroke: "#9E9E9E", cursor: "pointer"},
+                selected: {fill: "#37B6D3", stroke: "rgba(55, 182, 211, 0.22)", strokeWidth: 10, cursor: "pointer"},
+                muted: {fill: "#B0B0B0", stroke: "#9E9E9E", opacity: 0.6, cursor: "pointer"}
+            },
+            label: {
+                normal: {fill: "#696969", stroke: "none", fontSize: 9},
+                selected: {fill: "#333", stroke: "none", fontSize: 11},
+                muted: {fill: "#696969", stroke: "none", fontSize: 8, opacity: 0.6}
+            }
+        };
+
+        const hubStyle = {
+            node: {
+                normal: {fill: "#CBCBCB",stroke: "#BEBEBE",cursor: "pointer"},
+                selected: {fill: "#37B6D3", stroke: "rgba(55, 182, 211, 0.22)", strokeWidth: 10, cursor: "pointer"},
+                muted: {fill: "#CBCBCB", stroke: "#BEBEBE", opacity: 0.6, cursor: "pointer"}
+            },
+            label: {
+                normal: {fill: "#696969", stroke: "none", fontSize: 9},
+                selected: {fill: "#333",stroke: "none", fontSize: 11},
+                muted: {fill: "#696969", stroke: "none", fontSize: 8, opacity: 0.6}
+            }
+        };
+
         // Mapping of node type to style
         const stylesMap = {
-            "hub": {
-                node: {
-                    stroke: "none",
-                    fill: "lightslategray"
-                },
-                label: {
-                    fill: "slategray",
-                    fontSize: 9
-                }
-            },
-            "esnet_site": {
-                node: {
-                    stroke: "none",
-                    fill: "steelblue"
-                },
-                label: {
-                    fill: "steelblue",
-                    fontSize: 11
-                }
-            }
+            "hub": hubStyle,
+            "esnet_site": siteStyle
         };
 
         return (
@@ -133,6 +161,7 @@ export default React.createClass({
                                     nodeSizeMap={nodeSizeMap}
                                     nodeShapeMap={nodeShapeMap}
                                     stylesMap={stylesMap}
+                                    selection={mapSelection}
                                     onSelectionChange={this.handleSelectionChanged} />
                     </div>
                 </div>

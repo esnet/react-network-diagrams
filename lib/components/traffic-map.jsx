@@ -1,8 +1,6 @@
 import React from "react";
 import _ from "underscore";
-import BaseMap from "./map";
-
-import "./map.css";
+import BaseMap from "./map-base";
 
 /**
  * Props:

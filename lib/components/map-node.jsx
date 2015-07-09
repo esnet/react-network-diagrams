@@ -1,7 +1,5 @@
 import React from "react";
 
-import "./map.css";
-
 export default React.createClass({
 
     getDefaultProps: function() {
@@ -16,11 +14,14 @@ export default React.createClass({
     render: function() {
         let nodeClasses = "map-node";
         let labelClasses = "map-node-label";
+        let styleModifier = "normal";
         if (this.props.selected) {
+            styleModifier = "selected";
             nodeClasses += " selected";
             labelClasses += " selected";
         }
         if (this.props.muted) {
+            styleModifier = "muted";
             nodeClasses += " muted";
             labelClasses += " muted";
         }
@@ -92,7 +93,7 @@ export default React.createClass({
             cloudPath += "c5,-5 15,-5 15,0 c0,-15 25,-15 25,-5 c10,-10 25,15 10,20 Z";
 
             nodeElement = <path d={cloudPath}
-                                style={this.props.style}
+                                style={this.props.style[styleModifier]}
                                 className={nodeClasses} />;
 
             switch (this.props.labelPosition) {
@@ -121,7 +122,7 @@ export default React.createClass({
                     y={y}
                     width={width}
                     height={width}
-                    style={this.props.style}
+                    style={this.props.style[styleModifier]}
                     className={nodeClasses} />
             );
 
@@ -138,12 +139,11 @@ export default React.createClass({
         } else {
             nodeClasses += " map-node-shape-circle";
             labelClasses += " map-node-label-circle";
-
             nodeElement = (
                 <circle cx={this.props.x}
                         cy={this.props.y}
                         r={this.props.radius}
-                        style={this.props.style}
+                        style={this.props.style[styleModifier]}
                         className={nodeClasses} />
             );
         }
@@ -155,7 +155,7 @@ export default React.createClass({
                 <text x={labelX}
                       y={labelY}
                       textAnchor={textAnchor}
-                      style={this.props.labelStyle}
+                      style={this.props.labelStyle[styleModifier]}
                       className={labelClasses} >{this.props.label}</text>
             </g>
         );

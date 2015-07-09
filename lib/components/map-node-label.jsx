@@ -1,7 +1,5 @@
 import React from "react";
 
-import "./map.css";
-
 export default React.createClass({
     render: function() {
         let textAnchor;

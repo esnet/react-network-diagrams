@@ -18,8 +18,6 @@ var _underscore = require("underscore");
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
-require("./map.css");
-
 /**
  * This component draws a linear bent path between a source and target. The
  * source and target are specified as props 'x1', 'y1' and 'x2', 'y2'. The bend is
@@ -32,7 +30,7 @@ require("./map.css");
  * The color and width of the edge may also be supplied.
  */
 exports["default"] = _react2["default"].createClass({
-    displayName: "edge-linear",
+    displayName: "map-edge-linear",
 
     getDefaultProps: function getDefaultProps() {
         return {
@@ -128,6 +126,8 @@ exports["default"] = _react2["default"].createClass({
         var opacity = 1;
         if (this.props.invisible) {
             opacity = 0;
+        } else if (this.props.muted) {
+            opacity = 0.3;
         }
 
         if (this.props.arrow) {

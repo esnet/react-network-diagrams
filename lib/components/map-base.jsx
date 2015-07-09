@@ -2,13 +2,11 @@ import React from "react";
 import d3 from "d3";
 import _ from "underscore";
 
-import Node from "./node";
-import Label from "./label";
-import Legend from "./legend";
-import SimpleEdge from "./edge-simple";
-import BidirectionalEdge from "./edge-bidirectional";
-
-import "./map.css";
+import Node from "./map-node";
+import Label from "./map-node-label";
+import Legend from "./map-legend";
+import SimpleEdge from "./map-edge-simple";
+import BidirectionalEdge from "./map-edge-bidirectional";
 
 /**
  *

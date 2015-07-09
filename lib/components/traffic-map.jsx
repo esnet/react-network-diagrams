@@ -198,6 +198,7 @@ export default React.createClass({
                      width={this.props.width}
                      height={this.props.height}
                      margin={this.props.margin}
+                     selection={this.props.selection}
                      edgeDrawingMethod={"bidirectionalArrow"}
                      onSelectionChange={this._handleSelectionChanged} />
         );

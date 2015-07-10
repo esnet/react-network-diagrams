@@ -10,18 +10,16 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _edgeLinear = require("./edge-linear");
+var _mapEdgeLinear = require("./map-edge-linear");
 
-var _edgeLinear2 = _interopRequireDefault(_edgeLinear);
+var _mapEdgeLinear2 = _interopRequireDefault(_mapEdgeLinear);
 
-var _edgeArc = require("./edge-arc");
+var _mapEdgeArc = require("./map-edge-arc");
 
-var _edgeArc2 = _interopRequireDefault(_edgeArc);
-
-require("./map.css");
+var _mapEdgeArc2 = _interopRequireDefault(_mapEdgeArc);
 
 exports["default"] = _react2["default"].createClass({
-    displayName: "edge-bidirectional",
+    displayName: "map-edge-bidirectional",
 
     getDefaultProps: function getDefaultProps() {
         return {
@@ -48,7 +46,7 @@ exports["default"] = _react2["default"].createClass({
             return _react2["default"].createElement(
                 "g",
                 null,
-                _react2["default"].createElement(_edgeArc2["default"], { name: this.props.name,
+                _react2["default"].createElement(_mapEdgeArc2["default"], { name: this.props.name,
                     x1: this.props.x1,
                     y1: this.props.y1,
                     x2: this.props.x2,
@@ -64,7 +62,7 @@ exports["default"] = _react2["default"].createClass({
                     selected: this.props.selected,
                     onSelectionChange: this.props.onSelectionChange,
                     muted: this.props.muted }),
-                _react2["default"].createElement(_edgeArc2["default"], { name: this.props.name,
+                _react2["default"].createElement(_mapEdgeArc2["default"], { name: this.props.name,
                     x1: this.props.x2,
                     y1: this.props.y2,
                     x2: this.props.x1,
@@ -80,7 +78,7 @@ exports["default"] = _react2["default"].createClass({
                     selected: this.props.selected,
                     onSelectionChange: this.props.onSelectionChange,
                     muted: this.props.muted }),
-                _react2["default"].createElement(_edgeArc2["default"], { name: this.props.name,
+                _react2["default"].createElement(_mapEdgeArc2["default"], { name: this.props.name,
                     x1: this.props.x2,
                     y1: this.props.y2,
                     x2: this.props.x1,
@@ -98,7 +96,7 @@ exports["default"] = _react2["default"].createClass({
             return _react2["default"].createElement(
                 "g",
                 null,
-                _react2["default"].createElement(_edgeLinear2["default"], { name: this.props.name,
+                _react2["default"].createElement(_mapEdgeLinear2["default"], { name: this.props.name,
                     x1: this.props.x1,
                     y1: this.props.y1,
                     x2: this.props.x2,
@@ -112,7 +110,7 @@ exports["default"] = _react2["default"].createClass({
                     selected: this.props.selected,
                     muted: this.props.muted,
                     onSelectionChange: this.props.onSelectionChange }),
-                _react2["default"].createElement(_edgeLinear2["default"], { name: this.props.name,
+                _react2["default"].createElement(_mapEdgeLinear2["default"], { name: this.props.name,
                     x1: this.props.x2,
                     y1: this.props.y2,
                     x2: this.props.x1,
@@ -126,7 +124,7 @@ exports["default"] = _react2["default"].createClass({
                     selected: this.props.selected,
                     muted: this.props.muted,
                     onSelectionChange: this.props.onSelectionChange }),
-                _react2["default"].createElement(_edgeLinear2["default"], { name: this.props.name,
+                _react2["default"].createElement(_mapEdgeLinear2["default"], { name: this.props.name,
                     x1: this.props.x2,
                     y1: this.props.y2,
                     x2: this.props.x1,

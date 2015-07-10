@@ -14,11 +14,9 @@ var _underscore = require("underscore");
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
-var _map = require("./map");
+var _mapBase = require("./map-base");
 
-var _map2 = _interopRequireDefault(_map);
-
-require("./map.css");
+var _mapBase2 = _interopRequireDefault(_mapBase);
 
 /**
  * Props:
@@ -220,7 +218,7 @@ exports["default"] = _react2["default"].createClass({
 
     render: function render() {
         var topo = this._normalizedTopology();
-        return _react2["default"].createElement(_map2["default"], { topology: topo,
+        return _react2["default"].createElement(_mapBase2["default"], { topology: topo,
             width: this.props.width,
             height: this.props.height,
             margin: this.props.margin,

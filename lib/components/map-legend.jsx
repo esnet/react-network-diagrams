@@ -1,8 +1,6 @@
 import React from "react";
 import _ from "underscore";
 
-import "./map.css";
-
 export default React.createClass({
 
     getDefaultProps: function() {

@@ -18,8 +18,6 @@ var _underscore = require("underscore");
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
-require("./map.css");
-
 // Alias
 var Vector = _victor2["default"];
 
@@ -38,7 +36,7 @@ var Vector = _victor2["default"];
  * Stroke color and width can also be supplied.
  */
 exports["default"] = _react2["default"].createClass({
-    displayName: "edge-arc",
+    displayName: "map-edge-arc",
 
     getDefaultProps: function getDefaultProps() {
         return {
@@ -158,6 +156,8 @@ exports["default"] = _react2["default"].createClass({
         var opacity = 1;
         if (this.props.invisible) {
             opacity = 0;
+        } else if (this.props.muted) {
+            opacity = 0.3;
         }
 
         if (this.props.arrow) {

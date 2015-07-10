@@ -10,10 +10,8 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-require("./map.css");
-
 exports["default"] = _react2["default"].createClass({
-    displayName: "node",
+    displayName: "map-node",
 
     getDefaultProps: function getDefaultProps() {
         return {
@@ -27,11 +25,14 @@ exports["default"] = _react2["default"].createClass({
     render: function render() {
         var nodeClasses = "map-node";
         var labelClasses = "map-node-label";
+        var styleModifier = "normal";
         if (this.props.selected) {
+            styleModifier = "selected";
             nodeClasses += " selected";
             labelClasses += " selected";
         }
         if (this.props.muted) {
+            styleModifier = "muted";
             nodeClasses += " muted";
             labelClasses += " muted";
         }
@@ -103,7 +104,7 @@ exports["default"] = _react2["default"].createClass({
             cloudPath += "c5,-5 15,-5 15,0 c0,-15 25,-15 25,-5 c10,-10 25,15 10,20 Z";
 
             nodeElement = _react2["default"].createElement("path", { d: cloudPath,
-                style: this.props.style,
+                style: this.props.style[styleModifier],
                 className: nodeClasses });
 
             switch (this.props.labelPosition) {
@@ -131,7 +132,7 @@ exports["default"] = _react2["default"].createClass({
                 y: y,
                 width: width,
                 height: width,
-                style: this.props.style,
+                style: this.props.style[styleModifier],
                 className: nodeClasses });
 
             switch (this.props.labelPosition) {
@@ -147,11 +148,10 @@ exports["default"] = _react2["default"].createClass({
         } else {
             nodeClasses += " map-node-shape-circle";
             labelClasses += " map-node-label-circle";
-
             nodeElement = _react2["default"].createElement("circle", { cx: this.props.x,
                 cy: this.props.y,
                 r: this.props.radius,
-                style: this.props.style,
+                style: this.props.style[styleModifier],
                 className: nodeClasses });
         }
 
@@ -165,7 +165,7 @@ exports["default"] = _react2["default"].createClass({
                 { x: labelX,
                     y: labelY,
                     textAnchor: textAnchor,
-                    style: this.props.labelStyle,
+                    style: this.props.labelStyle[styleModifier],
                     className: labelClasses },
                 this.props.label
             )

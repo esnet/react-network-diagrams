@@ -18,27 +18,25 @@ var _underscore = require("underscore");
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
-var _node = require("./node");
+var _mapNode = require("./map-node");
 
-var _node2 = _interopRequireDefault(_node);
+var _mapNode2 = _interopRequireDefault(_mapNode);
 
-var _label = require("./label");
+var _mapNodeLabel = require("./map-node-label");
 
-var _label2 = _interopRequireDefault(_label);
+var _mapNodeLabel2 = _interopRequireDefault(_mapNodeLabel);
 
-var _legend = require("./legend");
+var _mapLegend = require("./map-legend");
 
-var _legend2 = _interopRequireDefault(_legend);
+var _mapLegend2 = _interopRequireDefault(_mapLegend);
 
-var _edgeSimple = require("./edge-simple");
+var _mapEdgeSimple = require("./map-edge-simple");
 
-var _edgeSimple2 = _interopRequireDefault(_edgeSimple);
+var _mapEdgeSimple2 = _interopRequireDefault(_mapEdgeSimple);
 
-var _edgeBidirectional = require("./edge-bidirectional");
+var _mapEdgeBidirectional = require("./map-edge-bidirectional");
 
-var _edgeBidirectional2 = _interopRequireDefault(_edgeBidirectional);
-
-require("./map.css");
+var _mapEdgeBidirectional2 = _interopRequireDefault(_mapEdgeBidirectional);
 
 /**
  *
@@ -106,7 +104,7 @@ exports["default"] = _react2["default"].createClass({
             var selected = nodeSelected || edgeSelected;
             var muted = hasSelectedNode && !selected || hasSelectedEdge && !selected;
 
-            return _react2["default"].createElement(_node2["default"], { x: x,
+            return _react2["default"].createElement(_mapNode2["default"], { x: x,
                 y: y,
                 name: node.name,
                 key: node.name,
@@ -203,7 +201,7 @@ exports["default"] = _react2["default"].createClass({
             var muted = hasSelectedEdge && !selected || hasSelectedNode;
 
             if (edgeDrawingMethod === "simple") {
-                return _react2["default"].createElement(_edgeSimple2["default"], { x1: nodeCoordinates[edge.source].x,
+                return _react2["default"].createElement(_mapEdgeSimple2["default"], { x1: nodeCoordinates[edge.source].x,
                     x2: nodeCoordinates[edge.target].x,
                     y1: nodeCoordinates[edge.source].y,
                     y2: nodeCoordinates[edge.target].y,
@@ -220,7 +218,7 @@ exports["default"] = _react2["default"].createClass({
                     muted: muted,
                     onSelectionChange: _this.props.onSelectionChange });
             } else if (edgeDrawingMethod === "bidirectionalArrow") {
-                return _react2["default"].createElement(_edgeBidirectional2["default"], { x1: nodeCoordinates[edge.source].x,
+                return _react2["default"].createElement(_mapEdgeBidirectional2["default"], { x1: nodeCoordinates[edge.source].x,
                     x2: nodeCoordinates[edge.target].x,
                     y1: nodeCoordinates[edge.source].y,
                     y2: nodeCoordinates[edge.target].y,
@@ -240,7 +238,7 @@ exports["default"] = _react2["default"].createClass({
                     onSelectionChange: _this.props.onSelectionChange });
             } else if (edgeDrawingMethod === "pathBidirectionalArrow") {
                 if (_underscore2["default"].has(edgePathMap, edge.name)) {
-                    return _react2["default"].createElement(_edgeBidirectional2["default"], { x1: nodeCoordinates[edge.source].x,
+                    return _react2["default"].createElement(_mapEdgeBidirectional2["default"], { x1: nodeCoordinates[edge.source].x,
                         x2: nodeCoordinates[edge.target].x,
                         y1: nodeCoordinates[edge.source].y,
                         y2: nodeCoordinates[edge.target].y,
@@ -258,7 +256,7 @@ exports["default"] = _react2["default"].createClass({
                         muted: muted,
                         onSelectionChange: _this.props.onSelectionChange });
                 } else {
-                    return _react2["default"].createElement(_edgeSimple2["default"], { x1: nodeCoordinates[edge.source].x,
+                    return _react2["default"].createElement(_mapEdgeSimple2["default"], { x1: nodeCoordinates[edge.source].x,
                         x2: nodeCoordinates[edge.target].x,
                         y1: nodeCoordinates[edge.source].y,
                         y2: nodeCoordinates[edge.target].y,
@@ -332,7 +330,7 @@ exports["default"] = _react2["default"].createClass({
                     //
 
                     if (_this.props.edgeDrawingMethod === "simple") {
-                        pathSegments.push(_react2["default"].createElement(_edgeSimple2["default"], { x1: nodeCoordinates[source].x,
+                        pathSegments.push(_react2["default"].createElement(_mapEdgeSimple2["default"], { x1: nodeCoordinates[source].x,
                             y1: nodeCoordinates[source].y,
                             x2: nodeCoordinates[destination].x,
                             y2: nodeCoordinates[destination].y,
@@ -362,7 +360,7 @@ exports["default"] = _react2["default"].createClass({
         var labels = _underscore2["default"].map(this.props.topology.labels, function (label) {
             var x = xScale(label.x);
             var y = yScale(label.y);
-            return _react2["default"].createElement(_label2["default"], { x: x,
+            return _react2["default"].createElement(_mapNodeLabel2["default"], { x: x,
                 y: y,
                 label: label.label,
                 labelPosition: label.labelPosition,
@@ -375,7 +373,7 @@ exports["default"] = _react2["default"].createClass({
 
         var legend = null;
         if (!_underscore2["default"].isNull(this.props.legendItems)) {
-            legend = _react2["default"].createElement(_legend2["default"], { x: this.props.legendItems.x,
+            legend = _react2["default"].createElement(_mapLegend2["default"], { x: this.props.legendItems.x,
                 y: this.props.legendItems.y,
                 edgeTypes: this.props.legendItems.edgeTypes,
                 nodeTypes: this.props.legendItems.nodeTypes,

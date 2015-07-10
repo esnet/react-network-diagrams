@@ -10,10 +10,8 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-require("./map.css");
-
 exports["default"] = _react2["default"].createClass({
-    displayName: "label",
+    displayName: "map-node-label",
 
     render: function render() {
         var textAnchor = undefined;

@@ -1,8 +1,6 @@
 import React from "react";
-import LinearEdge from "./edge-linear";
-import ArcEdge from "./edge-arc";
-
-import "./map.css";
+import LinearEdge from "./map-edge-linear";
+import ArcEdge from "./map-edge-arc";
 
 export default React.createClass({
 

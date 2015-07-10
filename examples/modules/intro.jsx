@@ -21,8 +21,10 @@ export default React.createClass({
                     Main features:
 
                     <ul>
-                        <li>Low level pieces, such as edges and node</li>
+                        <li>Low level pieces, such as edges and nodes</li>
                         <li>Higher level map topology builder</li>
+                        <li>Network traffic and route mapping</li>
+                        <li>Legends</li>
                     </ul>
 
                     </div>

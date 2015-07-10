@@ -123,7 +123,7 @@ exports["default"] = _react2["default"].createClass({
     },
 
     _selectEdgeColor: function _selectEdgeColor(bps) {
-        var gbps = bps / 1000000000;
+        var gbps = bps / 1.0e9;
         for (var i = 0; i < this.props.edgeColorMap.length; i++) {
             var row = this.props.edgeColorMap[i];
             if (gbps >= row.range[0]) {
@@ -177,7 +177,7 @@ exports["default"] = _react2["default"].createClass({
 
         // Create the tologogy list
         topology.edges = _underscore2["default"].map(this.props.topology.edges, function (edge) {
-            var edgeName = "" + edge.source + "--" + edge.target;
+            var edgeName = edge.source + "--" + edge.target;
             return {
                 width: _this._edgeThickness(edge.capacity),
                 classed: edge.capacity,
@@ -195,8 +195,8 @@ exports["default"] = _react2["default"].createClass({
         // Colorize the topology
         if (this.props.traffic) {
             _underscore2["default"].each(topology.edges, function (edge) {
-                var sourceTargetName = "" + edge.source + "--" + edge.target;
-                var targetSourceName = "" + edge.target + "--" + edge.source;
+                var sourceTargetName = edge.source + "--" + edge.target;
+                var targetSourceName = edge.target + "--" + edge.source;
                 var sourceTargetTraffic = _this.props.traffic.get(sourceTargetName);
                 var targetSourceTraffic = _this.props.traffic.get(targetSourceName);
                 edge.sourceTargetColor = _this._selectEdgeColor(sourceTargetTraffic);

@@ -36,8 +36,8 @@ exports["default"] = _react2["default"].createClass({
     render: function render() {
         var paths = [];
 
-        var sourceToTargetName = "" + this.props.source + "--" + this.props.target;
-        var targetToSourceName = "" + this.props.target + "--" + this.props.source;
+        var sourceToTargetName = this.props.source + "--" + this.props.target;
+        var targetToSourceName = this.props.target + "--" + this.props.source;
 
         // Position of the bidirectional lines relative to the center line
         var position = this.props.width * 0.75;
@@ -86,7 +86,7 @@ exports["default"] = _react2["default"].createClass({
                     position: 0,
                     width: 5,
                     classed: this.props.classed,
-                    key: "" + sourceToTargetName + "-event-region",
+                    key: sourceToTargetName + "-event-region",
                     onSelectionChange: this.props.onSelectionChange,
                     curveDirection: this.props.curveDirection,
                     offset: this.props.offset,
@@ -132,7 +132,7 @@ exports["default"] = _react2["default"].createClass({
                     width: 5,
                     position: 0,
                     className: this.props.classed,
-                    key: "" + targetToSourceName + "-event-region",
+                    key: targetToSourceName + "-event-region",
                     onSelectionChange: this.props.onSelectionChange,
                     invisible: true })
             );

@@ -74,8 +74,8 @@ exports["default"] = _react2["default"].createClass({
 
         var edgeMap = {};
         _underscore2["default"].each(this.props.topology.edges, function (edge) {
-            edgeMap["" + edge.source + "--" + edge.target] = edge;
-            edgeMap["" + edge.target + "--" + edge.source] = edge;
+            edgeMap[edge.source + "--" + edge.target] = edge;
+            edgeMap[edge.target + "--" + edge.source] = edge;
         });
 
         //
@@ -173,8 +173,8 @@ exports["default"] = _react2["default"].createClass({
                 for (var i = 0; i < pathSteps.length - 1; i++) {
                     var source = pathSteps[i];
                     var destination = pathSteps[i + 1];
-                    var sourceToDestinationName = "" + source + "--" + destination;
-                    var destinationToSourceName = "" + destination + "--" + source;
+                    var sourceToDestinationName = source + "--" + destination;
+                    var destinationToSourceName = destination + "--" + source;
                     edgePathMap[sourceToDestinationName] = path;
                     edgePathMap[destinationToSourceName] = path;
                 }
@@ -307,7 +307,7 @@ exports["default"] = _react2["default"].createClass({
                     var pos = (pathIndex - (pathsToDest.length - 1) / 2) * dir;
 
                     // Get the edge from edgeMap
-                    var edgeName = "" + source + "--" + destination;
+                    var edgeName = source + "--" + destination;
                     var edge = edgeMap[edgeName];
 
                     // Get the shape of the edge (linear or curved) and if curved,
@@ -341,8 +341,8 @@ exports["default"] = _react2["default"].createClass({
                             curveDirection: curveDirection,
                             width: _this.props.pathWidth,
                             classed: "path-" + pathName,
-                            key: "" + pathName + "--" + edgeName,
-                            name: "" + pathName + "--" + edgeName }));
+                            key: pathName + "--" + edgeName,
+                            name: pathName + "--" + edgeName }));
                     }
                 }
             }

@@ -123,7 +123,7 @@ exports["default"] = _react2["default"].createClass({
         arrow += "L" + arrowBaseLeft.x + "," + arrowBaseLeft.y;
         arrow += "L" + arrowBaseRight.x + "," + arrowBaseRight.y;
 
-        var opacity = 1;
+        var opacity = 1.0;
         if (this.props.invisible) {
             opacity = 0;
         } else if (this.props.muted) {

@@ -28,12 +28,15 @@ export default React.createClass({
         let elements = [];
         if (this.props.nodeTypes.length > 0) {
             _.each(this.props.nodeTypes, node => {
-                let textX = curX + this.props.exampleWidth;
-                let textY = curY + lineCenter;
-                let classed = "map-node " + node.classed;
+                const textX = curX + this.props.exampleWidth;
+                const textY = curY + lineCenter;
+                const classed = "map-node " + node.classed;
+                const style = {stroke: node.stroke, fill: node.fill};
+
                 elements.push(
                     <g>
-                        <circle cx={curX}
+                        <circle style={style}
+                                cx={curX}
                                 cy={textY}
                                 r={node.radius}
                                 className={classed} />

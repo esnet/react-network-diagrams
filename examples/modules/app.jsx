@@ -36,6 +36,7 @@ export default React.createClass({
                             <ul className="docs-sidenav nav">
                                 <li><Link to="intro">Introduction</Link></li>
                                 <hr />
+                                <li><Link to="legend">Map Legend</Link></li>
                                 <li><Link to="trafficmap">Traffic Map</Link></li>
                             </ul>
                         </div>

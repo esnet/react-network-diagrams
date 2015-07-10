@@ -47,10 +47,13 @@ exports["default"] = _react2["default"].createClass({
                 var textX = curX + _this.props.exampleWidth;
                 var textY = curY + lineCenter;
                 var classed = "map-node " + node.classed;
+                var style = { stroke: node.stroke, fill: node.fill };
+
                 elements.push(_react2["default"].createElement(
                     "g",
                     null,
-                    _react2["default"].createElement("circle", { cx: curX,
+                    _react2["default"].createElement("circle", { style: style,
+                        cx: curX,
                         cy: textY,
                         r: node.radius,
                         className: classed }),

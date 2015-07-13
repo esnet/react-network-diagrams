@@ -37,6 +37,8 @@ export default React.createClass({
                                 <li><Link to="intro">Introduction</Link></li>
                                 <hr />
                                 <li><Link to="trafficmap">Traffic Map</Link></li>
+                                <hr />
+                                <li><Link to="townmap">Traffic Map</Link></li>
                             </ul>
                         </div>
                     </div>

@@ -35,6 +35,55 @@
 
     <!-- Our examples application -->
     <script src="examples-bundle.js"></script>
+
+    <!-- Button trigger modal -->
+    <button id="nodeModalButton" style="display:none;" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#nodeModal">
+      Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="nodeModal" tabindex="-1" role="dialog" aria-labelledby="myNodeModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="nodeModalLabel">Node Properties</h4>
+          </div>
+          <div class="modal-body">
+            Name: <input id="nodeModalText" /> <br />
+            <br />
+                <label style="display: inline" for="nodeRedSlider">Red: </label>
+                <input class="slider" style="width: 255px; display: inline"type=range min=0 max=255 value=0 oninput="updateSlider(value, 'Red')" id="nodeRedSlider">
+                <output style="display: inline" class="slider" id="nodeRedSliderOutput">0</output>
+                <br /> <br />
+
+                <label style="display: inline" for="nodeGreenSlider">Green: </label>
+                <input style="width: 255px; display: inline"type=range min=0 max=255 value=0 oninput="updateSlider(value, 'Green')" id="nodeGreenSlider">
+                <output style="display: inline" id="nodeGreenSliderOutput">0</output>
+                <br /> <br />
+
+                <label style="display: inline" for="nodeBlueSlider">Blue: </label>
+                <input style="width: 255px; display: inline"type=range min=0 max=255 value=0 oninput="updateSlider(value, 'Blue')" id="nodeBlueSlider">
+                <output style="display: inline" id="nodeBlueSliderOutput">0</output>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="saveNodeChanges" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+
+        function selectSlider(color) {
+            return "#node" + color + "SliderOutput"
+        }
+
+        function updateSlider(newValue, color) {
+            $(selectSlider(color)).html(newValue)
+        }
+
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,34 @@
+{
+  "edges":{
+    "Home--Theater":{
+      "bps":{
+        "Home--Theater":1026513360.8,
+        "Theater--Home":5208606960
+      },
+      "capacity":"100G",
+      "total_capacity":100000000000
+    },
+    "Clock Tower--Supermarket":{
+      "bps":{
+        "Clock Tower--Supermarket":111026513360.8,
+        "Supermarket--Clock Tower":1026513360.8
+      },
+      "capacity":"100G",
+      "total_capacity":100000000000
+    },
+    "Swimming Pool--Supermarket":{
+      "bps":{
+        "Clock Tower--Supermarket":111026513360.8,
+        "Supermarket--Clock Tower":1026513360.8
+      },
+      "capacity":"100G",
+      "total_capacity":100000000000
+    }
+  },
+  "name":"routed_toplevel",
+  "paths":{
+
+  },
+  "resource_uri":"/api/v1/map_topology_data/routed_toplevel/",
+  "timestamp":1431649302
+}

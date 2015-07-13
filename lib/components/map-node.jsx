@@ -163,10 +163,39 @@ export default React.createClass({
 
     _click: function(e) {
         e.stopPropagation();
+        var self = this
 
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange("node", this.props.name);
         }
+        
+        $('#nodeModalText').val(this.props.name)
+        $('#nodeModalButton').click()
+        
+        var rgb = $(React.findDOMNode(self)).children().css('fill')
+        rgb = rgb.substring(4, rgb.length-1).replace(/ /g, '').split(',')
+
+        $('#nodeRedSlider').val(rgb[0])
+        updateSlider(rgb[0], "Red")
+        
+
+        $('#nodeGreenSlider').val(rgb[1])
+        updateSlider(rgb[1], "Green")
+
+        $('#nodeBlueSlider').val(rgb[2])
+        updateSlider(rgb[2], "Blue")
+
+
+        $('#saveNodeChanges').off().on('click', function() {
+            var val = $('#nodeModalText').val()
+            self.props.name = val
+            $(React.findDOMNode(self)).children().html(val)
+            var rgb = 'rgb(' + $('#nodeRedSlider').val() + ', '
+                             + $('#nodeGreenSlider').val() + ', '
+                             + $('#nodeBlueSlider').val() + ')'
+            $(React.findDOMNode(self)).children().css({'fill': rgb})
+
+        })
     },
 
     _mouseOver: function() {

@@ -7,7 +7,7 @@ import Router from "react-router";
 import App from "./app";
 import Intro from "./intro";
 import TrafficMapExample from "./trafficmap_example";
-import ERGMapExample from "./ergmap_example"
+import TownMapExample from "./townmap_example"
 
 let {Route, DefaultRoute} = Router;
 
@@ -15,7 +15,7 @@ const routes = (
   <Route path="/" handler={App}>
     <DefaultRoute name="intro" handler={Intro} />
     <Route name="trafficmap" handler={TrafficMapExample} />
-    <Route name="townmap" handler={ERGMapExample} />
+    <Route name="townmap" handler={TownMapExample} />
   </Route>
 );
 

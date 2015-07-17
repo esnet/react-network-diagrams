@@ -3,7 +3,6 @@ import _ from "underscore";
 import {Event} from "pond";
 
 import TrafficMap from "../../lib/components/traffic-map";
-import BaseMap from "../../lib/components/map-base"
 
 // Test data
 import topo from "../data/town_topo.json";
@@ -189,11 +188,17 @@ export default React.createClass({
 
                 <div className="row">
                     <div className="col-md-12">
-                        <BaseMap topology={topo}
-                                 width="980"
-                                 height="500"
-                                 margin="50"
-                                 edgeDrawingMethod={"bidirectionalArrow"}/>
+                        <TrafficMap width={980} height={500} margin={50}
+                                    topology={topo}
+                                    traffic={traffic}
+                                    edgeColorMap={edgeColorMap}
+                                    edgeDrawingMethod="bidirectionalArrow"
+                                    edgeThinknessMap={edgeThinknessMap}
+                                    edgeShapeMap={edgeShapeMap}
+                                    nodeSizeMap={nodeSizeMap}
+                                    nodeShapeMap={nodeShapeMap}
+                                    stylesMap={stylesMap}
+                                    onSelectionChange={this.handleSelectionChanged} />
                     </div>
                 </div>
             </div>

@@ -73,7 +73,6 @@ export default React.createClass({
             const edgeSelected = _.contains(secondarySelectedNodes, node.name);
             const selected = nodeSelected || edgeSelected;
             const muted = (hasSelectedNode && !selected) || (hasSelectedEdge && !selected);
-
             return (
                 <Node x={x}
                       y={y}

@@ -2,6 +2,15 @@ import React from "react";
 
 export default React.createClass({
 
+    adjustNodeName: function(value) {
+        this.setState({label: value})
+    },
+
+    getInitialState: function() {
+        return {
+            label: this.props.name
+        }
+    },
     getDefaultProps: function() {
         return {
             radius: 5,
@@ -147,7 +156,6 @@ export default React.createClass({
                         className={nodeClasses} />
             );
         }
-
         return (
             <g onClick={this._click}
                onMouseOver={this._mouseOver}>
@@ -156,46 +164,48 @@ export default React.createClass({
                       y={labelY}
                       textAnchor={textAnchor}
                       style={this.props.labelStyle[styleModifier]}
-                      className={labelClasses} >{this.props.label}</text>
+                      className={labelClasses} >{this.state.label}</text>
             </g>
         );
     },
 
     _click: function(e) {
         e.stopPropagation();
-        var self = this
-
-        if (this.props.onSelectionChange) {
-            this.props.onSelectionChange("node", this.props.name);
-        }
         
-        $('#nodeModalText').val(this.props.name)
-        $('#nodeModalButton').click()
+        this.adjustNodeName("Abhinav")
+        // var self = this
+
+        // if (this.props.onSelectionChange) {
+        //     this.props.onSelectionChange("node", this.props.name);
+        // }
+
+        // $('#nodeModalText').val(this.props.name)
+        // $('#nodeModalButton').click()
         
-        var rgb = $(React.findDOMNode(self)).children().css('fill')
-        rgb = rgb.substring(4, rgb.length-1).replace(/ /g, '').split(',')
+        // var rgb = $(React.findDOMNode(self)).children().css('fill')
+        // rgb = rgb.substring(4, rgb.length-1).replace(/ /g, '').split(',')
 
-        $('#nodeRedSlider').val(rgb[0])
-        updateSlider(rgb[0], "Red")
+        // $('#nodeRedSlider').val(rgb[0])
+        // updateSlider(rgb[0], "Red")
         
 
-        $('#nodeGreenSlider').val(rgb[1])
-        updateSlider(rgb[1], "Green")
+        // $('#nodeGreenSlider').val(rgb[1])
+        // updateSlider(rgb[1], "Green")
 
-        $('#nodeBlueSlider').val(rgb[2])
-        updateSlider(rgb[2], "Blue")
+        // $('#nodeBlueSlider').val(rgb[2])
+        // updateSlider(rgb[2], "Blue")
 
 
-        $('#saveNodeChanges').off().on('click', function() {
-            var val = $('#nodeModalText').val()
-            self.props.name = val
-            $(React.findDOMNode(self)).children().html(val)
-            var rgb = 'rgb(' + $('#nodeRedSlider').val() + ', '
-                             + $('#nodeGreenSlider').val() + ', '
-                             + $('#nodeBlueSlider').val() + ')'
-            $(React.findDOMNode(self)).children().css({'fill': rgb})
+        // $('#saveNodeChanges').off().on('click', function() {
+        //     var val = $('#nodeModalText').val()
+        //     self.props.name = val
+        //     $(React.findDOMNode(self)).children().html(val)
+        //     var rgb = 'rgb(' + $('#nodeRedSlider').val() + ', '
+        //                      + $('#nodeGreenSlider').val() + ', '
+        //                      + $('#nodeBlueSlider').val() + ')'
+        //     $(React.findDOMNode(self)).children().css({'fill': rgb})
 
-        })
+        // })
     },
 
     _mouseOver: function() {

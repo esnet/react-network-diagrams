@@ -76,7 +76,7 @@ export default React.createClass({
                 labelY += basicOffset + fontOffset;
                 break;
 
-            case "bottomrigh":
+            case "bottomright":
                 labelY += basicOffset + fontOffset;
                 labelX += basicOffset;
                 textAnchor = "start";

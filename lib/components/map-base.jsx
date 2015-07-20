@@ -2,7 +2,9 @@ import React from "react";
 import d3 from "d3";
 import _ from "underscore";
 
-import Node from "./map-node";
+import Editor from "./node-editor";
+
+import Node from "./map-node"
 import Label from "./map-node-label";
 import Legend from "./map-legend";
 import SimpleEdge from "./map-edge-simple";
@@ -73,6 +75,7 @@ export default React.createClass({
             const edgeSelected = _.contains(secondarySelectedNodes, node.name);
             const selected = nodeSelected || edgeSelected;
             const muted = (hasSelectedNode && !selected) || (hasSelectedEdge && !selected);
+
             return (
                 <Node x={x}
                       y={y}
@@ -367,19 +370,27 @@ export default React.createClass({
             );
         }
 
+        // let select =
+        //     (
+        //         <Editor nodes={nodes} />
+        //     )
+
         return (
-            <svg width={this.props.width}
-                 height={this.props.height}
-                 className={"map-container"}
-                 onClick={this._click}>
-                <g>
-                    {edges}
-                    {paths}
-                    {nodes}
-                    {labels}
-                    {legend}
-                </g>
-            </svg>
+            <div>
+                <svg width={this.props.width}
+                     height={this.props.height}
+                     className={"map-container"}
+                     onClick={this._click}>
+                    <g>
+                        {edges}
+                        {paths}
+                        {nodes}
+                        {labels}
+                        {legend}
+                    </g>
+                </svg>
+                
+            </div>
         );
     },
 

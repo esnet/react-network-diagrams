@@ -171,8 +171,11 @@ export default React.createClass({
 
     _click: function(e) {
         e.stopPropagation();
-        
-        this.adjustNodeName("Abhinav")
+
+        var newName = prompt("Change the node name.", this.state.label)
+        if (newName != null) {
+            this.adjustNodeName(newName)
+        }
         // var self = this
 
         // if (this.props.onSelectionChange) {

@@ -1,12 +1,12 @@
 {
-  "name": "esnet-react-maps",
+  "name": "react-network-diagrams",
   "version": "0.0.1",
   "private": "true",
   "main": "index.js",
   "author": "ESnet Tools Team <tools@es.net>",
   "repository": {
     "type": "git",
-    "url": "git://github.com:esnet/esnet-react-maps.git"
+    "url": "git://github.com:esnet/react-network-diagrams.git"
   },
   "scripts": {
     "build-npm": "rm -rf build/npm && babel --optional es7.objectRestSpread -d build/npm/lib ./lib/components && cp README.md build/npm && find -X build/npm/lib -type d -name __tests__ | xargs rm -rf && node -p 'p=require(\"./package\");p.main=\"lib\";p.scripts=p.devDependencies=undefined;JSON.stringify(p,null,2)' > build/npm/package.json",

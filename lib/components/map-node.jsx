@@ -176,6 +176,8 @@ export default React.createClass({
         if (newName != null) {
             this.adjustNodeName(newName)
         }
+
+        this.props.nodeChange(this.props.name)
         // var self = this
 
         // if (this.props.onSelectionChange) {

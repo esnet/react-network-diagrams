@@ -48,6 +48,7 @@ import BaseMap from "./map-base";
 export default React.createClass({
 
     getDefaultProps: function() {
+
         return {
             edgeThinknessMap: {
                 "100G": 5,
@@ -63,13 +64,6 @@ export default React.createClass({
             shape: "circle",
             stylesMap: {}
         };
-    },
-    getInitialState: function() {
-        let nodes = this.props.topology.nodes
-
-        return {
-            node_topo: nodes
-        }
     },
 
     _nodeSize(name) {
@@ -131,15 +125,15 @@ export default React.createClass({
         }
 
         // Extents of the raw topology for scaling into width and height of the map
-        const minX = _.min(this.state.node_topo, node => node.x).x;
-        const minY = _.min(this.state.node_topo, node => node.y).y;
-        let maxX = _.max(this.state.node_topo, node => node.x).x;
-        let maxY = _.max(this.state.node_topo, node => node.y).y;
+        const minX = _.min(this.props.topology.nodes, node => node.x).x;
+        const minY = _.min(this.props.topology.nodes, node => node.y).y;
+        let maxX = _.max(this.props.topology.nodes, node => node.x).x;
+        let maxY = _.max(this.props.topology.nodes, node => node.y).y;
         maxX -= minX;
         maxY -= minY;
 
         // Create a node list
-        topology.nodes = _.map(this.state.node_topo, node => {
+        topology.nodes = _.map(this.props.topology.nodes, node => {
             // Scale the node positions onto a normalized 0 to 1 scale
             node.x = (node.x - minX) / maxX;
             node.y = (node.y - minY) / maxY;
@@ -196,20 +190,7 @@ export default React.createClass({
         }
     },
 
-    _changeName: function(x) {
-
-        var toChange = []
-        for (var node in this.state.node_topo) {
-            if (node.name == x)
-                node.style.normal.fill = "#FFFFFF"
-            toChange.push(node)
-        }
-        this.setState({node_topo: toChange})
-        console.log(this.state.node_topo)
-    },
-
     render: function() {
-
         const topo = this._normalizedTopology();
         return (
             <BaseMap topology={topo}
@@ -218,8 +199,7 @@ export default React.createClass({
                      margin={this.props.margin}
                      selection={this.props.selection}
                      edgeDrawingMethod={"bidirectionalArrow"}
-                     onSelectionChange={this._handleSelectionChanged} 
-                     onNodeClick={this._changeName}/>
+                     onSelectionChange={this._handleSelectionChanged} />
         );
     }
 });

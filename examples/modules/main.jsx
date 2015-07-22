@@ -13,8 +13,8 @@ let {Route, DefaultRoute} = Router;
 
 const routes = (
   <Route path="/" handler={App}>
-    <DefaultRoute name="intro" handler={Intro} />
-    <Route name="trafficmap" handler={TrafficMapExample} />
+    <Route name="intro" handler={Intro} />
+    <DefaultRoute name="trafficmap" handler={TrafficMapExample} />
     <Route name="townmap" handler={TownMapExample} />
   </Route>
 );

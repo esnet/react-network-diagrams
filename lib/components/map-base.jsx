@@ -91,7 +91,8 @@ export default React.createClass({
                       shape={node.shape}
                       selected={selected}
                       muted={muted}
-                      onSelectionChange={this.props.onSelectionChange}/>
+                      onSelectionChange={this.props.onSelectionChange}
+                      nodeChange={this.props.onNodeClick}/>
             );
         });
 

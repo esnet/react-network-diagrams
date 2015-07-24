@@ -65,6 +65,8 @@ export default React.createClass({
 
         // maps node name to scaled x and y position
         let nodeCoordinates = {};
+        
+        
         let nodes = _.map(this.props.topology.nodes, node => {
             const x = xScale(node.x);
             const y = yScale(node.y);
@@ -371,11 +373,6 @@ export default React.createClass({
             );
         }
 
-        // let select =
-        //     (
-        //         <Editor nodes={nodes} />
-        //     )
-
         return (
             <div>
                 <svg width={this.props.width}
@@ -385,7 +382,7 @@ export default React.createClass({
                     <g>
                         {edges}
                         {paths}
-                        {nodes}
+                        {this.props.nodes}
                         {labels}
                         {legend}
                     </g>

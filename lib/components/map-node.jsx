@@ -164,20 +164,20 @@ export default React.createClass({
                       y={labelY}
                       textAnchor={textAnchor}
                       style={this.props.labelStyle[styleModifier]}
-                      className={labelClasses} >{this.state.label}</text>
+                      className={labelClasses} >{this.props.name}</text>
             </g>
         );
     },
 
     _click: function(e) {
         e.stopPropagation();
-
-        var newName = prompt("Change the node name.", this.state.label)
-        if (newName != null) {
-            this.adjustNodeName(newName)
-        }
-
         this.props.nodeChange(this.props.name)
+        // var newName = prompt("Change the node name.", this.state.label)
+        // if (newName != null) {
+        //     this.adjustNodeName(newName)
+        // }
+
+        // this.props.nodeChange(this.props.name)
         // var self = this
 
         // if (this.props.onSelectionChange) {

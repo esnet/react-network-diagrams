@@ -1,6 +1,7 @@
 import React from "react";
 import _ from "underscore";
 import BaseMap from "./map-base";
+import Node from "./map-node"
 
 /**
  * Props:
@@ -64,12 +65,34 @@ export default React.createClass({
             stylesMap: {}
         };
     },
+
     getInitialState: function() {
         let nodes = this.props.topology.nodes
-
-        return {
-            node_topo: nodes
+        let node_topo = []
+        for (var i in nodes) {
+            node_topo.push({'name': nodes[i].name, 'style': nodes[i].style})
         }
+        return {
+            nodes: node_topo
+        }
+    },
+
+    changeName: function(name) {
+        
+        
+        var index = 0
+        for (var i in this.state.nodes) {
+            if (this.state.nodes[i]['name'] == name)
+                index = i
+        }
+
+        let n = this.state.nodes
+        
+        n[index]['name'] = "Abhinav"
+        
+        this.setState({nodes: n})
+        
+
     },
 
     _nodeSize(name) {
@@ -131,21 +154,49 @@ export default React.createClass({
         }
 
         // Extents of the raw topology for scaling into width and height of the map
-        const minX = _.min(this.state.node_topo, node => node.x).x;
-        const minY = _.min(this.state.node_topo, node => node.y).y;
-        let maxX = _.max(this.state.node_topo, node => node.x).x;
-        let maxY = _.max(this.state.node_topo, node => node.y).y;
+        const minX = _.min(this.props.topology.nodes, node => node.x).x;
+        const minY = _.min(this.props.topology.nodes, node => node.y).y;
+        let maxX = _.max(this.props.topology.nodes, node => node.x).x;
+        let maxY = _.max(this.props.topology.nodes, node => node.y).y;
         maxX -= minX;
         maxY -= minY;
+        const xScale = d3.scale.linear().range([this.props.margin,
+                                                this.props.width - this.props.margin]);
+        const yScale = d3.scale.linear().range([this.props.margin,
+                                                this.props.height - this.props.margin]);
+        const hasSelectedNode = this.props.selection.nodes.length;
+        const hasSelectedEdge = this.props.selection.edges.length;
+
+        let edgeMap = {};
+        _.each(this.props.topology.edges, function(edge) {
+            edgeMap[`${edge.source}--${edge.target}`] = edge;
+            edgeMap[`${edge.target}--${edge.source}`] = edge;
+        });
+
+        //
+        // Build a list of nodes (each a Node) from our topology
+        //
+
+        let secondarySelectedNodes = [];
+        _.each(this.props.selection.edges, function(edgeName) {
+            let edge = edgeMap[edgeName];
+            if (edge) {
+                secondarySelectedNodes.push(edge.source);
+                secondarySelectedNodes.push(edge.target);
+            }
+        });
 
         // Create a node list
-        topology.nodes = _.map(this.state.node_topo, node => {
+
+        topology.nodes = _.map(this.props.topology.nodes, node => {
+
             // Scale the node positions onto a normalized 0 to 1 scale
             node.x = (node.x - minX) / maxX;
             node.y = (node.y - minY) / maxY;
 
             // Radius is based on the type of node, given in the nodeSizeMap
             node.radius = this._nodeSize(node.type);
+
 
             node.labelPosition = node.label_position;
             node.style = this.props.stylesMap[node.type].node;
@@ -154,6 +205,45 @@ export default React.createClass({
 
             return node;
         });
+
+        let nodeCoordinates = {}
+        let editor_nodes = _.map(this.props.topology.nodes, node => {
+            const x = xScale(node.x);
+            const y = yScale(node.y);
+            nodeCoordinates[node.name] = {x: x, y: y};
+
+            const label = _.isUndefined(node.label) ? node.name : node.label;
+            const nodeSelected = _.contains(this.props.selection.nodes, node.name);
+            const edgeSelected = _.contains(secondarySelectedNodes, node.name);
+            const selected = nodeSelected || edgeSelected;
+            const muted = (hasSelectedNode && !selected) || (hasSelectedEdge && !selected);
+
+            var index = 0
+            for (var i in this.state.nodes) {
+                if (this.state.nodes[i]['name'] == node.name)
+                    index = i
+            }
+
+            return (
+                <Node x={x}
+                      y={y}
+                      name={this.state.nodes[index]['name']}
+                      key={node.name}
+                      style={node.style}
+                      labelStyle={node.labelStyle}
+                      type={node.type}
+                      labelPosition={node.labelPosition}
+                      label={label}
+                      radius={node.radius}
+                      classed={node.classed}
+                      shape={node.shape}
+                      selected={selected}
+                      muted={muted}
+                      onSelectionChange={this.props.onSelectionChange}
+                      nodeChange={this.changeName}/>
+            );
+        });
+
 
         // Create the tologogy list
         topology.edges = _.map(this.props.topology.edges, edge => {
@@ -187,7 +277,7 @@ export default React.createClass({
         topology.name = this.props.topology.name;
         topology.description = this.props.topology.description;
 
-        return topology;
+        return {t: topology, e: editor_nodes};
     },
 
     _handleSelectionChanged: function(selectionType, selection) {
@@ -196,30 +286,21 @@ export default React.createClass({
         }
     },
 
-    _changeName: function(x) {
-
-        var toChange = []
-        for (var node in this.state.node_topo) {
-            if (node.name == x)
-                node.style.normal.fill = "#FFFFFF"
-            toChange.push(node)
-        }
-        this.setState({node_topo: toChange})
-        console.log(this.state.node_topo)
-    },
+    
 
     render: function() {
 
         const topo = this._normalizedTopology();
         return (
-            <BaseMap topology={topo}
+            <BaseMap nodes={topo.e}
+                     topology={topo.t}
                      width={this.props.width}
                      height={this.props.height}
                      margin={this.props.margin}
                      selection={this.props.selection}
                      edgeDrawingMethod={"bidirectionalArrow"}
                      onSelectionChange={this._handleSelectionChanged} 
-                     onNodeClick={this._changeName}/>
+                     onNodeClick={this.changeName}/>
         );
     }
 });

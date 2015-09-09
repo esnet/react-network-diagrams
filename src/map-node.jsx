@@ -1,19 +1,18 @@
-"use strict";
+/**
+ *  Copyright (c) 2015, The Regents of the University of California,
+ *  through Lawrence Berkeley National Laboratory (subject to receipt
+ *  of any required approvals from the U.S. Dept. of Energy).
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree.
+ */
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
+import React from "react";
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+export default React.createClass({
 
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-exports["default"] = _react2["default"].createClass({
-    displayName: "map-node",
-
-    getDefaultProps: function getDefaultProps() {
+    getDefaultProps() {
         return {
             radius: 5,
             selected: false,
@@ -22,10 +21,10 @@ exports["default"] = _react2["default"].createClass({
         };
     },
 
-    render: function render() {
-        var nodeClasses = "map-node";
-        var labelClasses = "map-node-label";
-        var styleModifier = "normal";
+    render() {
+        let nodeClasses = "map-node";
+        let labelClasses = "map-node-label";
+        let styleModifier = "normal";
         if (this.props.selected) {
             styleModifier = "selected";
             nodeClasses += " selected";
@@ -37,14 +36,14 @@ exports["default"] = _react2["default"].createClass({
             labelClasses += " muted";
         }
 
-        var basicOffset = this.props.radius * 1.33;
+        const basicOffset = this.props.radius * 1.33;
 
         // 0.8 * font size? ish..
-        var fontOffset = 8;
+        const fontOffset = 8;
 
-        var labelX = this.props.x;
-        var labelY = this.props.y;
-        var textAnchor = "middle";
+        let labelX = this.props.x;
+        let labelY = this.props.y;
+        let textAnchor = "middle";
         switch (this.props.labelPosition) {
             case "left":
                 labelX -= basicOffset;
@@ -94,18 +93,22 @@ exports["default"] = _react2["default"].createClass({
                 break;
         }
 
-        var nodeElement = undefined;
+        let nodeElement;
         if (this.props.shape === "cloud") {
             nodeClasses += " map-node-shape-cloud";
             labelClasses += " map-node-label-cloud";
 
-            var cloudPath = "M" + this.props.x + "," + (this.props.y + 5);
+            let cloudPath = `M${this.props.x},${this.props.y + 5}`;
             cloudPath += "l-25,0 c-10,0 -10,-10 -5,-15";
-            cloudPath += "c5,-5 15,-5 15,0 c0,-15 25,-15 25,-5 c10,-10 25,15 10,20 Z";
+            cloudPath +=
+                "c5,-5 15,-5 15,0 c0,-15 25,-15 25,-5 c10,-10 25,15 10,20 Z";
 
-            nodeElement = _react2["default"].createElement("path", { d: cloudPath,
-                style: this.props.style[styleModifier],
-                className: nodeClasses });
+            nodeElement = (
+                <path
+                    d={cloudPath}
+                    style={this.props.style[styleModifier]}
+                    className={nodeClasses} />
+            );
 
             switch (this.props.labelPosition) {
                 case "top":
@@ -125,15 +128,17 @@ exports["default"] = _react2["default"].createClass({
         } else if (this.props.shape === "square") {
             nodeClasses += " map-node-shape-square";
             labelClasses += " map-node-shape-square";
-            var x = this.props.x - this.props.radius;
-            var y = this.props.y - this.props.radius;
-            var width = 2 * this.props.radius;
-            nodeElement = _react2["default"].createElement("rect", { x: x,
-                y: y,
-                width: width,
-                height: width,
-                style: this.props.style[styleModifier],
-                className: nodeClasses });
+            const x = this.props.x - this.props.radius;
+            const y = this.props.y - this.props.radius;
+            const width = 2 * this.props.radius;
+            nodeElement = (
+              <rect x={x}
+                    y={y}
+                    width={width}
+                    height={width}
+                    style={this.props.style[styleModifier]}
+                    className={nodeClasses} />
+            );
 
             switch (this.props.labelPosition) {
                 case "left":
@@ -148,31 +153,29 @@ exports["default"] = _react2["default"].createClass({
         } else {
             nodeClasses += " map-node-shape-circle";
             labelClasses += " map-node-label-circle";
-            nodeElement = _react2["default"].createElement("circle", { cx: this.props.x,
-                cy: this.props.y,
-                r: this.props.radius,
-                style: this.props.style[styleModifier],
-                className: nodeClasses });
+            nodeElement = (
+                <circle cx={this.props.x}
+                        cy={this.props.y}
+                        r={this.props.radius}
+                        style={this.props.style[styleModifier]}
+                        className={nodeClasses} />
+            );
         }
 
-        return _react2["default"].createElement(
-            "g",
-            { onClick: this._click,
-                onMouseOver: this._mouseOver },
-            nodeElement,
-            _react2["default"].createElement(
-                "text",
-                { x: labelX,
-                    y: labelY,
-                    textAnchor: textAnchor,
-                    style: this.props.labelStyle[styleModifier],
-                    className: labelClasses },
-                this.props.label
-            )
+        return (
+            <g onClick={this._click}
+               onMouseOver={this._mouseOver}>
+                {nodeElement}
+                <text x={labelX}
+                      y={labelY}
+                      textAnchor={textAnchor}
+                      style={this.props.labelStyle[styleModifier]}
+                      className={labelClasses} >{this.props.label}</text>
+            </g>
         );
     },
 
-    _click: function _click(e) {
+    _click(e) {
         e.stopPropagation();
 
         if (this.props.onSelectionChange) {
@@ -180,7 +183,6 @@ exports["default"] = _react2["default"].createClass({
         }
     },
 
-    _mouseOver: function _mouseOver() {}
-
+    _mouseOver() {
+    }
 });
-module.exports = exports["default"];

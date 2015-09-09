@@ -1,3 +1,13 @@
+/**
+ *  Copyright (c) 2015, The Regents of the University of California,
+ *  through Lawrence Berkeley National Laboratory (subject to receipt
+ *  of any required approvals from the U.S. Dept. of Energy).
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree.
+ */
+
 import React from "react";
 import Victor from "victor";
 import _ from "underscore";
@@ -21,7 +31,7 @@ let Vector = Victor;
  */
 export default React.createClass({
 
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             offset: 20,
             width: 1,
@@ -34,7 +44,7 @@ export default React.createClass({
         };
     },
 
-    render: function() {
+    render() {
         // Class
         let classed = "map-edge map-curved-edge";
         if (this.props.selected) {
@@ -96,24 +106,47 @@ export default React.createClass({
         const targetToControl = control.clone().subtract(target);
         const targetToControlNormalize = targetToControl.clone().norm();
 
-        const sourceBend = sourceToControlNormalize.clone().multiply(bendScalar).add(source);
-        const targetBend = targetToControlNormalize.clone().multiply(bendScalar).add(target);
+        const sourceBend = sourceToControlNormalize
+            .clone()
+            .multiply(bendScalar)
+            .add(source);
+        const targetBend = targetToControlNormalize
+            .clone()
+            .multiply(bendScalar)
+            .add(target);
 
-        const sourceBendPerp = new Vector(-sourceToControlNormalize.y, sourceToControlNormalize.x);
+        const sourceBendPerp = new Vector(-sourceToControlNormalize.y,
+                                           sourceToControlNormalize.x);
         const sourceBendPerpScalar = new Vector(position, position);
-        const sourceBendControl = sourceBendPerp.clone().multiply(sourceBendPerpScalar).add(sourceBend);
+        const sourceBendControl = sourceBendPerp
+            .clone()
+            .multiply(sourceBendPerpScalar)
+            .add(sourceBend);
 
-        const targetBendPerp = new Vector(-targetToControlNormalize.y, targetToControlNormalize.x);
+        const targetBendPerp = new Vector(-targetToControlNormalize.y,
+                                           targetToControlNormalize.x);
         const targetBendPerpScalar = new Vector(-position, -position);
-        const targetBendControl = targetBendPerp.clone().multiply(targetBendPerpScalar).add(targetBend);
+        const targetBendControl = targetBendPerp
+            .clone()
+            .multiply(targetBendPerpScalar)
+            .add(targetBend);
 
         // Draw an arrow at the target end
         const arrowLengthScalar = new Vector(-arrowLength, -arrowLength);
         const arrowLeftScalar = new Vector(arrowWidth / 2, arrowWidth / 2);
         const arrowRightScalar = new Vector(-arrowWidth / 2, -arrowWidth / 2);
-        const arrowHead = targetToControlNormalize.clone().multiply(arrowLengthScalar).add(targetBendControl);
-        const arrowBaseLeft = targetBendPerp.clone().multiply(arrowLeftScalar).add(targetBendControl);
-        const arrowBaseRight = targetBendPerp.clone().multiply(arrowRightScalar).add(targetBendControl);
+        const arrowHead = targetToControlNormalize
+            .clone()
+            .multiply(arrowLengthScalar)
+            .add(targetBendControl);
+        const arrowBaseLeft = targetBendPerp
+            .clone()
+            .multiply(arrowLeftScalar)
+            .add(targetBendControl);
+        const arrowBaseRight = targetBendPerp
+            .clone()
+            .multiply(arrowRightScalar)
+            .add(targetBendControl);
 
         // Arc options
         const y = this.props.offset;
@@ -127,7 +160,8 @@ export default React.createClass({
         path += "M" + source.x + "," + source.y;
         path += " L " + sourceBendControl.x + " " + sourceBendControl.y;
         path += " A " + radius + " " + radius + " " + rotation + " " +
-                largeArcFlag + " " + sweepFlag + " " + targetBendControl.x + " " + targetBendControl.y;
+                largeArcFlag + " " + sweepFlag + " " +
+                targetBendControl.x + " " + targetBendControl.y;
 
         if (!this.props.arrow) {
             path += " L " + target.x + " " + target.y;
@@ -141,32 +175,48 @@ export default React.createClass({
         let opacity = 1.0;
         if (this.props.invisible) {
             opacity = 0;
-        } else  if (this.props.muted) {
+        } else if (this.props.muted) {
             opacity = 0.3;
         }
 
         if (this.props.arrow) {
             return (
-                <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
-                    <path d={path} fill="none" className={classed} onClick={this.handleClick}/>
-                    <path d={arrow} className={classed} stroke={this.props.color} fill={this.props.color} strokeWidth="1"/>
+                <g
+                    strokeWidth={this.props.width}
+                    stroke={this.props.color}
+                    opacity={opacity}>
+                    <path
+                        d={path}
+                        fill="none" className={classed}
+                        onClick={this.handleClick}/>
+                    <path
+                        d={arrow}
+                        className={classed}
+                        stroke={this.props.color}
+                        fill={this.props.color}
+                        strokeWidth="1"/>
                 </g>
             );
         } else {
             return (
-                <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
-                    <path d={path} fill="none" className={classed} onClick={this.handleClick}/>
+                <g
+                    strokeWidth={this.props.width}
+                    stroke={this.props.color}
+                    opacity={opacity}>
+                    <path
+                        d={path}
+                        fill="none"
+                        className={classed}
+                        onClick={this.handleClick}/>
                 </g>
             );
         }
     },
 
-    handleClick: function(e) {
+    handleClick(e) {
         e.stopPropagation();
-
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange("edge", this.props.name);
         }
     }
 });
-

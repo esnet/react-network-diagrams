@@ -1,11 +1,15 @@
-lib/
-!build/npm/lib
+src/
 examples/
+screenshots/
 docs/
+bin/
 build/global
 index.html
 .eslintrc
 .gitignore
+CONTRIBUTING.md
+examples-bundle.js
+examples-bundle.js.map
 *.config.js
 .DS_Store
 npm-debug.log

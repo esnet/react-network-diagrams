@@ -1,11 +1,21 @@
+/**
+ *  Copyright (c) 2015, The Regents of the University of California,
+ *  through Lawrence Berkeley National Laboratory (subject to receipt
+ *  of any required approvals from the U.S. Dept. of Energy).
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree.
+ */
+
 import React from "react";
 import Vector from "victor";
 import _ from "underscore";
 
 /**
  * This component draws a linear bent path between a source and target. The
- * source and target are specified as props 'x1', 'y1' and 'x2', 'y2'. The bend is
- * specified with the prop 'position'.
+ * source and target are specified as props 'x1', 'y1' and 'x2', 'y2'. The
+ * bend is specified with the prop 'position'.
  *
  * An arrow may be added by passing an 'arrow' prop of true and may be
  * customized by supplying 'arrowWidth' and/or 'arrowHeight'. Both default to
@@ -15,7 +25,7 @@ import _ from "underscore";
  */
 export default React.createClass({
 
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             width: 1,
             color: "#ddd",
@@ -26,7 +36,7 @@ export default React.createClass({
         };
     },
 
-    render: function() {
+    render() {
         let classed = "map-edge map-linear-edge";
         if (this.props.selected) {
             classed += " selected";
@@ -65,30 +75,62 @@ export default React.createClass({
         const bendOffset = this.props.position !== 0 ? 15 : 8;
         const bendScalar = new Vector(bendOffset, bendOffset);
 
-        const sourceToTarget = target.clone().subtract(source);
-        const sourceToTargetNormalize = sourceToTarget.clone().norm();
+        const sourceToTarget = target
+            .clone()
+            .subtract(source);
+        const sourceToTargetNormalize = sourceToTarget
+            .clone()
+            .norm();
 
-        const targetToSource = source.clone().subtract(target);
-        const targetToSourceNormalize = targetToSource.clone().norm();
+        const targetToSource = source
+            .clone()
+            .subtract(target);
+        const targetToSourceNormalize = targetToSource
+            .clone()
+            .norm();
 
-        const sourceBend = sourceToTargetNormalize.clone().multiply(bendScalar).add(source);
-        const targetBend = targetToSourceNormalize.clone().multiply(bendScalar).add(target);
+        const sourceBend = sourceToTargetNormalize
+            .clone()
+            .multiply(bendScalar)
+            .add(source);
 
-        const sourceBendPerp = new Vector(-sourceToTargetNormalize.y, sourceToTargetNormalize.x);
+        const targetBend = targetToSourceNormalize
+            .clone()
+            .multiply(bendScalar)
+            .add(target);
+
+        const sourceBendPerp = new Vector(-sourceToTargetNormalize.y,
+                                          sourceToTargetNormalize.x);
         const sourceBendPerpScalar = new Vector(position, position);
-        const sourceBendControl = sourceBendPerp.clone().multiply(sourceBendPerpScalar).add(sourceBend);
+        const sourceBendControl = sourceBendPerp
+            .clone()
+            .multiply(sourceBendPerpScalar)
+            .add(sourceBend);
 
-        const targetBendPerp = new Vector(-targetToSourceNormalize.y, targetToSourceNormalize.x);
+        const targetBendPerp = new Vector(-targetToSourceNormalize.y,
+                                          targetToSourceNormalize.x);
         const targetBendPerpScalar = new Vector(-position, -position);
-        const targetBendControl = targetBendPerp.clone().multiply(targetBendPerpScalar).add(targetBend);
+        const targetBendControl = targetBendPerp
+            .clone()
+            .multiply(targetBendPerpScalar)
+            .add(targetBend);
 
         // Arrow at the target end
         const arrowLengthScalar = new Vector(-arrowLength, -arrowLength);
         const arrowLeftScalar = new Vector(arrowWidth / 2, arrowWidth / 2);
         const arrowRightScalar = new Vector(-arrowWidth / 2, -arrowWidth / 2);
-        const arrowHead = targetToSourceNormalize.clone().multiply(arrowLengthScalar).add(targetBendControl);
-        const arrowBaseLeft = targetBendPerp.clone().multiply(arrowLeftScalar).add(targetBendControl);
-        const arrowBaseRight = targetBendPerp.clone().multiply(arrowRightScalar).add(targetBendControl);
+        const arrowHead = targetToSourceNormalize
+            .clone()
+            .multiply(arrowLengthScalar)
+            .add(targetBendControl);
+        const arrowBaseLeft = targetBendPerp
+            .clone()
+            .multiply(arrowLeftScalar)
+            .add(targetBendControl);
+        const arrowBaseRight = targetBendPerp
+            .clone()
+            .multiply(arrowRightScalar)
+            .add(targetBendControl);
 
         // Line and Arc SVG path
         let path = "";
@@ -109,27 +151,45 @@ export default React.createClass({
         let opacity = 1.0;
         if (this.props.invisible) {
             opacity = 0;
-        } else  if (this.props.muted) {
+        } else if (this.props.muted) {
             opacity = 0.3;
         }
 
         if (this.props.arrow) {
             return (
-                <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
-                    <path className={classed} d={path} fill="none" onClick={this.handleClick}/>
-                    <path className={classed} d={arrow} fill={this.props.color} strokeWidth="1"/>
+                <g
+                    strokeWidth={this.props.width}
+                    stroke={this.props.color}
+                    opacity={opacity}>
+                    <path
+                        className={classed}
+                        d={path}
+                        fill="none"
+                        onClick={this.handleClick}/>
+                    <path
+                        className={classed}
+                        d={arrow}
+                        fill={this.props.color}
+                        strokeWidth="1"/>
                 </g>
             );
         } else {
             return (
-                <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
-                    <path className={classed} d={path} fill="none" onClick={this.handleClick}/>
+                <g
+                    strokeWidth={this.props.width}
+                    stroke={this.props.color}
+                    opacity={opacity}>
+                    <path
+                        className={classed}
+                        d={path}
+                        fill="none"
+                        onClick={this.handleClick}/>
                 </g>
             );
         }
     },
 
-    handleClick: function(e) {
+    handleClick(e) {
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange("edge", this.props.name);
         }

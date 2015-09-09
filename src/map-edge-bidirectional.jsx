@@ -1,10 +1,20 @@
+/**
+ *  Copyright (c) 2015, The Regents of the University of California,
+ *  through Lawrence Berkeley National Laboratory (subject to receipt
+ *  of any required approvals from the U.S. Dept. of Energy).
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree.
+ */
+
 import React from "react";
 import LinearEdge from "./map-edge-linear";
 import ArcEdge from "./map-edge-arc";
 
 export default React.createClass({
 
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             width: 1,
             spacing: 3.5,
@@ -16,7 +26,7 @@ export default React.createClass({
         };
     },
 
-    render: function() {
+    render() {
         let paths = [];
 
         const sourceToTargetName = `${this.props.source}--${this.props.target}`;
@@ -80,47 +90,50 @@ export default React.createClass({
         } else {
             return (
                 <g>
-                    <LinearEdge name={this.props.name}
-                                x1={this.props.x1}
-                                y1={this.props.y1}
-                                x2={this.props.x2}
-                                y2={this.props.y2}
-                                arrow={true}
-                                color={this.props.sourceTargetColor}
-                                width={this.props.width}
-                                position={position}
-                                className={this.props.classed}
-                                key={sourceToTargetName}
-                                selected={this.props.selected}
-                                muted={this.props.muted}
-                                onSelectionChange={this.props.onSelectionChange} />
+                    <LinearEdge
+                        name={this.props.name}
+                        x1={this.props.x1}
+                        y1={this.props.y1}
+                        x2={this.props.x2}
+                        y2={this.props.y2}
+                        arrow={true}
+                        color={this.props.sourceTargetColor}
+                        width={this.props.width}
+                        position={position}
+                        className={this.props.classed}
+                        key={sourceToTargetName}
+                        selected={this.props.selected}
+                        muted={this.props.muted}
+                        onSelectionChange={this.props.onSelectionChange} />
 
-                    <LinearEdge name={this.props.name}
-                                x1={this.props.x2}
-                                y1={this.props.y2}
-                                x2={this.props.x1}
-                                y2={this.props.y1}
-                                arrow={true}
-                                color={this.props.targetSourceColor}
-                                width={this.props.width}
-                                position={position}
-                                className={this.props.classed}
-                                key={targetToSourceName}
-                                selected={this.props.selected}
-                                muted={this.props.muted}
-                                onSelectionChange={this.props.onSelectionChange} />
+                    <LinearEdge
+                        name={this.props.name}
+                        x1={this.props.x2}
+                        y1={this.props.y2}
+                        x2={this.props.x1}
+                        y2={this.props.y1}
+                        arrow={true}
+                        color={this.props.targetSourceColor}
+                        width={this.props.width}
+                        position={position}
+                        className={this.props.classed}
+                        key={targetToSourceName}
+                        selected={this.props.selected}
+                        muted={this.props.muted}
+                        onSelectionChange={this.props.onSelectionChange} />
 
-                    <LinearEdge name={this.props.name}
-                                x1={this.props.x2}
-                                y1={this.props.y2}
-                                x2={this.props.x1}
-                                y2={this.props.y1}
-                                width={5}
-                                position={0}
-                                className={this.props.classed}
-                                key={`${targetToSourceName}-event-region`}
-                                onSelectionChange={this.props.onSelectionChange}
-                                invisible={true} />
+                    <LinearEdge
+                        name={this.props.name}
+                        x1={this.props.x2}
+                        y1={this.props.y2}
+                        x2={this.props.x1}
+                        y2={this.props.y1}
+                        width={5}
+                        position={0}
+                        className={this.props.classed}
+                        key={`${targetToSourceName}-event-region`}
+                        onSelectionChange={this.props.onSelectionChange}
+                        invisible={true} />
                 </g>
             );
         }
@@ -132,4 +145,3 @@ export default React.createClass({
         );
     }
 });
-

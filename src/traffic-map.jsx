@@ -1,3 +1,13 @@
+/**
+ *  Copyright (c) 2015, The Regents of the University of California,
+ *  through Lawrence Berkeley National Laboratory (subject to receipt
+ *  of any required approvals from the U.S. Dept. of Energy).
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree.
+ */
+
 import React from "react";
 import _ from "underscore";
 import BaseMap from "./map-base";
@@ -19,17 +29,19 @@ import BaseMap from "./map-base";
  *      A mapping from the node type field to a size to draw the shape
  *
  *  edgeThinknessMap:
- *      "capacity" within the tologogy edges is a string, such as "100G". You can pass in a
- *      a edgeThinknessMap that is used to look up the capacity as a line thickness for rendering
- *      the edges.
+ *      "capacity" within the tologogy edges is a string, such as "100G".
+ *      You can pass in an edgeThinknessMap that is used to look up the
+ *      capacity as a line thickness for rendering the edges.
  *
  *  edgeShapeMap:
- *      A mapping of the edge name (which is source + "--" + target) to a dict of edge shape
+ *      A mapping of the edge name (which is source + "--" + target) to a
+ *      dict of edge shape
  *      options.
  *          - shape (either "linear" or "curved")
  *          - direction (if curved, either "left" or "right")
- *          - offset (if curved, the amount of curve, which is pixel offset from a straight line
- *                    between the source and target at the midpoint)
+ *          - offset (if curved, the amount of curve, which is pixel offset
+ *            from a straight line between the source and target at the
+ *            midpoint)
  *      e.g.
  *          {
  *            "AMST--BOST": {
@@ -41,19 +53,20 @@ import BaseMap from "./map-base";
  *  callbacks:
  *
  *  handleSelectionChange(selectionType, selection):
- *      will be called when the use selects an object in the map, be it a node or a link
+ *      will be called when the use selects an object in the map, be it a node
+ *      or a link
  *
  */
 
 export default React.createClass({
 
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             edgeThinknessMap: {
                 "100G": 5,
                 "10G": 3,
                 "1G": 1.5,
-                "subG": 1
+                subG: 1
             },
             edgeColorMap: [],
             nodeSizeMap: {},
@@ -105,7 +118,7 @@ export default React.createClass({
         return offset;
     },
 
-    _selectEdgeColor: function(bps) {
+    _selectEdgeColor(bps) {
         const gbps = bps / 1.0e9;
         for (let i = 0; i < this.props.edgeColorMap.length; i++) {
             const row = this.props.edgeColorMap[i];
@@ -116,14 +129,15 @@ export default React.createClass({
         return "#C9CACC";
     },
 
-    _normalizedTopology: function() {
+    _normalizedTopology() {
         let topology = {};
 
         if (_.isNull(this.props.topology)) {
             return null;
         }
 
-        // Extents of the raw topology for scaling into width and height of the map
+        // Extents of the raw topology for scaling into width
+        // and height of the map
         const minX = _.min(this.props.topology.nodes, node => node.x).x;
         const minY = _.min(this.props.topology.nodes, node => node.y).y;
         let maxX = _.max(this.props.topology.nodes, node => node.x).x;
@@ -170,10 +184,14 @@ export default React.createClass({
             _.each(topology.edges, edge => {
                 const sourceTargetName = `${edge.source}--${edge.target}`;
                 const targetSourceName = `${edge.target}--${edge.source}`;
-                const sourceTargetTraffic = this.props.traffic.get(sourceTargetName);
-                const targetSourceTraffic = this.props.traffic.get(targetSourceName);
-                edge.sourceTargetColor = this._selectEdgeColor(sourceTargetTraffic);
-                edge.targetSourceColor = this._selectEdgeColor(targetSourceTraffic);
+                const sourceTargetTraffic =
+                    this.props.traffic.get(sourceTargetName);
+                const targetSourceTraffic =
+                    this.props.traffic.get(targetSourceName);
+                edge.sourceTargetColor =
+                    this._selectEdgeColor(sourceTargetTraffic);
+                edge.targetSourceColor =
+                    this._selectEdgeColor(targetSourceTraffic);
             });
         }
 
@@ -183,23 +201,23 @@ export default React.createClass({
         return topology;
     },
 
-    _handleSelectionChanged: function(selectionType, selection) {
+    _handleSelectionChanged(selectionType, selection) {
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange(selectionType, selection);
         }
     },
 
-    render: function() {
+    render() {
         const topo = this._normalizedTopology();
         return (
-            <BaseMap topology={topo}
-                     width={this.props.width}
-                     height={this.props.height}
-                     margin={this.props.margin}
-                     selection={this.props.selection}
-                     edgeDrawingMethod={"bidirectionalArrow"}
-                     onSelectionChange={this._handleSelectionChanged} />
+            <BaseMap
+                topology={topo}
+                width={this.props.width}
+                height={this.props.height}
+                margin={this.props.margin}
+                selection={this.props.selection}
+                edgeDrawingMethod={"bidirectionalArrow"}
+                onSelectionChange={this._handleSelectionChanged} />
         );
     }
 });
-

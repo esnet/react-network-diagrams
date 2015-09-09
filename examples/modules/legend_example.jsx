@@ -1,7 +1,17 @@
+/**
+ *  Copyright (c) 2015, The Regents of the University of California,
+ *  through Lawrence Berkeley National Laboratory (subject to receipt
+ *  of any required approvals from the U.S. Dept. of Energy).
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree.
+ */
+
 import React from "react";
 import _ from "underscore";
 
-import MapLegend from "../../lib/components/map-legend";
+import MapLegend from "../../src/map-legend";
 
 //
 // Legend example
@@ -9,29 +19,29 @@ import MapLegend from "../../lib/components/map-legend";
 
 export default React.createClass({
 
-    getInitialState: function() {
+    getInitialState() {
         return {
             selectionType: null,
             selection: null
-        }
+        };
     },
 
-    handleSelectionChanged: function(selectionType, selection) {
+    handleSelectionChanged(selectionType, selection) {
         this.setState({
-            "selectionType": selectionType,
-            "selection": selection
+            selectionType: selectionType,
+            selection: selection
         });
     },
 
-    render: function() {
+    render() {
         const trafficLegendData = [
-            {"color": "#990000", "label": "50+ Gbps", "range": [50, 100]},
-            {"color": "#bd0026", "label": "20 - 50", "range": [20, 50]},
-            {"color": "#cc4c02", "label": "10 - 20", "range": [10, 20]},
-            {"color": "#016c59", "label": "5 - 10", "range": [5, 10]},
-            {"color": "#238b45", "label": "2 - 5", "range": [2, 5]},
-            {"color": "#3690c0", "label": "1 - 2", "range": [1, 2]},
-            {"color": "#74a9cf", "label": "0 - 1", "range": [0, 1]}
+            {color: "#990000", label: "50+ Gbps", range: [50, 100]},
+            {color: "#bd0026", label: "20 - 50", range: [20, 50]},
+            {color: "#cc4c02", label: "10 - 20", range: [10, 20]},
+            {color: "#016c59", label: "5 - 10", range: [5, 10]},
+            {color: "#238b45", label: "2 - 5", range: [2, 5]},
+            {color: "#3690c0", label: "1 - 2", range: [1, 2]},
+            {color: "#74a9cf", label: "0 - 1", range: [0, 1]}
         ];
         const capacityMap = {
             "100 Gbps": 7,
@@ -40,33 +50,33 @@ export default React.createClass({
             "1 Gbps": 0.5
         };
         const nodeLegendData = [
-            {"color": "#B0B0B0", "label": "Site", "classed": "esnet_site", "radius": 8},
-            {"color": "#CBCBCB", "label": "Hub", "classed": "hub", "radius": 7}
+            {color: "#B0B0B0", label: "Site", classed: "esnet_site", radius: 8},
+            {color: "#CBCBCB", label: "Hub", classed: "hub", radius: 7}
         ];
 
-        const edgeTypes = _.map(capacityMap, function(width, name) {
+        const edgeTypes = _.map(capacityMap, (width, name) => {
             let label = name;
             return {
-                "text": label,
-                "strokeWidth": width
+                text: label,
+                strokeWidth: width
             };
         });
 
-        const colorSwatches = _.map(trafficLegendData, function(color) {
+        const colorSwatches = _.map(trafficLegendData, (color) => {
             return {
-                "text": color.label,
-                "stroke": color.color,
-                "fill": color.color
+                text: color.label,
+                stroke: color.color,
+                fill: color.color
             };
         });
 
-        const nodeTypes = _.map(nodeLegendData, function(nodeInfo) {
+        const nodeTypes = _.map(nodeLegendData, (nodeInfo) => {
             return {
-                "text": nodeInfo.label,
-                "stroke": nodeInfo.color,
-                "fill": nodeInfo.color,
-                "radius": nodeInfo.radius,
-                "classed": nodeInfo.classed
+                text: nodeInfo.label,
+                stroke: nodeInfo.color,
+                fill: nodeInfo.color,
+                radius: nodeInfo.radius,
+                classed: nodeInfo.classed
             };
         });
 

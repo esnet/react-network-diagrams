@@ -1,5 +1,15 @@
+/**
+ *  Copyright (c) 2015, The Regents of the University of California,
+ *  through Lawrence Berkeley National Laboratory (subject to receipt
+ *  of any required approvals from the U.S. Dept. of Energy).
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree.
+ */
+
 module.exports = {
-    BaseMap: require("./build/npm/lib/map-base.js"),
-    TrafficMap: require("./build/npm/lib/traffic-map.js"),
-    MapLegend: require("./build/npm/lib/map-legend.js")
-}
+    BaseMap: require("./lib/map-base.js"),
+    TrafficMap: require("./lib/traffic-map.js"),
+    MapLegend: require("./lib/map-legend.js")
+};

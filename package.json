@@ -16,6 +16,7 @@
     "test": "npm run lint",
     "test-only": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf lib/* && babel src --optional runtime --stage 0 --out-dir lib",
+    "build-website": "webpack --config webpack.examples.config.js",
     "start-website": "webpack-dev-server  --config webpack.examples.config.js"
   },
   "license": "BSD-3-Clause-LBNL",

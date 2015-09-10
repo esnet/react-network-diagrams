@@ -33,7 +33,7 @@ export default React.createClass({
                         <img style={{"float": "right"}} className="main-image" src={logo.src} width={80}/>
                     </div>
                     <div className="col-md-10">
-                        <h2>ESnet React Maps Library</h2>
+                        <h2>ESnet React Network Diagrams</h2>
                     </div>
                 </div>
 

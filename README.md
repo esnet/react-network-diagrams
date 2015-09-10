@@ -1,5 +1,5 @@
-React Network Diagrams [![Build Status](https://travis-ci.org/esnet/react-network-diagrams.svg?branch=master)](https://travis-ci.org/esnet/react-network-diagrams)
-======
+# React Network Diagrams [![Build Status](https://travis-ci.org/esnet/react-network-diagrams.svg?branch=master)](https://travis-ci.org/esnet/react-network-diagrams)
+
 
 This repository contains an initial set of React based mapping components which are used within the ESnet Portal, but are not tied to ESnet, or even to network visualization. In the future it will also contain our circuit diagram rendering code.
 

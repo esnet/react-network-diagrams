@@ -9,6 +9,9 @@
  */
 
 import React from "react";
+import Markdown from "react-markdown-el";
+
+const text = require("raw!../../README.md");
 
 export default React.createClass({
 
@@ -17,27 +20,7 @@ export default React.createClass({
             <div>
                 <div className="row">
                     <div className="col-md-12">
-                        <h3>Introduction</h3>
-                    </div>
-                </div>
-
-                <div className="row">
-                    <div className="col-md-12">
-                    The Maps library is used by the ESnet Portal to
-                    display subway style weather maps of the
-                    current state of the ESnet network.
-
-                    <p />
-
-                    Main features:
-
-                    <ul>
-                        <li>Low level pieces, such as edges and nodes</li>
-                        <li>Higher level map topology builder</li>
-                        <li>Network traffic and route mapping</li>
-                        <li>Legends</li>
-                    </ul>
-
+                        <Markdown text={text}/>
                     </div>
                 </div>
             </div>

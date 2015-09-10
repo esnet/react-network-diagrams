@@ -11,8 +11,10 @@
 import React from "react";
 import _ from "underscore";
 import {Event} from "@esnet/pond";
-
 import TrafficMap from "../../src/traffic-map";
+
+import Markdown from "react-markdown-el";
+const text = require("raw!../markdown/trafficmap.md");
 
 // Test data
 import topo from "../data/portal_topo.json";
@@ -185,6 +187,15 @@ export default React.createClass({
                             onSelectionChange={this.handleSelectionChanged} />
                     </div>
                 </div>
+
+                <hr />
+
+                <div className="row">
+                    <div className="col-md-12">
+                        <Markdown text={text} />
+                    </div>
+                </div>
+
             </div>
         );
     }

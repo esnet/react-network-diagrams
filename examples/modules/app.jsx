@@ -33,7 +33,7 @@ export default React.createClass({
                         <img style={{"float": "right"}} className="main-image" src={logo.src} width={80}/>
                     </div>
                     <div className="col-md-10">
-                        <h2>ESnet React Maps Library</h2>
+                        <h2>ESnet React Network Diagrams</h2>
                     </div>
                 </div>
 
@@ -46,8 +46,11 @@ export default React.createClass({
                             <ul className="docs-sidenav nav">
                                 <li><Link to="intro">Introduction</Link></li>
                                 <hr />
-                                <li><Link to="legend">Map Legend</Link></li>
+                                Examples:
                                 <li><Link to="trafficmap">Traffic Map</Link></li>
+                                <hr />
+                                Extras:
+                                <li><Link to="legend">Map Legend</Link></li>
                             </ul>
                         </div>
                     </div>

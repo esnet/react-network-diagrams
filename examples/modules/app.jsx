@@ -19,18 +19,20 @@ logo.src = require("../img/logo.png");
 
 export default React.createClass({
 
-    render: function() {
+    render: function () {
         const sidebarStyle = {
-            "borderRightStyle": "solid",
-            "borderRightColor": "#ddd",
-            "borderRightWidth": 1
+            borderRightStyle: "solid",
+            borderRightColor: "#ddd",
+            borderRightWidth: 1
         };
 
         return (
             <div>
                 <div className="row">
                     <div className="col-md-2">
-                        <img style={{"float": "right"}} className="main-image" src={logo.src} width={80}/>
+                        <img style={{"float": "right"}}
+                             className="main-image"
+                             src={logo.src} width={80}/>
                     </div>
                     <div className="col-md-10">
                         <h2>ESnet React Network Diagrams</h2>
@@ -45,12 +47,30 @@ export default React.createClass({
                         <div className="docs-sidebar">
                             <ul className="docs-sidenav nav">
                                 <li><Link to="intro">Introduction</Link></li>
+
                                 <hr />
+
                                 Examples:
                                 <li><Link to="trafficmap">Traffic Map</Link></li>
+
                                 <hr />
+
                                 Extras:
                                 <li><Link to="legend">Map Legend</Link></li>
+
+                                <hr />
+
+                                Links:
+                                <li><a href="https://github.com/esnet/react-network-diagrams/">GitHub</a></li>
+                                <li><a href="https://www.es.net/">ESnet</a></li>
+                                <li><a href="http://software.es.net/">Open Source</a></li>
+
+                                <hr />
+
+                                Related Projects:
+                                <li><a href="http://software.es.net/pond/">Pond</a></li>
+                                <li><a href="http://software.es.net/react-timeseries-charts">Timeseries Charts</a></li>
+
                             </ul>
                         </div>
                     </div>

@@ -21491,9 +21491,9 @@
 
 	    render: function render() {
 	        var sidebarStyle = {
-	            "borderRightStyle": "solid",
-	            "borderRightColor": "#ddd",
-	            "borderRightWidth": 1
+	            borderRightStyle: "solid",
+	            borderRightColor: "#ddd",
+	            borderRightWidth: 1
 	        };
 
 	        return _react2["default"].createElement(
@@ -21505,7 +21505,9 @@
 	                _react2["default"].createElement(
 	                    "div",
 	                    { className: "col-md-2" },
-	                    _react2["default"].createElement("img", { style: { "float": "right" }, className: "main-image", src: logo.src, width: 80 })
+	                    _react2["default"].createElement("img", { style: { "float": "right" },
+	                        className: "main-image",
+	                        src: logo.src, width: 80 })
 	                ),
 	                _react2["default"].createElement(
 	                    "div",
@@ -21560,6 +21562,55 @@
 	                                    { to: "legend" },
 	                                    "Map Legend"
 	                                )
+	                            ),
+	                            _react2["default"].createElement("hr", null),
+	                            "Links:",
+	                            _react2["default"].createElement(
+	                                "li",
+	                                null,
+	                                _react2["default"].createElement(
+	                                    "a",
+	                                    { href: "https://github.com/esnet/react-network-diagrams/" },
+	                                    "GitHub"
+	                                )
+	                            ),
+	                            _react2["default"].createElement(
+	                                "li",
+	                                null,
+	                                _react2["default"].createElement(
+	                                    "a",
+	                                    { href: "https://www.es.net/" },
+	                                    "ESnet"
+	                                )
+	                            ),
+	                            _react2["default"].createElement(
+	                                "li",
+	                                null,
+	                                _react2["default"].createElement(
+	                                    "a",
+	                                    { href: "http://software.es.net/" },
+	                                    "Open Source"
+	                                )
+	                            ),
+	                            _react2["default"].createElement("hr", null),
+	                            "Related Projects:",
+	                            _react2["default"].createElement(
+	                                "li",
+	                                null,
+	                                _react2["default"].createElement(
+	                                    "a",
+	                                    { href: "http://software.es.net/pond/" },
+	                                    "Pond"
+	                                )
+	                            ),
+	                            _react2["default"].createElement(
+	                                "li",
+	                                null,
+	                                _react2["default"].createElement(
+	                                    "a",
+	                                    { href: "http://software.es.net/react-timeseries-charts" },
+	                                    "Timeseries Charts"
+	                                )
 	                            )
 	                        )
 	                    )
@@ -21589,8 +21640,8 @@
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/pmurphy/Code/react-network-diagrams/node_modules/css-loader/index.js!/Users/pmurphy/Code/react-network-diagrams/examples/styles/app.css", function() {
-			var newContent = require("!!/Users/pmurphy/Code/react-network-diagrams/node_modules/css-loader/index.js!/Users/pmurphy/Code/react-network-diagrams/examples/styles/app.css");
+		module.hot.accept("!!/Users/jdugan/projects/react-network-diagrams/node_modules/css-loader/index.js!/Users/jdugan/projects/react-network-diagrams/examples/styles/app.css", function() {
+			var newContent = require("!!/Users/jdugan/projects/react-network-diagrams/node_modules/css-loader/index.js!/Users/jdugan/projects/react-network-diagrams/examples/styles/app.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -38537,7 +38588,11 @@
 	  g.regeneratorRuntime = oldRuntime;
 	} else {
 	  // Remove the global property added by runtime.js.
-	  delete g.regeneratorRuntime;
+	  try {
+	    delete g.regeneratorRuntime;
+	  } catch (e) {
+	    g.regeneratorRuntime = undefined;
+	  }
 	}
 
 	module.exports = { "default": module.exports, __esModule: true };
@@ -45769,7 +45824,7 @@
 		],
 		"paths": [],
 		"resource_uri": "/api/v1/map_topology/routed_toplevel/"
-	}
+	};
 
 /***/ },
 /* 435 */
@@ -48430,7 +48485,7 @@
 		"paths": {},
 		"resource_uri": "/api/v1/map_topology_data/routed_toplevel/",
 		"timestamp": 1431649302
-	}
+	};
 
 /***/ },
 /* 436 */

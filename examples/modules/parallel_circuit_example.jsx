@@ -11,9 +11,38 @@
 import React from "react";
 import _ from "underscore";
 import Markdown from "react-markdown-el";
+import ParallelCircuit from "../../src/circuit-diagram-parallel";
+import circuit from "../data/parallel_circuit.json";
 
 export default React.createClass({
+
+    getInitialState() {
+        return {
+            "circuitTypes": {
+                "1": "ESnet Optical",
+                "2": "Leased Circuit",
+                "3": "Dark Fiber",
+                "4": "Equipment-Equipment",
+                "5": "Cross-Connect",
+                "7": "Backplane Mate",
+            },
+            "couplerTypes": {
+                "6": "Panel Coupler",
+            },
+            "endpointTypes": {
+                "1": "Patch Panel",
+                "2": "Equipment Port",
+                "3": "Foreign"
+            },
+        };
+    },
+
     render() {
+
+        let d = false;
+        let groupedByCircuitId = null;
+        let h = false;
+
         return (
             <div>
                 <div className="row">
@@ -24,7 +53,14 @@ export default React.createClass({
 
                 <div className="row">
                     <div className="col-md-12">
-                        Example here
+                        <ParallelCircuit circuit={circuit}
+                                         parentId={groupedByCircuitId}
+                                         branches={circuit.group_members}
+                                         disabled={d}
+                                         hideTitle={h}
+                                         circuitTypes={this.state.circuitTypes}
+                                         couplerTypes={this.state.couplerTypes}
+                                         endpointTypes={this.state.endpointTypes}/>
                     </div>
                 </div>
             </div>

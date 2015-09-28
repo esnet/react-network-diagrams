@@ -1,63 +1,70 @@
 {
     "id": 611,
-    "url": "http://192.168.56.13:8000/esdb_api/v1/circuit/611/",
+    "url": "http://192.168.56.13:8000/esdb_api/v1/deep_circuit/611/",
     "circuit_id": "ESNET-Z00611",
-    "circuit_layer": 3,
-    "circuit_state": 4,
-    "circuit_type": 6,
-    "customer_of_record": null,
-    "dependents": [],
-    "depends_on": null,
     "description": "AMST-FDP:A-1/2",
+    "circuit_layer": 3,
+    "circuit_type": 6,
+    "circuit_state": 4,
     "details": {},
-    "endpoints": [
-        {
-            "id": 870,
-            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/870/",
-            "description": null,
-            "details": {},
-            "endpoint_type": 1,
-            "device_name": null,
-            "interface": null,
-            "foreign_description": null,
-            "organization": null,
-            "panel_name": "AMST-FDP",
-            "port_id": "A-1/2-SC",
-            "port_side": "BACK",
-            "port_location": 210,
-            "name": "AMST-HUB:AMST-FDP:A-1/2-SC:BACK"
-        },
-        {
-            "id": 869,
-            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/869/",
-            "description": null,
-            "details": {},
-            "endpoint_type": 1,
-            "device_name": null,
-            "interface": null,
-            "foreign_description": null,
-            "organization": null,
-            "panel_name": "AMST-FDP",
-            "port_id": "A-1/2-SC",
-            "port_side": "FRONT",
-            "port_location": 210,
-            "name": "AMST-HUB:AMST-FDP:A-1/2-SC:FRONT"
-        }
-    ],
-    "fiber_distance": null,
     "fiber_type": null,
-    "grouped_by": {
-        "type": null,
-        "circuit": null
-    },
-    "groups": {
-        "type": null,
-        "circuits": []
-    },
+    "fiber_distance": null,
     "identifier": null,
+    "wavelength": null,
     "light_levels": null,
-    "notepad": null,
-    "provider": null,
     "provider_circuit_id": null,
-    "wavelength": null
+    "customer_of_record": null,
+    "provider": null,
+    "notepad": null,
+    "last_state_change": 1442438247,
+    "object_events": {
+        "last_modified": {
+            "when": "2015-09-16T21:37:06.916Z",
+            "user": "esdb"
+        },
+        "created": {
+            "when": "2015-09-16T21:17:27.130Z",
+            "user": "esdb"
+        }
+    },
+    "endpoint_a": {
+        "id": 869,
+        "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/869/",
+        "description": null,
+        "details": {},
+        "endpoint_type": 1,
+        "device_name": null,
+        "interface": null,
+        "foreign_description": null,
+        "organization": null,
+        "panel_name": "AMST-FDP",
+        "port_id": "A-1/2-SC",
+        "port_side": "FRONT",
+        "port_location": {
+            "id": 210,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/location/210/",
+            "short_name": "AMST-HUB"
+        },
+        "name": "AMST-HUB:AMST-FDP:A-1/2-SC:FRONT"
+    },
+    "endpoint_z": {
+        "id": 870,
+        "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/870/",
+        "description": "",
+        "details": {},
+        "endpoint_type": 1,
+        "device_name": null,
+        "interface": null,
+        "foreign_description": null,
+        "organization": null,
+        "panel_name": "AMST-FDP",
+        "port_id": "A-1/2-SC",
+        "port_side": "BACK",
+        "port_location": {
+            "id": 210,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/location/210/",
+            "short_name": "AMST-HUB"
+        },
+        "name": "AMST-HUB:AMST-FDP:A-1/2-SC:BACK"
+    }
 }

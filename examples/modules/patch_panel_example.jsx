@@ -11,8 +11,11 @@
 import React from "react";
 import _ from "underscore";
 import Markdown from "react-markdown-el";
+import locationCouplers from "../data/empty_patch_panel.json";
+import LocationPanelDiagram from "../../src/location-diagram-panel";
 
 export default React.createClass({
+
     render() {
         return (
             <div>
@@ -24,7 +27,7 @@ export default React.createClass({
 
                 <div className="row">
                     <div className="col-md-12">
-                        Example here
+                        <LocationPanelDiagram couplers={locationCouplers}/>
                     </div>
                 </div>
             </div>

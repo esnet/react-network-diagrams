@@ -1,4 +1,14 @@
 /**
+ *  Copyright (c) 2015, The Regents of the University of California,
+ *  through Lawrence Berkeley National Laboratory (subject to receipt
+ *  of any required approvals from the U.S. Dept. of Energy).
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree.
+ */
+
+/**
  * A component for drawing a parallel circuit.
  *
  * The parallel component takes a 'circuit' prop, in addition to a
@@ -10,26 +20,24 @@
 
 "use strict";
 
-var React = require("react");
-var _ = require("underscore");
-var util = require("util");
+import React from "react";
+import _ from "underscore";
 
-var Constants = require("../../constants/esnet-esdb-constants.js");
-var Endpoint = require("./circuit-diagram-endpoint.jsx");
-var Connection = require("./circuit-diagram-connection.jsx");
-var Navigate = require("./circuit-diagram-navigate.jsx");
+import Constants from "./constants.js";
+import Endpoint from "./circuit-diagram-endpoint.jsx";
+import Connection from "./circuit-diagram-connection.jsx";
+import Navigate from "./circuit-diagram-navigate.jsx";
+import "../examples/styles/circuit.css";
 
-var {Directions} = Constants;
+let {Directions} = Constants;
 
-//These are nominal sizes for the circuit
-var CIRCUIT_WIDTH = 851;
-var CIRCUIT_HEIGHT = 200;
+// These are nominal sizes for the circuit
+let CIRCUIT_WIDTH = 851;
+let CIRCUIT_HEIGHT = 200;
 
-var ParallelCircuit = React.createClass({
+export default React.createClass({
 
-    displayName: "ParallelCircuit",
-
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             disabled: false,
             width: CIRCUIT_WIDTH,
@@ -40,7 +48,7 @@ var ParallelCircuit = React.createClass({
         };
     },
 
-    renderCircuitTitle: function(title) {
+    renderCircuitTitle(title) {
         if (!this.props.hideTitle) {
             return (
                 <text className="esdb-circuit-title" key="circuit-title"
@@ -55,10 +63,9 @@ var ParallelCircuit = React.createClass({
                 </text>
             );
         }
-        
     },
 
-    renderParentNavigation: function(parentId) {
+    renderParentNavigation(parentId) {
         if (parentId) {
             return (
                 <Navigate direction={Directions.NORTH} ypos={25} id={this.props.parentId} />
@@ -68,7 +75,7 @@ var ParallelCircuit = React.createClass({
         }
     },
 
-    renderDisabledOverlay: function(disabled) {
+    renderDisabledOverlay(disabled) {
         if (disabled) {
             return (
                 <rect className="esdb-circuit-overlay"
@@ -80,37 +87,35 @@ var ParallelCircuit = React.createClass({
         }
     },
 
-    renderCircuitElements: function(branches, a, z) {
-        var self = this;
-        
-        var numBranches = branches.length;
-        var width = this.props.width - this.props.margin * 2;
-        var x = this.props.margin;
-        var y = this.props.height/2;
-        var transform = "translate(" + x + " " + y + ")";
+    renderCircuitElements(branches, a, z) {
+        let numBranches = branches.length;
+        let width = this.props.width - this.props.margin * 2;
+        let x = this.props.margin;
+        let y = this.props.height / 2;
+        let transform = "translate(" + x + " " + y + ")";
 
-        var elements = [];
-        var offset = 0;
+        let elements = [];
+        let offset = 0;
 
-        //Push the two end points for the main circuit
+        // Push the two end points for the main circuit
         elements.push(<Endpoint key="a" width={width} position={0} label={a.name} />);
-        elements.push(<Endpoint key="z" width={width} position={1} label={z.name}/>);
+        elements.push(<Endpoint key="z" width={width} position={width} label={z.name}/>);
 
-        //Push all the branch connections
+        // Push all the branch connections
         if (numBranches > 0) {
-            offset = -(numBranches-1)*0.5 - 1;
-            _.each(branches, function(circuit) {
+            offset = -(numBranches - 1) * 0.5 - 1;
+            _.each(branches, circuit => {
                 offset += 1;
                 elements.push(
                     <Connection width={width}
                                 key={circuit.id}
                                 circuit={circuit}
-                                circuitTypes={self.props.circuitTypes}
+                                circuitTypes={this.props.circuitTypes}
                                 offset={offset}/>
                 );
             });
         } else {
-            //Placeholder
+            // Placeholder
             elements.push(<Connection width={width} key="placeholder-top" placeholder offset={0.25}/>);
             elements.push(<Connection width={width} key="placeholder-bottom" placeholder offset={-0.25}/>);
         }
@@ -122,20 +127,20 @@ var ParallelCircuit = React.createClass({
         );
     },
 
-    render: function() {
-        var circuit = this.props.circuit;
-        var title = circuit["circuit_id"];
-        var branches = this.props.branches ? this.props.branches : [];
-        var endpointA = circuit["endpoint_a"];
-        var endpointZ = circuit["endpoint_z"];
+    render() {
+        let circuit = this.props.circuit;
+        let title = circuit["circuit_id"];
+        let branches = this.props.branches ? this.props.branches : [];
+        let endpointA = circuit["endpoint_a"];
+        let endpointZ = circuit["endpoint_z"];
 
-        var className = "esdb-circuit-container";
+        let className = "esdb-circuit-container";
         if (this.props.disabled) {
             className += " disabled";
         }
 
-        var viewBox = "0 0 " + CIRCUIT_WIDTH + " " + CIRCUIT_HEIGHT;
-        var svgStyle = {width: "100%", height: CIRCUIT_HEIGHT};
+        let viewBox = "0 0 " + CIRCUIT_WIDTH + " " + CIRCUIT_HEIGHT;
+        let svgStyle = {width: "100%", height: CIRCUIT_HEIGHT};
 
         return (
             <svg className={className} style={svgStyle}>
@@ -149,6 +154,3 @@ var ParallelCircuit = React.createClass({
         );
     }
 });
-
-// Exports
-module.exports = ParallelCircuit;

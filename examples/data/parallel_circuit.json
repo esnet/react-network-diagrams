@@ -1,0 +1,243 @@
+{
+    "id": 613,
+    "url": "http://192.168.56.13:8000/esdb_api/v1/deep_circuit/613/",
+    "circuit_id": "ESNET-Z00613",
+    "description": "Test Parallel 3",
+    "circuit_layer": 5,
+    "circuit_type": 4,
+    "circuit_state": 4,
+    "details": {},
+    "grouped_by": {
+        "type": null,
+        "circuit": null
+    },
+    "depends_on": null,
+    "dependents": [],
+    "fiber_type": null,
+    "fiber_distance": null,
+    "identifier": null,
+    "wavelength": null,
+    "light_levels": null,
+    "provider_circuit_id": null,
+    "customer_of_record": {
+        "id": 91,
+        "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+        "full_name": "Energy Sciences Network"
+    },
+    "provider": {
+        "id": 91,
+        "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+        "full_name": "Energy Sciences Network"
+    },
+    "notepad": null,
+    "last_state_change": 1442517859,
+    "object_events": {
+        "last_modified": {
+            "when": "2015-09-17T19:24:19.703Z",
+            "user": "esdb"
+        },
+        "created": {
+            "when": "2015-09-17T19:24:19.703Z",
+            "user": "esdb"
+        }
+    },
+    "endpoint_a": {
+        "id": 874,
+        "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/874/",
+        "description": null,
+        "details": {},
+        "endpoint_type": 2,
+        "device_name": "nersc-asw1",
+        "interface": "ae0.0",
+        "foreign_description": null,
+        "organization": null,
+        "panel_name": null,
+        "port_id": null,
+        "port_side": "Front",
+        "port_location": {
+            "id": 108,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/location/108/",
+            "short_name": "OSF-Campus"
+        },
+        "name": "nersc-asw1:ae0.0"
+    },
+    "endpoint_z": {
+        "id": 873,
+        "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/873/",
+        "description": "",
+        "details": {},
+        "endpoint_type": 2,
+        "device_name": "nersc-ssw1",
+        "interface": "ae1",
+        "foreign_description": null,
+        "organization": null,
+        "panel_name": null,
+        "port_id": null,
+        "port_side": "Front",
+        "port_location": {
+            "id": 108,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/location/108/",
+            "short_name": "OSF-Campus"
+        },
+        "name": "nersc-ssw1:ae1"
+    },
+    "group_members": [
+        {
+            "id": 611,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/deep_circuit/611/",
+            "circuit_id": "ESNET-Z00611",
+            "description": "Test Parallel 1",
+            "circuit_layer": 2,
+            "circuit_type": 4,
+            "circuit_state": 4,
+            "details": {},
+            "fiber_type": null,
+            "fiber_distance": null,
+            "identifier": null,
+            "wavelength": null,
+            "light_levels": null,
+            "provider_circuit_id": null,
+            "customer_of_record": {
+                "id": 91,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+                "full_name": "Energy Sciences Network"
+            },
+            "provider": {
+                "id": 91,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+                "full_name": "Energy Sciences Network"
+            },
+            "notepad": null,
+            "last_state_change": 1442517511,
+            "object_events": {
+                "last_modified": {
+                    "when": "2015-09-17T19:24:19.703Z",
+                    "user": "esdb"
+                },
+                "created": {
+                    "when": "2015-09-17T19:18:31.798Z",
+                    "user": "esdb"
+                }
+            },
+            "endpoint_a": {
+                "id": 870,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/870/",
+                "description": null,
+                "details": {},
+                "endpoint_type": 2,
+                "device_name": "nersc-asw1",
+                "interface": "ge-0/0/1",
+                "foreign_description": null,
+                "organization": null,
+                "panel_name": null,
+                "port_id": null,
+                "port_side": "Front",
+                "port_location": {
+                    "id": 108,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/location/108/",
+                    "short_name": "OSF-Campus"
+                },
+                "name": "nersc-asw1:ge-0/0/1"
+            },
+            "endpoint_z": {
+                "id": 869,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/869/",
+                "description": null,
+                "details": {},
+                "endpoint_type": 2,
+                "device_name": "nersc-ssw1",
+                "interface": "gi0/1",
+                "foreign_description": null,
+                "organization": null,
+                "panel_name": null,
+                "port_id": "",
+                "port_side": "Front",
+                "port_location": {
+                    "id": 108,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/location/108/",
+                    "short_name": "OSF-Campus"
+                },
+                "name": "nersc-ssw1:gi0/1"
+            }
+        },
+        {
+            "id": 612,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/deep_circuit/612/",
+            "circuit_id": "ESNET-Z00612",
+            "description": "Test Parallel 2",
+            "circuit_layer": 4,
+            "circuit_type": 4,
+            "circuit_state": 4,
+            "details": {},
+            "fiber_type": null,
+            "fiber_distance": null,
+            "identifier": null,
+            "wavelength": null,
+            "light_levels": null,
+            "provider_circuit_id": null,
+            "customer_of_record": {
+                "id": 91,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+                "full_name": "Energy Sciences Network"
+            },
+            "provider": {
+                "id": 91,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+                "full_name": "Energy Sciences Network"
+            },
+            "notepad": null,
+            "last_state_change": 1442517701,
+            "object_events": {
+                "last_modified": {
+                    "when": "2015-09-17T19:24:19.703Z",
+                    "user": "esdb"
+                },
+                "created": {
+                    "when": "2015-09-17T19:21:41.161Z",
+                    "user": "esdb"
+                }
+            },
+            "endpoint_a": {
+                "id": 872,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/872/",
+                "description": null,
+                "details": {},
+                "endpoint_type": 2,
+                "device_name": "nersc-asw1",
+                "interface": "ge-0/0/2",
+                "foreign_description": null,
+                "organization": null,
+                "panel_name": null,
+                "port_id": null,
+                "port_side": "Front",
+                "port_location": {
+                    "id": 108,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/location/108/",
+                    "short_name": "OSF-Campus"
+                },
+                "name": "nersc-asw1:ge-0/0/2"
+            },
+            "endpoint_z": {
+                "id": 871,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/871/",
+                "description": null,
+                "details": {},
+                "endpoint_type": 2,
+                "device_name": "nersc-ssw1",
+                "interface": "gi0/2",
+                "foreign_description": null,
+                "organization": null,
+                "panel_name": "",
+                "port_id": null,
+                "port_side": "Front",
+                "port_location": {
+                    "id": 108,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/location/108/",
+                    "short_name": "OSF-Campus"
+                },
+                "name": "nersc-ssw1:gi0/2"
+            }
+        }
+    ],
+    "group_type": "parallel"
+}

@@ -46,7 +46,16 @@ export default React.createClass({
                             <ul className="docs-sidenav nav">
                                 <li><Link to="intro">Introduction</Link></li>
                                 <hr />
-                                Examples:
+                                Circuit Examples:
+                                <li><Link to="basicCircuit">Basic</Link></li>
+                                <li><Link to="concatenatedCircuit">Concatenated</Link></li>
+                                <li><Link to="parallelCircuit">Parallel</Link></li>
+                                <li><Link to="couplerCircuit">Coupler</Link></li>
+                                <li><Link to="backplaneMate">Backplane Mate</Link></li>
+                                <li><Link to="panelCoupler">Panel Coupler</Link></li>
+                                <li><Link to="patchPanel">Patch Panel</Link></li>
+                                <hr />
+                                Map Examples:
                                 <li><Link to="trafficmap">Traffic Map</Link></li>
                                 <hr />
                                 Extras:

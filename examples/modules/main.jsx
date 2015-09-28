@@ -16,6 +16,14 @@ import Intro from "./intro";
 
 import MapLegendExample from "./legend_example";
 import TrafficMapExample from "./trafficmap_example";
+import BasicCircuitExample from "./basic_circuit_example";
+import ConcatenatedCircuitExample from "./concatenated_circuit_example";
+import ParallelCircuitExample from "./parallel_circuit_example";
+import CouplerCircuitExample from "./coupler_circuit_example";
+import BackplaneMateExample from "./backplane_mate_example";
+import PanelCouplerExample from "./panel_coupler_example";
+import PatchPanelExample from "./patch_panel_example";
+
 
 let {Route, DefaultRoute} = Router;
 
@@ -24,6 +32,13 @@ const routes = (
     <DefaultRoute name="intro" handler={Intro} />
     <Route name="legend" handler={MapLegendExample} />
     <Route name="trafficmap" handler={TrafficMapExample} />
+    <Route name="basicCircuit" handler={BasicCircuitExample} />
+    <Route name="concatenatedCircuit" handler={ConcatenatedCircuitExample} />
+    <Route name="parallelCircuit" handler={ParallelCircuitExample} />
+    <Route name="couplerCircuit" handler={CouplerCircuitExample} />
+    <Route name="backplaneMate" handler={BackplaneMateExample} />
+    <Route name="panelCoupler" handler={PanelCouplerExample} />
+    <Route name="patchPanel" handler={PatchPanelExample} />
   </Route>
 );
 

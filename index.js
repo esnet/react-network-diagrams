@@ -11,5 +11,8 @@
 module.exports = {
     BaseMap: require("./lib/map-base.js"),
     TrafficMap: require("./lib/traffic-map.js"),
-    MapLegend: require("./lib/map-legend.js")
+    MapLegend: require("./lib/map-legend.js"),
+    BasicCircuit: require("./lib/circuit-diagram-basic.js"),
+    ConcatenatedCircuit: require("./lib/circuit-diagram-concatenated.js"),
+    ParallelCircuit: require("./lib/circuit-diagram-parallel.js"),
 };

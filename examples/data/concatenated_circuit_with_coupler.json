@@ -1,0 +1,313 @@
+{
+    "id": 557,
+    "url": "http://192.168.56.13:8000/esdb_api/v1/deep_circuit/557/",
+    "circuit_id": "ESNET-Z00557",
+    "description": "AMST peering with Netherlight",
+    "circuit_layer": 6,
+    "circuit_type": 5,
+    "circuit_state": 4,
+    "details": {},
+    "grouped_by": {
+        "type": null,
+        "circuit": null
+    },
+    "depends_on": null,
+    "dependents": [],
+    "fiber_type": null,
+    "fiber_distance": null,
+    "identifier": null,
+    "wavelength": null,
+    "light_levels": null,
+    "provider_circuit_id": "ASD001N_MSP_ESNET_100G-001",
+    "customer_of_record": {
+        "id": 91,
+        "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+        "full_name": "Energy Sciences Network"
+    },
+    "provider": {
+        "id": 137,
+        "url": "http://192.168.56.13:8000/esdb_api/v1/organization/137/",
+        "full_name": "SURFnet/Netherlight"
+    },
+    "notepad": null,
+    "last_state_change": 1442438948,
+    "object_events": {
+        "last_modified": {
+            "when": "2015-09-16T21:37:06.916Z",
+            "user": "esdb"
+        },
+        "created": {
+            "when": "2015-04-08T20:21:38.315Z",
+            "user": "srichmond"
+        }
+    },
+    "endpoint_a": {
+        "id": 800,
+        "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/800/",
+        "description": null,
+        "details": {},
+        "endpoint_type": 2,
+        "device_name": "AMST-CR5",
+        "interface": "3/1/1",
+        "foreign_description": null,
+        "organization": null,
+        "panel_name": null,
+        "port_id": null,
+        "port_side": "FRONT",
+        "port_location": {
+            "id": 210,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/location/210/",
+            "short_name": "AMST-HUB"
+        },
+        "name": "AMST-CR5:3/1/1"
+    },
+    "endpoint_z": {
+        "id": 802,
+        "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/802/",
+        "description": "To Customer: Netherlight\nTo Cabinet location: S145\nTo Cabinet nr: AC11\nConnection information 2 (router): ODF18/38\nCable nr 2: 019113",
+        "details": {},
+        "endpoint_type": 3,
+        "device_name": null,
+        "interface": null,
+        "foreign_description": "S145-ODF18/38:Asd001A_8700_07:10/2",
+        "organization": {
+            "id": 137,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/organization/137/",
+            "full_name": "SURFnet/Netherlight"
+        },
+        "panel_name": null,
+        "port_id": null,
+        "port_side": "FRONT",
+        "port_location": null,
+        "name": "SURFNET:S145-ODF18/38:Asd001A_8700_07:10/2"
+    },
+    "group_members": [
+        {
+            "id": 555,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/deep_circuit/555/",
+            "circuit_id": "ESNET-Z00555",
+            "description": "SMF-28 Fiber Jumper - AMST-CR5 to Patch Panel",
+            "circuit_layer": 2,
+            "circuit_type": 5,
+            "circuit_state": 4,
+            "details": {},
+            "fiber_type": null,
+            "fiber_distance": null,
+            "identifier": null,
+            "wavelength": null,
+            "light_levels": null,
+            "provider_circuit_id": null,
+            "customer_of_record": {
+                "id": 91,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+                "full_name": "Energy Sciences Network"
+            },
+            "provider": {
+                "id": 91,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+                "full_name": "Energy Sciences Network"
+            },
+            "notepad": null,
+            "last_state_change": null,
+            "object_events": {
+                "last_modified": {
+                    "when": "2015-09-16T21:37:06.916Z",
+                    "user": "esdb"
+                },
+                "created": {
+                    "when": "2015-04-08T19:36:20.866Z",
+                    "user": "srichmond"
+                }
+            },
+            "endpoint_a": {
+                "id": 800,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/800/",
+                "description": null,
+                "details": {},
+                "endpoint_type": 2,
+                "device_name": "AMST-CR5",
+                "interface": "3/1/1",
+                "foreign_description": null,
+                "organization": null,
+                "panel_name": null,
+                "port_id": null,
+                "port_side": "FRONT",
+                "port_location": {
+                    "id": 210,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/location/210/",
+                    "short_name": "AMST-HUB"
+                },
+                "name": "AMST-CR5:3/1/1"
+            },
+            "endpoint_z": {
+                "id": 869,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/869/",
+                "description": null,
+                "details": {},
+                "endpoint_type": 1,
+                "device_name": null,
+                "interface": null,
+                "foreign_description": null,
+                "organization": null,
+                "panel_name": "AMST-FDP",
+                "port_id": "A-7/8-SC",
+                "port_side": "FRONT",
+                "port_location": {
+                    "id": 210,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/location/210/",
+                    "short_name": "AMST-HUB"
+                },
+                "name": "AMST-HUB:AMST-FDP:A-7/8-SC:FRONT"
+            }
+        },
+        {
+            "id": 611,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/deep_circuit/611/",
+            "circuit_id": "ESNET-Z00611",
+            "description": "AMST-FDP:A-7/8",
+            "circuit_layer": 3,
+            "circuit_type": 6,
+            "circuit_state": 4,
+            "details": {},
+            "fiber_type": null,
+            "fiber_distance": null,
+            "identifier": null,
+            "wavelength": null,
+            "light_levels": null,
+            "provider_circuit_id": null,
+            "customer_of_record": null,
+            "provider": null,
+            "notepad": null,
+            "last_state_change": 1442438247,
+            "object_events": {
+                "last_modified": {
+                    "when": "2015-09-16T21:37:06.916Z",
+                    "user": "esdb"
+                },
+                "created": {
+                    "when": "2015-09-16T21:17:27.130Z",
+                    "user": "esdb"
+                }
+            },
+            "endpoint_a": {
+                "id": 869,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/869/",
+                "description": null,
+                "details": {},
+                "endpoint_type": 1,
+                "device_name": null,
+                "interface": null,
+                "foreign_description": null,
+                "organization": null,
+                "panel_name": "AMST-FDP",
+                "port_id": "A-7/8-SC",
+                "port_side": "FRONT",
+                "port_location": {
+                    "id": 210,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/location/210/",
+                    "short_name": "AMST-HUB"
+                },
+                "name": "AMST-HUB:AMST-FDP:A-7/8-SC:FRONT"
+            },
+            "endpoint_z": {
+                "id": 870,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/870/",
+                "description": "",
+                "details": {},
+                "endpoint_type": 1,
+                "device_name": null,
+                "interface": null,
+                "foreign_description": null,
+                "organization": null,
+                "panel_name": "AMST-FDP",
+                "port_id": "A-7/8-SC",
+                "port_side": "BACK",
+                "port_location": {
+                    "id": 210,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/location/210/",
+                    "short_name": "AMST-HUB"
+                },
+                "name": "AMST-HUB:AMST-FDP:A-7/8-SC:BACK"
+            }
+        },
+        {
+            "id": 556,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/deep_circuit/556/",
+            "circuit_id": "ESNET-Z00556",
+            "description": "Vancis provided Cross-connect to Netherlight",
+            "circuit_layer": 2,
+            "circuit_type": 5,
+            "circuit_state": 4,
+            "details": {},
+            "fiber_type": null,
+            "fiber_distance": null,
+            "identifier": null,
+            "wavelength": null,
+            "light_levels": null,
+            "provider_circuit_id": "S120/AK73 - S150/K53(1)SM/01-24: Pair 10",
+            "customer_of_record": {
+                "id": 91,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+                "full_name": "Energy Sciences Network"
+            },
+            "provider": {
+                "id": 337,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/organization/337/",
+                "full_name": "Vancis Datacenter"
+            },
+            "notepad": null,
+            "last_state_change": 1428524310,
+            "object_events": {
+                "last_modified": {
+                    "when": "2015-09-16T21:37:06.916Z",
+                    "user": "esdb"
+                },
+                "created": {
+                    "when": "2015-04-08T20:14:12.631Z",
+                    "user": "srichmond"
+                }
+            },
+            "endpoint_a": {
+                "id": 870,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/870/",
+                "description": "",
+                "details": {},
+                "endpoint_type": 1,
+                "device_name": null,
+                "interface": null,
+                "foreign_description": null,
+                "organization": null,
+                "panel_name": "AMST-FDP",
+                "port_id": "A-7/8-SC",
+                "port_side": "BACK",
+                "port_location": {
+                    "id": 210,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/location/210/",
+                    "short_name": "AMST-HUB"
+                },
+                "name": "AMST-HUB:AMST-FDP:A-7/8-SC:BACK"
+            },
+            "endpoint_z": {
+                "id": 802,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/802/",
+                "description": "To Customer: Netherlight\nTo Cabinet location: S145\nTo Cabinet nr: AC11\nConnection information 2 (router): ODF18/38\nCable nr 2: 019113",
+                "details": {},
+                "endpoint_type": 3,
+                "device_name": null,
+                "interface": null,
+                "foreign_description": "S145-ODF18/38:Asd001A_8700_07:10/2",
+                "organization": {
+                    "id": 137,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/organization/137/",
+                    "full_name": "SURFnet/Netherlight"
+                },
+                "panel_name": null,
+                "port_id": null,
+                "port_side": "FRONT",
+                "port_location": null,
+                "name": "SURFNET:S145-ODF18/38:Asd001A_8700_07:10/2"
+            }
+        }
+    ],
+    "group_type": "concatenation"
+}

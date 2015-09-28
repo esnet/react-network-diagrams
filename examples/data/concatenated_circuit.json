@@ -1,0 +1,321 @@
+{
+    "id": 136,
+    "url": "http://192.168.56.13:8000/esdb_api/v1/deep_circuit/136/",
+    "circuit_id": "ESNET-Z00136",
+    "description": "ELPA-SUNN-100GE",
+    "circuit_layer": 6,
+    "circuit_type": 4,
+    "circuit_state": 4,
+    "details": {},
+    "grouped_by": {
+        "type": null,
+        "circuit": null
+    },
+    "depends_on": null,
+    "dependents": [],
+    "fiber_type": "Single-Mode Fiber",
+    "fiber_distance": null,
+    "identifier": null,
+    "wavelength": null,
+    "light_levels": null,
+    "provider_circuit_id": "",
+    "customer_of_record": {
+        "id": 91,
+        "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+        "full_name": "Energy Sciences Network"
+    },
+    "provider": {
+        "id": 34,
+        "url": "http://192.168.56.13:8000/esdb_api/v1/organization/34/",
+        "full_name": "Internet2"
+    },
+    "notepad": "acceptance testing complete 11/3/2012\r\nelpa-cr5 5/1/1 ->sunn-cr5:100ge:ip-a:show:na\r\n\r\nCiena Shelf#1 OCI slot 33, OCLD slot 34/35 Wave Chan 79/80\r\n\r\nsunn-cr5# show port 5/1/1       \r\n\r\n===============================================================================\r\nEthernet Interface\r\n===============================================================================\r\nDescription        : sunn-cr5->elpa-cr5:100ge:ip-a:show:na\r\nInterface          : 3/1/1                      Oper Speed       : 100 Gbps\r\nLink-level         : Ethernet                   Config Speed     : N/A\r\nAdmin State        : up                         Oper Duplex      : full\r\nOper State         : up                         Config Duplex    : N/A\r\nPhysical Link      : Yes                        MTU              : 9212",
+    "last_state_change": 1351065180,
+    "object_events": {
+        "last_modified": {
+            "when": "2015-03-17T21:59:30.111Z",
+            "user": "_migration"
+        },
+        "created": {
+            "when": "2015-03-17T21:59:30.111Z",
+            "user": "_migration"
+        }
+    },
+    "endpoint_a": {
+        "id": 270,
+        "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/270/",
+        "description": "",
+        "details": {},
+        "endpoint_type": 2,
+        "device_name": "ELPA-CR5",
+        "interface": "5/1/1",
+        "foreign_description": null,
+        "organization": null,
+        "panel_name": null,
+        "port_id": null,
+        "port_side": null,
+        "port_location": {
+            "id": 178,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/location/178/",
+            "short_name": "ELPA-HUB"
+        },
+        "name": "ELPA-CR5:5/1/1"
+    },
+    "endpoint_z": {
+        "id": 271,
+        "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/271/",
+        "description": "",
+        "details": {},
+        "endpoint_type": 2,
+        "device_name": "SUNN-CR5",
+        "interface": "5/1/1",
+        "foreign_description": null,
+        "organization": null,
+        "panel_name": null,
+        "port_id": null,
+        "port_side": null,
+        "port_location": {
+            "id": 165,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/location/165/",
+            "short_name": "SUNN-HUB"
+        },
+        "name": "SUNN-CR5:5/1/1"
+    },
+    "group_members": [
+        {
+            "id": 391,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/deep_circuit/391/",
+            "circuit_id": "ESNET-Z00391",
+            "description": "Fiber Jumper",
+            "circuit_layer": 3,
+            "circuit_type": 5,
+            "circuit_state": 4,
+            "details": {},
+            "fiber_type": null,
+            "fiber_distance": null,
+            "identifier": null,
+            "wavelength": null,
+            "light_levels": null,
+            "provider_circuit_id": null,
+            "customer_of_record": {
+                "id": 91,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+                "full_name": "Energy Sciences Network"
+            },
+            "provider": {
+                "id": 91,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+                "full_name": "Energy Sciences Network"
+            },
+            "notepad": null,
+            "last_state_change": 1426629395,
+            "object_events": {
+                "last_modified": {
+                    "when": "2015-07-02T04:33:22.786Z",
+                    "user": null
+                },
+                "created": {
+                    "when": "2015-03-17T21:56:37.370Z",
+                    "user": "_migration"
+                }
+            },
+            "endpoint_a": {
+                "id": 270,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/270/",
+                "description": "",
+                "details": {},
+                "endpoint_type": 2,
+                "device_name": "ELPA-CR5",
+                "interface": "5/1/1",
+                "foreign_description": null,
+                "organization": null,
+                "panel_name": null,
+                "port_id": null,
+                "port_side": null,
+                "port_location": {
+                    "id": 178,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/location/178/",
+                    "short_name": "ELPA-HUB"
+                },
+                "name": "ELPA-CR5:5/1/1"
+            },
+            "endpoint_z": {
+                "id": 461,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/461/",
+                "description": "",
+                "details": {},
+                "endpoint_type": 2,
+                "device_name": "ELPA-Ciena",
+                "interface": "ETH100G-2-16-1",
+                "foreign_description": null,
+                "organization": null,
+                "panel_name": null,
+                "port_id": null,
+                "port_side": null,
+                "port_location": {
+                    "id": 178,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/location/178/",
+                    "short_name": "ELPA-HUB"
+                },
+                "name": "ELPA-Ciena:ETH100G-2-16-1"
+            }
+        },
+        {
+            "id": 232,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/deep_circuit/232/",
+            "circuit_id": "ESNET-Z00232",
+            "description": "",
+            "circuit_layer": 3,
+            "circuit_type": 1,
+            "circuit_state": 4,
+            "details": {},
+            "fiber_type": "Single-Mode Fiber",
+            "fiber_distance": null,
+            "identifier": null,
+            "wavelength": null,
+            "light_levels": null,
+            "provider_circuit_id": "ESNET-ELPA-SUNN-100GE-07824",
+            "customer_of_record": {
+                "id": 91,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+                "full_name": "Energy Sciences Network"
+            },
+            "provider": {
+                "id": 34,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/organization/34/",
+                "full_name": "Internet2"
+            },
+            "notepad": null,
+            "last_state_change": 1426629304,
+            "object_events": {
+                "last_modified": {
+                    "when": "2015-07-02T04:34:09.875Z",
+                    "user": null
+                },
+                "created": {
+                    "when": "2015-03-17T21:56:37.370Z",
+                    "user": "_migration"
+                }
+            },
+            "endpoint_a": {
+                "id": 461,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/461/",
+                "description": "",
+                "details": {},
+                "endpoint_type": 2,
+                "device_name": "ELPA-Ciena",
+                "interface": "ETH100G-2-16-1",
+                "foreign_description": null,
+                "organization": null,
+                "panel_name": null,
+                "port_id": null,
+                "port_side": null,
+                "port_location": {
+                    "id": 178,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/location/178/",
+                    "short_name": "ELPA-HUB"
+                },
+                "name": "ELPA-Ciena:ETH100G-2-16-1"
+            },
+            "endpoint_z": {
+                "id": 462,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/462/",
+                "description": "",
+                "details": {},
+                "endpoint_type": 2,
+                "device_name": "SUNN-Ciena",
+                "interface": "ETH100G-2-21-1",
+                "foreign_description": null,
+                "organization": null,
+                "panel_name": null,
+                "port_id": null,
+                "port_side": null,
+                "port_location": {
+                    "id": 165,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/location/165/",
+                    "short_name": "SUNN-HUB"
+                },
+                "name": "SUNN-Ciena:ETH100G-2-21-1"
+            }
+        },
+        {
+            "id": 392,
+            "url": "http://192.168.56.13:8000/esdb_api/v1/deep_circuit/392/",
+            "circuit_id": "ESNET-Z00392",
+            "description": "Fiber Jumper",
+            "circuit_layer": 3,
+            "circuit_type": 5,
+            "circuit_state": 4,
+            "details": {},
+            "fiber_type": null,
+            "fiber_distance": null,
+            "identifier": null,
+            "wavelength": null,
+            "light_levels": null,
+            "provider_circuit_id": null,
+            "customer_of_record": {
+                "id": 91,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+                "full_name": "Energy Sciences Network"
+            },
+            "provider": {
+                "id": 91,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/organization/91/",
+                "full_name": "Energy Sciences Network"
+            },
+            "notepad": null,
+            "last_state_change": 1426629395,
+            "object_events": {
+                "last_modified": {
+                    "when": "2015-07-02T04:33:22.786Z",
+                    "user": null
+                },
+                "created": {
+                    "when": "2015-03-17T21:56:37.370Z",
+                    "user": "_migration"
+                }
+            },
+            "endpoint_a": {
+                "id": 462,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/462/",
+                "description": "",
+                "details": {},
+                "endpoint_type": 2,
+                "device_name": "SUNN-Ciena",
+                "interface": "ETH100G-2-21-1",
+                "foreign_description": null,
+                "organization": null,
+                "panel_name": null,
+                "port_id": null,
+                "port_side": null,
+                "port_location": {
+                    "id": 165,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/location/165/",
+                    "short_name": "SUNN-HUB"
+                },
+                "name": "SUNN-Ciena:ETH100G-2-21-1"
+            },
+            "endpoint_z": {
+                "id": 271,
+                "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/271/",
+                "description": "",
+                "details": {},
+                "endpoint_type": 2,
+                "device_name": "SUNN-CR5",
+                "interface": "5/1/1",
+                "foreign_description": null,
+                "organization": null,
+                "panel_name": null,
+                "port_id": null,
+                "port_side": null,
+                "port_location": {
+                    "id": 165,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/location/165/",
+                    "short_name": "SUNN-HUB"
+                },
+                "name": "SUNN-CR5:5/1/1"
+            }
+        }
+    ],
+    "group_type": "concatenation"
+}

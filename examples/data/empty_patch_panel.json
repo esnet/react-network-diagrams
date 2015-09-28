@@ -1,0 +1,764 @@
+{
+    "AMST-FDP": [
+        [
+            {
+                "panel": "AMST-FDP",
+                "couplerName": "A-1/2-SC",
+                "coupler": {
+                    "id": 611,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/circuit/611/",
+                    "circuit_id": "ESNET-Z00611",
+                    "description": "AMST-FDP:A-1/2",
+                    "circuit_type": 6,
+                    "circuit_state": 4,
+                    "endpoints": [
+                        {
+                            "id": 870,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/870/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "A-1/2-SC",
+                            "port_side": "BACK",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:A-1/2-SC:BACK"
+                        },
+                        {
+                            "id": 869,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/869/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "A-1/2-SC",
+                            "port_side": "FRONT",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:A-1/2-SC:FRONT"
+                        }
+                    ],
+                    "layer": 20,
+                    "layer_description": "Concatenated circuit",
+                    "customer_of_record": null,
+                    "provider": null,
+                    "provider_circuit_id": null,
+                    "dependents": [],
+                    "depends_on": null,
+                    "grouped_by": {
+                        "type": null,
+                        "circuit": null
+                    },
+                    "groups": {
+                        "type": null,
+                        "circuits": []
+                    }
+                },
+                "couplerFrontCircuit": null,
+                "couplerBackCircuit": null
+            },
+            {
+                "panel": "AMST-FDP",
+                "couplerName": "A-3/4-SC",
+                "coupler": {
+                    "id": 612,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/circuit/612/",
+                    "circuit_id": "ESNET-Z00612",
+                    "description": "AMST-FDP:A-3/4",
+                    "circuit_type": 6,
+                    "circuit_state": 4,
+                    "endpoints": [
+                        {
+                            "id": 872,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/872/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "A-3/4-SC",
+                            "port_side": "BACK",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:A-3/4-SC:BACK"
+                        },
+                        {
+                            "id": 871,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/871/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "A-3/4-SC",
+                            "port_side": "FRONT",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:A-3/4-SC:FRONT"
+                        }
+                    ],
+                    "layer": 20,
+                    "layer_description": "Concatenated circuit",
+                    "customer_of_record": null,
+                    "provider": null,
+                    "provider_circuit_id": null,
+                    "dependents": [],
+                    "depends_on": null,
+                    "grouped_by": {
+                        "type": null,
+                        "circuit": null
+                    },
+                    "groups": {
+                        "type": null,
+                        "circuits": []
+                    }
+                },
+                "couplerFrontCircuit": null,
+                "couplerBackCircuit": null
+            },
+            {
+                "panel": "AMST-FDP",
+                "couplerName": "A-5/6-SC",
+                "coupler": {
+                    "id": 613,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/circuit/613/",
+                    "circuit_id": "ESNET-Z00613",
+                    "description": "AMST-FDP:A-5/6",
+                    "circuit_type": 6,
+                    "circuit_state": 4,
+                    "endpoints": [
+                        {
+                            "id": 874,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/874/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "A-5/6-SC",
+                            "port_side": "BACK",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:A-5/6-SC:BACK"
+                        },
+                        {
+                            "id": 873,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/873/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "A-5/6-SC",
+                            "port_side": "FRONT",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:A-5/6-SC:FRONT"
+                        }
+                    ],
+                    "layer": 20,
+                    "layer_description": "Concatenated circuit",
+                    "customer_of_record": null,
+                    "provider": null,
+                    "provider_circuit_id": null,
+                    "dependents": [],
+                    "depends_on": null,
+                    "grouped_by": {
+                        "type": null,
+                        "circuit": null
+                    },
+                    "groups": {
+                        "type": null,
+                        "circuits": []
+                    }
+                },
+                "couplerFrontCircuit": null,
+                "couplerBackCircuit": null
+            },
+            {
+                "panel": "AMST-FDP",
+                "couplerName": "A-7/8-SC",
+                "coupler": {
+                    "id": 614,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/circuit/614/",
+                    "circuit_id": "ESNET-Z00614",
+                    "description": "AMST-FDP:A-7/8",
+                    "circuit_type": 6,
+                    "circuit_state": 4,
+                    "endpoints": [
+                        {
+                            "id": 876,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/876/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "A-7/8-SC",
+                            "port_side": "BACK",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:A-7/8-SC:BACK"
+                        },
+                        {
+                            "id": 875,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/875/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "A-7/8-SC",
+                            "port_side": "FRONT",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:A-7/8-SC:FRONT"
+                        }
+                    ],
+                    "layer": 20,
+                    "layer_description": "Concatenated circuit",
+                    "customer_of_record": null,
+                    "provider": null,
+                    "provider_circuit_id": null,
+                    "dependents": [],
+                    "depends_on": null,
+                    "grouped_by": {
+                        "type": null,
+                        "circuit": null
+                    },
+                    "groups": {
+                        "type": null,
+                        "circuits": []
+                    }
+                },
+                "couplerFrontCircuit": null,
+                "couplerBackCircuit": null
+            },
+            {
+                "panel": "AMST-FDP",
+                "couplerName": "A-9/10-SC",
+                "coupler": {
+                    "id": 615,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/circuit/615/",
+                    "circuit_id": "ESNET-Z00615",
+                    "description": "AMST-FDP:A-9/10",
+                    "circuit_type": 6,
+                    "circuit_state": 4,
+                    "endpoints": [
+                        {
+                            "id": 878,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/878/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "A-9/10-SC",
+                            "port_side": "BACK",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:A-9/10-SC:BACK"
+                        },
+                        {
+                            "id": 877,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/877/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "A-9/10-SC",
+                            "port_side": "FRONT",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:A-9/10-SC:FRONT"
+                        }
+                    ],
+                    "layer": 20,
+                    "layer_description": "Concatenated circuit",
+                    "customer_of_record": null,
+                    "provider": null,
+                    "provider_circuit_id": null,
+                    "dependents": [],
+                    "depends_on": null,
+                    "grouped_by": {
+                        "type": null,
+                        "circuit": null
+                    },
+                    "groups": {
+                        "type": null,
+                        "circuits": []
+                    }
+                },
+                "couplerFrontCircuit": null,
+                "couplerBackCircuit": null
+            },
+            {
+                "panel": "AMST-FDP",
+                "couplerName": "A-11/12-SC",
+                "coupler": {
+                    "id": 616,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/circuit/616/",
+                    "circuit_id": "ESNET-Z00616",
+                    "description": "AMST-FDP:A-11/12",
+                    "circuit_type": 6,
+                    "circuit_state": 4,
+                    "endpoints": [
+                        {
+                            "id": 880,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/880/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "A-11/12-SC",
+                            "port_side": "BACK",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:A-11/12-SC:BACK"
+                        },
+                        {
+                            "id": 879,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/879/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "A-11/12-SC",
+                            "port_side": "FRONT",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:A-11/12-SC:FRONT"
+                        }
+                    ],
+                    "layer": 20,
+                    "layer_description": "Concatenated circuit",
+                    "customer_of_record": null,
+                    "provider": null,
+                    "provider_circuit_id": null,
+                    "dependents": [],
+                    "depends_on": null,
+                    "grouped_by": {
+                        "type": null,
+                        "circuit": null
+                    },
+                    "groups": {
+                        "type": null,
+                        "circuits": []
+                    }
+                },
+                "couplerFrontCircuit": null,
+                "couplerBackCircuit": null
+            }
+        ],
+        [
+            {
+                "panel": "AMST-FDP",
+                "couplerName": "B-1/2-SC",
+                "coupler": {
+                    "id": 617,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/circuit/617/",
+                    "circuit_id": "ESNET-Z00617",
+                    "description": "AMST-FDP:B-1/2",
+                    "circuit_type": 6,
+                    "circuit_state": 4,
+                    "endpoints": [
+                        {
+                            "id": 882,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/882/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "B-1/2-SC",
+                            "port_side": "BACK",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:B-1/2-SC:BACK"
+                        },
+                        {
+                            "id": 881,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/881/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "B-1/2-SC",
+                            "port_side": "FRONT",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:B-1/2-SC:FRONT"
+                        }
+                    ],
+                    "layer": 20,
+                    "layer_description": "Concatenated circuit",
+                    "customer_of_record": null,
+                    "provider": null,
+                    "provider_circuit_id": null,
+                    "dependents": [],
+                    "depends_on": null,
+                    "grouped_by": {
+                        "type": null,
+                        "circuit": null
+                    },
+                    "groups": {
+                        "type": null,
+                        "circuits": []
+                    }
+                },
+                "couplerFrontCircuit": null,
+                "couplerBackCircuit": null
+            },
+            {
+                "panel": "AMST-FDP",
+                "couplerName": "B-3/4-SC",
+                "coupler": {
+                    "id": 618,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/circuit/618/",
+                    "circuit_id": "ESNET-Z00618",
+                    "description": "AMST-FDP:B-3/4",
+                    "circuit_type": 6,
+                    "circuit_state": 4,
+                    "endpoints": [
+                        {
+                            "id": 884,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/884/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "B-3/4-SC",
+                            "port_side": "BACK",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:B-3/4-SC:BACK"
+                        },
+                        {
+                            "id": 883,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/883/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "B-3/4-SC",
+                            "port_side": "FRONT",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:B-3/4-SC:FRONT"
+                        }
+                    ],
+                    "layer": 20,
+                    "layer_description": "Concatenated circuit",
+                    "customer_of_record": null,
+                    "provider": null,
+                    "provider_circuit_id": null,
+                    "dependents": [],
+                    "depends_on": null,
+                    "grouped_by": {
+                        "type": null,
+                        "circuit": null
+                    },
+                    "groups": {
+                        "type": null,
+                        "circuits": []
+                    }
+                },
+                "couplerFrontCircuit": null,
+                "couplerBackCircuit": null
+            },
+            {
+                "panel": "AMST-FDP",
+                "couplerName": "B-5/6-SC",
+                "coupler": {
+                    "id": 619,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/circuit/619/",
+                    "circuit_id": "ESNET-Z00619",
+                    "description": "AMST-FDP:B-5/6",
+                    "circuit_type": 6,
+                    "circuit_state": 4,
+                    "endpoints": [
+                        {
+                            "id": 886,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/886/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "B-5/6-SC",
+                            "port_side": "BACK",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:B-5/6-SC:BACK"
+                        },
+                        {
+                            "id": 885,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/885/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "B-5/6-SC",
+                            "port_side": "FRONT",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:B-5/6-SC:FRONT"
+                        }
+                    ],
+                    "layer": 20,
+                    "layer_description": "Concatenated circuit",
+                    "customer_of_record": null,
+                    "provider": null,
+                    "provider_circuit_id": null,
+                    "dependents": [],
+                    "depends_on": null,
+                    "grouped_by": {
+                        "type": null,
+                        "circuit": null
+                    },
+                    "groups": {
+                        "type": null,
+                        "circuits": []
+                    }
+                },
+                "couplerFrontCircuit": null,
+                "couplerBackCircuit": null
+            },
+            {
+                "panel": "AMST-FDP",
+                "couplerName": "B-7/8-SC",
+                "coupler": {
+                    "id": 620,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/circuit/620/",
+                    "circuit_id": "ESNET-Z00620",
+                    "description": "AMST-FDP:B-7/8",
+                    "circuit_type": 6,
+                    "circuit_state": 4,
+                    "endpoints": [
+                        {
+                            "id": 888,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/888/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "B-7/8-SC",
+                            "port_side": "BACK",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:B-7/8-SC:BACK"
+                        },
+                        {
+                            "id": 887,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/887/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "B-7/8-SC",
+                            "port_side": "FRONT",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:B-7/8-SC:FRONT"
+                        }
+                    ],
+                    "layer": 20,
+                    "layer_description": "Concatenated circuit",
+                    "customer_of_record": null,
+                    "provider": null,
+                    "provider_circuit_id": null,
+                    "dependents": [],
+                    "depends_on": null,
+                    "grouped_by": {
+                        "type": null,
+                        "circuit": null
+                    },
+                    "groups": {
+                        "type": null,
+                        "circuits": []
+                    }
+                },
+                "couplerFrontCircuit": null,
+                "couplerBackCircuit": null
+            },
+            {
+                "panel": "AMST-FDP",
+                "couplerName": "B-9/10-SC",
+                "coupler": {
+                    "id": 621,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/circuit/621/",
+                    "circuit_id": "ESNET-Z00621",
+                    "description": "AMST-FDP:B-9/10",
+                    "circuit_type": 6,
+                    "circuit_state": 4,
+                    "endpoints": [
+                        {
+                            "id": 890,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/890/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "B-9/10-SC",
+                            "port_side": "BACK",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:B-9/10-SC:BACK"
+                        },
+                        {
+                            "id": 889,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/889/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "B-9/10-SC",
+                            "port_side": "FRONT",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:B-9/10-SC:FRONT"
+                        }
+                    ],
+                    "layer": 20,
+                    "layer_description": "Concatenated circuit",
+                    "customer_of_record": null,
+                    "provider": null,
+                    "provider_circuit_id": null,
+                    "dependents": [],
+                    "depends_on": null,
+                    "grouped_by": {
+                        "type": null,
+                        "circuit": null
+                    },
+                    "groups": {
+                        "type": null,
+                        "circuits": []
+                    }
+                },
+                "couplerFrontCircuit": null,
+                "couplerBackCircuit": null
+            },
+            {
+                "panel": "AMST-FDP",
+                "couplerName": "B-11/12-SC",
+                "coupler": {
+                    "id": 622,
+                    "url": "http://192.168.56.13:8000/esdb_api/v1/circuit/622/",
+                    "circuit_id": "ESNET-Z00622",
+                    "description": "AMST-FDP:B-11/12",
+                    "circuit_type": 6,
+                    "circuit_state": 4,
+                    "endpoints": [
+                        {
+                            "id": 892,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/892/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "B-11/12-SC",
+                            "port_side": "BACK",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:B-11/12-SC:BACK"
+                        },
+                        {
+                            "id": 891,
+                            "url": "http://192.168.56.13:8000/esdb_api/v1/endpoint/891/",
+                            "description": null,
+                            "details": {},
+                            "endpoint_type": 1,
+                            "device_name": null,
+                            "interface": null,
+                            "foreign_description": null,
+                            "organization": null,
+                            "panel_name": "AMST-FDP",
+                            "port_id": "B-11/12-SC",
+                            "port_side": "FRONT",
+                            "port_location": 210,
+                            "name": "AMST-HUB:AMST-FDP:B-11/12-SC:FRONT"
+                        }
+                    ],
+                    "layer": 20,
+                    "layer_description": "Concatenated circuit",
+                    "customer_of_record": null,
+                    "provider": null,
+                    "provider_circuit_id": null,
+                    "dependents": [],
+                    "depends_on": null,
+                    "grouped_by": {
+                        "type": null,
+                        "circuit": null
+                    },
+                    "groups": {
+                        "type": null,
+                        "circuits": []
+                    }
+                },
+                "couplerFrontCircuit": null,
+                "couplerBackCircuit": null
+            }
+        ]
+    ]
+}

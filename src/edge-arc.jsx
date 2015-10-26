@@ -206,20 +206,6 @@ export default React.createClass({
             cy = control.y - this.props.position;
         }
 
-        /*
-        if (this.props.labelPosition === "topleft" ||
-            this.props.labelPosition === "bottomleft") {
-            cx = sourceBendControl.x;
-            cy = sourceBendControl.y;
-        } else if (this.props.labelPosition === "topright" ||
-                   this.props.labelPosition === "bottomright") {
-            cx = targetBendControl.x;
-            cy = targetBendControl.y;
-        }
-        */
-        const testX = (sourceBendControl.x + targetBendControl.x) / 2;
-        const testY = (sourceBendControl.y + targetBendControl.y) / 2;
-
         let labelElement = null;
 
         if (this.props.label) {
@@ -255,9 +241,6 @@ export default React.createClass({
                             strokeWidth="1"/>
                     </g>
                     {labelElement}
-                    <circle cx={control.x}
-                        cy={control.y}
-                        r={2}/>
                 </g>
             );
         } else {
@@ -274,13 +257,6 @@ export default React.createClass({
                             onClick={this.handleClick}/>
                     </g>
                     {labelElement}
-                    <circle cx={control.x}
-                        cy={control.y}
-                        r={2}/>
-                    <circle cx={testX}
-                        cy={testY}
-                        r={2}
-                        style={{stroke: "red", fill: "red"}}/>
                 </g>
             );
         }

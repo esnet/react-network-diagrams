@@ -15,16 +15,11 @@
 "use strict";
 
 import React from "react";
-import _ from "underscore";
-import util from "util";
+// import _ from "underscore";
 
 import Constants from "./constants.js";
 
-let {Directions} = Constants;
-
-// These are nominal sizes for the circuit
-let CIRCUIT_WIDTH = 851;
-let CIRCUIT_HEIGHT = 200;
+const {Directions} = Constants;
 
 /**
  * Draws a navigation triangle used to navigate back up to the parent. This is
@@ -35,18 +30,15 @@ let CIRCUIT_HEIGHT = 200;
 export default React.createClass({
 
     getInitialState() {
-        return { "hover": false };
+        return {hover: false };
     },
 
     getDefaultProps() {
         return {
             direction: Directions.SOUTH,
             margin: 50,
-            width: CIRCUIT_WIDTH,
-            height: CIRCUIT_HEIGHT,
-            xpos: CIRCUIT_WIDTH / 2,
-            ypos: CIRCUIT_HEIGHT - 25
-
+            width: 851,
+            height: 200,
         };
     },
 
@@ -54,30 +46,27 @@ export default React.createClass({
      * User hovers over the navigational arrow
      */
     _mouseOver() {
-        this.setState({"hover": true});
+        this.setState({hover: true});
     },
 
     /**
-     * Use stops hovering over navigational arrow
+     * User stops hovering over navigational arrow
      */
     _mouseOut() {
-        this.setState({"hover": false});
+        this.setState({hover: false});
     },
 
     _click() {
         if (this.props.id) {
-            Backbone.history.navigate("circuit/view/" + this.props.id, {trigger: true});
+            this.props.onSelectionChange(this.props.direction, this.props.id);
         }
     },
 
     render() {
-        let dx = 5;
-        let dy = 10;
-        let x = this.props.xpos;
-        let y = this.props.ypos;
-
-        // Points for the svg path
-        let pts = [];
+        const x = this.props.xpos >= 0 ? this.props.xpos : this.props.width / 2;
+        const y = this.props.ypos >= 0 ? this.props.ypos : this.props.height - 25;
+        const dx = 5;
+        const dy = 10;
 
         let yflip;
         if (this.props.direction === Directions.NORTH) {
@@ -87,24 +76,41 @@ export default React.createClass({
         }
 
         // Arrow points
-        pts.push(util.format("%d,%d", x, y));
-        pts.push(util.format("%d,%d", x + dx, y + yflip * dy));
-        pts.push(util.format("%d,%d", x - dx, y + yflip * dy));
-        pts.push(util.format("%d,%d", x, y));
-        let points = pts.join(" ");
+        let path = "";
+        path += "M" + x + "," + y;
+        path += " L " + (x + dx) + "," + (y + yflip * dy);
+        path += " L " + (x - dx) + "," + (y + yflip * dy);
+        path += " L " + x + "," + y;
 
-        // Classes
-        let ClassSet = React.addons.classSet;
-        let classes = ClassSet({
-            "esdb-circuit-navigation": true,
-            "hover": this.props.selected ? false : this.state.hover
-        });
+        const style = {
+            normal: {
+                fill: "#4EC1E0",
+                opacity: 0.65,
+            },
+            highlighted: {
+                cursor: "pointer",
+                fill: "#4EC1E0",
+                opacity: 0.95,
+            },
+        };
+
+        const hitStyle = {
+            cursor: "pointer",
+            fillOpacity: 0,
+        };
+
+        let navStyle = style.normal;
+
+        if (this.state.hover) {
+            navStyle = style.highlighted;
+        }
 
         // Hit area
         let hitRect;
         if (this.props.direction === Directions.NORTH) {
             hitRect = (
-                <rect className="esdb-circuit-hitrect"
+                <rect className="circuit-hitrect"
+                      style={hitStyle}
                       x={x - dx * 2} y={y - dy / 2}
                       width={dx * 4} height={dy * 2}
                       onMouseOver={this._mouseOver}
@@ -113,7 +119,8 @@ export default React.createClass({
             );
         } else if (this.props.direction === Directions.SOUTH) {
             hitRect = (
-                <rect className="esdb-circuit-hitrect"
+                <rect className="circuit-hitrect"
+                      style={hitStyle}
                       x={x - dx * 2} y={y - dy / 2 * 3}
                       width={dx * 4} height={dy * 2}
                       onMouseOver={this._mouseOver}
@@ -125,11 +132,10 @@ export default React.createClass({
         if (this.props.id) {
             return (
                 <g key="navigation-group">
-                    <polyline points={points}
-                              className={classes}
-                              />
+                    <path d={path}
+                          className="circuit-navigate"
+                          style={navStyle} />
                     {hitRect}
-
                 </g>
             );
         } else {

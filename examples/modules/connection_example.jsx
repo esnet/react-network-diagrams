@@ -92,7 +92,7 @@ export default React.createClass({
             curveOffset: numberList[8],
             size: sizeList[3],
             bidirectionalChoice: noNavigateList[1],
-            bendOffset: positionList[7],
+            bendOffset: positionList[8],
             centerLine: false,
             centerLineChoice: noNavigateList[1],
             textAnchor: textAnchorList[0],

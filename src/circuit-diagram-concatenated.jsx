@@ -70,12 +70,14 @@ export default React.createClass({
         }
     },
 
-    // revisit to make work
     _renderParentNavigation(parentId) {
         if (parentId) {
             return (
                 <g>
-                    <Navigate direction={Directions.NORTH} ypos={0} id={this.props.parentId} />
+                    <Navigate direction={Directions.NORTH}
+                              ypos={0}
+                              id={this.props.parentId}
+                              onSelectionChange={this.props.onSelectionChange} />
                 </g>
             );
         } else {

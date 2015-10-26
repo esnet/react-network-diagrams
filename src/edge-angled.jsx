@@ -97,8 +97,7 @@ export default React.createClass({
                     sourceAngle = 90 + angle;
                     targetAngle = -angle;
                 } else if (target.x < source.x && target.y < source.y) {
-                    // review this : could be "180 + angle"
-                    sourceAngle = -180 + angle;
+                    sourceAngle = 180 + angle;
                     targetAngle = -90 - angle;
                 } else if (source.x < target.x && source.y > target.y) {
                     sourceAngle = -90 - angle;

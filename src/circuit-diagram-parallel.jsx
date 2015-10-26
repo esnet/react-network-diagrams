@@ -64,13 +64,14 @@ export default React.createClass({
         }
     },
 
-    // Revisit this to make it work
-
     _renderParentNavigation(parentId) {
         if (parentId) {
             return (
                 <g>
-                    <Navigate direction={Directions.NORTH} ypos={0} id={this.props.parentId} />
+                    <Navigate direction={Directions.NORTH}
+                              ypos={0}
+                              id={this.props.parentId}
+                              onSelectionChange={this.props.onSelectionChange} />
                 </g>
             );
         } else {
@@ -130,18 +131,17 @@ export default React.createClass({
         let ry1;
         let ry2;
         const yOffset = 0;
-        
-        /* Alternate rendering a circuit back and forth, incrementing the position 
+
+        /* Alternate rendering a circuit back and forth, incrementing the position
          * from the center each time, starting with the top for a single circuit
          * This will render the following order
-         *      Circuit 3, Circuit 1, Circuit 2, Circuit 4 
+         *      Circuit 3, Circuit 1, Circuit 2, Circuit 4
          */
 
         _.each(memberList, (member, memberIndex) => {
             if ((memberIndex + 1) % 2) {
                 position += 16;
             }
-            console.log(position);
             switch (val) {
                 case true:
                     rx1 = x2;

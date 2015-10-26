@@ -138,17 +138,6 @@ export default React.createClass({
         path += "M" + rx1 + "," + ry1;
         path += " L " + rx2 + " " + ry2;
 
-
-        // const ry = Math.abs(targetBendControl.y - sourceBendControl.y);
-        // const rx = Math.abs(targetBendControl.x - sourceBendControl.x);
-
-        // let angle = Math.atan2(ry, rx) * 180 / Math.PI;
-        /*
-        if ((target.y < source.y && source.x < target.x) ||
-            (source.x > target.x && target.y > source.y)) {
-            angle = -angle;
-        }
-        */
         let cx;
         let cy;
 
@@ -161,24 +150,6 @@ export default React.createClass({
                 cx = rx1;
                 cy = ry1;
                 break;
-            /*
-            case "topleft":
-                cx = this.props.x1;
-                cy = yCorner;
-                break;
-            case "topright":
-                cx = this.props.x2;
-                cy = this.props.y2 - (height / 2);
-                break;
-            case "bottomleft":
-                cx = this.props.x1;
-                cy = this.props.y1 + (height / 2);
-                break;
-            case "bottomright":
-                cx = this.props.x2;
-                cy = this.props.y2 + (height / 2);
-                break;
-            */
             default:
                 cx = centerX;
                 cy = centerY;

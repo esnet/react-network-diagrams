@@ -364,7 +364,8 @@ export default React.createClass({
                                          endpointLabelA={"Endpoint 1"}
                                          endpointLabelZ={"Endpoint 2"}
                                          endpointStyle={stylesMap.endpoint}
-                                         endpointLabelOffset={18} />
+                                         endpointLabelOffset={18}
+                                         parentId={"Test Navigation"} />
                     </div>
                 </div>
                 <div className="row">

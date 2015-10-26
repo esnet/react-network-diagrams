@@ -197,7 +197,6 @@ export default React.createClass({
                                       circuitLabel={this.state.circuitTypeChoice}
                                       yOffset={7}
                                       title={this.state.circuitTypeChoice}
-                                      navTo={this.state.circuitTypeChoice}
                                       noNavigate={this.state.circuitType.noNavigate}
                                       size={this.state.circuitType.size}
                                       centerLine={this.state.circuitType.centerLine}
@@ -207,7 +206,9 @@ export default React.createClass({
                                       endpointLabelA={"Endpoint Label A"}
                                       endpointLabelZ={"Endpoint Label Z"}
                                       disabled={this.state.disabled}
-                                      onSelectionChange={this._onSelectionChange} />
+                                      onSelectionChange={this._onSelectionChange}
+                                      navTo={this.state.circuitTypeChoice}
+                                      parentId={"Test Navigation"} />
                     </div>
                 </div>
                 <div className="row">

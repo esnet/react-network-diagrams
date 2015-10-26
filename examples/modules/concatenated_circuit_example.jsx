@@ -463,7 +463,8 @@ export default React.createClass({
                                              disabled={this.state.disabled}
                                              title={"Example Concatenated Circuit"}
                                              onSelectionChange={this._onSelectionChange}
-                                             endpointLabelOffset={18}/>
+                                             endpointLabelOffset={18}
+                                             parentId={"Test Navigation"} />
                     </div>
                 </div>
                 <div className="row">

@@ -64,13 +64,14 @@ export default React.createClass({
         }
     },
 
-    // Revisit this to make it work
-
     _renderParentNavigation(parentId) {
         if (parentId) {
             return (
                 <g>
-                    <Navigate direction={Directions.NORTH} ypos={0} id={this.props.parentId} />
+                    <Navigate direction={Directions.NORTH}
+                              ypos={0}
+                              id={this.props.parentId}
+                              onSelectionChange={this.props.onSelectionChange} />
                 </g>
             );
         } else {
@@ -96,7 +97,7 @@ export default React.createClass({
 
     _renderCircuitElements() {
         const elements = [];
-        const navId = this.props.navTo || null;
+        // const navId = this.props.navTo || null;
         const middle = this.props.width / 2;
         let x1;
         let x2;
@@ -137,49 +138,25 @@ export default React.createClass({
         );
 
         // The connection
+        elements.push(
+            <Connection x1={x1}
+                        x2={x2}
+                        y1={y1}
+                        y2={y2}
+                        roundedX={this.props.roundedX}
+                        roundedY={this.props.roundedY}
+                        style={this.props.lineStyle}
+                        lineShape={this.props.lineShape}
+                        label={this.props.circuitLabel}
+                        labelPosition={this.props.connectionLabelPosition}
+                        yOffset={this.props.yOffset}
+                        noNavigate={this.props.noNavigate}
+                        navTo={this.props.navTo}
+                        size={this.props.size}
+                        centerLine={this.props.centerLine}
+                        onSelectionChange={this.props.onSelectionChange}/>
+        );
 
-        if (navId) {
-            // Need to fix navId
-
-            elements.push(
-                <Connection x1={x1}
-                            x2={x2}
-                            y1={y1}
-                            y2={y2}
-                            roundedX={this.props.roundedX}
-                            roundedY={this.props.roundedY}
-                            style={this.props.lineStyle}
-                            lineShape={this.props.lineShape}
-                            label={this.props.circuitLabel}
-                            labelPosition={this.props.connectionLabelPosition}
-                            yOffset={this.props.yOffset}
-                            noNavigate={this.props.noNavigate}
-                            navTo={this.props.navTo}
-                            size={this.props.size}
-                            centerLine={this.props.centerLine}
-                            onSelectionChange={this.props.onSelectionChange}
-                            navigate={navId}/>
-            );
-        } else {
-            elements.push(
-                <Connection x1={x1}
-                            x2={x2}
-                            y1={y1}
-                            y2={y2}
-                            roundedX={this.props.roundedX}
-                            roundedY={this.props.roundedY}
-                            style={this.props.lineStyle}
-                            lineShape={this.props.lineShape}
-                            label={this.props.circuitLabel}
-                            labelPosition={this.props.connectionLabelPosition}
-                            yOffset={this.props.yOffset}
-                            noNavigate={this.props.noNavigate}
-                            navTo={this.props.navTo}
-                            size={this.props.size}
-                            centerLine={this.props.centerLine}
-                            onSelectionChange={this.props.onSelectionChange}/>
-            );
-        }
         return (
             <g>
                 {elements}

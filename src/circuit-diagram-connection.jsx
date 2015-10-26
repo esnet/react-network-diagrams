@@ -137,7 +137,7 @@ export default React.createClass({
             stroke = this.props.style.line.normal.stroke;
             fill = this.props.style.line.normal.fill;
         }
-        console.log("circuit-diagram-connection",this.props);
+
         return (
             <g>
                 <g>
@@ -181,7 +181,7 @@ export default React.createClass({
 
                           /* Identity Props used by all shapes */
                           shape={this.props.lineShape} /* controls shape of the line */
-                          key={"line-path"} /* needed for react element */
+                          key={"line-path-hit"} /* needed for react element */
 
                           /* Label Props used by all shapes */
                           label={this.props.label} /* provides label to be displayed */

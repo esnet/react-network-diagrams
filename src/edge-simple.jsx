@@ -31,7 +31,6 @@ export default React.createClass({
     },
 
     render() {
-        console.log("edge-simple",this.props);
         // Class for edge
         let classed = "edge";
         if (this.props.selected) {

@@ -19,13 +19,12 @@ import TrafficMapExample from "./trafficmap_example";
 import BasicCircuitExample from "./basic_circuit_example";
 import ConcatenatedCircuitExample from "./concatenated_circuit_example";
 import ParallelCircuitExample from "./parallel_circuit_example";
-import CouplerCircuitExample from "./coupler_circuit_example";
-import BackplaneMateExample from "./backplane_mate_example";
-import PanelCouplerExample from "./panel_coupler_example";
 import PatchPanelExample from "./patch_panel_example";
+import EndpointExample from "./endpoint_example";
+import ConnectionExample from "./connection_example";
 
 
-let {Route, DefaultRoute} = Router;
+const {Route, DefaultRoute} = Router;
 
 const routes = (
   <Route path="/" handler={App}>
@@ -35,10 +34,9 @@ const routes = (
     <Route name="basicCircuit" handler={BasicCircuitExample} />
     <Route name="concatenatedCircuit" handler={ConcatenatedCircuitExample} />
     <Route name="parallelCircuit" handler={ParallelCircuitExample} />
-    <Route name="couplerCircuit" handler={CouplerCircuitExample} />
-    <Route name="backplaneMate" handler={BackplaneMateExample} />
-    <Route name="panelCoupler" handler={PanelCouplerExample} />
     <Route name="patchPanel" handler={PatchPanelExample} />
+    <Route name="endpoint" handler={EndpointExample} />
+    <Route name="connection" handler={ConnectionExample} />
   </Route>
 );
 

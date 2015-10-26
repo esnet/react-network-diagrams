@@ -11,8 +11,173 @@
 import React from "react";
 import _ from "underscore";
 import Markdown from "react-markdown-el";
-import locationCouplers from "../data/empty_patch_panel.json";
 import LocationPanelDiagram from "../../src/location-diagram-panel";
+import {stylesMap} from "../styles/styles.js";
+
+const circuitTypeProperties = {
+    optical: {
+        style: stylesMap.optical,
+        lineShape: "linear",
+    },
+    leased: {
+        style: stylesMap.leased,
+        lineShape: "linear"
+    },
+    darkFiber: {
+        style: stylesMap.darkFiber,
+        lineShape: "linear"
+    },
+    equipmentToEquipment: {
+        style: stylesMap.equipmentToEquipment,
+        lineShape: "linear"
+    },
+    crossConnect: {
+        style: stylesMap.crossConnect,
+        lineShape: "linear"
+    },
+    panelCoupler: {
+        style: stylesMap.panelCoupler,
+        lineShape: "square",
+        size: 60,
+        squareWidth: 90,
+    },
+};
+
+const panel = {
+    panelName: "Panel 1",
+    modules: [
+        [  // 1st Module
+            {
+                frontCircuit: {
+                    styleProperties: circuitTypeProperties.crossConnect,
+                    endpointStyle: stylesMap.endpoint,
+                    endpointLabelA: "Endpoint 1",
+                    endpointLabelZ: "Endpoint 2",
+                    circuitLabel: "Member 1",
+                },
+                coupler: {
+                    styleProperties: circuitTypeProperties.panelCoupler,
+                    endpointStyle: circuitTypeProperties.panelCoupler,
+                    endpointLabelA: "Endpoint 2",
+                    endpointlabelZ: "Endpoint 3",
+                    circuitLabel: "1/2",
+                },
+                backCircuit: {
+                    styleProperties: circuitTypeProperties.leased,
+                    endpointStyle: stylesMap.endpoint,
+                    endpointLabelA: "Endpoint 3",
+                    endpointLabelZ: "Endpoint 4",
+                    circuitLabel: "Member 3",
+                },
+            },
+            {
+                frontCircuit: {
+                    styleProperties: circuitTypeProperties.crossConnect,
+                    endpointStyle: stylesMap.endpoint,
+                    endpointLabelA: "Endpoint 1",
+                    endpointLabelZ: "Endpoint 2",
+                    circuitLabel: "Member 1",
+                },
+                coupler: {
+                    styleProperties: circuitTypeProperties.panelCoupler,
+                    endpointStyle: circuitTypeProperties.panelCoupler,
+                    endpointLabelA: "Endpoint 2",
+                    endpointlabelZ: "Endpoint 3",
+                    circuitLabel: "3/4",
+                },
+                backCircuit: {
+                    styleProperties: circuitTypeProperties.darkFiber,
+                    endpointStyle: stylesMap.endpoint,
+                    endpointLabelA: "Endpoint 3",
+                    endpointLabelZ: "Endpoint 4",
+                    circuitLabel: "Member 3",
+                },
+            },
+            {
+                frontCircuit: {
+                    styleProperties: circuitTypeProperties.optical,
+                    endpointStyle: stylesMap.endpoint,
+                    endpointLabelA: "Endpoint 1",
+                    endpointLabelZ: "Endpoint 2",
+                    circuitLabel: "Member 1",
+                },
+                coupler: {
+                    styleProperties: circuitTypeProperties.panelCoupler,
+                    endpointStyle: circuitTypeProperties.panelCoupler,
+                    endpointLabelA: "Endpoint 2",
+                    endpointlabelZ: "Endpoint 3",
+                    circuitLabel: "5/6",
+                },
+                backCircuit: {
+                    styleProperties: circuitTypeProperties.darkFiber,
+                    endpointStyle: stylesMap.endpoint,
+                    endpointLabelA: "Endpoint 3",
+                    endpointLabelZ: "Endpoint 4",
+                    circuitLabel: "Member 3",
+                },
+            }
+        ],
+        [   // 2nd Module
+            {
+                frontCircuit: {
+                    styleProperties: circuitTypeProperties.crossConnect,
+                    endpointStyle: stylesMap.endpoint,
+                    endpointLabelA: "Endpoint 1",
+                    endpointLabelZ: "Endpoint 2",
+                    circuitLabel: "Member 1",
+                },
+                coupler: {
+                    styleProperties: circuitTypeProperties.panelCoupler,
+                    endpointStyle: circuitTypeProperties.panelCoupler,
+                    endpointLabelA: "Endpoint 2",
+                    endpointlabelZ: "Endpoint 3",
+                    circuitLabel: "1/2",
+                },
+                backCircuit: {
+                    styleProperties: circuitTypeProperties.leased,
+                    endpointStyle: stylesMap.endpoint,
+                    endpointLabelA: "Endpoint 3",
+                    endpointLabelZ: "Endpoint 4",
+                    circuitLabel: "Member 3",
+                },
+            },
+            {
+                frontCircuit: {
+                    styleProperties: circuitTypeProperties.crossConnect,
+                    endpointStyle: stylesMap.endpoint,
+                    endpointLabelA: "Endpoint 1",
+                    endpointLabelZ: "Endpoint 2",
+                    circuitLabel: "Member 1",
+                },
+                coupler: {
+                    styleProperties: circuitTypeProperties.panelCoupler,
+                    endpointStyle: circuitTypeProperties.panelCoupler,
+                    endpointLabelA: "Endpoint 2",
+                    endpointlabelZ: "Endpoint 3",
+                    circuitLabel: "3/4",
+                },
+                backCircuit: {
+                    styleProperties: circuitTypeProperties.darkFiber,
+                    endpointStyle: stylesMap.endpoint,
+                    endpointLabelA: "Endpoint 3",
+                    endpointLabelZ: "Endpoint 4",
+                    circuitLabel: "Member 3",
+                },
+            },
+            {
+                frontCircuit: null,
+                coupler: {
+                    styleProperties: circuitTypeProperties.panelCoupler,
+                    endpointStyle: circuitTypeProperties.panelCoupler,
+                    endpointLabelA: "Endpoint 2",
+                    endpointlabelZ: "Endpoint 3",
+                    circuitLabel: "5/6",
+                },
+                backCircuit: null,
+            }
+        ]
+    ]
+};
 
 export default React.createClass({
 
@@ -27,7 +192,12 @@ export default React.createClass({
 
                 <div className="row">
                     <div className="col-md-12">
-                        <LocationPanelDiagram couplers={locationCouplers}/>
+                        <LocationPanelDiagram panel={panel}
+                                              endpointLabelPosition={this.state.endpointLabelPositionChoice}
+                                              connectionLabelPosition={this.state.circuitLabelPositionChoice}
+                                              disabled={this.state.disabled}
+                                              onSelectionChange={this._onSelectionChange}
+                                              endpointLabelOffset={18} />
                     </div>
                 </div>
             </div>

@@ -13,8 +13,8 @@ import Router from "react-router";
 
 import "../styles/app.css";
 
-let {RouteHandler, Link} = Router;
-let logo = document.createElement("img");
+const {RouteHandler, Link} = Router;
+const logo = document.createElement("img");
 logo.src = require("../img/logo.png");
 
 export default React.createClass({
@@ -30,7 +30,7 @@ export default React.createClass({
             <div>
                 <div className="row">
                     <div className="col-md-2">
-                        <img style={{"float": "right"}}
+                        <img style={{float: "right"}}
                              className="main-image"
                              src={logo.src} width={80}/>
                     </div>
@@ -50,17 +50,19 @@ export default React.createClass({
 
                                 <hr />
 
-                                Circuit Examples:
+                                Basic:
+                                <li><Link to="endpoint">Endpoint</Link></li>
+                                <li><Link to="connection">Connection</Link></li>
+                                <hr />
+
+                                Circuits:
                                 <li><Link to="basicCircuit">Basic</Link></li>
                                 <li><Link to="concatenatedCircuit">Concatenated</Link></li>
                                 <li><Link to="parallelCircuit">Parallel</Link></li>
-                                <li><Link to="couplerCircuit">Coupler</Link></li>
-                                <li><Link to="backplaneMate">Backplane Mate</Link></li>
-                                <li><Link to="panelCoupler">Panel Coupler</Link></li>
                                 <li><Link to="patchPanel">Patch Panel</Link></li>
                                 <hr />
 
-                                Examples:
+                                Maps:
 
                                 <li><Link to="trafficmap">Traffic Map</Link></li>
 

@@ -9,13 +9,12 @@
  */
 
 /**
- * Draw a Concatenated circuits
+ * Draw a Concatenated circuit
  *
- * The concatenated circuit component takes a 'circuit' prop, in addition
- * to 'disabled' to display them as disabled and mute events on them.
- *
- * In addition, the concatenated circuit component should have a 'segments'
- * prop to list out the segments that make up the concatenation.
+ * This component determines the x1, x2, y1, y2 coordinates on the page
+ * and then renders a group of circuits by combining the
+ * connection and endpoint props. Connection shape, style, and label information,
+ * are passed in as props
  *
  * This is of the form:
  *     [end, connection, end, connection, end, ...]
@@ -28,196 +27,218 @@ import Constants from "./constants.js";
 import Endpoint from "./circuit-diagram-endpoint.jsx";
 import Connection from "./circuit-diagram-connection.jsx";
 import Navigate from "./circuit-diagram-navigate.jsx";
-import "../examples/styles/circuit.css";
 
-let {Directions} = Constants;
-
-// These are nominal sizes for the circuit
-let CIRCUIT_WIDTH = 851;
-let CIRCUIT_HEIGHT = 250;
+const {Directions} = Constants;
 
 export default React.createClass({
 
     getDefaultProps() {
         return {
+            width: 851,
+            height: 250,
             disabled: false,
-            width: CIRCUIT_WIDTH,
-            height: CIRCUIT_HEIGHT,
             titleOffsetX: 10,
             titleOffsetY: 15,
-            margin: 100
+            margin: 100,
+            noNavigate: false,
+            squareWidth: 25,
+            roundedX: 5,
+            roundedY: 5,
         };
     },
 
-    renderCircuitTitle(title) {
+    _renderCircuitTitle(title) {
+        const titleStyle = {
+            textAnchor: "left",
+            fill: "#9D9D9D",
+            fontFamily: "verdana, sans-serif",
+            fontSize: 14,
+        };
+
         if (!this.props.hideTitle) {
             return (
-                <text className="esdb-circuit-title" key="circuit-title"
-                      x={this.props.titleOffsetX} y={this.props.titleOffsetY}>
-                    {title}
+                <text className="circuit-title"
+                      key="circuit-title"
+                      style={titleStyle}
+                      x={this.props.titleOffsetX}
+                      y={this.props.titleOffsetY}>
+                      {title}
                 </text>
             );
         } else {
-            return (
-                 <text className="esdb-circuit-title" key="circuit-title"
-                      x={this.props.titleOffsetX} y={this.props.titleOffsetY}>
-                </text>
-            );
+            return null;
         }
     },
 
-    renderParentNavigation(parentId) {
+    // revisit to make work
+    _renderParentNavigation(parentId) {
         if (parentId) {
             return (
-                <Navigate direction={Directions.NORTH} ypos={0} id={this.props.parentId} />
+                <g>
+                    <Navigate direction={Directions.NORTH} ypos={0} id={this.props.parentId} />
+                </g>
             );
         } else {
             return null;
         }
     },
 
-    renderDisabledOverlay(disabled) {
+    _renderDisabledOverlay(disabled) {
         if (disabled) {
             return (
-                <rect className="esdb-circuit-overlay"
-                      x="0" y="0" width={CIRCUIT_WIDTH} height={CIRCUIT_HEIGHT}
-                      style={{fill: "#FDFDFD", fillOpacity: 0.65}}/>
+                <rect className="circuit-overlay" style={{fill: "#FDFDFD", fillOpacity: 0.65}}
+                      x="0" y="0" width={this.props.width} height={this.props.height}/>
             );
         } else {
             return null;
         }
     },
 
-    renderCircuitElements(segments) {
-        let numSegments = segments.length;
-        let couplerGroup = ["Panel Coupler", "Fiber Splice"];
-        let equipmentGroup = ["Backplane Mate"];
-        // get a count of the number of couplers or backplane mate circuits
-        let couplerNumber = 0;
-        let equipmentNumber = 0;
-        _.each(segments, segment => {
-            if (_.contains(couplerGroup, this.props.couplerTypes[segment["circuit_type"]])) {
-                couplerNumber += 1;
-            } else if (_.contains(equipmentGroup, this.props.circuitTypes[segment["circuit_type"]])) {
-                equipmentNumber += 1;
+    _renderCircuitElements() {
+        const elements = [];
+
+        // determine the initial position
+
+        const y1 = this.props.height / 4;
+        const y2 = y1;
+        let x1 = this.props.margin;
+        let x2 = this.props.width - this.props.margin;
+        const memberList = this.props.memberList;
+
+        /* Since squares may be a different width than other connections, and may appear
+         * at different positions inside the concatenation, we need to determine
+         * the total combined squareWidth of all the square connectors, then subtract that
+         * from the total available width.  The remaining length divided by the number
+         * of non-square segments is how long the remaining non-square segments can be
+         */
+
+        const memberCount = memberList.length;
+        let squareMemberCount = 0;
+
+        const totalWidth = this.props.width - this.props.margin * 2;
+        let totalSquareWidth = 0;
+
+        _.each(memberList, member => {
+            if (_.has(member.styleProperties, "squareWidth")) {
+                totalSquareWidth += member.styleProperties.squareWidth;
+                squareMemberCount += 1;
             }
         });
-        let width = this.props.width - this.props.margin * 2;
-        // Calculate how much each segment should be at
-        let couplerWidth = 25;
-        let equipmentWidth = 40;
-        let nonStandardSegments = couplerNumber + equipmentNumber;
-        let remSegments = numSegments - nonStandardSegments;
-        let remWidth = width - (couplerNumber * couplerWidth) - (equipmentNumber * equipmentWidth);
-        let segmentWidth = remWidth / remSegments;
 
-        let x = this.props.margin;
-        let y = this.props.height / 4;
-        let transform = "translate(" + x + " " + y + ")";
-        let elements = [];
-        if (numSegments > 0) {
-            // place the first endpoint - Allways at position 0
-            let endpointALabel;
-            let endpointZLabel;
-            if (_.contains(couplerGroup, this.props.couplerTypes[segments[0]["circuit_type"]])) {
-                endpointALabel = segments[0].endpoint_a ? (segments[0].endpoint_a.port_id + ":" + segments[0].endpoint_a.port_side) : "(no endpoint)";
+        const lineWidth = (totalWidth - totalSquareWidth) / (memberCount - squareMemberCount);
+
+        // Draw the first endpoint
+
+        elements.push(
+            <Endpoint x={x1}
+                      y={y1}
+                      key={"endpoint-0"}
+                      style={memberList[0].endpointStyle}
+                      labelPosition={this.props.endpointLabelPosition}
+                      offset={this.props.endpointLabelOffset}
+                      label={memberList[0].endpointLabelA} />
+        );
+
+        /* since the Z of each member is shared with the A of the next member, render only
+         * the Z for each member starting with the first member
+         */
+
+        _.each(memberList, (member, memberIndex) => {
+            if (member.styleProperties.lineShape === "square") {
+                x2 = x1 + member.styleProperties.squareWidth;
             } else {
-                endpointALabel = segments[0].endpoint_a ? segments[0].endpoint_a.name : "(no endpoint)";
+                x2 = x1 + lineWidth;
             }
             elements.push(
-                <Endpoint key={"endpoint-0"}
-                          width={width}
-                          position={0}
-                          label={endpointALabel} />
+                <Endpoint x={x2}
+                          y={y2}
+                          key={"endpoint-" + (memberIndex + 1)}
+                          style={member.endpointStyle}
+                          labelPosition={this.props.endpointLabelPosition}
+                          offset={this.props.endpointLabelOffset}
+                          label={member.endpointLabelZ} />
             );
-            /* After the first endpoint is placed, determine the position on the x-axis between 0 and the max width
-               Set the initial EP to 0
-               Check if the first segment is a coupler or equipment - if it is, place the Z endpoint of the segment at
-               0 + coupler/equipment length, if not, place it at 0 + segment length
-               Set the initial EP to the end position calculated to determine the next endpoint position
-            */
+            x1 = x2;
+        });
 
-            let initialPos = 0;
-            let pos = 0;
-            _.each(segments, (segment, segmentIndex) => {
-                if (_.contains(couplerGroup, this.props.couplerTypes[segment["circuit_type"]])) {
-                    pos = initialPos + couplerWidth;
-                } else if (_.contains(equipmentGroup, this.props.circuitTypes[segment["circuit_type"]])) {
-                    pos = initialPos + equipmentWidth;
-                } else {
-                    pos = initialPos + segmentWidth;
-                }
-                if (segment.endpoint_z["endpoint_type"] === 1) {
-                    endpointZLabel = segment.endpoint_z["port_id"] ? segment.endpoint_z["port_id"] : "(no endpoint)";
-                    endpointZLabel += segment.endpoint_z["port_side"] ? ":" + segment.endpoint_z["port_side"] : "(no endpoint)";
-                } else {
-                    endpointZLabel = segment.endpoint_z ? segment.endpoint_z.name : "(no endpoint)";
-                }
-                elements.push(
-                    <Endpoint key={"endpoint-" + (segmentIndex + 1)}
-                              width={width}
-                              position={pos}
-                              label={endpointZLabel} />
-                );
-                initialPos = pos;
-            });
+        // reset x1
+        x1 = this.props.margin;
 
-            // Collect all the connections - draws inside circles and lines
-            let begin = 0;
-            let end = 0;
-            _.each(segments, segment => {
-                if (_.contains(couplerGroup, this.props.couplerTypes[segment["circuit_type"]])) {
-                    end = begin + couplerWidth;
-                } else if (_.contains(equipmentGroup, this.props.circuitTypes[segment["circuit_type"]])) {
-                    end = begin + equipmentWidth;
-                } else {
-                    end = begin + segmentWidth;
-                }
-                elements.push(
-                    <Connection key={"circuit-" + segment.id}
-                                width={width}
-                                circuit={segment}
-                                circuitTypes={this.props.circuitTypes}
-                                couplerTypes={this.props.couplerTypes}
-                                begin={begin}
-                                end={end}
-                                offset={0}/>
-                );
-                begin = end;
-            });
+        // Collect all the connections
 
-        } else {
-            // Placeholder rendering
-            elements.push(<Endpoint width={width} key="a" position={0} />);
-            elements.push(<Endpoint width={width} key="z" position={1} />);
-            elements.push(<Connection width={width} key="placeholder-1" placeholder begin={0} end={0.33}/>);
-            elements.push(<Connection width={width} key="placeholder-2" placeholder begin={0.33} end={0.67}/>);
-            elements.push(<Connection width={width} key="placeholder-3" placeholder begin={0.67} end={1}/>);
-        }
+        _.each(memberList, (member, memberIndex) => {
+            const roundedX = member.styleProperties.roundedX || this.props.roundedX;
+            const roundedY = member.styleProperties.roundedY || this.props.roundedY;
+
+            if (member.styleProperties.lineShape === "square") {
+                x2 = x1 + member.styleProperties.squareWidth;
+            } else {
+                x2 = x1 + lineWidth;
+            }
+            elements.push(
+                <Connection x1={x1}
+                            x2={x2}
+                            y1={y1}
+                            y2={y2}
+                            key={"circuit-" + memberIndex}
+                            roundedX={roundedX}
+                            roundedY={roundedY}
+                            style={member.styleProperties.style}
+                            lineShape={member.styleProperties.lineShape}
+                            label={member.circuitLabel}
+                            labelPosition={this.props.connectionLabelPosition}
+                            yOffset={this.props.yOffset}
+                            noNavigate={member.styleProperties.noNavigate}
+                            navTo={member.navTo}
+                            size={member.styleProperties.size}
+                            centerLine={member.styleProperties.centerLine}
+                            onSelectionChange={this.props.onSelectionChange}/>
+            );
+            x1 = x2;
+        });
         return (
-            <g transform={transform}>
+            <g>
                 {elements}
             </g>
         );
     },
 
     render() {
-        let segments = this.props.segments ? this.props.segments : [];
-        let title = this.props.circuit["circuit_id"];
-        let className = "esdb-circuit-container";
+        const circuitContainer = {
+            normal: {
+                borderTopStyle: "solid",
+                borderBottomStyle: "solid",
+                borderWidth: 1,
+                borderTopColor: "#FFFFFF",
+                borderBottomColor: "#EFEFEF",
+                width: "100%",
+                height: this.props.height,
+            },
+            disabled: {
+                width: "100%",
+                height: this.props.height,
+            }
+        };
+
+        let className = "circuit-container";
+        let svgStyle;
+
         if (this.props.disabled) {
             className += " disabled";
+            svgStyle = circuitContainer.disabled;
+        } else {
+            svgStyle = circuitContainer.normal;
         }
-        let viewBox = "0 0 " + CIRCUIT_WIDTH + " " + CIRCUIT_HEIGHT;
-        let svgStyle = {width: "100%", height: CIRCUIT_HEIGHT};
+
+        const viewBox = `0 0 ${this.props.width} ${this.props.height}`;
 
         return (
             <svg className={className} style={svgStyle} onClick={this._deselect}>
                 <svg viewBox={viewBox} preserveAspectRatio="xMinYMin">
-                    {this.renderCircuitTitle(title)}
-                    {this.renderCircuitElements(segments)}
-                    {this.renderParentNavigation(this.props.parentId)}
-                    {this.renderDisabledOverlay(this.props.disabled)}
+                    {this._renderCircuitTitle(this.props.title)}
+                    {this._renderCircuitElements()}
+                    {this._renderParentNavigation(this.props.parentId)}
+                    {this._renderDisabledOverlay(this.props.disabled)}
                 </svg>
             </svg>
         );

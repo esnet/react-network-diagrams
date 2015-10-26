@@ -184,7 +184,7 @@ export default React.createClass({
 
         let Pos = yStart + COUPLER_HEIGHT;
         let elements = [];
-        _.each(panel, c => {
+        _.each(panel, () => {
             let lpts = [];
             lpts.push(util.format("%d,%d", b, Pos));
             lpts.push(util.format("%d,%d", e, Pos));
@@ -324,6 +324,8 @@ export default React.createClass({
 
         let viewBoxHeight = heightFromCouplers + offsetTotal + moduleOffset + topAndBottomOffset;
         let viewBox = "0 0 " + PANEL_WIDTH + " " + viewBoxHeight;
+        
+        console.log(sortedPanels)
         return (
                 <svg className="esdb-circuit-container" width="100%" viewBox={viewBox} preserveAspectRatio="xMinYMin">
                     {this.renderPatchPanels(sortedPanels)}

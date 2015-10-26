@@ -9,71 +9,64 @@
  */
 
 import React from "react";
-import _ from "underscore";
 
 import Constants from "./constants.js";
-import Endpoint from "./circuit-diagram-endpoint.jsx";
-import Connection from "./circuit-diagram-connection.jsx";
-import Navigate from "./circuit-diagram-navigate.jsx";
+import Endpoint from "./circuit-diagram-endpoint";
+import Connection from "./circuit-diagram-connection";
+import Navigate from "./circuit-diagram-navigate";
 
-import "../examples/styles/circuit.css";
-
-let {Directions} = Constants;
-
-// These are nominal sizes for the circuit
-let CIRCUIT_WIDTH = 851;
-let CIRCUIT_HEIGHT = 250;
+const {Directions} = Constants;
 
 /**
- * Constructs a basic circuit
+ * Renders a horizontal circuit by determining x1, x2, y1, y2
+ * coordinates on the page and then render a basic circuit by combining the
+ * connection and endpoint props. Connection shape, style, and label information,
+ * are passed in as props
  */
+
 export default React.createClass({
 
     getDefaultProps() {
         return {
-            width: CIRCUIT_WIDTH,
-            height: CIRCUIT_HEIGHT,
+            width: 851,
+            height: 250,
             disabled: false,
             titleOffsetX: 10,
             titleOffsetY: 15,
-            margin: 150
+            margin: 100,
+            noNavigate: false,
+            squareWidth: 25,
+            roundedX: 5,
+            roundedY: 5,
         };
     },
 
-    // Quick and dirty endpoint labels
-    endpointLabel(endpoint) {
-        let label = "";
-        if (endpoint.endpoint_type === 1) {
-            label += endpoint.panel_name ? endpoint.panel_name : "";
-            label += endpoint.port_id ? ":" + endpoint.port_id : "";
-            label += endpoint.port_side ? ":" + endpoint.port_side : "";
-        } else if (endpoint.endpoint_type === 2) {
-            label += endpoint.device_name ? endpoint.device_name : "";
-            label += endpoint.interface ? ":" + endpoint.interface : "";
-        } else if (endpoint.endpoint_type === 3) {
-            label += endpoint.foreign_description ? endpoint.foreign_description : "";
-        }
-        return label;
-    },
+    _renderCircuitTitle(title) {
+        const titleStyle = {
+            textAnchor: "left",
+            fill: "#9D9D9D",
+            fontFamily: "verdana, sans-serif",
+            fontSize: 14,
+        };
 
-    renderCircuitTitle(title) {
         if (!this.props.hideTitle) {
             return (
-                <text className="esdb-circuit-title" key="circuit-title"
-                      x={this.props.titleOffsetX} y={this.props.titleOffsetY}>
+                <text className="circuit-title"
+                      key="circuit-title"
+                      style={titleStyle}
+                      x={this.props.titleOffsetX}
+                      y={this.props.titleOffsetY}>
                     {title}
                 </text>
             );
         } else {
-            return (
-                 <text className="esdb-circuit-title" key="circuit-title"
-                      x={this.props.titleOffsetX} y={this.props.titleOffsetY}>
-                </text>
-            );
+            return null;
         }
     },
 
-    renderParentNavigation(parentId) {
+    // Revisit this to make it work
+
+    _renderParentNavigation(parentId) {
         if (parentId) {
             return (
                 <g>
@@ -85,11 +78,15 @@ export default React.createClass({
         }
     },
 
-    renderDisabledOverlay(disabled) {
+    _renderDisabledOverlay(disabled) {
         if (disabled) {
+            const overlayStyle = {
+                fill: "#FFFFFF",
+                fillOpacity: "0.65",
+            };
             return (
-                <rect className="esdb-circuit-overlay"
-                      x="0" y="0" width={CIRCUIT_WIDTH} height={CIRCUIT_HEIGHT}
+                <rect className="circuit-overlay" style={overlayStyle}
+                      x="0" y="0" width={this.props.width} height={this.props.height}
                       style={{fill: "#FDFDFD", fillOpacity: 0.65}}/>
             );
         } else {
@@ -97,112 +94,135 @@ export default React.createClass({
         }
     },
 
-    renderCircuitElements(circuit) {
-        let result = [];
-        let navId = circuit.depends_on ? circuit.depends_on.id : null;
-        let middle = CIRCUIT_WIDTH / 2;
-        let couplerWidth = 25;
-        let backplaneWidth = 40;
-        let width = this.props.width - this.props.margin * 2;
+    _renderCircuitElements() {
+        const elements = [];
+        const navId = this.props.navTo || null;
+        const middle = this.props.width / 2;
+        let x1;
+        let x2;
 
-        let couplerGroup = ["Panel Coupler"];
-        let equipmentGroup = ["Backplane Mate"];
-        let x;
-        let end;
-
-        if (_.contains(couplerGroup, this.props.circuitTypes[circuit["circuit_type"]]) ||
-            _.contains(couplerGroup, this.props.couplerTypes[circuit["circuit_type"]])) {
-            x = middle - 13;
-            end = couplerWidth;
-        } else if (_.contains(equipmentGroup, this.props.circuitTypes[circuit["circuit_type"]]) ||
-            _.contains(couplerGroup, this.props.couplerTypes[circuit["circuit_type"]])) {
-            x = middle - 20;
-            end = backplaneWidth;
+        // render a square in the middle of the SVG grid by default
+        if (this.props.lineShape === "square") {
+            x1 = middle - (this.props.squareWidth / 2);
+            x2 = middle + (this.props.squareWidth / 2);
         } else {
-            x = this.props.margin;
-            end = width;
+            x1 = this.props.margin;
+            x2 = this.props.width - this.props.margin;
+
         }
-        let y = this.props.height / 4;
-        let transform = "translate(" + x + " " + y + ")";
 
-        let endpointLabelA = circuit["endpoint_a"] && circuit["endpoint_a"].name ? this.endpointLabel(circuit["endpoint_a"]) : "";
-        let endpointLabelZ = circuit["endpoint_z"] && circuit["endpoint_z"].name ? this.endpointLabel(circuit["endpoint_z"]) : "";
+        const y1 = this.props.height / 4;
+        const y2 = y1;
+        const labelOffset = this.props.size ? this.props.size / 2 : 0;
 
-        let initialPos = 0;
-        // The two end points of this circuit
-        result.push(
-            <Endpoint key="a" width={width} position={initialPos}
-                      label={endpointLabelA} />
+        // The two endpoints of this circuit
+        elements.push(
+            <Endpoint x={x1}
+                      y={y1}
+                      key="a"
+                      style={this.props.endpointStyle}
+                      labelPosition={this.props.endpointLabelPosition}
+                      offset={labelOffset}
+                      label={this.props.endpointLabelA} />
         );
-        if (_.contains(couplerGroup, this.props.circuitTypes[circuit["circuit_type"]]) ||
-            _.contains(couplerGroup, this.props.couplerTypes[circuit["circuit_type"]])) {
-            let pos = initialPos + couplerWidth;
-            result.push(
-                <Endpoint key="z" width={width} position={pos}
-                    label={endpointLabelZ} />
-            );
-        } else if (_.contains(equipmentGroup, this.props.circuitTypes[circuit["circuit_type"]]) ||
-            _.contains(couplerGroup, this.props.couplerTypes[circuit["circuit_type"]])) {
-            let pos = initialPos + backplaneWidth;
-            result.push(
-                <Endpoint key="z" width={width} position={pos}
-                    label={endpointLabelZ} />
-            );
-        } else {
-            result.push(
-                <Endpoint key="z" width={width} position={width}
-                    label={endpointLabelZ} />
-            );
-        }
 
-        // The connections
+        elements.push(
+            <Endpoint x={x2}
+                      y={y2}
+                      key="z"
+                      style={this.props.endpointStyle}
+                      labelPosition={this.props.endpointLabelPosition}
+                      offset={labelOffset}
+                      label={this.props.endpointLabelZ} />
+        );
+
+        // The connection
+
         if (navId) {
-            result.push(
-                <Connection circuit={circuit}
-                            circuitTypes={this.props.circuitTypes}
-                            couplerTypes={this.props.couplerTypes}
-                            end={end}
-                            width={width} offset={0}
+            // Need to fix navId
+
+            elements.push(
+                <Connection x1={x1}
+                            x2={x2}
+                            y1={y1}
+                            y2={y2}
+                            roundedX={this.props.roundedX}
+                            roundedY={this.props.roundedY}
+                            style={this.props.lineStyle}
+                            lineShape={this.props.lineShape}
+                            label={this.props.circuitLabel}
+                            labelPosition={this.props.connectionLabelPosition}
+                            yOffset={this.props.yOffset}
+                            noNavigate={this.props.noNavigate}
+                            navTo={this.props.navTo}
+                            size={this.props.size}
+                            centerLine={this.props.centerLine}
+                            onSelectionChange={this.props.onSelectionChange}
                             navigate={navId}/>
             );
         } else {
-            result.push(
-                <Connection circuit={circuit}
-                            circuitTypes={this.props.circuitTypes}
-                            couplerTypes={this.props.couplerTypes}
-                            end={end}
-                            width={width}
-                            offset={0}
-                            noNavigate />
+            elements.push(
+                <Connection x1={x1}
+                            x2={x2}
+                            y1={y1}
+                            y2={y2}
+                            roundedX={this.props.roundedX}
+                            roundedY={this.props.roundedY}
+                            style={this.props.lineStyle}
+                            lineShape={this.props.lineShape}
+                            label={this.props.circuitLabel}
+                            labelPosition={this.props.connectionLabelPosition}
+                            yOffset={this.props.yOffset}
+                            noNavigate={this.props.noNavigate}
+                            navTo={this.props.navTo}
+                            size={this.props.size}
+                            centerLine={this.props.centerLine}
+                            onSelectionChange={this.props.onSelectionChange}/>
             );
         }
-
         return (
-            <g transform={transform}>
-                {result}
+            <g>
+                {elements}
             </g>
         );
     },
 
     render() {
-        let circuit = this.props.circuit;
-        let title = circuit["circuit_id"] || "Circuit Id pending";
+        const circuitContainer = {
+            normal: {
+                borderTopStyle: "solid",
+                borderBottomStyle: "solid",
+                borderWidth: 1,
+                borderTopColor: "#FFFFFF",
+                borderBottomColor: "#EFEFEF",
+                width: "100%",
+                height: this.props.height,
+            },
+            disabled: {
+                width: "100%",
+                height: this.props.height,
+            }
+        };
 
-        let className = "esdb-circuit-container";
+        let className = "circuit-container";
+        let svgStyle;
+
         if (this.props.disabled) {
             className += " disabled";
+            svgStyle = circuitContainer.disabled;
+        } else {
+            svgStyle = circuitContainer.normal;
         }
 
-        let svgStyle = {width: "100%", height: CIRCUIT_HEIGHT};
-        let viewBox = "0 0 " + CIRCUIT_WIDTH + " " + CIRCUIT_HEIGHT;
+        const viewBox = `0 0 ${this.props.width} ${this.props.height}`;
 
         return (
             <svg className={className} style={svgStyle} onClick={this._deselect}>
                 <svg viewBox={viewBox} preserveAspectRatio="xMinYMin">
-                    {this.renderCircuitTitle(title)}
-                    {this.renderCircuitElements(circuit)}
-                    {this.renderParentNavigation(this.props.parentId)}
-                    {this.renderDisabledOverlay(this.props.disabled)}
+                    {this._renderCircuitTitle(this.props.title)}
+                    {this._renderCircuitElements()}
+                    {this._renderParentNavigation(this.props.parentId)}
+                    {this._renderDisabledOverlay(this.props.disabled)}
                 </svg>
             </svg>
         );

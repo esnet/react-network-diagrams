@@ -11,6 +11,7 @@
 import React from "react";
 import Vector from "victor";
 import _ from "underscore";
+import Label from "./edge-label";
 
 /**
  * This component draws a linear bent path between a source and target. The
@@ -37,15 +38,24 @@ export default React.createClass({
     },
 
     render() {
-        let classed = "map-edge map-linear-edge";
+        let classed = "edge-linear";
+        let labelClassed = "edge-label";
+        let styleModifier = "normal";
+
         if (this.props.selected) {
             classed += " selected";
+            labelClassed += "selected";
+            styleModifier = "selected";
         }
         if (this.props.muted) {
             classed += " muted";
+            labelClassed += "muted";
+            styleModifier = "muted";
+
         }
         if (this.props.invisible) {
             classed += " edge-event-region";
+            labelClassed += " edge-event-region";
         }
         if (!_.isUndefined(this.props.classed)) {
             classed += " " + this.props.classed;
@@ -150,40 +160,77 @@ export default React.createClass({
 
         let opacity = 1.0;
         if (this.props.invisible) {
-            opacity = 0;
+            opacity = 0.0;
         } else if (this.props.muted) {
             opacity = 0.3;
         }
 
+        // Label Positioning
+
+        const ry = Math.abs(targetBendControl.y - sourceBendControl.y);
+        const rx = Math.abs(targetBendControl.x - sourceBendControl.x);
+        let angle = Math.atan2(ry, rx) * 180 / Math.PI;
+
+        const cx = (sourceBendControl.x + targetBendControl.x) / 2;
+        const cy = (sourceBendControl.y + targetBendControl.y) / 2;
+
+        if ((target.y < source.y && source.x < target.x) ||
+            (source.x > target.x && target.y > source.y)) {
+            angle = -angle;
+        }
+
+        let labelElement = null;
+
+        if (this.props.label) {
+            labelElement = (
+                <Label x={cx}
+                       y={cy}
+                       r={angle}
+                       textAnchor={this.props.textAnchor}
+                       classed={labelClassed}
+                       style={this.props.labelStyle[styleModifier]}
+                       label={this.props.label}
+                       xOffset={this.props.labelOffsetX}
+                       yOffset={this.props.labelOffsetY}
+                       labelPosition={this.props.labelPosition} />
+            );
+        }
+
         if (this.props.arrow) {
             return (
-                <g
-                    strokeWidth={this.props.width}
-                    stroke={this.props.color}
-                    opacity={opacity}>
-                    <path
-                        className={classed}
-                        d={path}
-                        fill="none"
-                        onClick={this.handleClick}/>
-                    <path
-                        className={classed}
-                        d={arrow}
-                        fill={this.props.color}
-                        strokeWidth="1"/>
+                <g>
+                    <g
+                        strokeWidth={this.props.width}
+                        stroke={this.props.color}
+                        opacity={opacity}>
+                        <path
+                            className={classed}
+                            d={path}
+                            fill="none"
+                            onClick={this.handleClick}/>
+                        <path
+                            className={classed}
+                            d={arrow}
+                            fill={this.props.color}
+                            strokeWidth="1"/>
+                    </g>
+                    {labelElement}
                 </g>
             );
         } else {
             return (
-                <g
-                    strokeWidth={this.props.width}
-                    stroke={this.props.color}
-                    opacity={opacity}>
-                    <path
-                        className={classed}
-                        d={path}
-                        fill="none"
-                        onClick={this.handleClick}/>
+                <g>
+                    <g
+                        strokeWidth={this.props.width}
+                        stroke={this.props.color}
+                        opacity={opacity}>
+                        <path
+                            className={classed}
+                            d={path}
+                            fill="none"
+                            onClick={this.handleClick}/>
+                    </g>
+                    {labelElement}
                 </g>
             );
         }

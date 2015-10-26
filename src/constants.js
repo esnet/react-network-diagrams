@@ -8,10 +8,10 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
-import keyMirror from 'react/lib/keyMirror';
+import keyMirror from "react/lib/keyMirror";
 
 module.exports = {
-	
+
 	Positions: keyMirror({
         TOP: null,
         BOTTOM: null,
@@ -44,4 +44,3 @@ module.exports = {
         ENDPOINT: null,
     }),
 };
- 

@@ -17,58 +17,40 @@
 "use strict";
 
 import React from "react";
-import util from "util";
-import _ from "underscore";
-import classnames from "classnames";
+import Endpoint from "./circuit-diagram-endpoint";
+import Line from "./edge-simple";
 
-import "../examples/styles/circuit.css";
-// These are nominal sizes for the circuit
-let CIRCUIT_WIDTH = 851;
-let COUPLER_HEIGHT = 36;
-
-/**
- *
- * @class
- *
- * Renders the a connection between two points defined as begin and end.
- * The connection can also be offset from the center line by an amount.
- * The result is a <g> element containing the connection, so this needs
- * to be used within the context of an <svg> block.
- *
- * **Props**
- *
- * * offset   - How far to offset the connection from the center line
- * * begin    - Where to begin the connection, between 0 and CIRCUIT_WIDTH (defauts to 0)
- * * end      - Where to end the connection, between 0 and CIRCUIT_WIDTH ()
- *
- * **State**
- * * none
- */
 export default React.createClass({
 
-    displayName: "Connection",
-
     getInitialState() {
-        return { "hover": false };
+        return {highlighted: false };
     },
 
     getDefaultProps() {
         return {
-            width: CIRCUIT_WIDTH,
-            offset: 0,
-            scale: 25,
-            begin: 0,
-            end: 651,
-            endPointRadius: 2
+            noNavigate: false,
+            labelPosition: "top",
+            radius: 2,
+            endpointShape: "circle",
+            classed: "circuit",
+            lineShape: "linear",
+            selected: false,
+            muted: false,
+            position: 0,
+            arrow: false,
+            arrowWidth: 10,
+            arrowHeight: 10,
+            curveDirection: "right",
+            curveOffset: 20,
+            size: 40,
         };
     },
-
     /**
      * User hovers over the circuit
      */
     _mouseOver() {
         if (!this.props.noNavigate) {
-            this.setState({"hover": true});
+            this.setState({highlighted: true});
         }
     },
 
@@ -77,189 +59,281 @@ export default React.createClass({
      */
     _mouseOut() {
         if (!this.props.noNavigate) {
-            this.setState({"hover": false});
+            this.setState({highlighted: false});
         }
     },
 
-    /**
-     * User selects the circuit
-     */
-    _click(e) {
-        if (this.props.noNavigate) {
-            return;
+    _clicked(e,l) {
+        if (!this.props.noNavigate) {
+            this.props.onSelectionChange(e,l);
         }
-        if (this.props.navigate) {
-            Backbone.history.navigate("circuit/view/" + this.props.navigate, {trigger: true});
-        } else if (this.props.circuit.id) {
-            Backbone.history.navigate("circuit/view/" + this.props.circuit.id, {trigger: true});
-        }
-        e.stopPropagation();
     },
 
-    renderLabel(circuit, type, label, x, y) {
-        let height;
-        if (type === "Panel Coupler") {
-            height = y - 20;
-            let newLabel = circuit["endpoint_a"]["panel_name"];
+    renderEndpoints() {
+        if (this.props.arrow) {
             return (
-                <text className="esdb-circuit-label" key="endpoint-label" x={x} y={height}>
-                    {newLabel}
-                </text>
-            );
-        } else if (type === "Backplane Mate") {
-            height = y - 20;
-            return (
-                <text className="esdb-circuit-label" key="endpoint-label" x={x} y={height}>
-                    {label}
-                </text>
-            );
-        } else if (type === "Fiber Splice") {
-            height = y - 20;
-            let newLabel = "Splice";
-            return (
-                <text className="esdb-circuit-label" key="endpoint-label" x={x} y={height}>
-                    {newLabel}
-                </text>
+                <g>
+                </g>
             );
         } else {
             return (
-                <text className="esdb-circuit-label" key="endpoint-label" x={x} y={y}>
-                    {label}
-                </text>
-            );
-        }
-    },
-
-    renderEndpoints(b, e) {
-        let ClassSet = classnames;
-        let c = ClassSet({
-            "esdb-circuit-dot": true,
-            "hover": this.state.hover,
-            "placeholder": this.props.placeholder
-        });
-
-        return (
-            <g>
-                <circle className={c} key="line-begin"
-                    cx={b} cy={0} r={this.props.endPointRadius}/>
-                <circle className={c} key="line-end"
-                    cx={e} cy={0} r={this.props.endPointRadius}/>
-            </g>
-        );
-    },
-
-    renderLine(type, b, e, dx, dy) {
-        let typeClass;
-
-        // Mapping circuit_type ids to classes
-        if (type === "Equipment-Equipment") {
-            typeClass = "equipment-equipment";
-        } else if (type === "ESnet Optical") {
-            typeClass = "esnet-optical";
-        } else if (type === "Leased Circuit") {
-            typeClass = "leased-circuit";
-        } else if (type === "Dark Fiber") {
-            typeClass = "dark-fiber";
-        } else if (type === "Cross-Connect") {
-            typeClass = "cross-connect";
-        } else if (type === "Panel Coupler") {
-            typeClass = "coupler";
-        } else if (type === "Backplane Mate") {
-            typeClass = "backplane-mate";
-        } else if (type === "Fiber Splice") {
-            typeClass = "dark-fiber";
-        }
-
-        // Classes
-        let ClassSet = classnames;
-
-        let cc = {"esdb-circuit-edge": true,
-                  "hover": this.props.placeholder ? false : this.state.hover,
-                  "placeholder": this.props.placeholder };
-        if (typeClass) {
-            cc[typeClass] = true;
-        }
-
-        let coupler = ClassSet(cc);
-        let edge = ClassSet(cc);
-        let hit = ClassSet({
-            "esdb-circuit-hitstroke": true,
-            "inactive": this.props.noNavigate
-        });
-
-        if (type === "Panel Coupler") {
-            let height = COUPLER_HEIGHT;
-            let y = -18;
-            let rectLength = 25;
-            return (
                 <g>
-                    <rect className={coupler} width={rectLength} x={b} y={y} height={height} rx={5} ry={5}/>
-                </g>
-            );
-        } else if (type === "Backplane Mate") {
-            let height = COUPLER_HEIGHT;
-            let y = -18;
-            let rectLength = 40;
-            let rectMiddle = b + 20;
-            let vpts = [];
-            // b = 0, e = 25, dy = 0, dx = 50, coupler height = 26
-            vpts.push(util.format("%d,%d", rectMiddle, -18));
-            vpts.push(util.format("%d,%d", rectMiddle, 18));
-            let vpoints = vpts.join(" ");
-            return (
-                <g>
-                    <rect className={edge} width={rectLength} x={b} y={y} height={height} rx={5} ry={5}/>
-                    <polyline className={edge} key="line-polypath" points={vpoints} />
-                    <polyline className={hit} key="line-polypath-hit" points={vpoints}
-                              onMouseOver={this._mouseOver}
-                              onMouseOut={this._mouseOut}
-                              onClick={this._click} />
-                </g>
-
-            );
-        } else {
-            let pts = [];
-            pts.push(util.format("%d,%d", b, 0));
-            pts.push(util.format("%d,%d", b + dx, -dy));
-            pts.push(util.format("%d,%d", e - dx, -dy));
-            pts.push(util.format("%d,%d", e, 0));
-            let points = pts.join(" ");
-            return (
-                <g>
-                    <polyline className={edge} key="line-polypath" points={points} />
-                    <polyline className={hit} key="line-polypath-hit" points={points}
-                              onMouseOver={this._mouseOver}
-                              onMouseOut={this._mouseOut}
-                              onClick={this._click} />
+                    <Endpoint x={this.props.x1}
+                              y={this.props.y1}
+                              key={"line-begin"}
+                              style={this.props.style}
+                              radius={this.props.radius}
+                              shape={this.props.endpointShape}
+                              highlighted={this.state.highlighted}
+                              muted={this.props.muted}
+                              selected={this.props.selected} />
+                    <Endpoint x={this.props.x2}
+                              y={this.props.y2}
+                              key={"line-end"}
+                              style={this.props.style}
+                              radius={this.props.radius}
+                              shape={this.props.endpointShape}
+                              highlighted={this.state.highlighted}
+                              muted={this.props.muted}
+                              selected={this.props.selected} />
                 </g>
             );
         }
     },
 
     render() {
-        let type;
-        if (this.props.circuit && this.props.circuitTypes && this.props.couplerTypes && this.props.circuit.circuit_type) {
-            if (_.has(this.props.circuitTypes, this.props.circuit["circuit_type"])) {
-                type = this.props.circuitTypes[this.props.circuit["circuit_type"]];
-            } else if (_.has(this.props.couplerTypes, this.props.circuit["circuit_type"])) {
-                type = this.props.couplerTypes[this.props.circuit["circuit_type"]];
-            }
-        }
-        let dy = this.props.offset * this.props.scale;
-        let dx = this.props.scale * 2;
-        let begin = this.props.begin;
-        let end = this.props.end;
-        let middle = begin + (end - begin) / 2;
+        // let styleModifier = "normal";
 
-        let label = this.props.circuit ? this.props.circuit["circuit_id"] : "";
-        let circuit = this.props.circuit;
-        // Build up our svg elements
+        // const labelClassed = "circuit-label";
+
+        const xOffset = this.props.labelOffsetX ? this.props.labelOffsetX : this.props.radius * 1.33;
+        const yOffset = this.props.labelOffsetY ? this.props.labelOffsetY : this.props.radius * 1.33;
+
+        const hitStyle = {
+            cursor: this.props.noNavigate ? "default" : "pointer",
+            stroke: "#FFF",
+            strokeWidth: 8,
+        };
+
+        const navTo = this.props.navTo;
+
+        let width;
+        let stroke;
+        let fill;
+        let offset;
+
+        if (this.props.lineShape === "angled") {
+            offset = this.props.bendOffset;
+        } else {
+            offset = this.props.curveOffset;
+        }
+
+        if (this.state.highlighted) {
+            width = this.props.style.line.highlighted.strokeWidth;
+            stroke = this.props.style.line.highlighted.stroke;
+            fill = this.props.style.line.highlighted.fill;
+        } else {
+            width = this.props.style.line.normal.strokeWidth;
+            stroke = this.props.style.line.normal.stroke;
+            fill = this.props.style.line.normal.fill;
+        }
+        console.log("circuit-diagram-connection",this.props);
         return (
-            <g key="line-group">
-                {this.renderLine(type, begin, end, dx, dy, middle)}
-                {this.renderEndpoints(begin, end)}
-                {this.renderLabel(circuit, type, label, middle, -dy - 3)}
+            <g>
+                <g>
+                    <Line x1={this.props.x1}
+                          x2={this.props.x2}
+                          y1={this.props.y1}
+                          y2={this.props.y2}
+                          shape={this.props.lineShape}
+                          key={"line-path"}
+                          label={this.props.label}
+                          labelPosition={this.props.labelPosition}
+                          labelStyle={this.props.style.label}
+                          labelOffsetX={xOffset}
+                          labelOffsetY={yOffset}
+                          textAnchor={this.props.textAnchor}
+                          color={stroke}
+                          width={width}
+                          muted={this.props.muted}
+                          selected={this.props.selected}
+                          classed={this.props.classed}
+                          roundedX={this.props.roundedX}
+                          roundedY={this.props.roundedY}
+                          fillColor={fill}
+                          size={this.props.size}
+                          centerLine={this.props.centerLine}
+                          arrow={this.props.arrow}
+                          arrowWidth={this.props.arrowWidth}
+                          arrowHeight={this.props.arrowHeight}
+                          position={this.props.position}
+                          offset={offset}
+                          curveDirection={this.props.curveDirection}
+                          name={navTo} />
+                </g>
+                <g onMouseOver={this._mouseOver}
+                   onMouseOut={this._mouseOut}>
+                    <Line /* Positional Props used by all shapes */
+                          x1={this.props.x1}
+                          x2={this.props.x2}
+                          y1={this.props.y1}
+                          y2={this.props.y2}
+
+                          /* Identity Props used by all shapes */
+                          shape={this.props.lineShape} /* controls shape of the line */
+                          key={"line-path"} /* needed for react element */
+
+                          /* Label Props used by all shapes */
+                          label={this.props.label} /* provides label to be displayed */
+                          labelPosition={this.props.labelPosition} /* controls where label
+                                                                      is situated around the line */
+                          labelStyle={this.props.style.label} /* controls the
+                                                                                style of the label */
+                          labelOffsetX={xOffset} /* controls the +/- x offset from labelPosition */
+                          labelOffsetY={yOffset} /* controls the +/- y offset from labelPosition */
+                          textAnchor={this.props.textAnchor} /* controls the positioning of the text */
+
+                          /* Style Props */
+                          color={hitStyle.stroke} /* controls color of the line */
+                          width={hitStyle.strokeWidth} /* controls the stroke thickness */
+                          muted={this.props.muted} /* controls style */
+                          selected={this.props.selected} /* controls style */
+                          classed={this.props.classed} /* provides a psuedo css class for the line */
+
+                          /* Square props */
+                          roundedX={this.props.roundedX} /* controls corner rounding */
+                          roundedY={this.props.roundedY} /* controls corner rounding */
+                          fillColor={fill} /* controls color of the fill */
+                          size={this.props.size} /* controls height of square */
+                          centerLine={this.props.centerLine} /* controls display of horizontal center line */
+
+                          /* Arrow props, not used by square */
+                          arrow={this.props.arrow} /* determines whether to
+                                                      display nodes or arrows at ends of line */
+                          arrowWidth={this.props.arrowWidth} /* controls width of arrow */
+                          arrowHeight={this.props.arrowHeight} /* controls height of arrow */
+
+                          /* Line offset props, used by angle and arc */
+                          position={this.props.position} /* controls angle of offset */
+                          offset={offset} /* controls length of offset line */
+                          curveDirection={this.props.curveDirection} /* controls left / right
+                                                                        line path with reference
+                                                                        to line center*/
+
+                          /* Navigation props */
+                          name={navTo} /* returned value for _onSelection change - all */
+                          onSelectionChange={this._clicked} /* callback function to
+                                                               control what happens if the
+                                                               element is clicked */
+                          invisible={true} /* Internal prop for hiding this line */ />
+                </g>
+                <g>
+                    {this.renderEndpoints()}
+                </g>
             </g>
         );
     }
 });
+//        const labelClassed = "circuit-label";
+// let labelX = (this.props.x1 + this.props.x2) / 2;
+//       let labelY = (this.props.y1 + this.props.y2) / 2;
+// let label2Y = (this.props.y1 + this.props.y2) / 2;
+        /*
+        let textAnchor = "middle";
+
+        let labelLine1 = this.props.label1 || "";
+        let labelLine2 = this.props.label2 || "";
+
+        const label = labelLine1 + " " + labelLine2;
+
+        switch (this.props.labelPosition) {
+            case "top":
+                if (this.props.lineShape === "angled") {
+                    yOffset += Math.abs(this.props.y1 - this.props.y2) / 2;
+                }
+                label1Y -= yOffset + fontOffset;
+                label2Y -= yOffset;
+                break;
+
+            case "bottom":
+                if (this.props.lineShape === "angled") {
+                    yOffset += Math.abs(this.props.y1 - this.props.y2) / 2;
+                }
+                if (!this.props.label1) {
+                  labelLine1 = labelLine2;
+                  labelLine2 = "";
+                }
+                label1Y += yOffset + fontOffset;
+                label2Y += yOffset + (2 * fontOffset);
+                break;
+
+            case "topleft":
+                labelX = this.props.x1 + xOffset;
+                label1Y = this.props.y1 - yOffset - fontOffset;
+                label2Y = this.props.y1 - yOffset;
+                textAnchor = "start";
+                break;
+
+            case "topright":
+                labelX = this.props.x2 - xOffset;
+                label1Y = this.props.y2 - yOffset - fontOffset;
+                label2Y = this.props.y2 - yOffset;
+                textAnchor = "end";
+                break;
+
+            case "bottomleft":
+                labelX = this.props.x1 + xOffset;
+                if (!this.props.label1) {
+                  labelLine1 = labelLine2;
+                  labelLine2 = "";
+                }
+                label1Y = this.props.y1 + yOffset + fontOffset;
+                label2Y = this.props.y1 + yOffset + (2 * fontOffset);
+                textAnchor = "start";
+                break;
+
+            case "bottomright":
+                labelX = this.props.x2 - xOffset;
+                if (!this.props.label1) {
+                  labelLine1 = labelLine2;
+                  labelLine2 = "";
+                }
+                label1Y = this.props.y1 + yOffset + fontOffset;
+                label2Y = this.props.y1 + yOffset + (2 * fontOffset);
+                textAnchor = "end";
+                break;
+
+            default:
+                break;
+        }
+        */
+/*
+                <g>
+                    <Label x1={this.props.x1}
+                           y1={this.props.y1}
+                           x2={this.props.x2}
+                           y2={this.props.y2}
+                           r={position}
+                           style={this.props.style.label[styleModifier]}
+                           label={this.props.label}
+                           xOffset={this.props.xOffset}
+                           yOffset={this.props.yOffset}
+                           labelPosition={this.props.labelPosition} />
+                </g>
+
+/*
+
+<text textAnchor={textAnchor}
+                          style={this.props.style.label[styleModifier]}
+                          key="endpoint-label"
+                          className={labelClassed}>
+                          <tspan x={labelX} y={label1Y}>
+                              {labelLine1}
+                          </tspan>
+                          <tspan x={labelX} y={label2Y}>
+                              {labelLine2}
+                          </tspan>
+                    </text>
+
+*/
+// Turn Multi-lined labels into an array

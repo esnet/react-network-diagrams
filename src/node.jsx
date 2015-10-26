@@ -35,15 +35,22 @@ export default React.createClass({
             nodeClasses += " muted";
             labelClasses += " muted";
         }
+        if (this.props.highlighted) {
+            styleModifier = "highlighted";
+            nodeClasses += " highlighted";
+            labelClasses += " highlighted";
+        }
 
-        const basicOffset = this.props.radius * 1.33;
+        const basicOffset = this.props.offset ? this.props.offset : this.props.radius * 1.33;
 
         // 0.8 * font size? ish..
         const fontOffset = 8;
 
         let labelX = this.props.x;
         let labelY = this.props.y;
+        let labelR = 0;
         let textAnchor = "middle";
+        let rotate = `rotate(${labelR} ${labelX}, ${labelY})`;
         switch (this.props.labelPosition) {
             case "left":
                 labelX -= basicOffset;
@@ -87,6 +94,36 @@ export default React.createClass({
                 labelY += basicOffset + fontOffset;
                 labelX -= basicOffset;
                 textAnchor = "end";
+                break;
+
+            case "bottomleftangled":
+                labelX += 2;
+                labelY += basicOffset + fontOffset;
+                labelR = -45;
+                rotate = `rotate(${labelR} ${labelX}, ${labelY})`;
+                textAnchor = "end";
+                break;
+
+            case "bottomrightangled":
+                labelX -= 2;
+                labelY += basicOffset + fontOffset;
+                labelR = 45;
+                rotate = `rotate(${labelR} ${labelX}, ${labelY})`;
+                textAnchor = "start";
+                break;
+
+            case "topleftangled":
+                labelY -= basicOffset;
+                labelR = 45;
+                rotate = `rotate(${labelR} ${labelX}, ${labelY})`;
+                textAnchor = "end";
+                break;
+
+            case "toprightangled":
+                labelY -= basicOffset;
+                labelR = -45;
+                rotate = `rotate(${labelR} ${labelX}, ${labelY})`;
+                textAnchor = "start";
                 break;
 
             default:
@@ -162,17 +199,27 @@ export default React.createClass({
             );
         }
 
-        return (
-            <g onClick={this._click}
-               onMouseOver={this._mouseOver}>
-                {nodeElement}
-                <text x={labelX}
-                      y={labelY}
-                      textAnchor={textAnchor}
-                      style={this.props.labelStyle[styleModifier]}
-                      className={labelClasses} >{this.props.label}</text>
-            </g>
-        );
+        if (this.props.label) {
+            return (
+                <g onClick={this._click}
+                   onMouseOver={this._mouseOver}>
+                    {nodeElement}
+                    <text x={labelX}
+                          y={labelY}
+                          textAnchor={textAnchor}
+                          transform={rotate}
+                          style={this.props.labelStyle[styleModifier]}
+                          className={labelClasses} >{this.props.label}</text>
+                </g>
+            );
+        } else {
+            return (
+                <g onClick={this._click}
+                   onMouseOver={this._mouseOver}>
+                    {nodeElement}
+                </g>
+            );
+        }
     },
 
     _click(e) {

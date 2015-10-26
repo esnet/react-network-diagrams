@@ -18,68 +18,75 @@
  * branches that make up the parallel circuits.
  */
 
-"use strict";
-
 import React from "react";
 import _ from "underscore";
-
 import Constants from "./constants.js";
 import Endpoint from "./circuit-diagram-endpoint.jsx";
 import Connection from "./circuit-diagram-connection.jsx";
 import Navigate from "./circuit-diagram-navigate.jsx";
-import "../examples/styles/circuit.css";
 
-let {Directions} = Constants;
-
-// These are nominal sizes for the circuit
-let CIRCUIT_WIDTH = 851;
-let CIRCUIT_HEIGHT = 200;
+const {Directions} = Constants;
 
 export default React.createClass({
 
     getDefaultProps() {
         return {
+            width: 851,
+            height: 250,
             disabled: false,
-            width: CIRCUIT_WIDTH,
-            height: CIRCUIT_HEIGHT,
             titleOffsetX: 10,
             titleOffsetY: 15,
-            margin: 100
+            margin: 100,
+            noNavigate: false,
         };
     },
 
-    renderCircuitTitle(title) {
+    _renderCircuitTitle(title) {
+        const titleStyle = {
+            textAnchor: "left",
+            fill: "#9D9D9D",
+            fontFamily: "verdana, sans-serif",
+            fontSize: 14,
+        };
+
         if (!this.props.hideTitle) {
             return (
-                <text className="esdb-circuit-title" key="circuit-title"
-                      x={this.props.titleOffsetX} y={this.props.titleOffsetY}>
+                <text className="circuit-title"
+                      key="circuit-title"
+                      style={titleStyle}
+                      x={this.props.titleOffsetX}
+                      y={this.props.titleOffsetY}>
                     {title}
                 </text>
-            );
-        } else {
-            return (
-                 <text className="esdb-circuit-title" key="circuit-title"
-                      x={this.props.titleOffsetX} y={this.props.titleOffsetY}>
-                </text>
-            );
-        }
-    },
-
-    renderParentNavigation(parentId) {
-        if (parentId) {
-            return (
-                <Navigate direction={Directions.NORTH} ypos={25} id={this.props.parentId} />
             );
         } else {
             return null;
         }
     },
 
-    renderDisabledOverlay(disabled) {
-        if (disabled) {
+    // Revisit this to make it work
+
+    _renderParentNavigation(parentId) {
+        if (parentId) {
             return (
-                <rect className="esdb-circuit-overlay"
-                      x="0" y="0" width={CIRCUIT_WIDTH} height={CIRCUIT_HEIGHT}
+                <g>
+                    <Navigate direction={Directions.NORTH} ypos={0} id={this.props.parentId} />
+                </g>
+            );
+        } else {
+            return null;
+        }
+    },
+
+    _renderDisabledOverlay(disabled) {
+        if (disabled) {
+            const overlayStyle = {
+                fill: "#FFFFFF",
+                fillOpacity: "0.65",
+            };
+            return (
+                <rect className="circuit-overlay" style={overlayStyle}
+                      x="0" y="0" width={this.props.width} height={this.props.height}
                       style={{fill: "#FDFDFD", fillOpacity: 0.65}}/>
             );
         } else {
@@ -87,68 +94,132 @@ export default React.createClass({
         }
     },
 
-    renderCircuitElements(branches, a, z) {
-        let numBranches = branches.length;
-        let width = this.props.width - this.props.margin * 2;
-        let x = this.props.margin;
-        let y = this.props.height / 2;
-        let transform = "translate(" + x + " " + y + ")";
-
-        let elements = [];
-        let offset = 0;
+    _renderCircuitElements() {
+        const elements = [];
+        const x1 = this.props.margin;
+        const x2 = this.props.width - this.props.margin;
+        const y1 = this.props.height / 4;
+        const y2 = y1;
+        const memberList = this.props.memberList;
 
         // Push the two end points for the main circuit
-        elements.push(<Endpoint key="a" width={width} position={0} label={a.name} />);
-        elements.push(<Endpoint key="z" width={width} position={width} label={z.name}/>);
+        elements.push(
+            <Endpoint x={x1}
+                      y={y1}
+                      key="a"
+                      style={this.props.endpointStyle}
+                      labelPosition={this.props.endpointLabelPosition}
+                      offset={this.props.endpointLabelOffset}
+                      label={this.props.endpointLabelA} />
+        );
 
-        // Push all the branch connections
-        if (numBranches > 0) {
-            offset = -(numBranches - 1) * 0.5 - 1;
-            _.each(branches, circuit => {
-                offset += 1;
-                elements.push(
-                    <Connection width={width}
-                                key={circuit.id}
-                                circuit={circuit}
-                                circuitTypes={this.props.circuitTypes}
-                                offset={offset}/>
-                );
-            });
-        } else {
-            // Placeholder
-            elements.push(<Connection width={width} key="placeholder-top" placeholder offset={0.25}/>);
-            elements.push(<Connection width={width} key="placeholder-bottom" placeholder offset={-0.25}/>);
-        }
+        elements.push(
+            <Endpoint x={x2}
+                      y={y2}
+                      key="z"
+                      style={this.props.endpointStyle}
+                      labelPosition={this.props.endpointLabelPosition}
+                      offset={this.props.endpointLabelOffset}
+                      label={this.props.endpointLabelZ} />
+        );
 
+        let position = -8;
+        let val = true;
+        let rx1;
+        let rx2;
+        let ry1;
+        let ry2;
+        const yOffset = 0;
+        
+        /* Alternate rendering a circuit back and forth, incrementing the position 
+         * from the center each time, starting with the top for a single circuit
+         * This will render the following order
+         *      Circuit 3, Circuit 1, Circuit 2, Circuit 4 
+         */
+
+        _.each(memberList, (member, memberIndex) => {
+            if ((memberIndex + 1) % 2) {
+                position += 16;
+            }
+            console.log(position);
+            switch (val) {
+                case true:
+                    rx1 = x2;
+                    rx2 = x1;
+                    ry1 = y2;
+                    ry2 = y1;
+                    break;
+                case false:
+                    rx1 = x1;
+                    rx2 = x2;
+                    ry1 = y1;
+                    ry2 = y2;
+                    break;
+                default:
+                    break;
+            }
+            elements.push(
+                <Connection x1={rx1}
+                            x2={rx2}
+                            y1={ry1}
+                            y2={ry2}
+                            key={"circuit-" + memberIndex}
+                            style={member.styleProperties.style}
+                            lineShape={member.styleProperties.lineShape}
+                            label={member.circuitLabel}
+                            labelPosition={this.props.connectionLabelPosition}
+                            yOffset={yOffset}
+                            noNavigate={member.styleProperties.noNavigate}
+                            navTo={member.navTo}
+                            position={position}
+                            onSelectionChange={this.props.onSelectionChange}/>
+            );
+            val = !val;
+        });
         return (
-            <g transform={transform}>
+            <g>
                 {elements}
             </g>
         );
     },
 
-    render() {
-        let circuit = this.props.circuit;
-        let title = circuit["circuit_id"];
-        let branches = this.props.branches ? this.props.branches : [];
-        let endpointA = circuit["endpoint_a"];
-        let endpointZ = circuit["endpoint_z"];
 
-        let className = "esdb-circuit-container";
+    render() {
+        const circuitContainer = {
+            normal: {
+                borderTopStyle: "solid",
+                borderBottomStyle: "solid",
+                borderWidth: 1,
+                borderTopColor: "#FFFFFF",
+                borderBottomColor: "#EFEFEF",
+                width: "100%",
+                height: this.props.height,
+            },
+            disabled: {
+                width: "100%",
+                height: this.props.height,
+            }
+        };
+
+        let className = "circuit-container";
+        let svgStyle;
+
         if (this.props.disabled) {
             className += " disabled";
+            svgStyle = circuitContainer.disabled;
+        } else {
+            svgStyle = circuitContainer.normal;
         }
 
-        let viewBox = "0 0 " + CIRCUIT_WIDTH + " " + CIRCUIT_HEIGHT;
-        let svgStyle = {width: "100%", height: CIRCUIT_HEIGHT};
+        const viewBox = `0 0 ${this.props.width} ${this.props.height}`;
 
         return (
-            <svg className={className} style={svgStyle}>
+            <svg className={className} style={svgStyle} onClick={this._deselect}>
                 <svg viewBox={viewBox} preserveAspectRatio="xMinYMin">
-                    {this.renderCircuitTitle(title)}
-                    {this.renderCircuitElements(branches, endpointA, endpointZ)}
-                    {this.renderParentNavigation(this.props.parentId)}
-                    {this.renderDisabledOverlay(this.props.disabled)}
+                    {this._renderCircuitTitle(this.props.title)}
+                    {this._renderCircuitElements()}
+                    {this._renderParentNavigation(this.props.parentId)}
+                    {this._renderDisabledOverlay(this.props.disabled)}
                 </svg>
             </svg>
         );

@@ -15,7 +15,7 @@ import util from "util";
 import classnames from "classnames";
 import "../examples/styles/circuit.css";
 
-let PANEL_WIDTH = 851;
+const PANEL_WIDTH = 851;
 
 
 export default React.createClass({
@@ -69,7 +69,7 @@ export default React.createClass({
     },
 
     renderLabel(label, x, y) {
-        let yOffset = y - 10;
+        const yOffset = y - 10;
         return (
             <text className="esdb-circuit-label" key="endpoint-label" x={x} y={yOffset}>
                 {label}
@@ -78,8 +78,8 @@ export default React.createClass({
     },
 
     renderEndpoints(x, y) {
-        let ClassSet = classnames;
-        let c = ClassSet({
+        const ClassSet = classnames;
+        const c = ClassSet({
             "esdb-circuit-dot": true,
             hover: this.state.hover,
             placeholder: this.props.placeholder
@@ -110,25 +110,25 @@ export default React.createClass({
         }
 
         // Classes
-        let ClassSet = classnames;
+        const ClassSet = classnames;
 
-        let cc = {"esdb-circuit-edge": true,
+        const cc = {"esdb-circuit-edge": true,
                   hover: this.props.placeholder ? false : this.state.hover,
                   placeholder: this.props.placeholder };
         if (typeClass) {
             cc[typeClass] = true;
         }
 
-        let edge = ClassSet(cc);
-        let hit = ClassSet({
+        const edge = ClassSet(cc);
+        const hit = ClassSet({
             "esdb-circuit-hitstroke": true,
             inactive: this.props.noNavigate
         });
 
-        let pts = [];
+        const pts = [];
         pts.push(util.format("%d,%d", b, y));
         pts.push(util.format("%d,%d", e, y));
-        let points = pts.join(" ");
+        const points = pts.join(" ");
         return (
             <g>
                 <polyline className={edge} key="line-polypath" points={points} />
@@ -145,14 +145,14 @@ export default React.createClass({
         if (this.props.circuit) {
             type = this.props.circuit["circuit_type"];
         }
-        let dy = this.props.offset * this.props.scale;
-        let dx = this.props.scale * 2;
-        let begin = this.props.begin;
-        let end = this.props.end;
-        let y = this.props.yOffset;
-        let middle = begin + (end - begin) / 2;
+        const dy = this.props.offset * this.props.scale;
+        const dx = this.props.scale * 2;
+        const begin = this.props.begin;
+        const end = this.props.end;
+        const y = this.props.yOffset;
+        const middle = begin + (end - begin) / 2;
 
-        let label = this.props.circuit ? this.props.circuit["circuit_id"] : "";
+        const label = this.props.circuit ? this.props.circuit["circuit_id"] : "";
 
         if (this.props.circuit) {
             type = this.props.circuit["circuit_type"];

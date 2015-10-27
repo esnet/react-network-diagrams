@@ -16,16 +16,6 @@ import {stylesMap} from "../styles/styles.js";
 
 const text = require("raw!../markdown/concatenated-circuit.md");
 
-/*
-if (segment.endpoint_z["endpoint_type"] === 1) {
-    endpointZLabel = segment.endpoint_z["port_id"] ? segment.endpoint_z["port_id"] : "(no endpoint)";
-    endpointZLabel += segment.endpoint_z["port_side"] ? ":" + segment.endpoint_z["port_side"] : "(no endpoint)";
-} else {
-    endpointZLabel = segment.endpoint_z ? segment.endpoint_z.name : "(no endpoint)";
-}
-*/
-
-
 const circuitTypeList = ["Optical", "Leased", "Dark Fiber", "Equipment-Equipment",
                          "Cross-Connect", "Panel Coupler", "Backplane Mate", "None"];
 
@@ -114,7 +104,7 @@ export default React.createClass({
             hideTitle: false,
         };
     },
-    
+
 // pass into the selector an id prop, then map that ID prop the index of the list
     _renderMember1Choice() {
         return (
@@ -146,6 +136,7 @@ export default React.createClass({
                                         break;
                                     case "None":
                                         this.setState({circuitType1: null});
+                                        break;
                                     default:
                                         break;
                                 }
@@ -186,6 +177,7 @@ export default React.createClass({
                                         break;
                                     case "None":
                                         this.setState({circuitType2: null});
+                                        break;
                                     default:
                                         break;
                                 }
@@ -226,6 +218,7 @@ export default React.createClass({
                                         break;
                                     case "None":
                                         this.setState({circuitType3: null});
+                                        break;
                                     default:
                                         break;
                                 }
@@ -266,6 +259,7 @@ export default React.createClass({
                                         break;
                                     case "None":
                                         this.setState({circuitType4: null});
+                                        break;
                                     default:
                                         break;
                                 }
@@ -306,6 +300,7 @@ export default React.createClass({
                                         break;
                                     case "None":
                                         this.setState({circuitType5: null});
+                                        break;
                                     default:
                                         break;
                                 }

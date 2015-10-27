@@ -402,22 +402,11 @@ const panelCouplerStyle = {
     }
 };
 
-/*
-        .esdb-circuit-edge.panel {
-            stroke: #737373;
-            stroke-width: 2px;
-        }
-
-        .esdb-circuit-dot.hover {
-            stroke: #b1b1b1;
-        }
-        .esdb-circuit-dot.selected {
-            stroke: #4EC1E0;
-        }
-        .esdb-circuit-dot.placeholder {
-            stroke: #F0F0F0;
-        }
-*/
+const panelStyle = {
+    stroke: "#737373",
+    strokeWidth: 1,
+    fill: "#E8E8E8",
+};
 
 const stylesMap = {
     endpoint1: endpointStyle1,
@@ -433,6 +422,7 @@ const stylesMap = {
     coupler: couplerStyle,
     endpoint: endpointStyle,
     panelCoupler: panelCouplerStyle,
+    panel: panelStyle
 };
 
 const lineShapeMap = {

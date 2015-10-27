@@ -15,7 +15,7 @@ import classnames from "classnames";
 import "../examples/styles/circuit.css";
 
 
-let PANEL_WIDTH = 851;
+const PANEL_WIDTH = 851;
 
 export default React.createClass({
 
@@ -29,21 +29,24 @@ export default React.createClass({
     },
 
     render() {
-        let x = this.props.begin; // * this.props.width;
-        let y = this.props.yOffset;
-        let transform = "translate(" + x + " " + y + ")";
-        let ClassSet = classnames;
-        let c = ClassSet({
+        const x = this.props.begin; // * this.props.width;
+        const y = this.props.yOffset;
+        const transform = "translate(" + x + " " + y + ")";
+        const ClassSet = classnames;
+        const c = ClassSet({
             "esdb-circuit-endpoint": true,
         });
 
-        let label = this.props.label || "";
+        const label = this.props.label || "";
         if (this.props.circuit) {
             return (
                 <g key="endpoint-group" transform={transform}>
                     <circle className={c} key="endpoint-circle"
                             cx={0} cy={0} r={this.props.radius} />
-                    <text className="esdb-circuit-label" key="endpoint-label" x={0} y={this.props.labelOffsetY}>
+                    <text className="esdb-circuit-label"
+                          key="endpoint-label"
+                          x={0}
+                          y={this.props.labelOffsetY}>
                         {label}
                     </text>
                 </g>

@@ -21,9 +21,9 @@
 import React from "react";
 import _ from "underscore";
 import Constants from "./constants.js";
-import Endpoint from "./circuit-diagram-endpoint.jsx";
-import Connection from "./circuit-diagram-connection.jsx";
-import Navigate from "./circuit-diagram-navigate.jsx";
+import Endpoint from "./circuit-diagram-endpoint";
+import Connection from "./circuit-diagram-connection";
+import Navigate from "./circuit-diagram-navigate";
 
 const {Directions} = Constants;
 

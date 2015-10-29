@@ -152,7 +152,7 @@ export default React.createClass({
             node.y = (node.y - minY) / maxY;
 
             // Radius is based on the type of node, given in the nodeSizeMap
-            node.radius = this._nodeSize[node.type];
+            node.radius = this._nodeSize(node.type);
 
             node.labelPosition = node.label_position;
             node.style = this.props.stylesMap[node.type].node;

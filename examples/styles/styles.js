@@ -373,12 +373,12 @@ const panelCouplerStyle = {
         normal: {
             stroke: "#737373",
             strokeWidth: 1,
-            fill: "#E8E8E8"
+            fill: "#F8F8F8"
         },
         highlighted: {
             stroke: "#4EC1E0",
-            strokeWidth: 4,
-            fill: "#E8E8E8"
+            strokeWidth: 2,
+            fill: "#F8F8F8"
         }
     },
     line: {
@@ -403,9 +403,9 @@ const panelCouplerStyle = {
 };
 
 const panelStyle = {
-    stroke: "#737373",
+    stroke: "#E4E4E4",
     strokeWidth: 1,
-    fill: "#E8E8E8",
+    fill: "#FFFFFF",
 };
 
 const stylesMap = {

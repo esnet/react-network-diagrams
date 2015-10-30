@@ -84,6 +84,8 @@ export default React.createClass({
                               style={this.props.style}
                               radius={this.props.radius}
                               shape={this.props.endpointShape}
+                              roundedX={this.props.endPointRoundedX}
+                              roundedY={this.props.endPointRoundedY}
                               highlighted={this.state.highlighted}
                               muted={this.props.muted}
                               selected={this.props.selected} />
@@ -93,6 +95,8 @@ export default React.createClass({
                               style={this.props.style}
                               radius={this.props.radius}
                               shape={this.props.endpointShape}
+                              roundedX={this.props.endPointRoundedX}
+                              roundedY={this.props.endPointRoundedY}
                               highlighted={this.state.highlighted}
                               muted={this.props.muted}
                               selected={this.props.selected} />
@@ -102,12 +106,20 @@ export default React.createClass({
     },
 
     render() {
-        // let styleModifier = "normal";
+        let xOffset;
+        let yOffset;
 
-        // const labelClassed = "circuit-label";
+        if (this.props.labelOffsetX === undefined) {
+            xOffset = this.props.radius * 1.33;
+        } else {
+            xOffset = this.props.labelOffsetX;
+        }
 
-        const xOffset = this.props.labelOffsetX ? this.props.labelOffsetX : this.props.radius * 1.33;
-        const yOffset = this.props.labelOffsetY ? this.props.labelOffsetY : this.props.radius * 1.33;
+        if (this.props.labelOffsetY === undefined) {
+            yOffset = this.props.radius * 1.33;
+        } else {
+            yOffset = this.props.labelOffsetY;
+        }
 
         const hitStyle = {
             cursor: this.props.noNavigate ? "default" : "pointer",

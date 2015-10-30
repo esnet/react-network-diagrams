@@ -17,7 +17,9 @@ export default React.createClass({
             radius: 5,
             selected: false,
             shape: "circle",
-            style: {}
+            style: {},
+            rx: 0,
+            ry: 0,
         };
     },
 
@@ -171,6 +173,8 @@ export default React.createClass({
             nodeElement = (
               <rect x={x}
                     y={y}
+                    rx={this.props.rx}
+                    ry={this.props.ry}
                     width={width}
                     height={width}
                     style={this.props.style[styleModifier]}

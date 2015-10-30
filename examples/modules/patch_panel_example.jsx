@@ -55,13 +55,15 @@ const panels = [
                         endpointLabelA: "Endpoint 1",
                         endpointLabelZ: "Endpoint 2",
                         circuitLabel: "Member 1",
+                        navTo: "Member 1",
                     },
                     coupler: {
                         styleProperties: circuitTypeProperties.panelCoupler,
                         endpointStyle: circuitTypeProperties.panelCoupler,
                         endpointLabelA: "Endpoint 2",
                         endpointlabelZ: "Endpoint 3",
-                        circuitLabel: "1/2",
+                        circuitLabel: "1/2-SC",
+                        navTo: "Coupler 1/2",
                     },
                     backCircuit: {
                         styleProperties: circuitTypeProperties.leased,
@@ -69,10 +71,10 @@ const panels = [
                         endpointLabelA: "Endpoint 3",
                         endpointLabelZ: "Endpoint 4",
                         circuitLabel: "Member 3",
+                        navTo: "Member 3",
                     },
                     frontLabel: "Endpoint A",
-                    backlabel: "Endpoint Z",
-                    couplerName: "1/2",
+                    backLabel: "Endpoint Z",
                 },
                 { // 1
                     frontCircuit: null,
@@ -81,12 +83,61 @@ const panels = [
                         endpointStyle: circuitTypeProperties.panelCoupler,
                         endpointLabelA: "Endpoint 2",
                         endpointlabelZ: "Endpoint 3",
-                        circuitLabel: "3/4",
+                        circuitLabel: "3/4-SC",
+                        navTo: "Coupler 3/4",
                     },
                     backCircuit: null,
                     frontLabel: "Endpoint A",
-                    backlabel: "Endpoint Z",
-                    couplerName: "1/2",
+                    backLabel: "Endpoint Z",
+                },
+            ]
+        ]
+    },
+    {
+        panelName: "Panel 2",
+        modules: [
+            [  // 1st Module
+                { // 0
+                    frontCircuit: {
+                        styleProperties: circuitTypeProperties.crossConnect,
+                        endpointStyle: stylesMap.endpoint,
+                        endpointLabelA: "Endpoint 1",
+                        endpointLabelZ: "Endpoint 2",
+                        circuitLabel: "Member 1",
+                        navTo: "Member 1",
+                    },
+                    coupler: {
+                        styleProperties: circuitTypeProperties.panelCoupler,
+                        endpointStyle: circuitTypeProperties.panelCoupler,
+                        endpointLabelA: "Endpoint 2",
+                        endpointlabelZ: "Endpoint 3",
+                        circuitLabel: "1/2-SC",
+                        navTo: "Coupler 1/2",
+                    },
+                    backCircuit: {
+                        styleProperties: circuitTypeProperties.leased,
+                        endpointStyle: stylesMap.endpoint,
+                        endpointLabelA: "Endpoint 3",
+                        endpointLabelZ: "Endpoint 4",
+                        circuitLabel: "Member 3",
+                        navTo: "Member 3",
+                    },
+                    frontLabel: "Endpoint A",
+                    backLabel: "Endpoint Z With a really long label",
+                },
+                { // 1
+                    frontCircuit: null,
+                    coupler: {
+                        styleProperties: circuitTypeProperties.panelCoupler,
+                        endpointStyle: circuitTypeProperties.panelCoupler,
+                        endpointLabelA: "Endpoint 2",
+                        endpointlabelZ: "Endpoint 3",
+                        circuitLabel: "3/4-SC",
+                        navTo: "Coupler 3/4",
+                    },
+                    backCircuit: null,
+                    frontLabel: "Endpoint A",
+                    backLabel: "Endpoint Z",
                 },
                 { // 2
                     frontCircuit: {
@@ -95,13 +146,15 @@ const panels = [
                         endpointLabelA: "Endpoint 1",
                         endpointLabelZ: "Endpoint 2",
                         circuitLabel: "Member 1",
+                        navTo: "Member 1",
                     },
                     coupler: {
                         styleProperties: circuitTypeProperties.panelCoupler,
                         endpointStyle: circuitTypeProperties.panelCoupler,
                         endpointLabelA: "Endpoint 2",
                         endpointlabelZ: "Endpoint 3",
-                        circuitLabel: "5/6",
+                        circuitLabel: "5/6-SC",
+                        navTo: "Coupler 5/6",
                     },
                     backCircuit: {
                         styleProperties: circuitTypeProperties.darkFiber,
@@ -109,7 +162,10 @@ const panels = [
                         endpointLabelA: "Endpoint 3",
                         endpointLabelZ: "Endpoint 4",
                         circuitLabel: "Member 3",
+                        navTo: "Member 3",
                     },
+                    frontLabel: "Endpoint A With a really long label",
+                    backLabel: "Endpoint Z",
                 }
             ],
             [   // 2nd Module
@@ -120,13 +176,15 @@ const panels = [
                         endpointLabelA: "Endpoint 1",
                         endpointLabelZ: "Endpoint 2",
                         circuitLabel: "Member 1",
+                        navTo: "Member 1",
                     },
                     coupler: {
                         styleProperties: circuitTypeProperties.panelCoupler,
                         endpointStyle: circuitTypeProperties.panelCoupler,
                         endpointLabelA: "Endpoint 2",
                         endpointlabelZ: "Endpoint 3",
-                        circuitLabel: "1/2",
+                        circuitLabel: "1/2-LC",
+                        navTo: "Coupler 1/2",
                     },
                     backCircuit: {
                         styleProperties: circuitTypeProperties.leased,
@@ -134,7 +192,11 @@ const panels = [
                         endpointLabelA: "Endpoint 3",
                         endpointLabelZ: "Endpoint 4",
                         circuitLabel: "Member 3",
+                        navTo: "Member 3"
+
                     },
+                    frontLabel: "Endpoint A",
+                    backLabel: "Endpoint Z",
                 },
                 {
                     frontCircuit: {
@@ -143,13 +205,15 @@ const panels = [
                         endpointLabelA: "Endpoint 1",
                         endpointLabelZ: "Endpoint 2",
                         circuitLabel: "Member 1",
+                        navTo: "Member 1",
                     },
                     coupler: {
                         styleProperties: circuitTypeProperties.panelCoupler,
                         endpointStyle: circuitTypeProperties.panelCoupler,
                         endpointLabelA: "Endpoint 2",
                         endpointlabelZ: "Endpoint 3",
-                        circuitLabel: "3/4",
+                        circuitLabel: "3/4-LC",
+                        navTo: "Coupler 3/4",
                     },
                     backCircuit: {
                         styleProperties: circuitTypeProperties.darkFiber,
@@ -157,7 +221,10 @@ const panels = [
                         endpointLabelA: "Endpoint 3",
                         endpointLabelZ: "Endpoint 4",
                         circuitLabel: "Member 3",
+                        navTo: "Member 3",
                     },
+                    frontLabel: "Endpoint A",
+                    backLabel: "Endpoint Z",
                 },
                 {
                     frontCircuit: null,
@@ -166,29 +233,38 @@ const panels = [
                         endpointStyle: circuitTypeProperties.panelCoupler,
                         endpointLabelA: "Endpoint 2",
                         endpointlabelZ: "Endpoint 3",
-                        circuitLabel: "5/6",
+                        circuitLabel: "5/6-LC",
+                        navTo: "Coupler 5/6",
                     },
                     backCircuit: null,
+                    frontLabel: "Endpoint A",
+                    backLabel: "Endpoint Z",
                 }
             ]
         ]
-    }
+    },
 ];
 
 /*
-<LocationPanelDiagram panels={panels}
-      couplerStyle={circuitTypeProperties.panelCoupler}
-      yOffset={this.state.yOffset}
-      moduleSpacing={this.state.moduleSpacing}
-      panelSpacing={this.state.panelSpacing}
-      endpointLabelPosition={this.state.endpointLabelPositionChoice}
-      connectionLabelPosition={this.state.circuitLabelPositionChoice}
-      disabled={this.state.disabled}
-      onSelectionChange={this._onSelectionChange}
-      endpointLabelOffset={18} />
+
 */
 
 export default React.createClass({
+
+    getInitialState() {
+        return {
+            yOffset: 50,
+            moduleSpacing: 15,
+            panelWidth: 30,
+            panelSpacing: 40,
+            couplerSpacing: 3,
+        };
+    },
+
+    _onSelectionChange(e,val) {
+        const message = `You clicked connection ${e} with name ${val}`;
+        window.alert(message);
+    },
 
     render() {
         // determine the total numbers of couplers, panels and modules across all panels
@@ -202,7 +278,17 @@ export default React.createClass({
 
                 <div className="row">
                     <div className="col-md-12">
-                         Example Forthcoming
+                        <LocationPanelDiagram
+                            panels={panels}
+                            panelStyle={stylesMap.panel}
+                            couplerStyle={circuitTypeProperties.panelCoupler}
+                            yOffset={this.state.yOffset}
+                            moduleSpacing={this.state.moduleSpacing}
+                            panelSpacing={this.state.panelSpacing}
+                            couplerSpacing={this.state.couplerSpacing}
+                            panelWidth={this.state.panelWidth}
+                            onSelectionChange={this._onSelectionChange}
+                            endpointLabelOffset={18} />
                     </div>
                 </div>
             </div>

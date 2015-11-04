@@ -65,6 +65,7 @@ export default React.createClass({
                                 Maps:
 
                                 <li><Link to="trafficmap">Traffic Map</Link></li>
+                                <li><Link to="editor">Editor</Link></li>
 
                                 <hr />
 

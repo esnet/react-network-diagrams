@@ -17,20 +17,54 @@ import Legend from "./map-legend";
 import SimpleEdge from "./edge-simple";
 import BidirectionalEdge from "./edge-bidirectional";
 
-/**
- *
- * Base level map
- *
- */
+import "./map.css";
+
+function getElementOffset(element) {
+    const de = document.documentElement;
+    const box = element.getBoundingClientRect();
+    const top = box.top + window.pageYOffset - de.clientTop;
+    const left = box.left + window.pageXOffset - de.clientLeft;
+    return {
+        top: top,
+        left: left
+    };
+}
+
 export default React.createClass({
 
     displayName: "BaseMap",
+
+    propTypes: {
+        topology: React.PropTypes.object.isRequired,
+        width: React.PropTypes.number,
+        height: React.PropTypes.number,
+        margin: React.PropTypes.number,
+        bounds: React.PropTypes.shape({
+            x1: React.PropTypes.number,
+            y1: React.PropTypes.number,
+            x2: React.PropTypes.number,
+            y2: React.PropTypes.number
+        }),
+        edgeDrawingMethod: React.PropTypes.oneOf([
+            "simple",
+            "bidirectionalArrow",
+            "pathBidirectionalArrow"
+        ]),
+        legendItems: React.PropTypes.shape({
+            x: React.PropTypes.number,
+            y: React.PropTypes.number,
+            edgeTypes: React.PropTypes.object,
+            nodeTypes: React.PropTypes.object,
+            colorSwatches: React.PropTypes.object,
+        }),
+    },
 
     getDefaultProps() {
         return {
             width: 800,
             height: 600,
             margin: 20,
+            bounds: {x1: 0, y1: 0, x2: 1, y2: 1},
             edgeDrawingMethod: "simple",
             legendItems: null,
             selection: { nodes: {}, edges: {} },
@@ -39,11 +73,60 @@ export default React.createClass({
         };
     },
 
+    getInitialState() {
+        return {
+            draging: null
+        }
+    },
+
+    // get the event mouse position relative to the event rect
+    getOffsetMousePosition(e) {
+        const trackerRect = React.findDOMNode(this.refs.map);
+        const offset = getElementOffset(trackerRect);
+        const x = e.pageX - offset.left;
+        const y = e.pageY - offset.top;
+        return {x: Math.round(x), y: Math.round(y)};
+    },
+
+    handleNodeMouseDown(id, e) {
+        const { xScale, yScale } = this.scale();
+        const {x, y} = this.getOffsetMousePosition(e);
+        console.log("## BASE handleNodeMouseDown", id, x, y, xScale.invert(x), yScale.invert(y));
+        const drag = {
+            id: id,
+            x0: xScale.invert(x),
+            y0: yScale.invert(y)
+        };
+        this.setState({dragging: drag});
+    },
+
+    scale() {
+        const xScale = d3.scale.linear()
+            .domain([
+                this.props.bounds.x1,
+                this.props.bounds.x2
+            ])
+            .range([
+                this.props.margin,
+                this.props.width - this.props.margin
+            ]);
+        const yScale = d3.scale.linear()
+            .domain([
+                this.props.bounds.y1,
+                this.props.bounds.y2
+            ])
+            .range([
+                this.props.margin,
+                this.props.height - this.props.margin
+            ]);
+        return {
+            xScale: xScale,
+            yScale: yScale
+        }
+    },
+
     render() {
-        const xScale = d3.scale.linear().range(
-            [this.props.margin, this.props.width - this.props.margin]);
-        const yScale = d3.scale.linear().range(
-            [this.props.margin, this.props.height - this.props.margin]);
+        const { xScale, yScale } = this.scale();
         const hasSelectedNode = this.props.selection.nodes.length;
         const hasSelectedEdge = this.props.selection.edges.length;
 
@@ -75,32 +158,37 @@ export default React.createClass({
         let nodes = _.map(this.props.topology.nodes, node => {
             const x = xScale(node.x);
             const y = yScale(node.y);
+
             nodeCoordinates[node.name] = {x: x, y: y};
 
             const label = _.isUndefined(node.label) ? node.name : node.label;
-            const nodeSelected =
-                _.contains(this.props.selection.nodes, node.name);
-            const edgeSelected =
-                _.contains(secondarySelectedNodes, node.name);
+            const id = _.isUndefined(node.id) ? node.name : node.id;
+            const nodeSelected = _.contains(this.props.selection.nodes, id);
+            const edgeSelected = _.contains(secondarySelectedNodes, id);
             const selected = nodeSelected || edgeSelected;
             const muted = (hasSelectedNode && !selected) ||
                           (hasSelectedEdge && !selected);
             return (
-                <Node x={x}
-                      y={y}
-                      name={node.name}
-                      key={node.name}
-                      style={node.style}
-                      labelStyle={node.labelStyle}
-                      type={node.type}
-                      labelPosition={node.labelPosition}
-                      label={label}
-                      radius={node.radius}
-                      classed={node.classed}
-                      shape={node.shape}
-                      selected={selected}
-                      muted={muted}
-                      onSelectionChange={this.props.onSelectionChange}/>
+                <Node
+                    x={x}
+                    y={y}
+                    id={node.id}
+                    name={node.name}
+                    key={node.name}
+                    style={node.style}
+                    labelStyle={node.labelStyle}
+                    type={node.type}
+                    labelPosition={node.labelPosition}
+                    label={label}
+                    radius={node.radius}
+                    classed={node.classed}
+                    shape={node.shape}
+                    selected={selected}
+                    muted={muted}
+                    onSelectionChange={this.props.onSelectionChange}
+                    onMouseDown={this.handleNodeMouseDown}
+                    onMouseMove={(type, id, x, y) => this.props.onNodeMouseMove(id, x, y)}
+                    onMouseUp={(type, id, e) => this.props.onNodeMouseUp(id, e)} />
             );
         });
 
@@ -393,12 +481,32 @@ export default React.createClass({
             );
         }
 
+        let style;
+        if (this.state.dragging) {
+            style = {
+                cursor: "pointer"
+            }
+        } else if (this.props.onPositionSelected) {
+            style = {
+                cursor: "crosshair"
+            }
+        } else {
+            style = {
+                cursor: "default"
+            }
+        }
+
         return (
             <svg
+                style={style}
+                className="noselect"
+                ref="map"
                 width={this.props.width}
                 height={this.props.height}
                 className={"map-container"}
-                onClick={this._click}>
+                onClick={this.handleClick}
+                onMouseMove={this.handleMouseMove}
+                onMouseUp={this.handleMouseUp} >
                 <g>
                     {edges}
                     {paths}
@@ -410,8 +518,30 @@ export default React.createClass({
         );
     },
 
-    _click() {
-        if (this.props.onSelectionChange) {
+    handleMouseMove(e) {
+        e.preventDefault();
+        if (this.state.dragging) {
+            const { id } = this.state.dragging;
+            const { xScale, yScale } = this.scale();
+            const { x, y } = this.getOffsetMousePosition(e);
+            console.log("## BASE dragging", id, xScale.invert(x), yScale.invert(y));
+            if (this.props.onNodeDrag) {
+                this.props.onNodeDrag(id, xScale.invert(x), yScale.invert(y));
+            }
+        }
+    },
+
+    handleMouseUp(e) {
+        e.stopPropagation();
+        this.setState({dragging: null});
+    },
+
+    handleClick(e) {
+        if (this.props.onPositionSelected) {
+            const { xScale, yScale } = this.scale();
+            const { x, y } = this.getOffsetMousePosition(e);
+            this.props.onPositionSelected(xScale.invert(x), yScale.invert(y));
+        } else if (this.props.onSelectionChange) {
             this.props.onSelectionChange(null);
         }
     }

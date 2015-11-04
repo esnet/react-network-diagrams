@@ -17,7 +17,8 @@ export default React.createClass({
             radius: 5,
             selected: false,
             shape: "circle",
-            style: {}
+            style: {},
+            isDragging: false
         };
     },
 
@@ -201,7 +202,10 @@ export default React.createClass({
 
         if (this.props.label) {
             return (
-                <g onClick={this._click}
+                <g onClick={this.handMouseClick}
+                   onMouseOver={this.handleMouseOver}
+                   onMouseDown={this.handleMouseDown}
+                   onMouseMove={this.handleMouseMove}
                    onMouseOver={this._mouseOver}>
                     {nodeElement}
                     <text x={labelX}
@@ -214,22 +218,36 @@ export default React.createClass({
             );
         } else {
             return (
-                <g onClick={this._click}
-                   onMouseOver={this._mouseOver}>
+                <g onClick={this.handMouseClick}
+                   onMouseOver={this.handleMouseOver}
+                   onMouseDown={this.handleMouseDown}
+                   onMouseMove={this.handleMouseMove}
+                   onMouseUp={this.handleMouseUp}>
                     {nodeElement}
                 </g>
             );
         }
     },
 
-    _click(e) {
+    handMouseClick(e) {
         e.stopPropagation();
-
+        const id = this.props.id || this.props.name;
         if (this.props.onSelectionChange) {
-            this.props.onSelectionChange("node", this.props.name);
+            console.log("Node: click: Selection changed", id);
+            this.props.onSelectionChange("node", id);
         }
     },
 
-    _mouseOver() {
-    }
+    handleMouseOver() {
+    },
+
+    handleMouseDown(e) {
+        e.stopPropagation();
+        const id = this.props.id || this.props.name;
+        console.log("## Node: DOWN: onMouseDown", id, e);
+        if (this.props.onMouseDown) {
+            this.props.onMouseDown(id, e);
+        }
+    },
+
 });

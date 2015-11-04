@@ -1,0 +1,35 @@
+{
+  "description":"Simple topo",
+  "name":"simple",
+  "nodes":[
+    {
+      "label_dx":null,
+      "label_dy":null,
+      "label_position":"top",
+      "name":"Node1",
+      "type":"node",
+      "x":100,
+      "y":50
+    },
+    {
+      "label_dx":null,
+      "label_dy":null,
+      "label_position":"top",
+      "name":"Node2",
+      "site":5,
+      "type":"node",
+      "x":50,
+      "y":125
+    },
+    {
+      "label_dx":null,
+      "label_dy":null,
+      "label_position":"top",
+      "name":"Node3",
+      "site":5,
+      "type":"node",
+      "x":150,
+      "y":125
+    }
+  ]
+}

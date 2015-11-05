@@ -150,18 +150,16 @@ export default React.createClass({
             }
         });
 
-        // maps node name to scaled x and y position
         const nodeCoordinates = {};
         const nodes = _.map(this.props.topology.nodes, node => {
-            const {x, y, name, id, ...props} = node;
-
-            const nodeSelected = _.contains(this.props.selection.nodes, id);
-            const edgeSelected = _.contains(secondarySelectedNodes, id);
-
+            const {x, y, name, id, label, ...props} = node;
+            props.id = id || name;
             props.x = xScale(node.x);
             props.y = yScale(node.y);
-            props.label = _.isUndefined(node.label) ? node.name : node.label;
-            props.id = _.isUndefined(id) ? name : id;
+            props.label = label || name;
+
+            const nodeSelected = _.contains(this.props.selection.nodes, props.id);
+            const edgeSelected = _.contains(secondarySelectedNodes, props.id);
             props.selected = nodeSelected || edgeSelected;
             props.muted = (hasSelectedNode && !props.selected) || (hasSelectedEdge && !props.selected);
 
@@ -170,7 +168,7 @@ export default React.createClass({
             return (
                 <Node key={props.id}
                       {...props}
-                      onSelectionChange={this.props.onSelectionChange}
+                      onSelectionChange={(type, i) => this.handleSelectionChange(type, i)}
                       onMouseDown={this.handleNodeMouseDown}
                       onMouseMove={(type, i, xx, yy) => this.props.onNodeMouseMove(i, xx, yy)}
                       onMouseUp={(type, i, e) => this.props.onNodeMouseUp(i, e)} />
@@ -505,6 +503,12 @@ export default React.createClass({
                 </g>
             </svg>
         );
+    },
+
+    handleSelectionChange(type, id) {
+        if (this.props.onSelectionChange) {
+            this.props.onSelectionChange(type, id);
+        }
     },
 
     handleMouseMove(e) {

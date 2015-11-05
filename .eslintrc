@@ -20,6 +20,10 @@
   "plugins": [
     "react"
   ],
+  "globals": {
+      "window": true,
+      "document": true
+  },
   "rules": {
     "comma-dangle": 0,
     "no-cond-assign": 2,
@@ -149,7 +153,7 @@
     "camelcase": [
       2,
       {
-        "properties": "always"
+        "properties": "never"
       }
     ],
     "comma-spacing": 0,

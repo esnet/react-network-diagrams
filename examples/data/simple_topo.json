@@ -9,7 +9,7 @@
       "name":"Node1",
       "type":"node",
       "x":100,
-      "y":50
+      "y":20
     },
     {
       "label_dx":null,
@@ -19,7 +19,7 @@
       "site":5,
       "type":"node",
       "x":50,
-      "y":125
+      "y":80
     },
     {
       "label_dx":null,
@@ -29,7 +29,7 @@
       "site":5,
       "type":"node",
       "x":150,
-      "y":125
+      "y":80
     }
   ]
 }

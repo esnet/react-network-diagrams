@@ -76,7 +76,7 @@ export default React.createClass({
     getInitialState() {
         return {
             draging: null
-        }
+        };
     },
 
     // get the event mouse position relative to the event rect
@@ -90,8 +90,7 @@ export default React.createClass({
 
     handleNodeMouseDown(id, e) {
         const { xScale, yScale } = this.scale();
-        const {x, y} = this.getOffsetMousePosition(e);
-        console.log("## BASE handleNodeMouseDown", id, x, y, xScale.invert(x), yScale.invert(y));
+        const { x, y } = this.getOffsetMousePosition(e);
         const drag = {
             id: id,
             x0: xScale.invert(x),
@@ -101,28 +100,26 @@ export default React.createClass({
     },
 
     scale() {
-        const xScale = d3.scale.linear()
-            .domain([
-                this.props.bounds.x1,
-                this.props.bounds.x2
-            ])
-            .range([
-                this.props.margin,
-                this.props.width - this.props.margin
-            ]);
-        const yScale = d3.scale.linear()
-            .domain([
-                this.props.bounds.y1,
-                this.props.bounds.y2
-            ])
-            .range([
-                this.props.margin,
-                this.props.height - this.props.margin
-            ]);
         return {
-            xScale: xScale,
-            yScale: yScale
-        }
+            xScale: d3.scale.linear()
+                .domain([
+                    this.props.bounds.x1,
+                    this.props.bounds.x2
+                ])
+                .range([
+                    this.props.margin,
+                    this.props.width - this.props.margin * 2
+                ]),
+            yScale: d3.scale.linear()
+                .domain([
+                    this.props.bounds.y1,
+                    this.props.bounds.y2
+                ])
+                .range([
+                    this.props.margin,
+                    this.props.height - this.props.margin * 2
+                ])
+        };
     },
 
     render() {
@@ -134,7 +131,7 @@ export default React.createClass({
         // Build a mapping of edge names to the edges themselves
         //
 
-        let edgeMap = {};
+        const edgeMap = {};
         _.each(this.props.topology.edges, (edge) => {
             edgeMap[`${edge.source}--${edge.target}`] = edge;
             edgeMap[`${edge.target}--${edge.source}`] = edge;
@@ -144,9 +141,9 @@ export default React.createClass({
         // Build a list of nodes (each a Node) from our topology
         //
 
-        let secondarySelectedNodes = [];
+        const secondarySelectedNodes = [];
         _.each(this.props.selection.edges, (edgeName) => {
-            let edge = edgeMap[edgeName];
+            const edge = edgeMap[edgeName];
             if (edge) {
                 secondarySelectedNodes.push(edge.source);
                 secondarySelectedNodes.push(edge.target);
@@ -154,41 +151,29 @@ export default React.createClass({
         });
 
         // maps node name to scaled x and y position
-        let nodeCoordinates = {};
-        let nodes = _.map(this.props.topology.nodes, node => {
-            const x = xScale(node.x);
-            const y = yScale(node.y);
+        const nodeCoordinates = {};
+        const nodes = _.map(this.props.topology.nodes, node => {
+            const {x, y, name, id, ...props} = node;
 
-            nodeCoordinates[node.name] = {x: x, y: y};
-
-            const label = _.isUndefined(node.label) ? node.name : node.label;
-            const id = _.isUndefined(node.id) ? node.name : node.id;
             const nodeSelected = _.contains(this.props.selection.nodes, id);
             const edgeSelected = _.contains(secondarySelectedNodes, id);
-            const selected = nodeSelected || edgeSelected;
-            const muted = (hasSelectedNode && !selected) ||
-                          (hasSelectedEdge && !selected);
+
+            props.x = xScale(node.x);
+            props.y = yScale(node.y);
+            props.label = _.isUndefined(node.label) ? node.name : node.label;
+            props.id = _.isUndefined(id) ? name : id;
+            props.selected = nodeSelected || edgeSelected;
+            props.muted = (hasSelectedNode && !props.selected) || (hasSelectedEdge && !props.selected);
+
+            nodeCoordinates[node.name] = {x: props.x, y: props.y};
+
             return (
-                <Node
-                    x={x}
-                    y={y}
-                    id={node.id}
-                    name={node.name}
-                    key={node.name}
-                    style={node.style}
-                    labelStyle={node.labelStyle}
-                    type={node.type}
-                    labelPosition={node.labelPosition}
-                    label={label}
-                    radius={node.radius}
-                    classed={node.classed}
-                    shape={node.shape}
-                    selected={selected}
-                    muted={muted}
-                    onSelectionChange={this.props.onSelectionChange}
-                    onMouseDown={this.handleNodeMouseDown}
-                    onMouseMove={(type, id, x, y) => this.props.onNodeMouseMove(id, x, y)}
-                    onMouseUp={(type, id, e) => this.props.onNodeMouseUp(id, e)} />
+                <Node key={props.id}
+                      {...props}
+                      onSelectionChange={this.props.onSelectionChange}
+                      onMouseDown={this.handleNodeMouseDown}
+                      onMouseMove={(type, i, xx, yy) => this.props.onNodeMouseMove(i, xx, yy)}
+                      onMouseUp={(type, i, e) => this.props.onNodeMouseUp(i, e)} />
             );
         });
 
@@ -203,7 +188,7 @@ export default React.createClass({
         //      nodePathMap[DENV].targetMap[SACR] => [PATH1, PATH2]
         //                                 [KANS] => [PATH2]
 
-        let nodePaths = {};
+        const nodePaths = {};
         _.each(this.props.paths, path => {
             const pathName = path.name;
             const pathSteps = path.steps;
@@ -238,7 +223,7 @@ export default React.createClass({
         // tell us which edges are touched by a path
         //
 
-        let edgePathMap = {};
+        const edgePathMap = {};
         _.each(this.props.paths, path => {
             const pathSteps = path.steps;
             if (pathSteps.length > 1) {
@@ -253,8 +238,12 @@ export default React.createClass({
             }
         });
 
-        let edges = _.map(this.props.topology.edges, edge => {
+        const edges = _.map(this.props.topology.edges, edge => {
             const selected = _.contains(this.props.selection.edges, edge.name);
+
+            if (!_.has(nodeCoordinates, edge.source) || !_.has(nodeCoordinates, edge.target)) {
+                return;
+            }
 
             // either 'simple' or 'bi-directional' edges.
             const edgeDrawingMethod = this.props.edgeDrawingMethod;
@@ -365,10 +354,10 @@ export default React.createClass({
         // Build the paths
         //
 
-        let paths = _.map(this.props.paths, path => {
+        const paths = _.map(this.props.paths, path => {
             const pathName = path.name;
             const pathSteps = path.steps;
-            let pathSegments = [];
+            const pathSegments = [];
 
             if (pathSteps.length > 1) {
                 for (let i = 0; i < pathSteps.length - 1; i++) {
@@ -434,7 +423,7 @@ export default React.createClass({
                                 shape={edgeShape}
                                 curveDirection={curveDirection}
                                 width={this.props.pathWidth}
-                                classed={"path-" + pathName}
+                                classed={`path-${pathName}`}
                                 key={`${pathName}--${edgeName}`}
                                 name={`${pathName}--${edgeName}`} />
                         );
@@ -452,7 +441,7 @@ export default React.createClass({
         // Build the labels
         //
 
-        let labels = _.map(this.props.topology.labels, (label) => {
+        const labels = _.map(this.props.topology.labels, (label) => {
             const x = xScale(label.x);
             const y = yScale(label.y);
             return (
@@ -485,15 +474,15 @@ export default React.createClass({
         if (this.state.dragging) {
             style = {
                 cursor: "pointer"
-            }
+            };
         } else if (this.props.onPositionSelected) {
             style = {
                 cursor: "crosshair"
-            }
+            };
         } else {
             style = {
                 cursor: "default"
-            }
+            };
         }
 
         return (
@@ -524,7 +513,6 @@ export default React.createClass({
             const { id } = this.state.dragging;
             const { xScale, yScale } = this.scale();
             const { x, y } = this.getOffsetMousePosition(e);
-            console.log("## BASE dragging", id, xScale.invert(x), yScale.invert(y));
             if (this.props.onNodeDrag) {
                 this.props.onNodeDrag(id, xScale.invert(x), yScale.invert(y));
             }
@@ -541,7 +529,8 @@ export default React.createClass({
             const { xScale, yScale } = this.scale();
             const { x, y } = this.getOffsetMousePosition(e);
             this.props.onPositionSelected(xScale.invert(x), yScale.invert(y));
-        } else if (this.props.onSelectionChange) {
+        }
+        if (this.props.onSelectionChange) {
             this.props.onSelectionChange(null);
         }
     }

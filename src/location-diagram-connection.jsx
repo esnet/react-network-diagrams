@@ -60,11 +60,11 @@ export default React.createClass({
         if (this.props.noNavigate) {
             return;
         }
-        if (this.props.navigate) {
-            Backbone.history.navigate("circuit/view/" + this.props.navigate, {trigger: true});
-        } else if (this.props.circuit.id) {
-            Backbone.history.navigate("circuit/view/" + this.props.circuit.id, {trigger: true});
-        }
+        // if (this.props.navigate) {
+            // Backbone.history.navigate("circuit/view/" + this.props.navigate, {trigger: true});
+        // } else if (this.props.circuit.id) {
+            // Backbone.history.navigate("circuit/view/" + this.props.circuit.id, {trigger: true});
+        // }
         e.stopPropagation();
     },
 

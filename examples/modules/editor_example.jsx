@@ -10,47 +10,49 @@
 
 import React from "react";
 import _ from "underscore";
-import {Event} from "@esnet/pond";
-
+import { Nav, NavItem } from "react-bootstrap";
+import Select from "react-select";
 import Resizable from "./resizable";
 import MapEditor from "../../src/map-editor";
 
 // Test data
-import topo from "../data/simple_topo.json";
+import topoJSON from "../data/simple_topo.json";
 
 /**
- * On the outside of the editor we hold:
- *     - The selection
- *     - The source of truth for the topology, initially loaded
- *       here from a json file
- * We control, from here:
- *     - The dimensions into which to render the editor
- * From the editor, we respond to:
- *     - Change in selection
- *     - Change in topology
+ * An example of putting together a topology editor
  */
-
 export default React.createClass({
 
     getInitialState() {
         const nodeMap = {};
-        _.each(topo.nodes, node => {
+        _.each(topoJSON.nodes, node => {
             node.id = this.makeId();
             nodeMap[node.id] = node;
         });
         return {
             mode: null,
+            topo: topoJSON,
             nodeMap: nodeMap,
             selectionType: null,
-            selection: null
+            selection: null,
+            display: "editor",
+            gridSize: 0.25
         };
     },
 
     makeId() {
         return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
-            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+            const r = Math.random() * 16 | 0;
+            const v = c === "x" ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
+    },
+
+    constrain(x, y) {
+        return {
+            x: parseInt(parseInt(x / this.state.gridSize, 10) * this.state.gridSize, 10),
+            y: parseInt(parseInt(y / this.state.gridSize, 10) * this.state.gridSize, 10)
+        };
     },
 
     handleSelectionChanged(selectionType, selection) {
@@ -60,9 +62,9 @@ export default React.createClass({
         });
     },
 
-    handleChange(attr, e) {
-        let selected = this.state.selection;
-        selected[attr] = e.target.value;
+    handleChange(attr, value) {
+        const selected = this.state.selection;
+        selected[attr] = value;
 
         this.setState({
             selection: selected,
@@ -70,23 +72,24 @@ export default React.createClass({
         });
     },
 
-    handleNodeDrag(id, x, y) {
+    handleNodeDrag(id, posx, posy) {
         const nodeMap = this.state.nodeMap;
-        nodeMap[id].x = parseInt(parseInt(x/5)*5, 10);
-        nodeMap[id].y = parseInt(parseInt(y/5)*5, 10);
+        const { x, y } = this.constrain(posx, posy);
+        nodeMap[id].x = x;
+        nodeMap[id].y = y;
         this.setState({
             nodeMap: nodeMap
         });
     },
 
     handleAddNode() {
-        console.log("Add node init");
         this.setState({mode: "add-node"});
     },
 
-    handleAddNodePosition(x, y) {
-        console.log("Add node complete", x, y);
+    handleAddNodePosition(posx, posy) {
         const nodeMap = this.state.nodeMap;
+        const topo = this.state.topo;
+        const { x, y } = this.constrain(posx, posy);
         const n = {
             id: this.makeId(),
             label_dx: null,
@@ -94,12 +97,11 @@ export default React.createClass({
             label_position: "top",
             name: "untitled",
             type: "node",
-            x:  parseInt(x),
-            y:  parseInt(y)
+            x: x,
+            y: y
         };
         nodeMap[n.id] = n;
         topo.nodes.push(n);
-        console.log("Adding node", n, nodeMap);
         this.setState({
             mode: null,
             nodeMap: nodeMap,
@@ -108,56 +110,102 @@ export default React.createClass({
         });
     },
 
+    handleDisplayChange(v) {
+        this.setState({display: v});
+    },
+
+    handleTopoChanged(e) {
+        const text = e.target.value;
+        const nodeMap = {};
+        const topo = JSON.parse(text);
+        _.each(topo.nodes, node => {
+            node.id = this.makeId();
+            nodeMap[node.id] = node;
+        });
+        this.setState({
+            topo: topo,
+            nodeMap: nodeMap
+        });
+    },
+
     renderNodeProperties() {
-        const selected = this.state.selection
-        const name = selected.name;
-        const x = selected.x;
-        const y = selected.y;
+        const selected = this.state.selection;
+
+        const nodeSpec = [
+            {attr: "name", label: "Name", type: "text"},
+            {attr: "x", label: "Position x", type: "integer"},
+            {attr: "y", label: "Position y", type: "integer"},
+            {attr: "label_dx", label: "Label offset x", type: "integer"},
+            {attr: "label_dy", label: "Label offset y", type: "integer"},
+            {
+                attr: "label_position",
+                label: "Label position",
+                type: "choice",
+                options: [
+                    {value: "top", label: "Top"},
+                    {value: "bottom", label: "Bottom"},
+                    {value: "left", label: "Left"},
+                    {value: "right", label: "Right"},
+                    {value: "topleft", label: "Top left"},
+                    {value: "topright", label: "Top right"},
+                    {value: "bottomleft", label: "Bottom left"},
+                    {value: "bottomright", label: "Bottom right"}
+                ]
+            }
+        ];
+
+        let propertyElements;
+        if (this.state.selectionType === "node") {
+            propertyElements = _.map(nodeSpec, (property) => {
+                const v = selected[property.attr];
+                let editorElement;
+                switch (property.type) {
+                    case "text":
+                        editorElement = (
+                            <input
+                                value={v}
+                                width="100%"
+                                type="text"
+                                className="form-control input-sm"
+                                onChange={(e) =>
+                                    this.handleChange(property.attr, e.target.value)} />
+                        );
+                        break;
+                    case "integer":
+                        editorElement = (
+                            <input
+                                value={v}
+                                width="100%"
+                                type="text"
+                                className="form-control input-sm"
+                                onChange={(e) =>
+                                    this.handleChange(property.attr, parseInt(e.target.value, 10))} />
+                        );
+                        break;
+                    case "choice":
+                        editorElement = (
+                            <Select
+                                value={v}
+                                searchable={false}
+                                clearable={false}
+                                options={property.options}
+                                onChange={(val) =>
+                                    this.handleChange(property.attr, val)} />
+                        );
+                        break;
+                }
+                return (
+                    <tr height="35px" key={property.attr}>
+                        <td width="100px"><label width={100}>{property.label}</label></td>
+                        <td>{editorElement}</td>
+                    </tr>
+                );
+            });
+        }
+
         return (
             <table width="100%">
-                <tr height="35px">
-                    <td width="100px">
-                        <label htmlFor="name" width={100}>Name</label>
-                    </td>
-                    <td>
-                        <input
-                            value={name}
-                            width="100%"
-                            type="text"
-                            className="form-control input-sm"
-                            id="name"
-                            onChange={(e) => this.handleChange("name", e)}
-                            placeholder="Name" />
-                    </td>
-                </tr>
-                <tr height="35px">
-                    <td width="100px">
-                        <label htmlFor="x" width={100}>Position:x</label>
-                    </td>
-                    <td>
-                        <input
-                            value={x}
-                            width="100%"
-                            type="text"
-                            className="form-control input-sm"
-                            id="x"
-                            placeholder="X Position" />
-                    </td>
-                </tr>
-                <tr height="35px">
-                    <td width="100px">
-                        <label for="y" width={100}>Position:y</label>
-                    </td>
-                    <td>
-                        <input
-                            value={y}
-                            width="100%"
-                            type="text"
-                            className="form-control input-sm"
-                            id="y"
-                            placeholder="Y Position" />
-                    </td>
-                </tr>
+                {propertyElements}
             </table>
         );
     },
@@ -168,7 +216,8 @@ export default React.createClass({
             background: "#F6F6F6",
             borderLeftStyle: "solid",
             borderLeftColor: "#37B6D3"
-        }
+        };
+
         if (this.state.selection) {
             return (
                 <div>
@@ -180,7 +229,7 @@ export default React.createClass({
                         {this.renderNodeProperties()}
                     </div>
                 </div>
-            )
+            );
         } else {
             return (
                 <span>
@@ -214,61 +263,100 @@ export default React.createClass({
         );
     },
 
-    render() {
-
+    renderEditor() {
         const bounds = {
             x1: 0, y1: 0,
-            x2: 200, y2: 200
+            x2: 225, y2: 100
         };
 
-        let mapSelection = {
+        const mapSelection = {
             nodes: this.state.selectionType === "node" ?
                 [this.state.selection.id] : [],
             edges: this.state.selectionType === "edge" ?
                 [this.state.selection.id] : []
         };
 
+        const aspect = (bounds.x2 - bounds.x1) / (bounds.y2 - bounds.y1);
 
         let positionSelected;
         if (this.state.mode === "add-node") {
             positionSelected = this.handleAddNodePosition;
         }
+        return (
+            <Resizable aspect={aspect} style={{
+                background: "#F6F6F6",
+                borderStyle: "solid",
+                borderWidth: "thin",
+                borderColor: "#E6E6E6"}}>
+                <MapEditor
+                    height={500} margin={50}
+                    topology={this.state.topo}
+                    bounds={bounds}
+                    selection={mapSelection}
+                    onSelectionChange={this.handleSelectionChanged}
+                    onPositionSelected={positionSelected}
+                    onNodeDrag={this.handleNodeDrag} />
+            </Resizable>
+        );
+    },
 
+    renderTopo() {
+        return (
+            <div className="form-group">
+                <textarea
+                    defaultValue={JSON.stringify(this.state.topo, null, 2)}
+                    onChange={this.handleTopoChanged}
+                    className="form-control"
+                    style={{width: "100%", fontFamily: "courier"}}
+                    rows="40" cols="80" />
+            </div>
+        );
+    },
+
+    renderContent() {
+        if (this.state.display === "editor") {
+            return (
+                <div>
+                    <div className="row">
+                        <div className="col-md-12" style={{marginBottom: 5}}>
+                            {this.renderToolbar()}
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-md-9">
+                            {this.renderEditor()}
+                        </div>
+                        <div className="col-md-3">
+                            {this.renderProperties()}
+                        </div>
+                    </div>
+                </div>
+            );
+        } else {
+            return this.renderTopo();
+        }
+    },
+
+    render() {
         return (
             <div>
                 <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-9">
                         <h3>Editor</h3>
                     </div>
-                </div>
-
-                <div className="row">
-                    <div className="col-md-12" style={{marginBottom: 5}}>
-                        {this.renderToolbar()}
+                    <div className="col-md-3">
+                        <Nav
+                            bsStyle="pills"
+                            activeKey={this.state.display}
+                            onSelect={this.handleDisplayChange}>
+                            <NavItem eventKey={"editor"} href="/home">Editor</NavItem>
+                            <NavItem eventKey={"topo"} title="Item">Topo</NavItem>
+                        </Nav>
                     </div>
                 </div>
 
-                <div className="row">
-                    <div className="col-md-8">
-                        <Resizable aspect={1.0} style={{
-                            background: "#F6F6F6",
-                            borderStyle: "solid",
-                            borderWidth: "thin",
-                            borderColor: "#E6E6E6"}}>
-                            <MapEditor
-                                height={500} margin={50}
-                                topology={topo}
-                                bounds={bounds}
-                                selection={mapSelection}
-                                onSelectionChange={this.handleSelectionChanged}
-                                onPositionSelected={positionSelected}
-                                onNodeDrag={this.handleNodeDrag} />
-                        </Resizable>
-                    </div>
-                    <div className="col-md-4">
-                        {this.renderProperties()}
-                    </div>
-                </div>
+                {this.renderContent()}
 
             </div>
         );

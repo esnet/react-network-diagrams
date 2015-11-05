@@ -35,7 +35,7 @@ export default React.createClass({
         let curY = this.props.y;
         const lineCenter = this.props.lineHeight / 2;
 
-        let elements = [];
+        const elements = [];
         if (this.props.nodeTypes.length > 0) {
             _.each(this.props.nodeTypes, node => {
                 const textX = curX + this.props.exampleWidth;

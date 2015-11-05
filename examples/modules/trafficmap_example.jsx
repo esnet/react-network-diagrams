@@ -12,7 +12,7 @@ import React from "react";
 import _ from "underscore";
 import {Event} from "@esnet/pond";
 import TrafficMap from "../../src/traffic-map";
-
+import Resizable from "./resizable";
 import Markdown from "react-markdown-el";
 const text = require("raw!../markdown/trafficmap.md");
 
@@ -158,8 +158,15 @@ export default React.createClass({
 
         // Mapping of node type to style
         const stylesMap = {
-            "hub": hubStyle,
-            "esnet_site": siteStyle
+            hub: hubStyle,
+            esnet_site: siteStyle
+        };
+
+        const style = {
+            background: "#F6F6F6",
+            borderStyle: "solid",
+            borderWidth: "thin",
+            borderColor: "#E6E6E6"
         };
 
         return (
@@ -172,19 +179,21 @@ export default React.createClass({
 
                 <div className="row">
                     <div className="col-md-12">
-                        <TrafficMap
-                            width={980} height={500} margin={50}
-                            topology={topo}
-                            traffic={traffic}
-                            edgeColorMap={edgeColorMap}
-                            edgeDrawingMethod="bidirectionalArrow"
-                            edgeThinknessMap={edgeThinknessMap}
-                            edgeShapeMap={edgeShapeMap}
-                            nodeSizeMap={nodeSizeMap}
-                            nodeShapeMap={nodeShapeMap}
-                            stylesMap={stylesMap}
-                            selection={mapSelection}
-                            onSelectionChange={this.handleSelectionChanged} />
+                        <Resizable aspect={980/500} style={style}>
+                            <TrafficMap
+                                width={980} height={500} margin={50}
+                                topology={topo}
+                                traffic={traffic}
+                                edgeColorMap={edgeColorMap}
+                                edgeDrawingMethod="bidirectionalArrow"
+                                edgeThinknessMap={edgeThinknessMap}
+                                edgeShapeMap={edgeShapeMap}
+                                nodeSizeMap={nodeSizeMap}
+                                nodeShapeMap={nodeShapeMap}
+                                stylesMap={stylesMap}
+                                selection={mapSelection}
+                                onSelectionChange={this.handleSelectionChanged} />
+                        </Resizable>
                     </div>
                 </div>
 

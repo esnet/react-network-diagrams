@@ -17,7 +17,7 @@ import Endpoint from "../../src/circuit-diagram-endpoint";
 const text = require("raw!../markdown/endpoint.md");
 
 const labelPositionChoiceList = ["left","right","top","topright","topleft",
-                            "bottom","bottomrigh","bottomleft",
+                            "bottom","bottomright","bottomleft",
                             "bottomleftangled", "bottomrightangled",
                             "topleftangled", "toprightangled"];
 

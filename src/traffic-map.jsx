@@ -130,7 +130,7 @@ export default React.createClass({
     },
 
     _normalizedTopology() {
-        let topology = {};
+        const topology = {};
 
         if (_.isNull(this.props.topology)) {
             return null;
@@ -155,6 +155,8 @@ export default React.createClass({
             node.radius = this._nodeSize[node.type];
 
             node.labelPosition = node.label_position;
+            node.labelOffsetX = node.label_dx;
+            node.labelOffsetY = node.label_dy;
             node.style = this.props.stylesMap[node.type].node;
             node.labelStyle = this.props.stylesMap[node.type].label;
             node.shape = this._nodeShape(node.name);

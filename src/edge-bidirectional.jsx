@@ -27,13 +27,13 @@ export default React.createClass({
     },
 
     render() {
-        let paths = [];
+        const paths = [];
 
         const sourceToTargetName = `${this.props.source}--${this.props.target}`;
         const targetToSourceName = `${this.props.target}--${this.props.source}`;
 
         // Position of the bidirectional lines relative to the center line
-        let position = this.props.width * 0.75;
+        const position = this.props.width * 0.75;
 
         if (this.props.shape === "curved") {
             return (

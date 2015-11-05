@@ -18,7 +18,9 @@ export default React.createClass({
             selected: false,
             shape: "circle",
             style: {},
-            isDragging: false
+            isDragging: false,
+            labelOffsetX: 0,
+            labelOffsetY: 0
         };
     },
 
@@ -85,7 +87,7 @@ export default React.createClass({
                 labelY += basicOffset + fontOffset;
                 break;
 
-            case "bottomrigh":
+            case "bottomright":
                 labelY += basicOffset + fontOffset;
                 labelX += basicOffset;
                 textAnchor = "start";
@@ -131,6 +133,9 @@ export default React.createClass({
                 break;
         }
 
+        labelX += this.props.labelOffsetX;
+        labelY += this.props.labelOffsetY;
+
         let nodeElement;
         if (this.props.shape === "cloud") {
             nodeClasses += " map-node-shape-cloud";
@@ -156,7 +161,7 @@ export default React.createClass({
                     break;
                 case "bottom":
                 case "bottomleft":
-                case "bottomrigh":
+                case "bottomright":
                     labelY -= 15;
                     break;
                 default:
@@ -233,7 +238,6 @@ export default React.createClass({
         e.stopPropagation();
         const id = this.props.id || this.props.name;
         if (this.props.onSelectionChange) {
-            console.log("Node: click: Selection changed", id);
             this.props.onSelectionChange("node", id);
         }
     },
@@ -244,7 +248,6 @@ export default React.createClass({
     handleMouseDown(e) {
         e.stopPropagation();
         const id = this.props.id || this.props.name;
-        console.log("## Node: DOWN: onMouseDown", id, e);
         if (this.props.onMouseDown) {
             this.props.onMouseDown(id, e);
         }

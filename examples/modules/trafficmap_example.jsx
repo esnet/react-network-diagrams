@@ -12,7 +12,7 @@ import React from "react";
 import _ from "underscore";
 import {Event} from "@esnet/pond";
 import TrafficMap from "../../src/traffic-map";
-import Resizable from "./resizable";
+import Resizable from "../../src/resizable";
 import Markdown from "react-markdown-el";
 const text = require("raw!../markdown/trafficmap.md");
 

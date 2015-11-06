@@ -24,6 +24,37 @@ export default React.createClass({
         };
     },
 
+    statics: {
+        /**
+         * Provides a spec for the editor UI to render properties
+         * for this node
+         */
+        spec() {
+            return [
+                {attr: "name", label: "Name", type: "text"},
+                {attr: "x", label: "Position x", type: "integer"},
+                {attr: "y", label: "Position y", type: "integer"},
+                {attr: "label_dx", label: "Label offset x", type: "integer"},
+                {attr: "label_dy", label: "Label offset y", type: "integer"},
+                {
+                    attr: "label_position",
+                    label: "Label position",
+                    type: "choice",
+                    options: [
+                        {value: "top", label: "Top"},
+                        {value: "bottom", label: "Bottom"},
+                        {value: "left", label: "Left"},
+                        {value: "right", label: "Right"},
+                        {value: "topleft", label: "Top left"},
+                        {value: "topright", label: "Top right"},
+                        {value: "bottomleft", label: "Bottom left"},
+                        {value: "bottomright", label: "Bottom right"}
+                    ]
+                }
+            ];
+        }
+    },
+
     render() {
         let nodeClasses = "map-node";
         let labelClasses = "map-node-label";

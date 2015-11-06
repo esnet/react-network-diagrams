@@ -9,10 +9,8 @@
  */
 
 import React from "react";
-import _ from "underscore";
 import { Nav, NavItem } from "react-bootstrap";
-import Select from "react-select";
-import Resizable from "./resizable";
+import _ from "underscore";
 import MapEditor from "../../src/map-editor";
 
 // Test data
@@ -24,22 +22,26 @@ import topoJSON from "../data/simple_topo.json";
 export default React.createClass({
 
     getInitialState() {
-        const nodeMap = {};
-        _.each(topoJSON.nodes, node => {
-            node.id = this.makeId();
-            nodeMap[node.id] = node;
+        const topo = topoJSON;
+
+        // Add ids to the topology if needed
+        _.each(topo.nodes, node => {
+            node.id = _.has(node, "id") ? node.id : this.makeId();
         });
+
         return {
             mode: null,
-            topo: topoJSON,
-            nodeMap: nodeMap,
-            selectionType: null,
-            selection: null,
+            topo: topo,
             display: "editor",
             gridSize: 0.25
         };
     },
 
+    /**
+     * For the example we insert ids on the topology elements, since
+     * the editor expects it. In a real application we'd probably have
+     * ids from the database
+     */
     makeId() {
         return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
             const r = Math.random() * 16 | 0;
@@ -48,255 +50,151 @@ export default React.createClass({
         });
     },
 
-    constrain(x, y) {
-        return {
-            x: parseInt(parseInt(x / this.state.gridSize, 10) * this.state.gridSize, 10),
-            y: parseInt(parseInt(y / this.state.gridSize, 10) * this.state.gridSize, 10)
-        };
-    },
-
-    handleSelectionChanged(selectionType, selection) {
-        this.setState({
-            selectionType: selectionType,
-            selection: this.state.nodeMap[selection]
-        });
-    },
-
-    handleChange(attr, value) {
-        const selected = this.state.selection;
-        selected[attr] = value;
-
-        this.setState({
-            selection: selected,
-            nodeMap: this.state.nodeMap
-        });
-    },
-
-    handleNodeDrag(id, posx, posy) {
-        const nodeMap = this.state.nodeMap;
-        const { x, y } = this.constrain(posx, posy);
-        nodeMap[id].x = x;
-        nodeMap[id].y = y;
-        this.setState({
-            nodeMap: nodeMap
-        });
-    },
-
-    handleAddNode() {
-        this.setState({mode: "add-node"});
-    },
-
-    handleAddNodePosition(posx, posy) {
-        const nodeMap = this.state.nodeMap;
-        const topo = this.state.topo;
-        const { x, y } = this.constrain(posx, posy);
-        const n = {
-            id: this.makeId(),
-            label_dx: null,
-            label_dy: null,
-            label_position: "top",
-            name: "untitled",
-            type: "node",
-            x: x,
-            y: y
-        };
-        nodeMap[n.id] = n;
-        topo.nodes.push(n);
-        this.setState({
-            mode: null,
-            nodeMap: nodeMap,
-            selectionType: "node",
-            selection: n
-        });
-    },
-
-    handleDisplayChange(v) {
+    /**
+     * In this example the user can toggle between two displays: showing
+     * the editor or showing the topo data being edited.
+     */
+    handleNavToggle(v) {
         this.setState({display: v});
     },
 
+    /**
+     * In this example the user can edit the topo text directly. In
+     * that case we land here and update the topology.
+     */
     handleTopoChanged(e) {
         const text = e.target.value;
-        const nodeMap = {};
         const topo = JSON.parse(text);
+        // Add ids to the topology if needed
         _.each(topo.nodes, node => {
-            node.id = this.makeId();
-            nodeMap[node.id] = node;
+            node.id = _.has(node, "id") ? node.id : this.makeId();
         });
         this.setState({
-            topo: topo,
-            nodeMap: nodeMap
+            topo: topo
         });
     },
 
-    renderNodeProperties() {
-        const selected = this.state.selection;
-
-        const nodeSpec = [
-            {attr: "name", label: "Name", type: "text"},
-            {attr: "x", label: "Position x", type: "integer"},
-            {attr: "y", label: "Position y", type: "integer"},
-            {attr: "label_dx", label: "Label offset x", type: "integer"},
-            {attr: "label_dy", label: "Label offset y", type: "integer"},
-            {
-                attr: "label_position",
-                label: "Label position",
-                type: "choice",
-                options: [
-                    {value: "top", label: "Top"},
-                    {value: "bottom", label: "Bottom"},
-                    {value: "left", label: "Left"},
-                    {value: "right", label: "Right"},
-                    {value: "topleft", label: "Top left"},
-                    {value: "topright", label: "Top right"},
-                    {value: "bottomleft", label: "Bottom left"},
-                    {value: "bottomright", label: "Bottom right"}
-                ]
-            }
-        ];
-
-        let propertyElements;
-        if (this.state.selectionType === "node") {
-            propertyElements = _.map(nodeSpec, (property) => {
-                const v = selected[property.attr];
-                let editorElement;
-                switch (property.type) {
-                    case "text":
-                        editorElement = (
-                            <input
-                                value={v}
-                                width="100%"
-                                type="text"
-                                className="form-control input-sm"
-                                onChange={(e) =>
-                                    this.handleChange(property.attr, e.target.value)} />
-                        );
-                        break;
-                    case "integer":
-                        editorElement = (
-                            <input
-                                value={v}
-                                width="100%"
-                                type="text"
-                                className="form-control input-sm"
-                                onChange={(e) =>
-                                    this.handleChange(property.attr, parseInt(e.target.value, 10))} />
-                        );
-                        break;
-                    case "choice":
-                        editorElement = (
-                            <Select
-                                value={v}
-                                searchable={false}
-                                clearable={false}
-                                options={property.options}
-                                onChange={(val) =>
-                                    this.handleChange(property.attr, val)} />
-                        );
-                        break;
-                }
-                return (
-                    <tr height="35px" key={property.attr}>
-                        <td width="100px"><label width={100}>{property.label}</label></td>
-                        <td>{editorElement}</td>
-                    </tr>
-                );
-            });
-        }
-
-        return (
-            <table width="100%">
-                {propertyElements}
-            </table>
-        );
-    },
-
-    renderProperties() {
-        const headerStyle = {
-            padding: 15,
-            background: "#F6F6F6",
-            borderLeftStyle: "solid",
-            borderLeftColor: "#37B6D3"
-        };
-
-        if (this.state.selection) {
-            return (
-                <div>
-                    <div style={headerStyle}>
-                        {this.state.selection.name}
-                    </div>
-                    <p />
-                    <div>
-                        {this.renderNodeProperties()}
-                    </div>
-                </div>
-            );
-        } else {
-            return (
-                <span>
-                    Nothing selected
-                </span>
-            );
-        }
-    },
-
-    renderToolbar() {
-        const toolbarStyle = {
-            padding: 5,
-            borderBottomStyle: "solid",
-            borderWidth: "thin",
-            borderColor: "#CBCBCB"
-        };
-
-        return (
-            <div style={toolbarStyle}>
-                <button
-                    type="button"
-                    style={{color: this.state.mode === "add-node" ? "blue" : "grey"}}
-                    className="btn btn-default btn-xs"
-                    onClick={this.handleAddNode}>
-                    <span
-                        className="glyphicon glyphicon-plus"
-                        aria-hidden="true">
-                    </span> Node
-                </button>
-            </div>
-        );
+    handleTopologyChanged(topo) {
+        this.setState({
+            topo: topo
+        });
     },
 
     renderEditor() {
         const bounds = {
             x1: 0, y1: 0,
-            x2: 225, y2: 100
+            x2: 225, y2: 120
         };
 
-        const mapSelection = {
-            nodes: this.state.selectionType === "node" ?
-                [this.state.selection.id] : [],
-            edges: this.state.selectionType === "edge" ?
-                [this.state.selection.id] : []
+        // Maps link capacity to line thickness
+        const edgeThinknessMap = {
+            "100G": 5,
+            "10G": 3,
+            "1G": 1.5,
+            subG: 1
         };
 
-        const aspect = (bounds.x2 - bounds.x1) / (bounds.y2 - bounds.y1);
+        // Maps edge name to edge shape. Current options are linear (default)
+        // or curved. If curved you can specify the direction and offset
+        // to control the curve.
+        const edgeShapeMap = {
+            "AMST--BOST": {
+                shape: "curved",
+                direction: "right",
+                offset: 15
+            },
+            "LOND--NEWY": {
+                shape: "curved",
+                direction: "right",
+                offset: 15
+            },
+            "AOFA--LOND": {
+                shape: "curved",
+                direction: "right",
+                offset: 15
+            },
+            "CERN--WASH": {
+                shape: "curved",
+                direction: "right",
+                offset: 15
+            }
+        };
 
-        let positionSelected;
-        if (this.state.mode === "add-node") {
-            positionSelected = this.handleAddNodePosition;
-        }
+        // The color map maps an edge value (within the range) to a color
+        const edgeColorMap = [
+            {color: "#990000", label: ">=50 Gbps", range: [50, 100]},
+            {color: "#bd0026", label: "20 - 50", range: [20, 50]},
+            {color: "#cc4c02", label: "10 - 20", range: [10, 20]},
+            {color: "#016c59", label: "5 - 10", range: [5, 10]},
+            {color: "#238b45", label: "2 - 5", range: [2, 5]},
+            {color: "#3690c0", label: "1 - 2", range: [1, 2]},
+            {color: "#74a9cf", label: "0 - 1", range: [0, 1]}
+        ];
+
+        // Mapping of node type to size of shape
+        const nodeSizeMap = {
+            hub: 5.5,
+            esnet_site: 7
+        };
+
+        // Mapping of node name to shape (default is circle, other
+        // options are cloud or square currently)
+        const nodeShapeMap = {
+            CERN: "square"
+        };
+
+        const siteStyle = {
+            node: {
+                normal: {fill: "#B0B0B0", stroke: "#9E9E9E", cursor: "pointer"},
+                selected: {fill: "#37B6D3", stroke: "rgba(55, 182, 211, 0.22)",
+                           strokeWidth: 10, cursor: "pointer"},
+                muted: {fill: "#B0B0B0", stroke: "#9E9E9E", opacity: 0.6,
+                        cursor: "pointer"}
+            },
+            label: {
+                normal: {fill: "#696969", stroke: "none", fontSize: 9},
+                selected: {fill: "#333", stroke: "none", fontSize: 11},
+                muted: {fill: "#696969", stroke: "none", fontSize: 8,
+                        opacity: 0.6}
+            }
+        };
+
+        const hubStyle = {
+            node: {
+                normal: {fill: "#CBCBCB",stroke: "#BEBEBE",
+                         cursor: "pointer"},
+                selected: {fill: "#37B6D3", stroke: "rgba(55, 182, 211, 0.22)",
+                           strokeWidth: 10, cursor: "pointer"},
+                muted: {fill: "#CBCBCB", stroke: "#BEBEBE", opacity: 0.6,
+                        cursor: "pointer"}
+            },
+            label: {
+                normal: {fill: "#696969", stroke: "none", fontSize: 9},
+                selected: {fill: "#333",stroke: "none", fontSize: 11},
+                muted: {fill: "#696969", stroke: "none", fontSize: 8,
+                opacity: 0.6}
+            }
+        };
+
+        // Mapping of node type to style
+        const stylesMap = {
+            hub: hubStyle,
+            esnet_site: siteStyle
+        };
+
         return (
-            <Resizable aspect={aspect} style={{
-                background: "#F6F6F6",
-                borderStyle: "solid",
-                borderWidth: "thin",
-                borderColor: "#E6E6E6"}}>
-                <MapEditor
-                    height={500} margin={50}
-                    topology={this.state.topo}
-                    bounds={bounds}
-                    selection={mapSelection}
-                    onSelectionChange={this.handleSelectionChanged}
-                    onPositionSelected={positionSelected}
-                    onNodeDrag={this.handleNodeDrag} />
-            </Resizable>
+            <MapEditor
+                topology={this.state.topo}
+                bounds={bounds}
+                edgeColorMap={edgeColorMap}
+                edgeDrawingMethod="bidirectionalArrow"
+                edgeThinknessMap={edgeThinknessMap}
+                edgeShapeMap={edgeShapeMap}
+                nodeSizeMap={nodeSizeMap}
+                nodeShapeMap={nodeShapeMap}
+                stylesMap={stylesMap}
+                gridSize={this.state.gridSize}
+                onTopologyChange={this.handleTopologyChanged} />
         );
     },
 
@@ -315,24 +213,7 @@ export default React.createClass({
 
     renderContent() {
         if (this.state.display === "editor") {
-            return (
-                <div>
-                    <div className="row">
-                        <div className="col-md-12" style={{marginBottom: 5}}>
-                            {this.renderToolbar()}
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col-md-9">
-                            {this.renderEditor()}
-                        </div>
-                        <div className="col-md-3">
-                            {this.renderProperties()}
-                        </div>
-                    </div>
-                </div>
-            );
+            return this.renderEditor();
         } else {
             return this.renderTopo();
         }
@@ -349,7 +230,7 @@ export default React.createClass({
                         <Nav
                             bsStyle="pills"
                             activeKey={this.state.display}
-                            onSelect={this.handleDisplayChange}>
+                            onSelect={this.handleNavToggle}>
                             <NavItem eventKey={"editor"} href="/home">Editor</NavItem>
                             <NavItem eventKey={"topo"} title="Item">Topo</NavItem>
                         </Nav>

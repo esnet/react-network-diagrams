@@ -13,7 +13,8 @@ import _ from "underscore";
 import {Event} from "@esnet/pond";
 import TrafficMap from "../../src/traffic-map";
 import Resizable from "../../src/resizable";
-import Markdown from "react-markdown-el";
+import Markdown from "react-markdown";
+
 const text = require("raw!../markdown/trafficmap.md");
 
 // Test data
@@ -201,7 +202,7 @@ export default React.createClass({
 
                 <div className="row">
                     <div className="col-md-12">
-                        <Markdown text={text} />
+                        <Markdown source={text} />
                     </div>
                 </div>
 

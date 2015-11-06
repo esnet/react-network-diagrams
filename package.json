@@ -43,7 +43,7 @@
     "raw-loader": "^0.5.1",
     "react": "^0.13.x",
     "react-bootstrap": "^0.25.1",
-    "react-markdown-el": "^1.0.2",
+    "react-markdown": "^1.0.3",
     "react-router": "^0.13.x",
     "react-select": "^0.6.12",
     "style-loader": "^0.8.0",

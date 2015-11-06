@@ -9,10 +9,12 @@
  */
 
 import React from "react";
-// import _ from "underscore";
-// import Markdown from "react-markdown-el";
+import Markdown from "react-markdown";
 import LocationPanelDiagram from "../../src/location-diagram-panel";
 import {stylesMap} from "../styles/styles.js";
+
+const text = require("raw!../markdown/patch-panel.md");
+
 
 const circuitTypeProperties = {
     optical: {
@@ -289,6 +291,12 @@ export default React.createClass({
                             panelWidth={this.state.panelWidth}
                             onSelectionChange={this._onSelectionChange}
                             endpointLabelOffset={18} />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12">
+                        <hr />
+                        <Markdown source={text} />
                     </div>
                 </div>
             </div>

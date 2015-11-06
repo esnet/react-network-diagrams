@@ -27,7 +27,17 @@ export default React.createClass({
             width: 851,
             yOffset: 30,
             margin: 150,
-
+            roundedX: 5,
+            roundedY: 5,
+            couplerEndpointRadius: 10,
+            endpointRoundedX: 2,
+            endpointRoundedY: 2,
+            couplerLabelPosition: "center",
+            labelPosition: "top",
+            panelRoundedX: 3,
+            panelRoundedY: 3,
+            labelOffsetX: 0,
+            labelOffsetY: 0,
         };
     },
 
@@ -123,8 +133,8 @@ export default React.createClass({
                         style={panelStyle}
                         x={panelX}
                         y={panelY}
-                        rx={3}
-                        ry={3} />
+                        rx={this.props.panelRoundedX}
+                        ry={this.props.panelRoundedY} />
                 </g>
             );
 
@@ -194,7 +204,8 @@ export default React.createClass({
         if (circuitGroup.frontCircuit) {
             circuit = circuitGroup.frontCircuit;
             x1 = this.props.margin;
-            x2 = midpt - (circuitGroup.coupler.styleProperties.squareWidth / 2) - 10;
+            x2 = midpt - (circuitGroup.coupler.styleProperties.squareWidth / 2) -
+                 this.props.couplerEndpointRadius;
             elements.push(
                 <g
                     key={`endpoint-${circuit.endpointLabelA}-${key}`}>
@@ -219,7 +230,8 @@ export default React.createClass({
         }
         if (circuitGroup.backCircuit) {
             circuit = circuitGroup.backCircuit;
-            x1 = midpt + (circuitGroup.coupler.styleProperties.squareWidth / 2) + 10;
+            x1 = midpt + (circuitGroup.coupler.styleProperties.squareWidth / 2) +
+                 this.props.couplerEndpointRadius;
             x2 = this.props.width - this.props.margin;
             elements.push(
                 <g
@@ -268,17 +280,17 @@ export default React.createClass({
                         x2={x2}
                         y1={y}
                         y2={y}
-                        roundedX={5}
-                        roundedY={5}
-                        endPointRoundedX={2}
-                        endPointRoundedY={2}
+                        roundedX={this.props.roundedX}
+                        roundedY={this.props.roundedY}
+                        endPointRoundedX={this.props.endpointRoundedX}
+                        endPointRoundedY={this.props.endPointRoundedY}
                         style={circuit.styleProperties.style}
                         lineShape={circuit.styleProperties.lineShape}
                         label={circuit.circuitLabel}
-                        labelPosition="center"
-                        labelOffsetX={0}
-                        labelOffsetY={0}
-                        radius={10}
+                        labelPosition={this.props.couplerLabelPosition}
+                        labelOffsetX={this.props.labelOffsetX}
+                        labelOffsetY={this.props.labelOffsetY}
+                        radius={this.props.couplerEndpointRadius}
                         endpointShape="square"
                         size={circuit.styleProperties.size}
                         onSelectionChange={this._onSelectionChange}
@@ -289,7 +301,8 @@ export default React.createClass({
         if (circuitGroup.frontCircuit) {
             circuit = circuitGroup.frontCircuit;
             x1 = this.props.margin;
-            x2 = midpt - (circuitGroup.coupler.styleProperties.squareWidth / 2) - 10;
+            x2 = midpt - (circuitGroup.coupler.styleProperties.squareWidth / 2) -
+                 this.props.couplerEndpointRadius;
             elements.push(
                 <g
                     key={`frontCircuit-${circuit.circuitLabel}-${key}`}>
@@ -301,7 +314,7 @@ export default React.createClass({
                         style={circuit.styleProperties.style}
                         lineShape={circuit.styleProperties.lineShape}
                         label={circuit.circuitLabel}
-                        labelPosition="top"
+                        labelPosition={this.props.labelPosition}
                         onSelectionChange={this._onSelectionChange}
                         navTo={circuit.navTo}/>
                 </g>
@@ -309,7 +322,8 @@ export default React.createClass({
         }
         if (circuitGroup.backCircuit) {
             circuit = circuitGroup.backCircuit;
-            x1 = midpt + (circuitGroup.coupler.styleProperties.squareWidth / 2) + 10;
+            x1 = midpt + (circuitGroup.coupler.styleProperties.squareWidth / 2) +
+                 this.props.couplerEndpointRadius;
             x2 = this.props.width - this.props.margin;
             elements.push(
                 <g
@@ -322,7 +336,7 @@ export default React.createClass({
                         style={circuit.styleProperties.style}
                         lineShape={circuit.styleProperties.lineShape}
                         label={circuit.circuitLabel}
-                        labelPosition="top"
+                        labelPosition={this.props.labelPosition}
                         onSelectionChange={this._onSelectionChange}
                         navTo={circuit.navTo}/>
                 </g>

@@ -10,7 +10,7 @@
 
 import React from "react";
 import _ from "underscore";
-import Markdown from "react-markdown-el";
+import Markdown from "react-markdown";
 import Connection from "../../src/circuit-diagram-connection";
 
 import {stylesMap} from "../styles/styles.js";
@@ -569,13 +569,13 @@ export default React.createClass({
         if (this.state.bidirectionalChoice === "Yes") {
             return (
                 <div>
-                    {this._renderBiDirectionalConnection()};
+                    {this._renderBiDirectionalConnection()}
                 </div>
             );
         } else {
             return (
                 <div>
-                    {this._renderSimpleConnection()};
+                    {this._renderSimpleConnection()}
                 </div>
             );
         }
@@ -622,14 +622,12 @@ export default React.createClass({
                     <div className="col-md-8">
                         <h4>Connection Rendering</h4>
                         {this._renderConnection()}
-                        <br />
-                        {this.state.click}
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
                         <hr />
-                        <Markdown text={text} />
+                        <Markdown source={text} />
                     </div>
                 </div>
             </div>

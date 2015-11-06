@@ -2,18 +2,18 @@
 
 Endpoints have a number of properties that allow for customization.  These can be divided into the following categories:
 
-Position Related:
+##### Position Related:
 	
 	x
 	y
 
-Label Related:
+##### Label Related:
 	
 	label
 	labelPosition
 	offset
 
-Style Related:
+##### Style Related:
 	
 	style
 	muted

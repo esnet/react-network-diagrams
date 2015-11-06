@@ -159,9 +159,10 @@ export default React.createClass({
             props.label = label || name;
 
             const nodeSelected = _.contains(this.props.selection.nodes, props.id);
-            const edgeSelected = _.contains(secondarySelectedNodes, props.id);
+            const edgeSelected = _.contains(secondarySelectedNodes, node.name);
             props.selected = nodeSelected || edgeSelected;
-            props.muted = (hasSelectedNode && !props.selected) || (hasSelectedEdge && !props.selected);
+            props.muted = (hasSelectedNode && !props.selected) ||
+                          (hasSelectedEdge && !props.selected);
 
             nodeCoordinates[node.name] = {x: props.x, y: props.y};
 
@@ -278,7 +279,7 @@ export default React.createClass({
                         name={edge.name}
                         selected={selected}
                         muted={muted}
-                        onSelectionChange={this.props.onSelectionChange}/>
+                        onSelectionChange={this.handleSelectionChange}/>
                 );
             } else if (edgeDrawingMethod === "bidirectionalArrow") {
                 return (
@@ -300,7 +301,7 @@ export default React.createClass({
                         name={edge.name}
                         selected={selected}
                         muted={muted}
-                        onSelectionChange={this.props.onSelectionChange} />
+                        onSelectionChange={this.handleSelectionChange} />
                 );
             } else if (edgeDrawingMethod === "pathBidirectionalArrow") {
                 if (_.has(edgePathMap, edge.name)) {
@@ -322,7 +323,7 @@ export default React.createClass({
                             name={edge.name}
                             selected={selected}
                             muted={muted}
-                            onSelectionChange={this.props.onSelectionChange}/>
+                            onSelectionChange={this.handleSelectionChange}/>
                     );
                 } else {
                     return (
@@ -342,7 +343,7 @@ export default React.createClass({
                             name={edge.name}
                             selected={selected}
                             muted={muted}
-                            onSelectionChange={this.props.onSelectionChange}/>
+                            onSelectionChange={this.handleSelectionChange}/>
                     );
                 }
             }
@@ -473,7 +474,7 @@ export default React.createClass({
             style = {
                 cursor: "pointer"
             };
-        } else if (this.props.onPositionSelected) {
+        } else if (this.props.onPositionSelected || this.props.onNodeSelected) {
             style = {
                 cursor: "crosshair"
             };
@@ -506,7 +507,11 @@ export default React.createClass({
     },
 
     handleSelectionChange(type, id) {
-        if (this.props.onSelectionChange) {
+        if (this.props.onNodeSelected) {
+            if (type === "node") {
+                this.props.onNodeSelected(id);
+            }
+        } else if (this.props.onSelectionChange) {
             this.props.onSelectionChange(type, id);
         }
     },
@@ -529,6 +534,9 @@ export default React.createClass({
     },
 
     handleClick(e) {
+        if (this.props.onNodeSelected) {
+            return;
+        }
         if (this.props.onPositionSelected) {
             const { xScale, yScale } = this.scale();
             const { x, y } = this.getOffsetMousePosition(e);

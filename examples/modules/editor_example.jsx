@@ -33,7 +33,7 @@ export default React.createClass({
             mode: null,
             topo: topo,
             display: "editor",
-            gridSize: 0.25
+            gridSize: 0.5
         };
     },
 
@@ -87,7 +87,7 @@ export default React.createClass({
         };
 
         // Maps link capacity to line thickness
-        const edgeThinknessMap = {
+        const edgeThicknessMap = {
             "100G": 5,
             "10G": 3,
             "1G": 1.5,
@@ -188,7 +188,7 @@ export default React.createClass({
                 bounds={bounds}
                 edgeColorMap={edgeColorMap}
                 edgeDrawingMethod="bidirectionalArrow"
-                edgeThinknessMap={edgeThinknessMap}
+                edgeThicknessMap={edgeThicknessMap}
                 edgeShapeMap={edgeShapeMap}
                 nodeSizeMap={nodeSizeMap}
                 nodeShapeMap={nodeShapeMap}

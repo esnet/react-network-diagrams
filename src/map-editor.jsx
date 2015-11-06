@@ -61,6 +61,8 @@ import Node from "./node";
  *
  */
 
+let counter = 1;
+
 export default React.createClass({
 
     getDefaultProps() {
@@ -83,7 +85,7 @@ export default React.createClass({
 
     getInitialState() {
         return {
-            mode: null,
+            pendingAction: null,
             selectionType: null,
             selection: null,
         };
@@ -106,6 +108,26 @@ export default React.createClass({
             const v = c === "x" ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
+    },
+
+    findNode(id) {
+        let result;
+        _.each(this.props.topology.nodes, (node) => {
+            if (node.id === id) {
+                result = node;
+            }
+        });
+        return result;
+    },
+
+    findEdge(id) {
+        let result;
+        _.each(this.props.topology.edges, (edge) => {
+            if (`${edge.source}--${edge.target}` === id) {
+                result = edge;
+            }
+        });
+        return result;
     },
 
     nodeSize(name) {
@@ -229,11 +251,11 @@ export default React.createClass({
 
     handleSelectionChanged(selectionType, selectionId) {
         let selection;
-        _.each(this.props.topology.nodes, (node) => {
-            if (node.id === selectionId) {
-                selection = node;
-            }
-        });
+        if (selectionType === "node") {
+            selection = this.findNode(selectionId);
+        } else if (selectionType === "edge") {
+            selection = this.findEdge(selectionId);
+        }
         this.setState({
             selectionType: selectionType,
             selection: selection
@@ -250,7 +272,6 @@ export default React.createClass({
     },
 
     handleNodeDrag(id, posx, posy) {
-        console.log("handleNodeDrag", id, posx, posy);
         const topo = {
             name: this.props.topology.nodes,
             description: this.props.topology.description,
@@ -267,13 +288,25 @@ export default React.createClass({
         });
 
         if (this.props.onTopologyChange) {
-            console.log("TOPO CHANGED", topo);
             this.props.onTopologyChange(topo);
         }
     },
 
     handleAddNode() {
-        this.setState({mode: "add-node"});
+        this.setState({pendingAction: {
+            action: "add-node",
+            instructions: "Pick a point (x,y)"
+        }});
+    },
+
+    cloneTopo() {
+        const topo = {
+            name: this.props.topology.nodes,
+            description: this.props.topology.description,
+            nodes: _.map(this.props.topology.nodes, (n) => _.clone(n)),
+            edges: _.map(this.props.topology.edges, (e) => _.clone(e)),
+        };
+        return topo;
     },
 
     /**
@@ -281,80 +314,133 @@ export default React.createClass({
      * the application level (action) rather than down here in the editor.
      */
     handleAddNodePosition(posx, posy) {
-        const topo = {
-            name: this.props.topology.nodes,
-            description: this.props.topology.description,
-            nodes: _.map(this.props.topology.nodes, (n) => _.clone(n)),
-            edges: _.map(this.props.topology.edges, (e) => _.clone(e)),
-        };
-
+        const topo = this.cloneTopo();
         const { x, y } = this.constrain(posx, posy);
         const n = {
             id: this.makeId(),
             label_dx: null,
             label_dy: null,
             label_position: "top",
-            name: "untitled",
+            name: `untitled${counter++}`,
             type: "node",
             x: x,
             y: y
         };
+
         topo.nodes.push(n);
+
+        if (this.props.onTopologyChange) {
+            this.props.onTopologyChange(topo);
+        }
+
         this.setState({
-            mode: null,
+            pendingAction: null,
             selectionType: "node",
             selection: n
         });
+    },
 
-        if (this.props.onTopologyChange) {
-            console.log("TOPO CHANGED", topo);
-            this.props.onTopologyChange(topo);
+    handleAddEdge() {
+        this.setState({pendingAction: {
+            action: "add-edge",
+            instructions: "Pick source node",
+            nodes: []
+        }});
+    },
+
+    handleAddSelection(node) {
+        const action = this.state.pendingAction;
+        if (action.action === "add-edge") {
+            action.nodes.push(node);
         }
+        if (action.nodes.length === 1) {
+            this.setState({pendingAction: {
+                action: "add-edge",
+                instructions: "Pick target node",
+                nodes: action.nodes
+            }});
+        }
+        if (action.nodes.length === 2) {
+            // Action complete
+            const topo = this.cloneTopo();
+            const e = {
+                source: this.findNode(action.nodes[0]).name,
+                target: this.findNode(action.nodes[1]).name,
+                capacity: "",
+            };
+            topo.edges.push(e);
+
+            if (this.props.onTopologyChange) {
+                this.props.onTopologyChange(topo);
+            }
+
+            this.setState({pendingAction: null});
+        }
+    },
+
+    renderTextProperty(attr, value) {
+        return (
+            <input
+                defaultValue={value}
+                width="100%"
+                type="text"
+                className="form-control input-sm"
+                onBlur={(e) =>
+                    this.handleChange(attr, e.target.value)} />
+        );
+    },
+
+    renderIntegerProperty(attr, value) {
+        const v = value || 0;
+        return (
+            <input
+                defaultValue={v}
+                width="100%"
+                type="text"
+                className="form-control input-sm"
+                onBlur={(e) =>
+                    this.handleChange(attr, parseInt(e.target.value, 10))} />
+        );
+    },
+
+    renderChoiceProperty(attr, options, value) {
+        return (
+            <Select
+                value={value}
+                searchable={false}
+                clearable={false}
+                options={options}
+                onChange={(val) => this.handleChange(attr, val)} />
+        );
     },
 
     renderNodeProperties() {
         const selected = this.state.selection;
+
         const nodeSpec = Node.spec();
+        nodeSpec.unshift({
+            attr: "type",
+            label: "Type",
+            type: "choice",
+            options: _.map(this.props.stylesMap, (s, type) => {
+                return {value: type, label: type};
+            })
+        });
 
         let propertyElements;
         if (this.state.selectionType === "node") {
             propertyElements = _.map(nodeSpec, (property) => {
-                let v = selected[property.attr];
+                const v = selected[property.attr];
                 let editorElement;
                 switch (property.type) {
                     case "text":
-                        editorElement = (
-                            <input
-                                defaultValue={v}
-                                width="100%"
-                                type="text"
-                                className="form-control input-sm"
-                                onBlur={(e) =>
-                                    this.handleChange(property.attr, e.target.value)} />
-                        );
+                        editorElement = this.renderTextProperty(property.attr, v);
                         break;
                     case "integer":
-                        v = v || 0;
-                        editorElement = (
-                            <input
-                                defaultValue={v}
-                                width="100%"
-                                type="text"
-                                className="form-control input-sm"
-                                onBlur={(e) =>
-                                    this.handleChange(property.attr, parseInt(e.target.value, 10))} />
-                        );
+                        editorElement = this.renderIntegerProperty(property.attr, v);
                         break;
                     case "choice":
-                        editorElement = (
-                            <Select
-                                value={v}
-                                searchable={false}
-                                clearable={false}
-                                options={property.options}
-                                onChange={(val) =>
-                                    this.handleChange(property.attr, val)} />
-                        );
+                        editorElement = this.renderChoiceProperty(property.attr, property.options, v);
                         break;
                 }
                 return (
@@ -368,7 +454,56 @@ export default React.createClass({
 
         return (
             <table width="100%">
-                {propertyElements}
+                <tbody>
+                    {propertyElements}
+                </tbody>
+            </table>
+        );
+    },
+
+    renderEdgeProperties() {
+        const selected = this.state.selection;
+        const edgeSpec = [
+            {
+                attr: "capacity",
+                label: "Capacity",
+                type: "choice",
+                options: _.map(this.props.edgeThicknessMap, (e, k) => {
+                    return {value: k, label: k};
+                })
+            }
+        ];
+
+        let propertyElements;
+        if (this.state.selectionType === "edge") {
+            propertyElements = _.map(edgeSpec, (property) => {
+                const v = selected[property.attr];
+                let editorElement;
+                switch (property.type) {
+                    case "text":
+                        editorElement = this.renderTextProperty(property.attr, v);
+                        break;
+                    case "integer":
+                        editorElement = this.renderIntegerProperty(property.attr, v);
+                        break;
+                    case "choice":
+                        editorElement = this.renderChoiceProperty(property.attr, property.options, v);
+                        break;
+                }
+                return (
+                    <tr height="35px" key={property.attr}>
+                        <td width="100px"><label width={100}>{property.label}</label></td>
+                        <td>{editorElement}</td>
+                    </tr>
+                );
+            });
+        }
+
+        return (
+            <table width="100%">
+                <tbody>
+                    {propertyElements}
+                </tbody>
             </table>
         );
     },
@@ -382,17 +517,33 @@ export default React.createClass({
         };
 
         if (this.state.selection) {
-            return (
-                <div>
-                    <div style={headerStyle}>
-                        {this.state.selection.name}
-                    </div>
-                    <p />
+            if (this.state.selectionType === "node") {
+                return (
                     <div>
-                        {this.renderNodeProperties()}
+                        <div style={headerStyle}>
+                            {this.state.selection.name}
+                        </div>
+                        <p />
+                        <div>
+                            {this.renderNodeProperties()}
+                        </div>
                     </div>
-                </div>
-            );
+                );
+            } else {
+                const edge = this.state.selection;
+                const title = `${edge.source} to ${edge.target}`;
+                return (
+                    <div>
+                        <div style={headerStyle}>
+                            {title}
+                        </div>
+                        <p />
+                        <div>
+                            {this.renderEdgeProperties()}
+                        </div>
+                    </div>
+                );
+            }
         } else {
             return (
                 <span>
@@ -410,11 +561,23 @@ export default React.createClass({
             borderColor: "#CBCBCB"
         };
 
+        // Highlight buttons when action is in progress
+        let addNodeStyle = {color: "grey"};
+        let addEdgeStyle = {color: "grey", marginLeft: 10};
+        if (this.state.pendingAction) {
+            if (this.state.pendingAction.action === "add-node") {
+                addNodeStyle = {color: "steelblue"};
+            }
+            if (this.state.pendingAction.action === "add-edge") {
+                addEdgeStyle = {color: "steelblue", marginLeft: 10};
+            }
+        }
+
         return (
             <div style={toolbarStyle}>
                 <button
                     type="button"
-                    style={{color: this.state.mode === "add-node" ? "blue" : "grey"}}
+                    style={addNodeStyle}
                     className="btn btn-default btn-xs"
                     onClick={this.handleAddNode}>
                     <span
@@ -422,6 +585,19 @@ export default React.createClass({
                         aria-hidden="true">
                     </span> Node
                 </button>
+                <button
+                    type="button"
+                    style={addEdgeStyle}
+                    className="btn btn-default btn-xs"
+                    onClick={this.handleAddEdge}>
+                    <span
+                        className="glyphicon glyphicon-plus"
+                        aria-hidden="true">
+                    </span> Edge
+                </button>
+                <span style={{color: "steelblue", marginLeft: 10}} >
+                    {this.state.pendingAction ? this.state.pendingAction.instructions : null}
+                </span>
             </div>
         );
     },
@@ -432,15 +608,22 @@ export default React.createClass({
         const aspect = (bounds.x2 - bounds.x1) / (bounds.y2 - bounds.y1);
 
         let positionSelected;
-        if (this.state.mode === "add-node") {
-            positionSelected = this.handleAddNodePosition;
+        let nodeSelected;
+
+        if (this.state.pendingAction) {
+            if (this.state.pendingAction.action === "add-node") {
+                positionSelected = this.handleAddNodePosition;
+            }
+            if (this.state.pendingAction.action === "add-edge") {
+                nodeSelected = this.handleAddSelection;
+            }
         }
 
         const mapSelection = {
             nodes: this.state.selectionType === "node" ?
                 [this.state.selection.id] : [],
             edges: this.state.selectionType === "edge" ?
-                [this.state.selection.id] : []
+                [`${this.state.selection.source}--${this.state.selection.target}`] : []
         };
 
         return (
@@ -459,6 +642,7 @@ export default React.createClass({
                     edgeDrawingMethod="simple"
                     onSelectionChange={this.handleSelectionChanged}
                     onPositionSelected={positionSelected}
+                    onNodeSelected={nodeSelected}
                     onNodeDrag={this.handleNodeDrag} />
             </Resizable>
         );

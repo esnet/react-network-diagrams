@@ -44,6 +44,8 @@ export default React.createClass({
                           labelPosition={this.props.labelPosition}
                           label={this.props.label}
                           radius={this.props.radius}
+                          rx={this.props.roundedX}
+                          ry={this.props.roundedY}
                           offset={this.props.offset}
                           shape={this.props.shape}
                           muted={this.props.muted}

@@ -20,7 +20,9 @@ export default React.createClass({
             style: {},
             isDragging: false,
             labelOffsetX: 0,
-            labelOffsetY: 0
+            labelOffsetY: 0,
+            rx: 0,
+            ry: 0,
         };
     },
 
@@ -208,6 +210,8 @@ export default React.createClass({
             nodeElement = (
               <rect x={x}
                     y={y}
+                    rx={this.props.rx}
+                    ry={this.props.ry}
                     width={width}
                     height={width}
                     style={this.props.style[styleModifier]}

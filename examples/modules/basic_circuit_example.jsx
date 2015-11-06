@@ -10,7 +10,7 @@
 
 import React from "react";
 import _ from "underscore";
-import Markdown from "react-markdown-el";
+import Markdown from "react-markdown";
 import BasicCircuit from "../../src/circuit-diagram-basic";
 import {stylesMap} from "../styles/styles.js";
 
@@ -219,7 +219,7 @@ export default React.createClass({
                 <div className="row">
                     <div className="col-md-12">
                         <hr />
-                        <Markdown text={text} />
+                        <Markdown source={text} />
                     </div>
                 </div>
 

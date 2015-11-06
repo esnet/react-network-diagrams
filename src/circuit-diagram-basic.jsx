@@ -150,7 +150,7 @@ export default React.createClass({
                         lineShape={this.props.lineShape}
                         label={this.props.circuitLabel}
                         labelPosition={this.props.connectionLabelPosition}
-                        yOffset={this.props.yOffset}
+                        labelOffsetY={this.props.yOffset}
                         noNavigate={this.props.noNavigate}
                         navTo={this.props.navTo}
                         size={this.props.size}

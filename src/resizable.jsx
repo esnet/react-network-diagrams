@@ -34,7 +34,7 @@ export default React.createClass({
     },
 
     render() {
-        let props = {width: this.state.width};
+        const props = {width: this.state.width};
         if (this.props.aspect) {
             props.height = this.state.width / this.props.aspect;
         }

@@ -474,7 +474,9 @@ export default React.createClass({
             style = {
                 cursor: "pointer"
             };
-        } else if (this.props.onPositionSelected || this.props.onNodeSelected) {
+        } else if (this.props.onPositionSelected
+                   || this.props.onNodeSelected
+                   || this.props.onEdgeSelected) {
             style = {
                 cursor: "crosshair"
             };
@@ -511,6 +513,10 @@ export default React.createClass({
             if (type === "node") {
                 this.props.onNodeSelected(id);
             }
+        } else if (this.props.onEdgeSelected) {
+            if (type === "edge") {
+                this.props.onEdgeSelected(id);
+            }
         } else if (this.props.onSelectionChange) {
             this.props.onSelectionChange(type, id);
         }
@@ -534,7 +540,7 @@ export default React.createClass({
     },
 
     handleClick(e) {
-        if (this.props.onNodeSelected) {
+        if (this.props.onNodeSelected || this.props.onEdgeSelected) {
             return;
         }
         if (this.props.onPositionSelected) {

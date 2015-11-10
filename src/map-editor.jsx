@@ -430,7 +430,7 @@ export default React.createClass({
             const topo = this.cloneTopo();
 
             topo.edges = _.filter(topo.edges, (e) => {
-                return e.source !== edge.souce && e.target !== edge.target;
+                return !(e.source === edge.source && e.target === edge.target);
             });
 
             if (this.props.onTopologyChange) {

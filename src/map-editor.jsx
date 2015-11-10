@@ -181,6 +181,16 @@ export default React.createClass({
         return {x1: minX, x2: maxX, y1: minY, y2: maxY};
     },
 
+    cloneTopo() {
+        const topo = {
+            name: this.props.topology.name,
+            description: this.props.topology.description,
+            nodes: _.map(this.props.topology.nodes, (n) => _.clone(n)),
+            edges: _.map(this.props.topology.edges, (e) => _.clone(e)),
+        };
+        return topo;
+    },
+
     /**
      * Build a topology suitable for passing into the BaseMap for rendering
      * as nodes and edges
@@ -272,12 +282,7 @@ export default React.createClass({
     },
 
     handleNodeDrag(id, posx, posy) {
-        const topo = {
-            name: this.props.topology.nodes,
-            description: this.props.topology.description,
-            nodes: _.map(this.props.topology.nodes, (n) => _.clone(n)),
-            edges: _.map(this.props.topology.edges, (e) => _.clone(e)),
-        };
+        const topo = this.cloneTopo();
         const { x, y } = this.constrain(posx, posy);
 
         _.each(topo.nodes, (node) => {
@@ -297,16 +302,6 @@ export default React.createClass({
             action: "add-node",
             instructions: "Pick a point (x,y)"
         }});
-    },
-
-    cloneTopo() {
-        const topo = {
-            name: this.props.topology.nodes,
-            description: this.props.topology.description,
-            nodes: _.map(this.props.topology.nodes, (n) => _.clone(n)),
-            edges: _.map(this.props.topology.edges, (e) => _.clone(e)),
-        };
-        return topo;
     },
 
     /**

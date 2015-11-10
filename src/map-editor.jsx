@@ -343,6 +343,22 @@ export default React.createClass({
         }});
     },
 
+    handleDeleteNode() {
+        this.setState({ pendingAction: {
+            action: "delete-node",
+            instructions: "Pick a node to delete (will delete related edges)",
+            nodes: []
+        }});
+    },
+
+    handleDeleteEdge() {
+        this.setState({ pendingAction: {
+            action: "delete-edge",
+            instructions: "Pick an edge to delete",
+            edge: null
+        }});
+    },
+
     handleAddSelection(node) {
         const action = this.state.pendingAction;
         if (action.action === "add-edge") {
@@ -364,6 +380,53 @@ export default React.createClass({
                 capacity: "",
             };
             topo.edges.push(e);
+
+            if (this.props.onTopologyChange) {
+                this.props.onTopologyChange(topo);
+            }
+
+            this.setState({pendingAction: null});
+        }
+    },
+
+    handleDeleteNodeSelection(nodeId) {
+        const action = this.state.pendingAction;
+        if (action.action === "delete-node") {
+            action.nodes.push(nodeId);
+        }
+        if (action.nodes.length === 1) {
+            const node = this.findNode(nodeId);
+
+            const topo = this.cloneTopo();
+            topo.nodes = _.filter(topo.nodes, (n) => {
+                return n.id !== nodeId;
+            });
+
+            topo.edges = _.filter(topo.edges, (e) => {
+                return e.source !== node.name && e.target !== node.name;
+            });
+
+            if (this.props.onTopologyChange) {
+                this.props.onTopologyChange(topo);
+            }
+
+            this.setState({pendingAction: null});
+        }
+    },
+
+    handleDeleteEdgeSelection(edgeId) {
+        const action = this.state.pendingAction;
+        if (action.action === "delete-edge") {
+            action.edgeId = edgeId;
+        }
+
+        if (action.edgeId) {
+            const edge = this.findEdge(edgeId);
+            const topo = this.cloneTopo();
+
+            topo.edges = _.filter(topo.edges, (e) => {
+                return !(e.source === edge.source && e.target === edge.target);
+            });
 
             if (this.props.onTopologyChange) {
                 this.props.onTopologyChange(topo);
@@ -559,12 +622,20 @@ export default React.createClass({
         // Highlight buttons when action is in progress
         let addNodeStyle = {color: "grey"};
         let addEdgeStyle = {color: "grey", marginLeft: 10};
+        let deleteNodeStyle = {color: "grey", marginLeft: 10};
+        let deleteEdgeStyle = {color: "grey", marginLeft: 10};
         if (this.state.pendingAction) {
             if (this.state.pendingAction.action === "add-node") {
                 addNodeStyle = {color: "steelblue"};
             }
             if (this.state.pendingAction.action === "add-edge") {
                 addEdgeStyle = {color: "steelblue", marginLeft: 10};
+            }
+            if (this.state.pendingAction.action === "delete-node") {
+                deleteNodeStyle = {color: "steelblue", marginLeft: 10};
+            }
+            if (this.state.pendingAction.action === "delete-edge") {
+                deleteEdgeStyle = {color: "steelblue", marginLeft: 10};
             }
         }
 
@@ -590,6 +661,26 @@ export default React.createClass({
                         aria-hidden="true">
                     </span> Edge
                 </button>
+                <button
+                    type="button"
+                    style={deleteNodeStyle}
+                    className="btn btn-default btn-xs"
+                    onClick={this.handleDeleteNode}>
+                    <span
+                        className="glyphicon glyphicon-minus"
+                        aria-hidden="true">
+                    </span> Node
+                </button>
+                <button
+                    type="button"
+                    style={deleteEdgeStyle}
+                    className="btn btn-default btn-xs"
+                    onClick={this.handleDeleteEdge}>
+                    <span
+                        className="glyphicon glyphicon-minus"
+                        aria-hidden="true">
+                    </span> Edge
+                </button>
                 <span style={{color: "steelblue", marginLeft: 10}} >
                     {this.state.pendingAction ? this.state.pendingAction.instructions : null}
                 </span>
@@ -604,6 +695,7 @@ export default React.createClass({
 
         let positionSelected;
         let nodeSelected;
+        let edgeSelected;
 
         if (this.state.pendingAction) {
             if (this.state.pendingAction.action === "add-node") {
@@ -611,6 +703,12 @@ export default React.createClass({
             }
             if (this.state.pendingAction.action === "add-edge") {
                 nodeSelected = this.handleAddSelection;
+            }
+            if (this.state.pendingAction.action === "delete-node") {
+                nodeSelected = this.handleDeleteNodeSelection;
+            }
+            if (this.state.pendingAction.action === "delete-edge") {
+                edgeSelected = this.handleDeleteEdgeSelection;
             }
         }
 
@@ -638,6 +736,7 @@ export default React.createClass({
                     onSelectionChange={this.handleSelectionChanged}
                     onPositionSelected={positionSelected}
                     onNodeSelected={nodeSelected}
+                    onEdgeSelected={edgeSelected}
                     onNodeDrag={this.handleNodeDrag} />
             </Resizable>
         );

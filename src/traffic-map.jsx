@@ -24,6 +24,12 @@ import BaseMap from "./map-base";
  *             - target (refers to node name)
  *             - capacity (string)
  *             - total_capacity (string)
+ *         Paths:
+ *             - name
+ *             - steps
+ *  showPaths:
+ *      Maybe a boolean to show all paths, or none. Or it maybe an array
+ *      of path names to show a selection of paths
  *
  *  nodeSizeMap:
  *      A mapping from the node type field to a size to draw the shape
@@ -74,7 +80,8 @@ export default React.createClass({
             edgeShapeMap: {},
             selected: false,
             shape: "circle",
-            stylesMap: {}
+            stylesMap: {},
+            showPaths: false
         };
     },
 
@@ -136,6 +143,22 @@ export default React.createClass({
             return null;
         }
 
+        const genericStyle = {
+            node: {
+                normal: {fill: "#B0B0B0", stroke: "#9E9E9E", cursor: "pointer"},
+                selected: {fill: "#37B6D3", stroke: "rgba(55, 182, 211, 0.22)",
+                           strokeWidth: 10, cursor: "pointer"},
+                muted: {fill: "#B0B0B0", stroke: "#9E9E9E", opacity: 0.6,
+                        cursor: "pointer"}
+            },
+            label: {
+                normal: {fill: "#696969", stroke: "none", fontSize: 9},
+                selected: {fill: "#333", stroke: "none", fontSize: 11},
+                muted: {fill: "#696969", stroke: "none", fontSize: 8,
+                        opacity: 0.6}
+            }
+        };
+
         // Extents of the raw topology for scaling into width
         // and height of the map
         const minX = _.min(this.props.topology.nodes, node => node.x).x;
@@ -157,14 +180,16 @@ export default React.createClass({
             node.labelPosition = node.label_position;
             node.labelOffsetX = node.label_dx;
             node.labelOffsetY = node.label_dy;
-            node.style = this.props.stylesMap[node.type].node;
-            node.labelStyle = this.props.stylesMap[node.type].label;
-            node.shape = this._nodeShape(node.name);
+            const styleMap = _.has(this.props.stylesMap, node.type) ?
+                this.props.stylesMap[node.type] : genericStyle;
+            node.style = styleMap.node;
+            node.labelStyle = styleMap.label;
 
+            node.shape = this._nodeShape(node.name);
             return node;
         });
 
-        // Create the tologogy list
+        // Create the edge list
         topology.edges = _.map(this.props.topology.edges, edge => {
             const edgeName = `${edge.source}--${edge.target}`;
             return ({
@@ -180,6 +205,28 @@ export default React.createClass({
                 offset: this._edgeCurveOffset(edgeName)
             });
         });
+
+        // Create the path list, filtering based on what is in showPaths
+        if (this.props.showPaths) {
+            topology.paths = _.map(
+                _.filter(this.props.topology.paths, path => {
+                    if (_.isArray(this.props.showPaths)) {
+                        return _.contains(this.props.showPaths, path.name);
+                    }
+                    return true;
+                }), path => {
+                const color = _.has(this.props.pathColorMap, path.name) ?
+                    this.props.pathColorMap[path.name] : "lightsteelblue";
+                const width = _.has(this.props.pathWidthMap, path.name) ?
+                    this.props.pathWidthMap[path.name] : 4;
+                return {
+                    name: path.name,
+                    steps: path.steps,
+                    color: color,
+                    width: width
+                };
+            });
+        }
 
         // Colorize the topology
         if (this.props.traffic) {
@@ -211,14 +258,16 @@ export default React.createClass({
 
     render() {
         const topo = this._normalizedTopology();
+        const drawingStyle = this.props.showPaths ? "simple" : "bidirectionalArrow";
         return (
             <BaseMap
                 topology={topo}
+                paths={topo.paths}
                 width={this.props.width}
                 height={this.props.height}
                 margin={this.props.margin}
                 selection={this.props.selection}
-                edgeDrawingMethod={"bidirectionalArrow"}
+                edgeDrawingMethod={drawingStyle}
                 onSelectionChange={this._handleSelectionChanged} />
         );
     }

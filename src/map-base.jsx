@@ -194,26 +194,36 @@ export default React.createClass({
             for (let i = 0; i < pathSteps.length - 1; i++) {
                 const node = pathSteps[i];
                 const next = pathSteps[i + 1];
+
                 let a;
                 let z;
 
                 // We store our target based on geography, west to east etc A->Z
-                if (nodeCoordinates[node].x < nodeCoordinates[next].x ||
-                    nodeCoordinates[node].y < nodeCoordinates[next].y) {
-                    a = node; z = next;
+                if (_.has(nodeCoordinates, node) && _.has(nodeCoordinates, next)) {
+                    if (nodeCoordinates[node].x < nodeCoordinates[next].x ||
+                        nodeCoordinates[node].y < nodeCoordinates[next].y) {
+                        a = node; z = next;
+                    } else {
+                        a = next; z = node;
+                    }
+
+                    if (!_.has(nodePaths, a)) {
+                        nodePaths[a] = {targetMap: {}};
+                    }
+
+                    if (!_.has(nodePaths[a].targetMap, z)) {
+                        nodePaths[a].targetMap[z] = [];
+                    }
+
+                    nodePaths[a].targetMap[z].push(pathName);
                 } else {
-                    a = next; z = node;
+                    if (!_.has(nodeCoordinates, node)) {
+                        console.warn(`Missing node in path '${pathName}': ${node}`);
+                    }
+                    if (!_.has(nodeCoordinates, next)) {
+                        console.warn(`Missing node in path '${pathName}': ${next}`);
+                    }
                 }
-
-                if (!_.has(nodePaths, a)) {
-                    nodePaths[a] = {targetMap: {}};
-                }
-
-                if (!_.has(nodePaths[a].targetMap, z)) {
-                    nodePaths[a].targetMap[z] = [];
-                }
-
-                nodePaths[a].targetMap[z].push(pathName);
             }
         });
 
@@ -357,7 +367,8 @@ export default React.createClass({
             const pathName = path.name;
             const pathSteps = path.steps;
             const pathSegments = [];
-
+            const pathColor = path.color || "steelblue";
+            const pathWidth = path.width || 1;
             if (pathSteps.length > 1) {
                 for (let i = 0; i < pathSteps.length - 1; i++) {
                     let a;
@@ -418,10 +429,11 @@ export default React.createClass({
                                 y2={nodeCoordinates[destination].y}
                                 position={pos * 6}
                                 source={source}
+                                color={pathColor}
                                 target={destination}
                                 shape={edgeShape}
                                 curveDirection={curveDirection}
-                                width={this.props.pathWidth}
+                                width={pathWidth}
                                 classed={`path-${pathName}`}
                                 key={`${pathName}--${edgeName}`}
                                 name={`${pathName}--${edgeName}`} />

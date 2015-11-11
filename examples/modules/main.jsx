@@ -23,6 +23,7 @@ import PatchPanelExample from "./patch_panel_example";
 import EndpointExample from "./endpoint_example";
 import ConnectionExample from "./connection_example";
 import EditorExample from "./editor_example";
+import PathsExample from "./paths_example";
 
 const {Route, DefaultRoute} = Router;
 
@@ -38,6 +39,7 @@ const routes = (
     <Route name="endpoint" handler={EndpointExample} />
     <Route name="connection" handler={ConnectionExample} />
     <Route name="editor" handler={EditorExample} />
+    <Route name="paths" handler={PathsExample} />
   </Route>
 );
 

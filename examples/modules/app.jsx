@@ -17,13 +17,7 @@ logo.src = require("../img/logo.png");
 
 export default React.createClass({
 
-    render: function () {
-        const sidebarStyle = {
-            borderRightStyle: "solid",
-            borderRightColor: "#ddd",
-            borderRightWidth: 1
-        };
-
+    render() {
         return (
             <div className="row">
 
@@ -53,7 +47,8 @@ export default React.createClass({
 
                     <ul className="nav nav-sidebar">
                         <li><Link to="trafficmap">Traffic Map</Link></li>
-                        <li><Link to="editor">Editor</Link></li>
+                        <li><Link to="paths">Network Paths</Link></li>
+                        <li><Link to="editor">Topology Editor</Link></li>
                     </ul>
 
                     <div className="sidebar-heading">Extras</div>
@@ -74,7 +69,9 @@ export default React.createClass({
 
                     <ul className="nav nav-sidebar">
                         <li><a href="http://software.es.net/pond/">Pond</a></li>
-                        <li><a href="http://software.es.net/react-timeseries-charts">Timeseries Charts</a></li>
+                        <li><a href="http://software.es.net/react-timeseries-charts">
+                            Timeseries Charts
+                        </a></li>
                     </ul>
                 </div>
 

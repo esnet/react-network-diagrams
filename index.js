@@ -15,4 +15,5 @@ module.exports = {
     BasicCircuit: require("./lib/circuit-diagram-basic.js"),
     ConcatenatedCircuit: require("./lib/circuit-diagram-concatenated.js"),
     ParallelCircuit: require("./lib/circuit-diagram-parallel.js"),
+    Resizable: require("./lib/resizable.js")
 };

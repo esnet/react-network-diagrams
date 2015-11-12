@@ -207,8 +207,8 @@ export default React.createClass({
 
         const pathColorMap = {
             NASA_south: "#ff7f0e",
-            NASA_north: "#d62728",
-            MDTM: "#aec7e8",
+            NASA_north: "#aec7e8",
+            MDTM: "#d62728",
             Caltech_NERSC: "#9467bd",
             Caltech_CERN: "#9467bd",
             NRL_direct: "#c49c94"

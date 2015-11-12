@@ -136,6 +136,15 @@ export default React.createClass({
         return "#C9CACC";
     },
 
+    _filteredPaths() {
+        return _.filter(this.props.topology.paths, path => {
+            if (_.isArray(this.props.showPaths)) {
+                return _.contains(this.props.showPaths, path.name);
+            }
+            return true;
+        });
+    },
+
     _normalizedTopology() {
         const topology = {};
 
@@ -208,13 +217,7 @@ export default React.createClass({
 
         // Create the path list, filtering based on what is in showPaths
         if (this.props.showPaths) {
-            topology.paths = _.map(
-                _.filter(this.props.topology.paths, path => {
-                    if (_.isArray(this.props.showPaths)) {
-                        return _.contains(this.props.showPaths, path.name);
-                    }
-                    return true;
-                }), path => {
+            topology.paths = _.map(this._filteredPaths(), path => {
                 const color = _.has(this.props.pathColorMap, path.name) ?
                     this.props.pathColorMap[path.name] : "lightsteelblue";
                 const width = _.has(this.props.pathWidthMap, path.name) ?
@@ -230,18 +233,62 @@ export default React.createClass({
 
         // Colorize the topology
         if (this.props.traffic) {
-            _.each(topology.edges, edge => {
-                const sourceTargetName = `${edge.source}--${edge.target}`;
-                const targetSourceName = `${edge.target}--${edge.source}`;
-                const sourceTargetTraffic =
-                    this.props.traffic.get(sourceTargetName);
-                const targetSourceTraffic =
-                    this.props.traffic.get(targetSourceName);
-                edge.sourceTargetColor =
-                    this._selectEdgeColor(sourceTargetTraffic);
-                edge.targetSourceColor =
-                    this._selectEdgeColor(targetSourceTraffic);
-            });
+            if (!this.props.showPaths &&
+                 this.props.edgeDrawingMethod === "bidirectionalArrow") {
+                _.each(topology.edges, edge => {
+                    const sourceTargetName = `${edge.source}--${edge.target}`;
+                    const targetSourceName = `${edge.target}--${edge.source}`;
+                    const sourceTargetTraffic =
+                        this.props.traffic.get(sourceTargetName);
+                    const targetSourceTraffic =
+                        this.props.traffic.get(targetSourceName);
+                    edge.sourceTargetColor =
+                        this._selectEdgeColor(sourceTargetTraffic);
+                    edge.targetSourceColor =
+                        this._selectEdgeColor(targetSourceTraffic);
+                });
+            } else {
+                const edgeMap = {};
+                _.each(this._filteredPaths(), path => {
+
+                    const pathAtoZTraffic =
+                        this.props.traffic.get(`${path.name}--AtoZ`);
+                    const pathZtoATraffic =
+                        this.props.traffic.get(`${path.name}--ZtoA`);
+
+                    let prev = null;
+                    _.each(path.steps, step => {
+                        if (prev) {
+                            const sourceTargetName = `${prev}--${step}`;
+                            if (!_.has(edgeMap, sourceTargetName)) {
+                                edgeMap[sourceTargetName] = 0;
+                            }
+                            edgeMap[sourceTargetName] += pathAtoZTraffic;
+
+                            const targetSourceName = `${step}--${prev}`;
+                            if (!_.has(edgeMap, targetSourceName)) {
+                                edgeMap[targetSourceName] = 0;
+                            }
+                            edgeMap[targetSourceName] += pathZtoATraffic;
+                        }
+                        prev = step;
+                    });
+                });
+                _.each(topology.edges, edge => {
+                    const sourceTargetName = `${edge.source}--${edge.target}`;
+                    const targetSourceName = `${edge.target}--${edge.source}`;
+                    if (_.has(edgeMap, sourceTargetName)) {
+                        const sourceTargetTraffic = edgeMap[sourceTargetName];
+                        edge.sourceTargetColor =
+                            this._selectEdgeColor(sourceTargetTraffic);
+                    }
+                    if (_.has(edgeMap, targetSourceName)) {
+                        const targetSourceTraffic = edgeMap[targetSourceName];
+                        edge.targetSourceColor =
+                            this._selectEdgeColor(targetSourceTraffic);
+                    }
+                });
+            }
         }
 
         topology.name = this.props.topology.name;
@@ -258,7 +305,6 @@ export default React.createClass({
 
     render() {
         const topo = this._normalizedTopology();
-        const drawingStyle = this.props.showPaths ? "simple" : "bidirectionalArrow";
         return (
             <BaseMap
                 topology={topo}
@@ -267,7 +313,7 @@ export default React.createClass({
                 height={this.props.height}
                 margin={this.props.margin}
                 selection={this.props.selection}
-                edgeDrawingMethod={drawingStyle}
+                edgeDrawingMethod={this.props.edgeDrawingMethod}
                 onSelectionChange={this._handleSelectionChanged} />
         );
     }

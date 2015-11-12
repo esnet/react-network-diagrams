@@ -442,7 +442,7 @@ export default React.createClass({
                 }
             }
             return (
-                <g>
+                <g key={pathName}>
                     {pathSegments}
                 </g>
             );

@@ -1911,6 +1911,11 @@
       "source": "SC15",
       "target": "STARLIGHT",
       "capacity": ""
+    },
+    {
+      "source": "STAR",
+      "target": "AOFA",
+      "capacity": ""
     }
   ],
   "paths": [

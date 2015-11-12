@@ -9,11 +9,65 @@
  */
 
 import React from "react";
+import _ from "underscore";
 import TrafficMap from "../../src/traffic-map";
 import Resizable from "../../src/resizable";
+import { Event } from "@esnet/pond";
 
 // Test data
 import topo from "../data/paths_topo.json";
+
+const OptionsView = React.createClass({
+
+    displayName: "OptionsView",
+
+    getInitialState() {
+        return {value: this.props.initialChoice};
+    },
+
+    handleChange(e) {
+        // State changes
+        this.setState({value: e.target.value});
+
+        // Callbacks
+        if (this.props.onChange) {
+            this.props.onChange(this.props.attr, e.target.value);
+        }
+    },
+
+    render() {
+        const classes = "btn-group btn-group-xs";
+        const overlayStyle = {position: "absolute", top: 10, right: 20, zIndex: 10};
+        if (!this.props.initialChoiceList) {
+            console.warn("No initial choice list supplied for attr", this.props.attr);
+        }
+
+        const buttonElements = _.map(this.props.initialChoiceList, (choice, i) => {
+            if (Number(i) === Number(this.props.initialChoice)) {
+                return (
+                    <button type="button" className="active btn btn-default"
+                            key={i} value={i} onClick={this.handleChange}>{choice} </button>
+                );
+            } else {
+                return (
+                    <button type="button" className="btn btn-default"
+                            key={i} value={i} onClick={this.handleChange}>{choice}</button>
+                );
+            }
+        });
+
+        const width = this.props.width ? `${this.props.width}px` : "400px";
+
+        // Key based on the choice list
+        const list = _.map(this.props.initialChoiceList, choice => choice).join("-");
+
+        return (
+            <div className={classes} style={overlayStyle} key={list} width={width}>
+                {buttonElements}
+            </div>
+        );
+    }
+});
 
 //
 // Example
@@ -24,7 +78,8 @@ export default React.createClass({
     getInitialState() {
         return {
             selectionType: null,
-            selection: null
+            selection: null,
+            mapMode: 0
         };
     },
 
@@ -33,6 +88,10 @@ export default React.createClass({
             selectionType: selectionType,
             selection: selection
         });
+    },
+
+    handleMapToggle(key, value) {
+        this.setState({mapMode: Number(value)});
     },
 
     render() {
@@ -148,21 +207,38 @@ export default React.createClass({
 
         const pathColorMap = {
             NASA_south: "#ff7f0e",
-            NASA_north: "#aec7e8",
-            MDTM: "#d62728",
+            NASA_north: "#d62728",
+            MDTM: "#aec7e8",
             Caltech_NERSC: "#9467bd",
             Caltech_CERN: "#9467bd",
             NRL_direct: "#c49c94"
         };
 
         const pathWidthMap = {
-            NASA_south: 2,
+            NASA_south: 4,
             NASA_north: 4,
-            MDTM: 2,
-            Caltech_NERSC: 2,
-            Caltech_CERN: 2,
-            NRL_direct: 2
+            MDTM: 4,
+            Caltech_NERSC: 4,
+            Caltech_CERN: 4,
+            NRL_direct: 4
         };
+
+
+        //
+        // Traffic
+        //
+
+        const timestamp = new Date();
+        const traffic = new Event(timestamp, {
+            "NASA_south--AtoZ": 20000000000,
+            "NASA_south--ZtoA": 3000000000,
+            "NASA_north--AtoZ": 40000000000,
+            "NASA_north--ZtoA": 5000000000
+        });
+
+        const drawingMethod = this.state.mapMode === 0 ?
+            "simple" : "pathBidirectionalArrow";
+        const showPaths = ["NASA_north", "NASA_south"];
 
         return (
             <div>
@@ -171,15 +247,20 @@ export default React.createClass({
                         <h3>Network Paths Example</h3>
                     </div>
                 </div>
-
                 <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-12" style={{position: "relative"}}>
+                        <OptionsView
+                            attr="map" initialChoiceList={["Route", "Traffic"]}
+                            key={this.state.mapMode}
+                            initialChoice={Number(this.state.mapMode)}
+                            onChange={this.handleMapToggle}/>
                         <Resizable aspect={980 / 500} style={style}>
                             <TrafficMap
                                 width={980} height={500} margin={50}
                                 topology={topo}
+                                traffic={traffic}
                                 edgeColorMap={edgeColorMap}
-                                edgeDrawingMethod="bidirectionalArrow"
+                                edgeDrawingMethod={drawingMethod}
                                 edgeThinknessMap={edgeThinknessMap}
                                 edgeShapeMap={edgeShapeMap}
                                 nodeSizeMap={nodeSizeMap}
@@ -187,11 +268,12 @@ export default React.createClass({
                                 stylesMap={stylesMap}
                                 pathColorMap={pathColorMap}
                                 pathWidthMap={pathWidthMap}
-                                showPaths={["NASA_north", "NASA_south"]}
+                                showPaths={showPaths}
                                 selection={mapSelection}
                                 onSelectionChange={this.handleSelectionChanged} />
                         </Resizable>
                     </div>
+
                 </div>
             </div>
         );

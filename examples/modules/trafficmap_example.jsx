@@ -10,9 +10,8 @@
 
 import React from "react";
 import _ from "underscore";
-import {Event} from "@esnet/pond";
+import { Event } from "@esnet/pond";
 import TrafficMap from "../../src/traffic-map";
-import Resizable from "../../src/resizable";
 import Markdown from "react-markdown";
 
 const text = require("raw!../markdown/trafficmap.md");
@@ -29,14 +28,14 @@ import rawTraffic from "../data/portal_traffic.json";
 //
 
 const timestamp = rawTraffic.timestamp * 1000;
-let edgeTraffic = {};
+const edgeTraffic = {};
 _.each(rawTraffic.edges, edge => {
     _.each(edge.bps, (bps, dir) => {
         edgeTraffic[dir] = bps;
     });
 });
 
-let traffic = new Event(timestamp, edgeTraffic);
+const traffic = new Event(timestamp, edgeTraffic);
 
 //
 // Example
@@ -60,7 +59,7 @@ export default React.createClass({
 
     render() {
 
-        let mapSelection = {
+        const mapSelection = {
             nodes: this.state.selectionType === "node" ?
                 [this.state.selection] : [],
             edges: this.state.selectionType === "edge" ?
@@ -163,13 +162,6 @@ export default React.createClass({
             esnet_site: siteStyle
         };
 
-        const style = {
-            background: "#F6F6F6",
-            borderStyle: "solid",
-            borderWidth: "thin",
-            borderColor: "#E6E6E6"
-        };
-
         return (
             <div>
                 <div className="row">
@@ -180,21 +172,19 @@ export default React.createClass({
 
                 <div className="row">
                     <div className="col-md-12">
-                        <Resizable aspect={980/500} style={style}>
-                            <TrafficMap
-                                width={980} height={500} margin={50}
-                                topology={topo}
-                                traffic={traffic}
-                                edgeColorMap={edgeColorMap}
-                                edgeDrawingMethod="bidirectionalArrow"
-                                edgeThinknessMap={edgeThinknessMap}
-                                edgeShapeMap={edgeShapeMap}
-                                nodeSizeMap={nodeSizeMap}
-                                nodeShapeMap={nodeShapeMap}
-                                stylesMap={stylesMap}
-                                selection={mapSelection}
-                                onSelectionChange={this.handleSelectionChanged} />
-                        </Resizable>
+                        <TrafficMap
+                            bounds={{x1: -5, y1: 5, x2: 240, y2: 120}}
+                            topology={topo}
+                            traffic={traffic}
+                            edgeColorMap={edgeColorMap}
+                            edgeDrawingMethod="bidirectionalArrow"
+                            edgeThinknessMap={edgeThinknessMap}
+                            edgeShapeMap={edgeShapeMap}
+                            nodeSizeMap={nodeSizeMap}
+                            nodeShapeMap={nodeShapeMap}
+                            stylesMap={stylesMap}
+                            selection={mapSelection}
+                            onSelectionChange={this.handleSelectionChanged} />
                     </div>
                 </div>
 

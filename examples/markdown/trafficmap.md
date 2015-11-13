@@ -12,14 +12,22 @@ At a high level our topology data looks like this:
 
 ### Nodes
 
-The nodes list in the topology contains a list of node objects. This object contains a `type` and a `name` field. The node should also contain an `x` and `y` coordinate for the position of the node, as well as optional information about where to position the node label. For ESnet network traffic we also add extra information that we use elsewhere in the page.
+The nodes list in the topology contains a list of node objects. This object contains, at a minimum:
+ * `type`
+ * `name`
+ * `x` and `y` - coordinates for the position of the node
+
+Optionally the node can contain:
+ * `label_position` - information about where to position the node label. Label position may be "top", "bottom", "left" or "right", or combinations such as "topleft"
+ * `label_dx`, `label_dy` - offsets for fine adjustment of label positions
+  
+At ESnet our nodes also contain extra information about that node that are specific to our use case.
 
 Example for the ALBQ hub:
 
     {
         "name": "ALBQ",
         "type": "hub",
-        "capacity": "100G",
         "label_dx": null,
         "label_dy": null,
         "label_position": "left",
@@ -29,9 +37,11 @@ Example for the ALBQ hub:
 
 ### Edges
 
-The edges list in the topology contains a list of edge objects. An edge object connects two nodes, specified by the `source` and `target`. The capacity field can be used to style the link based on its capacity. Like nodes we often pass extra information into the edge objects for our own use within the page.
+The edges list in the topology contains a list of edge objects. An edge object connects two nodes, specified by the `source` and `target`. The capacity field is a string label can be used to style the link based on its capacity (see `edgeThicknessMap` below).
 
-Example connection ALBQ to DENV:
+Like nodes we often pass extra information into the edge objects for our own use within the page, such as which interfaces are use in that connection.
+
+Example edge, representing a connection from our ALBQ to DENV hubs:
 
     {
       "capacity": "100G",
@@ -40,11 +50,79 @@ Example connection ALBQ to DENV:
       ...
     },
 
-### Styling
+### Paths
+
+The paths list contains a list of path objects. A path object connects multiple nodes together to form a path across the topology. Each path contains:
+
+ * `name` - name the path should be referred to by
+ * `steps` - a list of Node names
+
+Example path connecting NERSC, to Starlight, to ANL.
+
+    {
+      "name": "NorthPath",
+      "steps": [
+        "NERSC",
+        "STARLIGHT",
+        "ANL"
+      ],
+    },
+
+#### Notes about displaying paths
+
+To display paths on the map you need to:
+ 1. Define one or more paths in the topology, as explained above
+ 2. Tell the maps code which paths to show using the `showPaths` prop on the `<TrafficMap>`
+ 3. Use an `edgeDrawingMethod` which is suited to rendering paths
+
+Paths will be displayed on the map if the `showPaths` prop of the `<TrafficMap>` is provided. This prop can either be:
+ * a boolean (and if true the map will show all paths), or
+ * an array of path names to show.
+
+Paths can be displayed when one of two styles are specified in the `edgeDrawingMethod`:
+ * "simple" will display the schematic rendering of the path, i.e. a simple line drawn through the nodes, or
+ * "pathBidirectionalArrow", which will show traffic arrows for just the paths being rendered (and not other links in the map).
+
+## Traffic
+
+The map is able to render itself as a heat map based on current traffic levels.
+
+### Edge traffic
+
+To specify those levels we provide a Pond Event containing the current traffic rates (using the edge name ($sourceNode--$destNode) in each direction) at a given timestamp. This event may be part of a Pond TimeSeries or it could be a stand alone Event with the current traffic levels.
+
+The simplest way to construct this traffic event would look like this:
+
+    import { Event } from "@esnet/pond";
+    const timestamp = 1431649302000;
+    const traffic = new Event(timestamp, {
+        ALBQ--DENV: 126513360.8
+        DENV--ALBQ: 323736723.4
+        ...
+    });
+
+The rendering of the edges uses the `edgeColorMap` to map from value ranges (bps) to a color. See below.
+
+### Path traffic
+
+Rendering path traffic is similar to that for the edge traffic. We use a convention for the names to designate the direction of the traffic along the path: $pathname--AtoZ or $pathname--ZtoA. Here is an example:
+
+    import { Event } from "@esnet/pond";
+    const timestamp = 1431649302000;
+    const pathTraffic = new Event(timestamp, {
+        "northPath--AtoZ": 20000000000,
+        "northPath--ZtoA": 3000000000,
+        "southPath--AtoZ": 40000000000,
+        "southPath--ZtoA": 5000000000
+    });
+
+Like the edge traffic, the path traffic levels are mapped to colors with the `edgeColorMap`. See below.
+
+## Styling
 
 The TrafficMap code is configured with a set of maps which give styling information to the map rendering code
 
-#### nodeSizeMap
+### nodeSizeMap
 
 A mapping from the `type` field in the node object to a size to draw the shape
 
@@ -124,23 +202,25 @@ Each style (e.g. hubStyle above) specifies properties for its label and the node
 
 Note that muted will be applied to nodes which are not selected.
 
-## Traffic
+### Path styles
 
-The TrafficMap will render itself as a heat map based on current traffic levels. To specify those levels we provide a Pond Event containing the current traffic rates (using the edge name in each direction) at a given timestamp. This event may be part of a Timeseries or it could be a stand alone Event with the current traffic levels.
+You can use styling maps to specify the color and width of paths:
 
-The simplest way to construct this traffic event would look like this:
+    const pathColorMap = {
+        northPath: "#ff7f0e",
+        southPath: "#aec7e8",
+    };
 
-    const timestamp = 1431649302000;
-    const edgeTraffic = {
-            ALBQ--DENV: 126513360.8
-            DENV--ALBQ: 323736723.4
-            ...
-    }
-    const traffic = new Event(timestamp, edgeTraffic);
+    const pathWidthMap = {
+        northPath: 4,
+        southPath: 2,
+    };
 
 ### edgeColorMap
 
-The edge color map maps an edge rate (specified in the traffic event) to a color. In this example, traffic across a link between 50 and 100 Gbps would be mapped to red (#990000). The label isn't needed for this mapping, but the traffic legend code will accept this same structure and will show a legend using the label.
+The edge color map maps an edge rate (bits per second, specified in the traffic event) to a color using the "range" and "color" values. In this example, traffic across a link between 50 and 100 Gbps (`range: [50, 100]`)would be mapped to red (`color: #990000`).
+
+The "label" isn't needed for this mapping, but the traffic `<MapLegend>` component will accept this same structure and use the label for its display.
 
     const edgeColorMap = [
         {color: "#990000", label: ">=50 Gbps", range: [50, 100]},
@@ -152,7 +232,7 @@ The edge color map maps an edge rate (specified in the traffic event) to a color
         {color: "#74a9cf", label: "0 - 1", range: [0, 1]}
     ];
 
-### Rendering the TrafficMap
+## Putting it all together
 
 Finally we can render the traffic map itself:
 
@@ -160,7 +240,7 @@ Finally we can render the traffic map itself:
         return (
             ...
             <TrafficMap
-                width={980} height={500} margin={50}
+                bounds={{x1: -5, y1: 5, x2: 240, y2: 120}}
                 topology={topology}
                 traffic={traffic}
                 edgeColorMap={edgeColorMap}
@@ -176,12 +256,34 @@ Finally we can render the traffic map itself:
         );
     }
 
-Most of what is passed in as props here are the maps which specify the style of the drawing, as detailed above. We also need to provide the width and the height of the map and the edge drawing method, in this case bidirectionalArrow. In addition, we also handle selection in this map (see below).
+Most of what is passed in as props here are the maps which specify the style of the drawing, as detailed above. Additional props include:
 
-### Selection
+### Props
+
+#### topology
+
+The topology structure, as detailed above. This contains the descriptions of nodes, edges and paths used to render the topology
+
+#### bounds
+
+Specified as an object containing x1, y1 and x2, y2. This is the region to display on the map. If this isn't specified the bounds will be calculated from the nodes in the Map.
+
+#### edgeDrawingMethod
+
+The is the overall rendering style for the edge connections. Maybe one of the following strings:
+
+ * "simple" - simple line connections between nodes
+ * "bidirectionalArrow" - network traffic represented by bi-directional arrows
+ * "pathBidirectionalArrow" - similar to "bidirectionalArrow", but only for edges that are used in the currently displayed path(s).
+
+#### showPaths
+
+Either a boolean or a list of path names. If a bool, and true, then all paths will be shown. If a list then only the paths in that list will be shown. The default is to show no paths.
+
+### selection
 
 A callback for selection change can be provided to the `onSelectionChange()` prop. This will be called when the user selects an object in the map, be it a node or a link. The first arg will be the type of the object selected and the second will be the object itself.
 
-Typically you would store the selection (perhaps as state of the parant component) and pass that selection down using the `selection` prop, since most likely you want to use that selection elsewhere on the page (say to show network traffic for the selection).
+Typically you would store the selection (perhaps as state of the parent component) and pass that selection down using the `selection` prop, since most likely you want to use that selection elsewhere on the page (say to show network traffic for the selection).
 
 As discussed above, styling for the selection can be done using the styles maps.

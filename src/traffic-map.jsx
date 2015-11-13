@@ -11,6 +11,7 @@
 import React from "react";
 import _ from "underscore";
 import BaseMap from "./map-base";
+import Resizable from "./resizable";
 
 /**
  * Props:
@@ -85,6 +86,17 @@ export default React.createClass({
         };
     },
 
+    bounds() {
+        if (this.props.bounds) {
+            return this.props.bounds;
+        }
+        const minX = _.min(this.props.topology.nodes, node => node.x).x;
+        const minY = _.min(this.props.topology.nodes, node => node.y).y;
+        const maxX = _.max(this.props.topology.nodes, node => node.x).x;
+        const maxY = _.max(this.props.topology.nodes, node => node.y).y;
+        return {x1: minX, x2: maxX, y1: minY, y2: maxY};
+    },
+
     _nodeSize(name) {
         return this.props.nodeSizeMap[name] || 7;
     },
@@ -145,7 +157,7 @@ export default React.createClass({
         });
     },
 
-    _normalizedTopology() {
+    buildTopology() {
         const topology = {};
 
         if (_.isNull(this.props.topology)) {
@@ -168,34 +180,23 @@ export default React.createClass({
             }
         };
 
-        // Extents of the raw topology for scaling into width
-        // and height of the map
-        const minX = _.min(this.props.topology.nodes, node => node.x).x;
-        const minY = _.min(this.props.topology.nodes, node => node.y).y;
-        let maxX = _.max(this.props.topology.nodes, node => node.x).x;
-        let maxY = _.max(this.props.topology.nodes, node => node.y).y;
-        maxX -= minX;
-        maxY -= minY;
-
         // Create a node list
         topology.nodes = _.map(this.props.topology.nodes, node => {
-            // Scale the node positions onto a normalized 0 to 1 scale
-            node.x = (node.x - minX) / maxX;
-            node.y = (node.y - minY) / maxY;
+            const n = _.clone(node);
 
             // Radius is based on the type of node, given in the nodeSizeMap
-            node.radius = this._nodeSize(node.type);
+            n.radius = this._nodeSize(node.type);
+            n.labelPosition = node.label_position;
+            n.labelOffsetX = node.label_dx;
+            n.labelOffsetY = node.label_dy;
 
-            node.labelPosition = node.label_position;
-            node.labelOffsetX = node.label_dx;
-            node.labelOffsetY = node.label_dy;
             const styleMap = _.has(this.props.stylesMap, node.type) ?
                 this.props.stylesMap[node.type] : genericStyle;
-            node.style = styleMap.node;
-            node.labelStyle = styleMap.label;
+            n.style = styleMap.node;
+            n.labelStyle = styleMap.label;
 
-            node.shape = this._nodeShape(node.name);
-            return node;
+            n.shape = this._nodeShape(node.name);
+            return n;
         });
 
         // Create the edge list
@@ -304,17 +305,30 @@ export default React.createClass({
     },
 
     render() {
-        const topo = this._normalizedTopology();
+        const topo = this.buildTopology();
+        const bounds = this.bounds();
+        const aspect = (bounds.x2 - bounds.x1) / (bounds.y2 - bounds.y1);
+
+        console.log(bounds, aspect);
+
         return (
-            <BaseMap
-                topology={topo}
-                paths={topo.paths}
-                width={this.props.width}
-                height={this.props.height}
-                margin={this.props.margin}
-                selection={this.props.selection}
-                edgeDrawingMethod={this.props.edgeDrawingMethod}
-                onSelectionChange={this._handleSelectionChanged} />
+            <Resizable aspect={aspect} style={{
+                background: "#F6F6F6",
+                borderStyle: "solid",
+                borderWidth: "thin",
+                borderColor: "#E6E6E6"}}>
+                <BaseMap
+                    topology={topo}
+                    paths={topo.paths}
+                    bounds={bounds}
+                    width={this.props.width}
+                    height={this.props.height}
+                    margin={this.props.margin}
+                    selection={this.props.selection}
+                    edgeDrawingMethod={this.props.edgeDrawingMethod}
+                    onSelectionChange={this._handleSelectionChanged} />
+            </Resizable>
+
         );
     }
 });

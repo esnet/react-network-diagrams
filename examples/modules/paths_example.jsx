@@ -11,7 +11,6 @@
 import React from "react";
 import _ from "underscore";
 import TrafficMap from "../../src/traffic-map";
-import Resizable from "../../src/resizable";
 import { Event } from "@esnet/pond";
 
 // Test data
@@ -198,13 +197,6 @@ export default React.createClass({
             esnet_site: siteStyle
         };
 
-        const style = {
-            background: "#F6F6F6",
-            borderStyle: "solid",
-            borderWidth: "thin",
-            borderColor: "#E6E6E6"
-        };
-
         const pathColorMap = {
             NASA_south: "#ff7f0e",
             NASA_north: "#aec7e8",
@@ -222,7 +214,6 @@ export default React.createClass({
             Caltech_CERN: 4,
             NRL_direct: 4
         };
-
 
         //
         // Traffic
@@ -254,24 +245,22 @@ export default React.createClass({
                             key={this.state.mapMode}
                             initialChoice={Number(this.state.mapMode)}
                             onChange={this.handleMapToggle}/>
-                        <Resizable aspect={980 / 500} style={style}>
-                            <TrafficMap
-                                width={980} height={500} margin={50}
-                                topology={topo}
-                                traffic={traffic}
-                                edgeColorMap={edgeColorMap}
-                                edgeDrawingMethod={drawingMethod}
-                                edgeThinknessMap={edgeThinknessMap}
-                                edgeShapeMap={edgeShapeMap}
-                                nodeSizeMap={nodeSizeMap}
-                                nodeShapeMap={nodeShapeMap}
-                                stylesMap={stylesMap}
-                                pathColorMap={pathColorMap}
-                                pathWidthMap={pathWidthMap}
-                                showPaths={showPaths}
-                                selection={mapSelection}
-                                onSelectionChange={this.handleSelectionChanged} />
-                        </Resizable>
+                        <TrafficMap
+                            topology={topo}
+                            traffic={traffic}
+                            bounds={{x1: -5, y1: 5, x2: 240, y2: 120}}
+                            edgeColorMap={edgeColorMap}
+                            edgeDrawingMethod={drawingMethod}
+                            edgeThinknessMap={edgeThinknessMap}
+                            edgeShapeMap={edgeShapeMap}
+                            nodeSizeMap={nodeSizeMap}
+                            nodeShapeMap={nodeShapeMap}
+                            stylesMap={stylesMap}
+                            pathColorMap={pathColorMap}
+                            pathWidthMap={pathWidthMap}
+                            showPaths={showPaths}
+                            selection={mapSelection}
+                            onSelectionChange={this.handleSelectionChanged} />
                     </div>
 
                 </div>

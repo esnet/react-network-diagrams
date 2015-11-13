@@ -308,9 +308,6 @@ export default React.createClass({
         const topo = this.buildTopology();
         const bounds = this.bounds();
         const aspect = (bounds.x2 - bounds.x1) / (bounds.y2 - bounds.y1);
-
-        console.log(bounds, aspect);
-
         return (
             <Resizable aspect={aspect} style={{
                 background: "#F6F6F6",

@@ -245,8 +245,7 @@ export default React.createClass({
                 <g onClick={this.handMouseClick}
                    onMouseOver={this.handleMouseOver}
                    onMouseDown={this.handleMouseDown}
-                   onMouseMove={this.handleMouseMove}
-                   onMouseOver={this._mouseOver}>
+                   onMouseMove={this.handleMouseMove}>
                     {nodeElement}
                     <text x={labelX}
                           y={labelY}

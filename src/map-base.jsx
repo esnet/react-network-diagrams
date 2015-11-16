@@ -501,11 +501,10 @@ export default React.createClass({
         return (
             <svg
                 style={style}
-                className="noselect"
                 ref="map"
                 width={this.props.width}
                 height={this.props.height}
-                className={"map-container"}
+                className="noselect map-container"
                 onClick={this.handleClick}
                 onMouseMove={this.handleMouseMove}
                 onMouseUp={this.handleMouseUp} >

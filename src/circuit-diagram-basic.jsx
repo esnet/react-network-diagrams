@@ -87,8 +87,8 @@ export default React.createClass({
             };
             return (
                 <rect className="circuit-overlay" style={overlayStyle}
-                      x="0" y="0" width={this.props.width} height={this.props.height}
-                      style={overlayStyle}/>
+                      x="0" y="0" width={this.props.width} height={this.props.height} />
+
             );
         } else {
             return null;

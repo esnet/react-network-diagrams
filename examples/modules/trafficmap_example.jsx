@@ -10,7 +10,7 @@
 
 import React from "react";
 import _ from "underscore";
-import { Event } from "@esnet/pond";
+import { Event } from "pondjs";
 import TrafficMap from "../../src/traffic-map";
 import Markdown from "react-markdown";
 

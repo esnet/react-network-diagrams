@@ -11,7 +11,7 @@
 import React from "react";
 import _ from "underscore";
 import TrafficMap from "../../src/traffic-map";
-import { Event } from "@esnet/pond";
+import { Event } from "pondjs";
 
 // Test data
 import topo from "../data/paths_topo.json";

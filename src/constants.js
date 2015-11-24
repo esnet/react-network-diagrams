@@ -8,7 +8,7 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
-import keyMirror from "react/lib/keyMirror";
+import keyMirror from "keymirror";
 
 module.exports = {
 

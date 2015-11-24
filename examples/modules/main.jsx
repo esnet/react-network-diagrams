@@ -8,12 +8,14 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
+/* eslint max-len:0 */
+
 import React from "react";
-import Router from "react-router";
+import { render } from "react-dom";
+import { Router, Route, IndexRoute } from "react-router";
 
-import App from "./app";
-import Intro from "./intro";
-
+import App from "./app.jsx";
+import Intro from "./intro.jsx";
 import MapLegendExample from "./legend_example";
 import TrafficMapExample from "./trafficmap_example";
 import BasicCircuitExample from "./basic_circuit_example";
@@ -25,24 +27,20 @@ import ConnectionExample from "./connection_example";
 import EditorExample from "./editor_example";
 import PathsExample from "./paths_example";
 
-const {Route, DefaultRoute} = Router;
-
-const routes = (
-  <Route path="/" handler={App}>
-    <DefaultRoute name="intro" handler={Intro} />
-    <Route name="legend" handler={MapLegendExample} />
-    <Route name="trafficmap" handler={TrafficMapExample} />
-    <Route name="basicCircuit" handler={BasicCircuitExample} />
-    <Route name="concatenatedCircuit" handler={ConcatenatedCircuitExample} />
-    <Route name="parallelCircuit" handler={ParallelCircuitExample} />
-    <Route name="patchPanel" handler={PatchPanelExample} />
-    <Route name="endpoint" handler={EndpointExample} />
-    <Route name="connection" handler={ConnectionExample} />
-    <Route name="editor" handler={EditorExample} />
-    <Route name="paths" handler={PathsExample} />
-  </Route>
-);
-
-Router.run(routes, Handler => {
-    React.render(<Handler/>, document.getElementById("content"));
-});
+render((
+    <Router>
+        <Route path="/" component={App}>
+            <IndexRoute component={Intro}/>
+            <Route path="legend" component={MapLegendExample} />
+            <Route path="trafficmap" component={TrafficMapExample} />
+            <Route path="basicCircuit" component={BasicCircuitExample} />
+            <Route path="concatenatedCircuit" component={ConcatenatedCircuitExample} />
+            <Route path="parallelCircuit" component={ParallelCircuitExample} />
+            <Route path="patchPanel" component={PatchPanelExample} />
+            <Route path="endpoint" component={EndpointExample} />
+            <Route path="connection" component={ConnectionExample} />
+            <Route path="editor" component={EditorExample} />
+            <Route path="paths" component={PathsExample} />
+        </Route>
+    </Router>
+), document.getElementById("content"));

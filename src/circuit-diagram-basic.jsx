@@ -82,13 +82,13 @@ export default React.createClass({
     _renderDisabledOverlay(disabled) {
         if (disabled) {
             const overlayStyle = {
-                fill: "#FFFFFF",
+                fill: "#FDFDFD",
                 fillOpacity: "0.65",
             };
             return (
                 <rect className="circuit-overlay" style={overlayStyle}
-                      x="0" y="0" width={this.props.width} height={this.props.height}
-                      style={{fill: "#FDFDFD", fillOpacity: 0.65}}/>
+                      x="0" y="0" width={this.props.width} height={this.props.height} />
+
             );
         } else {
             return null;

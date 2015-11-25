@@ -12,16 +12,27 @@ import React from "react";
 import _ from "underscore";
 import Markdown from "react-markdown";
 import BasicCircuit from "../../src/circuit-diagram-basic";
-import {stylesMap} from "../styles/styles.js";
+import Resizable from "../../src/resizable";
+import { stylesMap } from "../styles/styles.js";
 
 const text = require("raw!../markdown/basic-circuit.md");
 
-const circuitTypeList = ["Optical", "Leased", "Dark Fiber", "Equipment-Equipment",
-                         "Cross-Connect", "Panel Coupler", "Backplane Mate"];
+const circuitTypeList = [
+    "Optical",
+    "Leased",
+    "Dark Fiber",
+    "Equipment-Equipment",
+    "Cross-Connect",
+    "Panel Coupler",
+    "Backplane Mate"
+];
 const labelPositionChoiceList = ["top", "bottom"];
-const endpointPositionChoiceList = ["top", "bottom", "bottomleftangled",
-                                    "bottomrightangled"];
-const disabledChoiceList = ["Yes", "No"];
+const endpointPositionChoiceList = [
+    "top",
+    "bottom",
+    "bottomleftangled",
+    "bottomrightangled"
+];
 
 const circuitTypeProperties = {
     optical: {
@@ -49,23 +60,22 @@ const circuitTypeProperties = {
         lineShape: "square",
         size: 36,
         squareWidth: 25,
-        noNavigate: true,
+        noNavigate: true
     },
     backplaneMate: {
         style: stylesMap.coupler,
         lineShape: "square",
         size: 36,
         squareWidth: 40,
-        centerLine: true,
-    },
+        centerLine: true
+    }
 };
-
 
 const Selector = React.createClass({
 
-    _handleChange(e) {
-        const l = e.target.value;
-        this.props.handleChange(l);
+    handleChange(e) {
+        const value = e.target.value;
+        this.props.handleChange(value);
     },
 
     render() {
@@ -75,7 +85,7 @@ const Selector = React.createClass({
             );
         });
         return (
-            <select ref="menu" value={this.props.selected} onChange={this._handleChange}>
+            <select ref="menu" value={this.props.selected} onChange={this.handleChange}>
                 {options}
             </select>
         );
@@ -90,18 +100,16 @@ export default React.createClass({
             circuitTypeChoice: circuitTypeList[4],
             circuitLabelPositionChoice: labelPositionChoiceList[0],
             endpointLabelPositionChoice: endpointPositionChoiceList[2],
-            disabledChoice: disabledChoiceList[1],
-            disabled: false,
-            click: "",
+            disabled: false
         };
     },
 
-    _onSelectionChange(e,l) {
-        const message = `You clicked connection ${e} with name ${l}`;
+    handleSelectionChange(e, value) {
+        const message = `You clicked connection ${e} with name ${value}`;
         window.alert(message);
     },
 
-    _typeChange(l) {
+    handleTypeChange(l) {
         switch (l) {
             case "Optical":
                 this.setState({circuitType: circuitTypeProperties.optical});
@@ -130,51 +138,46 @@ export default React.createClass({
         this.setState({circuitTypeChoice: l});
     },
 
-    _disabledChange(l) {
-        switch (l) {
-            case "Yes":
-                this.setState({disabled: true});
-                break;
-
-            case "No":
-                this.setState({disabled: false});
-                break;
-
-            default:
-                break;
-        }
-        this.setState({disabledChoice: l});
+    handleDisabledChange() {
+        const current = this.state.disabled;
+        this.setState({disabled: current ? false : true});
     },
 
-    _renderChoices() {
+    renderChoices() {
         return (
             <div>
                 <div>
-                    <Selector selected={this.state.circuitTypeChoice}
-                              selectionList={circuitTypeList}
-                              handleChange={this._typeChange} />
+                    <Selector
+                        selected={this.state.circuitTypeChoice}
+                        selectionList={circuitTypeList}
+                        handleChange={this.handleTypeChange} />
                     <p>Select type of circuit</p>
                 </div>
+
                 <div>
-                    <Selector selected={this.state.circuitLabelPositionChoice}
-                              selectionList={labelPositionChoiceList}
-                              handleChange={l => {
-                                  this.setState({circuitLabelPositionChoice: l});
-                              }} />
+                    <Selector
+                        selected={this.state.circuitLabelPositionChoice}
+                        selectionList={labelPositionChoiceList}
+                        handleChange={circuitLabelPositionChoice => {
+                            this.setState({circuitLabelPositionChoice});
+                        }} />
                     <p>Select the position of the circuit label</p>
                 </div>
                 <div>
-                    <Selector selected={this.state.endpointLabelPositionChoice}
-                              selectionList={endpointPositionChoiceList}
-                              handleChange={l => {
-                                  this.setState({endpointLabelPositionChoice: l});
-                              }} />
+                    <Selector
+                        selected={this.state.endpointLabelPositionChoice}
+                        selectionList={endpointPositionChoiceList}
+                        handleChange={endpointLabelPositionChoice => {
+                            this.setState({endpointLabelPositionChoice});
+                        }} />
                     <p>Select the position of the endpoint labels</p>
                 </div>
                 <div>
-                    <Selector selected={this.state.disabledChoice}
-                              selectionList={disabledChoiceList}
-                              handleChange={this._disabledChange} />
+                    <input
+                        type="checkbox"
+                        name="disable"
+                        value={this.state.disabled}
+                        onChange={this.handleDisabledChange} /> Disable
                     <p>Select whether to render the circuit as disabled</p>
                 </div>
             </div>
@@ -182,6 +185,18 @@ export default React.createClass({
     },
 
     render() {
+        const label = this.state.circuitTypeChoice;
+        const circuitType = this.state.circuitType;
+        const {
+            style,
+            lineShape,
+            noNavigate,
+            centerLine,
+            squareWidth,
+            size } = circuitType;
+        const connectionLabelPosition = this.state.circuitLabelPositionChoice;
+        const endpointLabelPosition = this.state.endpointLabelPositionChoice;
+
         return (
             <div>
                 <div className="row">
@@ -190,30 +205,33 @@ export default React.createClass({
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-12">
-                        <BasicCircuit lineStyle={this.state.circuitType.style}
-                                      lineShape={this.state.circuitType.lineShape}
-                                      connectionLabelPosition={this.state.circuitLabelPositionChoice}
-                                      circuitLabel={this.state.circuitTypeChoice}
-                                      yOffset={7}
-                                      title={this.state.circuitTypeChoice}
-                                      noNavigate={this.state.circuitType.noNavigate}
-                                      size={this.state.circuitType.size}
-                                      centerLine={this.state.circuitType.centerLine}
-                                      squareWidth={this.state.circuitType.squareWidth}
-                                      endpointStyle={stylesMap.endpoint}
-                                      endpointLabelPosition={this.state.endpointLabelPositionChoice}
-                                      endpointLabelA={"Endpoint Label A"}
-                                      endpointLabelZ={"Endpoint Label Z"}
-                                      disabled={this.state.disabled}
-                                      onSelectionChange={this._onSelectionChange}
-                                      navTo={this.state.circuitTypeChoice}
-                                      parentId={"Test Navigation"} />
+
+                    <div className="col-md-3">
+                        {this.renderChoices()}
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-12">
-                        {this._renderChoices()}
+
+                    <div className="col-md-9">
+                        <Resizable>
+                            <BasicCircuit
+                                title={label}
+                                lineStyle={style}
+                                lineShape={lineShape}
+                                connectionLabelPosition={connectionLabelPosition}
+                                circuitLabel={label}
+                                yOffset={7}
+                                noNavigate={noNavigate}
+                                size={size}
+                                centerLine={centerLine}
+                                squareWidth={squareWidth}
+                                endpointStyle={stylesMap.endpoint}
+                                endpointLabelPosition={endpointLabelPosition}
+                                endpointLabelA="Endpoint Label A"
+                                endpointLabelZ="Endpoint Label Z"
+                                disabled={this.state.disabled}
+                                onSelectionChange={this.handleSelectionChange}
+                                navTo={this.state.circuitTypeChoice}
+                                parentId="Test Navigation" />
+                        </Resizable>
                     </div>
                 </div>
                 <div className="row">

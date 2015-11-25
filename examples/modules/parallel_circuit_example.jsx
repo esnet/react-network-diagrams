@@ -12,21 +12,52 @@ import React from "react";
 import _ from "underscore";
 import Markdown from "react-markdown";
 import ParallelCircuit from "../../src/circuit-diagram-parallel";
-import {stylesMap} from "../styles/styles.js";
+import Resizable from "../../src/resizable";
+import { stylesMap } from "../styles/styles.js";
 
-const text = require("raw!../markdown/parallel-circuit.md");
+const text = require("raw!../markdown/concatenated-circuit.md");
 
-const circuitTypeList = ["Optical", "Leased", "Dark Fiber", "Equipment-Equipment",
-                         "Cross-Connect", "None"];
-const labelPositionChoiceList = ["top", "bottom"];
-const endpointPositionChoiceList = ["top", "bottom", "bottomleftangled",
-                                    "bottomrightangled"];
-const disabledChoiceList = ["Yes", "No"];
+const circuitTypeList = [
+    "optical",
+    "leased",
+    "darkFiber",
+    "equipmentToEquipment",
+    "crossConnect",
+    "none"
+];
+
+const circuitLabelMap = {
+    none: "--",
+    optical: "Optical",
+    leased: "Leased",
+    darkFiber: "Dark Fiber",
+    equipmentToEquipment: "Equipment-Equipment",
+    crossConnect: "Cross-Connect"
+};
+
+const labelPositionChoiceList = [
+    "top",
+    "bottom"
+];
+
+const positionLabelMap = {
+    top: "Top",
+    bottom: "Bottom",
+    bottomleftangled: "Bottom (left angled)",
+    bottomrightangled: "Bottom (right angled)"
+};
+
+const endpointPositionChoiceList = [
+    "top",
+    "bottom",
+    "bottomleftangled",
+    "bottomrightangled"
+];
 
 const circuitTypeProperties = {
     optical: {
         style: stylesMap.optical,
-        lineShape: "linear",
+        lineShape: "linear"
     },
     leased: {
         style: stylesMap.leased,
@@ -43,24 +74,26 @@ const circuitTypeProperties = {
     crossConnect: {
         style: stylesMap.crossConnect,
         lineShape: "linear"
-    },
+    }
 };
 
 const Selector = React.createClass({
 
-    _handleChange(e) {
-        const l = e.target.value;
-        this.props.handleChange(l);
+    handleChange(e) {
+        const value = e.target.value;
+        this.props.handleChange(value);
     },
 
     render() {
         const options = _.map(this.props.selectionList, option => {
+            const label = this.props.labelMap ? this.props.labelMap[option] : option;
             return (
-                <option value={option} key={option}>{option}</option>
+                <option value={option} key={option}>{label}</option>
             );
         });
+        const selected = _.isNull(this.props.selected) ? "none" : this.props.selected;
         return (
-            <select ref="menu" value={this.props.selected} onChange={this._handleChange}>
+            <select ref="menu" value={selected} onChange={this.handleChange}>
                 {options}
             </select>
         );
@@ -71,309 +104,161 @@ export default React.createClass({
 
     getInitialState() {
         return {
-            circuitType1: circuitTypeProperties.crossConnect,
-            circuitType2: circuitTypeProperties.crossConnect,
-            circuitType3: circuitTypeProperties.crossConnect,
-            circuitType4: circuitTypeProperties.crossConnect,
-            member1TypeChoice: circuitTypeList[4],
-            member2TypeChoice: circuitTypeList[4],
-            member3TypeChoice: circuitTypeList[4],
-            member4TypeChoice: circuitTypeList[4],
+            circuits: [
+                "crossConnect",
+                "crossConnect",
+                "crossConnect",
+                "crossConnect",
+                "none"
+            ],
             circuitLabelPositionChoice: labelPositionChoiceList[0],
             endpointLabelPositionChoice: endpointPositionChoiceList[2],
-            disabledChoice: disabledChoiceList[1],
             disabled: false,
-            hideTitleChoice: disabledChoiceList[1],
-            hideTitle: false,
+            hideTitle: false
         };
     },
 
-    _renderMember1Choice() {
-        return (
-            <div>
-                <Selector selected={this.state.member1TypeChoice}
-                          selectionList={circuitTypeList}
-                          handleChange={l => {
-                                switch (l) {
-                                    case "Optical":
-                                        this.setState({circuitType1: circuitTypeProperties.optical});
-                                        break;
-                                    case "Leased":
-                                        this.setState({circuitType1: circuitTypeProperties.leased});
-                                        break;
-                                    case "Dark Fiber":
-                                        this.setState({circuitType1: circuitTypeProperties.darkFiber});
-                                        break;
-                                    case "Equipment-Equipment":
-                                        this.setState({circuitType1: circuitTypeProperties.equipmentToEquipment});
-                                        break;
-                                    case "Cross-Connect":
-                                        this.setState({circuitType1: circuitTypeProperties.crossConnect});
-                                        break;
-                                    case "None":
-                                        this.setState({circuitType1: null});
-                                    default:
-                                        break;
-                                }
-                                this.setState({member1TypeChoice: l});
-                          }} />
-                <p>Select the circuit type for Member 1</p>
-            </div>
-        );
-    },
-
-    _renderMember2Choice() {
-        return (
-            <div>
-                <Selector selected={this.state.member2TypeChoice}
-                          selectionList={circuitTypeList}
-                          handleChange={l => {
-                                switch (l) {
-                                    case "Optical":
-                                        this.setState({circuitType2: circuitTypeProperties.optical});
-                                        break;
-                                    case "Leased":
-                                        this.setState({circuitType2: circuitTypeProperties.leased});
-                                        break;
-                                    case "Dark Fiber":
-                                        this.setState({circuitType2: circuitTypeProperties.darkFiber});
-                                        break;
-                                    case "Equipment-Equipment":
-                                        this.setState({circuitType2: circuitTypeProperties.equipmentToEquipment});
-                                        break;
-                                    case "Cross-Connect":
-                                        this.setState({circuitType2: circuitTypeProperties.crossConnect});
-                                        break;
-                                    case "None":
-                                        this.setState({circuitType2: null});
-                                    default:
-                                        break;
-                                }
-                                this.setState({member2TypeChoice: l});
-                          }} />
-                <p>Select the circuit type for Member 2</p>
-            </div>
-        );
-    },
-
-    _renderMember3Choice() {
-        return (
-            <div>
-                <Selector selected={this.state.member3TypeChoice}
-                          selectionList={circuitTypeList}
-                          handleChange={l => {
-                                switch (l) {
-                                    case "Optical":
-                                        this.setState({circuitType3: circuitTypeProperties.optical});
-                                        break;
-                                    case "Leased":
-                                        this.setState({circuitType3: circuitTypeProperties.leased});
-                                        break;
-                                    case "Dark Fiber":
-                                        this.setState({circuitType3: circuitTypeProperties.darkFiber});
-                                        break;
-                                    case "Equipment-Equipment":
-                                        this.setState({circuitType3: circuitTypeProperties.equipmentToEquipment});
-                                        break;
-                                    case "Cross-Connect":
-                                        this.setState({circuitType3: circuitTypeProperties.crossConnect});
-                                        break;
-                                    case "None":
-                                        this.setState({circuitType3: null});
-                                    default:
-                                        break;
-                                }
-                                this.setState({member3TypeChoice: l});
-                          }} />
-                <p>Select the circuit type for Member 3</p>
-            </div>
-        );
-    },
-
-    _renderMember4Choice() {
-        return (
-            <div>
-                <Selector selected={this.state.member4TypeChoice}
-                          selectionList={circuitTypeList}
-                          handleChange={l => {
-                                switch (l) {
-                                    case "Optical":
-                                        this.setState({circuitType4: circuitTypeProperties.optical});
-                                        break;
-                                    case "Leased":
-                                        this.setState({circuitType4: circuitTypeProperties.leased});
-                                        break;
-                                    case "Dark Fiber":
-                                        this.setState({circuitType4: circuitTypeProperties.darkFiber});
-                                        break;
-                                    case "Equipment-Equipment":
-                                        this.setState({circuitType4: circuitTypeProperties.equipmentToEquipment});
-                                        break;
-                                    case "Cross-Connect":
-                                        this.setState({circuitType4: circuitTypeProperties.crossConnect});
-                                        break;
-                                    case "None":
-                                        this.setState({circuitType4: null});
-                                    default:
-                                        break;
-                                }
-                                this.setState({member4TypeChoice: l});
-                          }} />
-                <p>Select the circuit type for Member 4</p>
-            </div>
-        );
-    },
-
-    _onSelectionChange(e,l) {
+    handleSelectionChange(e,l) {
         const message = `You clicked connection ${e} with name ${l}`;
         window.alert(message);
     },
 
-    _disabledChange(l) {
-        switch (l) {
-            case "Yes":
-                this.setState({disabled: true});
-                break;
-
-            case "No":
-                this.setState({disabled: false});
-                break;
-
-            default:
-                break;
-        }
-        this.setState({disabledChoice: l});
+    handleDisabledChange() {
+        this.setState({
+            disabled: this.state.disabled ? false : true
+        });
     },
 
-    _hideTitleChange(l) {
-        switch (l) {
-            case "Yes":
-                this.setState({hideTitle: true});
-                break;
-
-            case "No":
-                this.setState({hideTitle: false});
-                break;
-
-            default:
-                break;
-        }
-        this.setState({hideTitleChoice: l});
+    handleHideTitleChange() {
+        this.setState({
+            hideTitle: this.state.hideTitle ? false : true
+        });
     },
 
-    _renderChoices() {
+    handleSelectCircuitType(index, circuitType) {
+        const circuits = this.state.circuits;
+        circuits[index] = circuitType;
+        this.setState({circuits});
+    },
+
+    renderSegmentChoices() {
+        return (
+            <div>
+                <Selector selected={this.state.circuits[0]}
+                          selectionList={circuitTypeList}
+                          labelMap={circuitLabelMap}
+                          handleChange={value => this.handleSelectCircuitType(0, value)} />
+                <p>Select the circuit type for segment 1</p>
+
+                <Selector selected={this.state.circuits[1]}
+                          selectionList={circuitTypeList}
+                          labelMap={circuitLabelMap}
+                          handleChange={value => this.handleSelectCircuitType(1, value)} />
+                <p>Select the circuit type for segment 2</p>
+                
+                <Selector selected={this.state.circuits[2]}
+                          selectionList={circuitTypeList}
+                          labelMap={circuitLabelMap}
+                          handleChange={value => this.handleSelectCircuitType(2, value)} />
+                <p>Select the circuit type for segment 3</p>
+                
+                <Selector selected={this.state.circuits[3]}
+                          selectionList={circuitTypeList}
+                          labelMap={circuitLabelMap}
+                          handleChange={value => this.handleSelectCircuitType(3, value)} />
+                <p>Select the circuit type for segment 4</p>
+                
+                <Selector selected={this.state.circuits[4]}
+                          selectionList={circuitTypeList}
+                          labelMap={circuitLabelMap}
+                          handleChange={value => this.handleSelectCircuitType(4, value)} />
+                <p>Select the circuit type for segment 5</p>
+            </div>
+        );
+    },
+
+    renderChoices() {
         return (
             <div>
                 <Selector selected={this.state.circuitLabelPositionChoice}
                           selectionList={labelPositionChoiceList}
+                          labelMap={positionLabelMap}
                           handleChange={l => {
                               this.setState({circuitLabelPositionChoice: l});
                           }} />
                 <p>Select the position of the circuit label</p>
                 <Selector selected={this.state.endpointLabelPositionChoice}
                           selectionList={endpointPositionChoiceList}
+                          labelMap={positionLabelMap}
                           handleChange={l => {
                               this.setState({endpointLabelPositionChoice: l});
                           }} />
                 <p>Select the position of the endpoint labels</p>
-                <Selector selected={this.state.disabledChoice}
-                          selectionList={disabledChoiceList}
-                          handleChange={this._disabledChange} />
+                <input
+                    type="checkbox"
+                    name="disable"
+                    value={this.state.disabled}
+                    onChange={this.handleDisabledChange} /> Disable
                 <p>Select whether to render the circuit as disabled</p>
-                <Selector selected={this.state.hideTitleChoice}
-                          selectionList={disabledChoiceList}
-                          handleChange={this._hideTitleChange} />
+                <input
+                    type="checkbox"
+                    name="disable"
+                    value={this.state.hideTitle}
+                    onChange={this.handleHideTitleChange} /> Hide
                 <p>Select whether to hide the circuit title </p>
             </div>
         );
     },
 
-    _renderMemberChoices() {
-        return (
-            <div>
-                {this._renderMember1Choice()}
-                {this._renderMember2Choice()}
-                {this._renderMember3Choice()}
-                {this._renderMember4Choice()}
-            </div>
-        );
-    },
-
     render() {
-        let memberList = [
-            {
-                styleProperties: this.state.circuitType1,
-                endpointStyle: stylesMap.endpoint,
-                endpointLabelA: "Endpoint 1",
-                endpointLabelZ: "Endpoint 2",
-                circuitLabel: "Member 1",
-                navTo: "Member 1",
-            },
-            {
-                styleProperties: this.state.circuitType2,
-                endpointStyle: stylesMap.endpoint,
-                endpointLabelA: "Endpoint 3",
-                endpointLabelZ: "Endpoint 4",
-                circuitLabel: "Member 2",
-                navTo: "Member 2",
-            },
-            {
-                styleProperties: this.state.circuitType3,
-                endpointStyle: stylesMap.endpoint,
-                endpointLabelA: "Endpoint 5",
-                endpointLabelZ: "Endpoint 6",
-                circuitLabel: "Member 3",
-                navTo: "Member 3",
-            },
-            {
-                styleProperties: this.state.circuitType4,
-                endpointStyle: stylesMap.endpoint,
-                endpointLabelA: "Endpoint 7",
-                endpointLabelZ: "Endpoint 8",
-                circuitLabel: "Member 4",
-                navTo: "Member 4",
-            },
-        ];
-
-        const memberListCopy = [];
-        _.each(memberList, member => {
-            if (member.styleProperties) {
-                memberListCopy.push(member);
+        const memberList = [];
+        let endpoint = 1;
+        let segment = 1;
+        _.each(this.state.circuits, circuit => {
+            if (circuit !== "none") {
+                memberList.push({
+                    styleProperties: circuitTypeProperties[circuit],
+                    endpointStyle: stylesMap.endpoint,
+                    endpointLabelA: `Endpoint ${endpoint++}`,
+                    endpointLabelZ: `Endpoint ${endpoint++}`,
+                    circuitLabel: `Segment ${segment}`,
+                    navTo: `Segment ${segment++}`
+                });
             }
         });
 
-        memberList = memberListCopy;
-
         return (
             <div>
                 <div className="row">
                     <div className="col-md-12">
-                        <h3>Parallel Circuit Example</h3>
+                        <h3>Concatenated Circuit Example</h3>
                     </div>
                 </div>
-
                 <div className="row">
                     <div className="col-md-12">
-                        <ParallelCircuit hideTitle={this.state.hideTitle}
-                                         memberList={memberList}
-                                         endpointLabelPosition={this.state.endpointLabelPositionChoice}
-                                         connectionLabelPosition={this.state.circuitLabelPositionChoice}
-                                         disabled={this.state.disabled}
-                                         title={"Example Parallel Circuit"}
-                                         onSelectionChange={this._onSelectionChange}
-                                         endpointLabelA={"Endpoint 1"}
-                                         endpointLabelZ={"Endpoint 2"}
-                                         endpointStyle={stylesMap.endpoint}
-                                         endpointLabelOffset={18}
-                                         parentId={"Test Navigation"} />
+                        <Resizable>
+                            <ParallelCircuit
+                                hideTitle={this.state.hideTitle}
+                                memberList={memberList}
+                                endpointLabelPosition={this.state.endpointLabelPositionChoice}
+                                connectionLabelPosition={this.state.circuitLabelPositionChoice}
+                                disabled={this.state.disabled}
+                                title="Example Parallel Circuit"
+                                onSelectionChange={this.handleSelectionChange}
+                                endpointLabelA="Endpoint 1"
+                                endpointLabelZ="Endpoint 2"
+                                endpointStyle={stylesMap.endpoint}
+                                endpointLabelOffset={18}
+                                parentId="Test Navigation" />
+                        </Resizable>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-6">
-                        {this._renderChoices()}
+                        {this.renderChoices()}
                     </div>
                     <div className="col-md-6">
-                        {this._renderMemberChoices()}
+                        {this.renderSegmentChoices()}
                     </div>
                 </div>
                 <div className="row">

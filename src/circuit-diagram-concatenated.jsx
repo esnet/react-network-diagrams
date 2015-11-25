@@ -8,28 +8,24 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
-/**
- * Draw a Concatenated circuit
- *
- * This component determines the x1, x2, y1, y2 coordinates on the page
- * and then renders a group of circuits by combining the
- * connection and endpoint props. Connection shape, style, and label information,
- * are passed in as props
- *
- * This is of the form:
- *     [end, connection, end, connection, end, ...]
- */
-
 import React from "react";
 import _ from "underscore";
-
-import Constants from "./constants.js";
+import { Directions } from "./constants.js";
 import Endpoint from "./circuit-diagram-endpoint";
 import Connection from "./circuit-diagram-connection";
 import Navigate from "./circuit-diagram-navigate";
 
-const {Directions} = Constants;
-
+/**
+ * Draw a Concatenated circuit
+ *
+ * This component determines the (x1, y1), (x2, y2) coordinates on the page
+ * and then renders a group of circuits by combining the
+ * connection and endpoint props. Connection shape, style, and label information,
+ * are passed in as props.
+ *
+ * This is of the form:
+ *     [endpoint, connection, endpoint, connection, endpoint, ...]
+ */
 export default React.createClass({
 
     getDefaultProps() {
@@ -43,16 +39,16 @@ export default React.createClass({
             noNavigate: false,
             squareWidth: 25,
             roundedX: 5,
-            roundedY: 5,
+            roundedY: 5
         };
     },
 
-    _renderCircuitTitle(title) {
+    renderCircuitTitle(title) {
         const titleStyle = {
             textAnchor: "left",
             fill: "#9D9D9D",
             fontFamily: "verdana, sans-serif",
-            fontSize: 14,
+            fontSize: 14
         };
 
         if (!this.props.hideTitle) {
@@ -70,14 +66,17 @@ export default React.createClass({
         }
     },
 
-    _renderParentNavigation(parentId) {
+    renderParentNavigation(parentId) {
         if (parentId) {
             return (
                 <g>
-                    <Navigate direction={Directions.NORTH}
-                              ypos={0}
-                              id={this.props.parentId}
-                              onSelectionChange={this.props.onSelectionChange} />
+                    <Navigate
+                        direction={Directions.NORTH}
+                        ypos={0}
+                        width={this.props.width}
+                        height={this.props.height}
+                        id={this.props.parentId}
+                        onSelectionChange={this.props.onSelectionChange} />
                 </g>
             );
         } else {
@@ -85,22 +84,27 @@ export default React.createClass({
         }
     },
 
-    _renderDisabledOverlay(disabled) {
+    renderDisabledOverlay(disabled) {
+        const style = {fill: "#FDFDFD", fillOpacity: 0.65};
         if (disabled) {
             return (
-                <rect className="circuit-overlay" style={{fill: "#FDFDFD", fillOpacity: 0.65}}
-                      x="0" y="0" width={this.props.width} height={this.props.height}/>
+                <rect
+                    className="circuit-overlay"
+                    style={style}
+                    x="0"
+                    y="0"
+                    width={this.props.width}
+                    height={this.props.height}/>
             );
         } else {
             return null;
         }
     },
 
-    _renderCircuitElements() {
+    renderCircuitElements() {
         const elements = [];
 
         // determine the initial position
-
         const y1 = this.props.height / 4;
         const y2 = y1;
         let x1 = this.props.margin;
@@ -214,11 +218,11 @@ export default React.createClass({
                 borderTopColor: "#FFFFFF",
                 borderBottomColor: "#EFEFEF",
                 width: "100%",
-                height: this.props.height,
+                height: this.props.height
             },
             disabled: {
                 width: "100%",
-                height: this.props.height,
+                height: this.props.height
             }
         };
 
@@ -232,16 +236,12 @@ export default React.createClass({
             svgStyle = circuitContainer.normal;
         }
 
-        const viewBox = `0 0 ${this.props.width} ${this.props.height}`;
-
         return (
             <svg className={className} style={svgStyle} onClick={this._deselect}>
-                <svg viewBox={viewBox} preserveAspectRatio="xMinYMin">
-                    {this._renderCircuitTitle(this.props.title)}
-                    {this._renderCircuitElements()}
-                    {this._renderParentNavigation(this.props.parentId)}
-                    {this._renderDisabledOverlay(this.props.disabled)}
-                </svg>
+                {this.renderCircuitTitle(this.props.title)}
+                {this.renderCircuitElements()}
+                {this.renderParentNavigation(this.props.parentId)}
+                {this.renderDisabledOverlay(this.props.disabled)}
             </svg>
         );
     }

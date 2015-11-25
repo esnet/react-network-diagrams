@@ -8,18 +8,8 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
-/**
- * A component to draw a directional arrow to navigate between circuits
- */
-
-"use strict";
-
 import React from "react";
-// import _ from "underscore";
-
-import Constants from "./constants.js";
-
-const {Directions} = Constants;
+import { Directions } from "./constants.js";
 
 /**
  * Draws a navigation triangle used to navigate back up to the parent. This is
@@ -30,7 +20,24 @@ const {Directions} = Constants;
 export default React.createClass({
 
     getInitialState() {
-        return {hover: false };
+        return {
+            hover: false
+        };
+    },
+
+    propTypes: {
+        navTo: React.PropTypes.oneOfType([      // Value passed down to the click
+            React.PropTypes.string,             // handler at the lowest level primitive.
+            React.PropTypes.number              // Will return to the onSelectionChange
+        ]),
+        direction: React.PropTypes.oneOf([      // Should the navigation go at the top or
+            Directions.NORTH,                   // bottom of the container
+            Directions.SOUTH
+        ]),
+        margin: React.PropTypes.number,         // How far to inset the navigation
+        width: React.PropTypes.number,          // Height and width of the container to
+        height: React.PropTypes.number,         // guide positioning of the navigation
+        onSelectionChange: React.PropTypes.func // Callback for when the navigation is pressed
     },
 
     getDefaultProps() {
@@ -38,25 +45,25 @@ export default React.createClass({
             direction: Directions.SOUTH,
             margin: 50,
             width: 851,
-            height: 200,
+            height: 200
         };
     },
 
     /**
      * User hovers over the navigational arrow
      */
-    _mouseOver() {
+    handleMouseOver() {
         this.setState({hover: true});
     },
 
     /**
      * User stops hovering over navigational arrow
      */
-    _mouseOut() {
+    handleMouseOut() {
         this.setState({hover: false});
     },
 
-    _click() {
+    handleMouseClick() {
         if (this.props.id) {
             this.props.onSelectionChange(this.props.direction, this.props.id);
         }
@@ -85,18 +92,18 @@ export default React.createClass({
         const style = {
             normal: {
                 fill: "#4EC1E0",
-                opacity: 0.65,
+                opacity: 0.65
             },
             highlighted: {
                 cursor: "pointer",
                 fill: "#4EC1E0",
-                opacity: 0.95,
-            },
+                opacity: 0.95
+            }
         };
 
         const hitStyle = {
             cursor: "pointer",
-            fillOpacity: 0,
+            fillOpacity: 0
         };
 
         let navStyle = style.normal;
@@ -109,32 +116,35 @@ export default React.createClass({
         let hitRect;
         if (this.props.direction === Directions.NORTH) {
             hitRect = (
-                <rect className="circuit-hitrect"
-                      style={hitStyle}
-                      x={x - dx * 2} y={y - dy / 2}
-                      width={dx * 4} height={dy * 2}
-                      onMouseOver={this._mouseOver}
-                      onMouseOut={this._mouseOut}
-                      onClick={this._click}/>
+                <rect
+                    className="circuit-hitrect"
+                    style={hitStyle}
+                    x={x - dx * 2} y={y - dy / 2}
+                    width={dx * 4} height={dy * 2}
+                    onMouseOver={this.handleMouseOver}
+                    onMouseOut={this.handleMouseOut}
+                    onClick={this.handleMouseClick} />
             );
         } else if (this.props.direction === Directions.SOUTH) {
             hitRect = (
-                <rect className="circuit-hitrect"
-                      style={hitStyle}
-                      x={x - dx * 2} y={y - dy / 2 * 3}
-                      width={dx * 4} height={dy * 2}
-                      onMouseOver={this._mouseOver}
-                      onMouseOut={this._mouseOut}
-                      onClick={this._click}/>
+                <rect
+                    className="circuit-hitrect"
+                    style={hitStyle}
+                    x={x - dx * 2} y={y - dy / 2 * 3}
+                    width={dx * 4} height={dy * 2}
+                    onMouseOver={this.handleMouseOver}
+                    onMouseOut={this.handleMouseOut}
+                    onClick={this.handleMouseClick} />
             );
         }
 
         if (this.props.id) {
             return (
                 <g key="navigation-group">
-                    <path d={path}
-                          className="circuit-navigate"
-                          style={navStyle} />
+                    <path
+                        d={path}
+                        className="circuit-navigate"
+                        style={navStyle} />
                     {hitRect}
                 </g>
             );

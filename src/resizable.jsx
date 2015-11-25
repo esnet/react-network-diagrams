@@ -8,7 +8,7 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
-import React from "react/addons";
+import React from "react";
 
 /**
  * This takes a single child and inserts a prop 'width' on it that is the
@@ -21,7 +21,7 @@ export default React.createClass({
     },
 
     handleResize() {
-        this.setState({width: this.refs.container.getDOMNode().offsetWidth});
+        this.setState({width: this.refs.container.offsetWidth});
     },
 
     componentDidMount() {
@@ -40,7 +40,7 @@ export default React.createClass({
         }
         const child = React.Children.only(this.props.children);
         const childElement = this.state.width ?
-            React.addons.cloneWithProps(child, props) : null;
+            React.cloneElement(child, props) : null;
         return (
             <div ref="container" style={this.props.style}>
                 {childElement}

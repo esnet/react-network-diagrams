@@ -228,7 +228,7 @@ const leasedStyle = {
         normal: {
             stroke: "#737373",
             strokeWidth: 4,
-            fill: "none",
+            fill: "none"
         },
         highlighted: {
             stroke: "#b1b1b1",
@@ -262,7 +262,7 @@ const darkFiberStyle = {
         normal: {
             stroke: "#737373",
             strokeWidth: 4,
-            fill: "none",
+            fill: "none"
         },
         highlighted: {
             stroke: "#b1b1b1",
@@ -342,7 +342,7 @@ const couplerStyle = {
         normal: {
             stroke: "#737373",
             strokeWidth: 1,
-            fill: "#D5D5D5",
+            fill: "#D5D5D5"
         },
         highlighted: {
             stroke: "#4EC1E0",
@@ -361,10 +361,10 @@ const couplerStyle = {
 
 const endpointStyle = {
     node: {
-        normal: {fill: "none", stroke: "#DBDBDB", strokeWidth: 4},
+        normal: {fill: "none", stroke: "#DBDBDB", strokeWidth: 4}
     },
     label: {
-        normal: {fill: "#9D9D9D", fontSize: 10, fontFamily: "verdana, sans-serif"},
+        normal: {fill: "#9D9D9D", fontSize: 10, fontFamily: "verdana, sans-serif"}
     }
 };
 
@@ -385,7 +385,7 @@ const panelCouplerStyle = {
         normal: {
             stroke: "#737373",
             strokeWidth: 1,
-            fill: "#E8E8E8",
+            fill: "#E8E8E8"
         },
         highlighted: {
             stroke: "#4EC1E0",
@@ -405,7 +405,7 @@ const panelCouplerStyle = {
 const panelStyle = {
     stroke: "#E4E4E4",
     strokeWidth: 1,
-    fill: "#FFFFFF",
+    fill: "#FFFFFF"
 };
 
 const stylesMap = {
@@ -431,7 +431,7 @@ const lineShapeMap = {
     leased: "linear",
     darkFiber: "linear",
     crossConnect: "linear",
-    coupler: "square",
+    coupler: "square"
 };
 
 export {stylesMap, lineShapeMap};

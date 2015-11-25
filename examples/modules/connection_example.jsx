@@ -59,7 +59,7 @@ export default React.createClass({
     getDefaultProps() {
         return {
             height: 500,
-            width: 500,
+            width: 500
         };
     },
 
@@ -95,7 +95,7 @@ export default React.createClass({
             bendOffset: positionList[8],
             centerLine: false,
             centerLineChoice: noNavigateList[1],
-            textAnchor: textAnchorList[0],
+            textAnchor: textAnchorList[0]
         };
     },
 

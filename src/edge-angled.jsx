@@ -12,6 +12,7 @@ import React from "react";
 import Victor from "victor";
 import _ from "underscore";
 import Label from "./edge-label";
+
 // Alias
 const Vector = Victor;
 
@@ -41,11 +42,11 @@ export default React.createClass({
             arrow: false,
             position: 30,
             selected: false,
-            muted: false,
+            muted: false
         };
     },
 
-    _rotateOffset(cx, x, y, a) {
+    rotateOffset(cx, x, y, a) {
         const r = (Math.PI / 180) * a;
         const cos = Math.cos(r);
         const sin = Math.sin(r);
@@ -150,8 +151,8 @@ export default React.createClass({
                 break;
         }
 
-        const sourceRotated = this._rotateOffset(source.x + offset, source.x, source.y, sourceAngle);
-        const targetRotated = this._rotateOffset(target.x - offset, target.x, target.y, targetAngle);
+        const sourceRotated = this.rotateOffset(source.x + offset, source.x, source.y, sourceAngle);
+        const targetRotated = this.rotateOffset(target.x - offset, target.x, target.y, targetAngle);
 
         const sourceOffset = new Vector(sourceRotated[0], sourceRotated[1]);
         const targetOffset = new Vector(targetRotated[0], targetRotated[1]);
@@ -160,13 +161,13 @@ export default React.createClass({
 
         const diff = offset - arrowLength;
 
-        const arrowHeadLocation = this._rotateOffset(target.x - diff, target.x, target.y, targetAngle);
+        const arrowHeadLocation = this.rotateOffset(target.x - diff, target.x, target.y, targetAngle);
 
-        const arrowLeftSide = this._rotateOffset(arrowBase.x - (arrowWidth / 2),
+        const arrowLeftSide = this.rotateOffset(arrowBase.x - (arrowWidth / 2),
                                                   arrowBase.x,
                                                   arrowBase.y,
                                                   90 + targetAngle);
-        const arrowRightSide = this._rotateOffset(arrowBase.x + (arrowWidth / 2),
+        const arrowRightSide = this.rotateOffset(arrowBase.x + (arrowWidth / 2),
                                                   arrowBase.x,
                                                   arrowBase.y,
                                                   90 + targetAngle);
@@ -233,15 +234,16 @@ export default React.createClass({
 
         if (this.props.label) {
             labelElement = (
-                <Label x={cx}
-                       y={cy}
-                       textAnchor={this.props.textAnchor}
-                       classed={labelClassed}
-                       style={this.props.labelStyle[styleModifier]}
-                       label={this.props.label}
-                       xOffset={this.props.labelOffsetX}
-                       yOffset={this.props.labelOffsetY}
-                       labelPosition={this.props.labelPosition} />
+                <Label
+                    x={cx}
+                    y={cy}
+                    textAnchor={this.props.textAnchor}
+                    classed={labelClassed}
+                    style={this.props.labelStyle[styleModifier]}
+                    label={this.props.label}
+                    xOffset={this.props.labelOffsetX}
+                    yOffset={this.props.labelOffsetY}
+                    labelPosition={this.props.labelPosition} />
             );
         }
 

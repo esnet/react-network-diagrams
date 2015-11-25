@@ -19,7 +19,7 @@ const text = require("raw!../markdown/patch-panel.md");
 const circuitTypeProperties = {
     optical: {
         style: stylesMap.optical,
-        lineShape: "linear",
+        lineShape: "linear"
     },
     leased: {
         style: stylesMap.leased,
@@ -41,8 +41,8 @@ const circuitTypeProperties = {
         style: stylesMap.panelCoupler,
         lineShape: "square",
         size: 60,
-        squareWidth: 90,
-    },
+        squareWidth: 90
+    }
 };
 
 const panels = [
@@ -57,7 +57,7 @@ const panels = [
                         endpointLabelA: "Endpoint 1",
                         endpointLabelZ: "Endpoint 2",
                         circuitLabel: "Member 1",
-                        navTo: "Member 1",
+                        navTo: "Member 1"
                     },
                     coupler: {
                         styleProperties: circuitTypeProperties.panelCoupler,
@@ -65,7 +65,7 @@ const panels = [
                         endpointLabelA: "Endpoint 2",
                         endpointlabelZ: "Endpoint 3",
                         circuitLabel: "1/2-SC",
-                        navTo: "Coupler 1/2",
+                        navTo: "Coupler 1/2"
                     },
                     backCircuit: {
                         styleProperties: circuitTypeProperties.leased,
@@ -73,10 +73,10 @@ const panels = [
                         endpointLabelA: "Endpoint 3",
                         endpointLabelZ: "Endpoint 4",
                         circuitLabel: "Member 3",
-                        navTo: "Member 3",
+                        navTo: "Member 3"
                     },
                     frontLabel: "Endpoint A",
-                    backLabel: "Endpoint Z",
+                    backLabel: "Endpoint Z"
                 },
                 { // 1
                     frontCircuit: null,
@@ -86,12 +86,12 @@ const panels = [
                         endpointLabelA: "Endpoint 2",
                         endpointlabelZ: "Endpoint 3",
                         circuitLabel: "3/4-SC",
-                        navTo: "Coupler 3/4",
+                        navTo: "Coupler 3/4"
                     },
                     backCircuit: null,
                     frontLabel: "Endpoint A",
-                    backLabel: "Endpoint Z",
-                },
+                    backLabel: "Endpoint Z"
+                }
             ]
         ]
     },
@@ -106,7 +106,7 @@ const panels = [
                         endpointLabelA: "Endpoint 1",
                         endpointLabelZ: "Endpoint 2",
                         circuitLabel: "Member 1",
-                        navTo: "Member 1",
+                        navTo: "Member 1"
                     },
                     coupler: {
                         styleProperties: circuitTypeProperties.panelCoupler,
@@ -114,7 +114,7 @@ const panels = [
                         endpointLabelA: "Endpoint 2",
                         endpointlabelZ: "Endpoint 3",
                         circuitLabel: "1/2-SC",
-                        navTo: "Coupler 1/2",
+                        navTo: "Coupler 1/2"
                     },
                     backCircuit: {
                         styleProperties: circuitTypeProperties.leased,
@@ -122,10 +122,10 @@ const panels = [
                         endpointLabelA: "Endpoint 3",
                         endpointLabelZ: "Endpoint 4",
                         circuitLabel: "Member 3",
-                        navTo: "Member 3",
+                        navTo: "Member 3"
                     },
                     frontLabel: "Endpoint A",
-                    backLabel: "Endpoint Z With a really long label",
+                    backLabel: "Endpoint Z With a really long label"
                 },
                 { // 1
                     frontCircuit: null,
@@ -135,11 +135,11 @@ const panels = [
                         endpointLabelA: "Endpoint 2",
                         endpointlabelZ: "Endpoint 3",
                         circuitLabel: "3/4-SC",
-                        navTo: "Coupler 3/4",
+                        navTo: "Coupler 3/4"
                     },
                     backCircuit: null,
                     frontLabel: "Endpoint A",
-                    backLabel: "Endpoint Z",
+                    backLabel: "Endpoint Z"
                 },
                 { // 2
                     frontCircuit: {
@@ -148,7 +148,7 @@ const panels = [
                         endpointLabelA: "Endpoint 1",
                         endpointLabelZ: "Endpoint 2",
                         circuitLabel: "Member 1",
-                        navTo: "Member 1",
+                        navTo: "Member 1"
                     },
                     coupler: {
                         styleProperties: circuitTypeProperties.panelCoupler,
@@ -156,7 +156,7 @@ const panels = [
                         endpointLabelA: "Endpoint 2",
                         endpointlabelZ: "Endpoint 3",
                         circuitLabel: "5/6-SC",
-                        navTo: "Coupler 5/6",
+                        navTo: "Coupler 5/6"
                     },
                     backCircuit: {
                         styleProperties: circuitTypeProperties.darkFiber,
@@ -164,10 +164,10 @@ const panels = [
                         endpointLabelA: "Endpoint 3",
                         endpointLabelZ: "Endpoint 4",
                         circuitLabel: "Member 3",
-                        navTo: "Member 3",
+                        navTo: "Member 3"
                     },
                     frontLabel: "Endpoint A With a really long label",
-                    backLabel: "Endpoint Z",
+                    backLabel: "Endpoint Z"
                 }
             ],
             [   // 2nd Module
@@ -178,7 +178,7 @@ const panels = [
                         endpointLabelA: "Endpoint 1",
                         endpointLabelZ: "Endpoint 2",
                         circuitLabel: "Member 1",
-                        navTo: "Member 1",
+                        navTo: "Member 1"
                     },
                     coupler: {
                         styleProperties: circuitTypeProperties.panelCoupler,
@@ -186,7 +186,7 @@ const panels = [
                         endpointLabelA: "Endpoint 2",
                         endpointlabelZ: "Endpoint 3",
                         circuitLabel: "1/2-LC",
-                        navTo: "Coupler 1/2",
+                        navTo: "Coupler 1/2"
                     },
                     backCircuit: {
                         styleProperties: circuitTypeProperties.leased,
@@ -198,7 +198,7 @@ const panels = [
 
                     },
                     frontLabel: "Endpoint A",
-                    backLabel: "Endpoint Z",
+                    backLabel: "Endpoint Z"
                 },
                 {
                     frontCircuit: {
@@ -207,7 +207,7 @@ const panels = [
                         endpointLabelA: "Endpoint 1",
                         endpointLabelZ: "Endpoint 2",
                         circuitLabel: "Member 1",
-                        navTo: "Member 1",
+                        navTo: "Member 1"
                     },
                     coupler: {
                         styleProperties: circuitTypeProperties.panelCoupler,
@@ -215,7 +215,7 @@ const panels = [
                         endpointLabelA: "Endpoint 2",
                         endpointlabelZ: "Endpoint 3",
                         circuitLabel: "3/4-LC",
-                        navTo: "Coupler 3/4",
+                        navTo: "Coupler 3/4"
                     },
                     backCircuit: {
                         styleProperties: circuitTypeProperties.darkFiber,
@@ -223,10 +223,10 @@ const panels = [
                         endpointLabelA: "Endpoint 3",
                         endpointLabelZ: "Endpoint 4",
                         circuitLabel: "Member 3",
-                        navTo: "Member 3",
+                        navTo: "Member 3"
                     },
                     frontLabel: "Endpoint A",
-                    backLabel: "Endpoint Z",
+                    backLabel: "Endpoint Z"
                 },
                 {
                     frontCircuit: null,
@@ -236,15 +236,15 @@ const panels = [
                         endpointLabelA: "Endpoint 2",
                         endpointlabelZ: "Endpoint 3",
                         circuitLabel: "5/6-LC",
-                        navTo: "Coupler 5/6",
+                        navTo: "Coupler 5/6"
                     },
                     backCircuit: null,
                     frontLabel: "Endpoint A",
-                    backLabel: "Endpoint Z",
+                    backLabel: "Endpoint Z"
                 }
             ]
         ]
-    },
+    }
 ];
 
 /*
@@ -259,7 +259,7 @@ export default React.createClass({
             moduleSpacing: 15,
             panelWidth: 30,
             panelSpacing: 40,
-            couplerSpacing: 3,
+            couplerSpacing: 3
         };
     },
 

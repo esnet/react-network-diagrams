@@ -8,25 +8,22 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
+import React from "react";
+import _ from "underscore";
+
 /**
- * Gets an x, y, labelPosition, textAnchor anf rotation
+ * Gets an x, y, labelPosition, textAnchor and rotation and
  * renders a label based on the position.
  * The label can be a single string, or an array of strings
  * to display on multiple lines.
  */
-
-"use strict";
-
-import React from "react";
-import _ from "underscore";
-
 export default React.createClass({
 
     getDefaultProps() {
         return {
             r: 0,
             xOffset: 0,
-            yOffset: 0,
+            yOffset: 0
         };
     },
 
@@ -90,11 +87,12 @@ export default React.createClass({
 
         return (
             <g>
-                <text textAnchor={textAnchor}
-                      style={this.props.style}
-                      key="connection-label"
-                      transform={rotate}
-                      className={this.props.labelClassed}>
+                <text
+                    textAnchor={textAnchor}
+                    style={this.props.style}
+                    key="connection-label"
+                    transform={rotate}
+                    className={this.props.labelClassed}>
                       {elements}
                 </text>
             </g>

@@ -64,7 +64,6 @@ import Resizable from "./resizable";
  *      or a link
  *
  */
-
 export default React.createClass({
 
     getDefaultProps() {
@@ -97,19 +96,19 @@ export default React.createClass({
         return {x1: minX, x2: maxX, y1: minY, y2: maxY};
     },
 
-    _nodeSize(name) {
+    nodeSize(name) {
         return this.props.nodeSizeMap[name] || 7;
     },
 
-    _nodeShape(name) {
+    nodeShape(name) {
         return this.props.nodeShapeMap[name] || "circle";
     },
 
-    _edgeThickness(capacity) {
+    edgeThickness(capacity) {
         return this.props.edgeThinknessMap[capacity] || 5;
     },
 
-    _edgeShape(name) {
+    edgeShape(name) {
         if (_.has(this.props.edgeShapeMap, name)) {
             return this.props.edgeShapeMap[name].shape;
         } else {
@@ -117,7 +116,7 @@ export default React.createClass({
         }
     },
 
-    _edgeCurveDirection(name) {
+    edgeCurveDirection(name) {
         let direction;
         if (_.has(this.props.edgeShapeMap, name)) {
             if (this.props.edgeShapeMap[name].shape === "curved") {
@@ -127,7 +126,7 @@ export default React.createClass({
         return direction;
     },
 
-    _edgeCurveOffset(name) {
+    edgeCurveOffset(name) {
         let offset;
         if (_.has(this.props.edgeShapeMap, name)) {
             if (this.props.edgeShapeMap[name].shape === "curved") {
@@ -137,7 +136,7 @@ export default React.createClass({
         return offset;
     },
 
-    _selectEdgeColor(bps) {
+    selectEdgeColor(bps) {
         const gbps = bps / 1.0e9;
         for (let i = 0; i < this.props.edgeColorMap.length; i++) {
             const row = this.props.edgeColorMap[i];
@@ -148,7 +147,7 @@ export default React.createClass({
         return "#C9CACC";
     },
 
-    _filteredPaths() {
+    filteredPaths() {
         return _.filter(this.props.topology.paths, path => {
             if (_.isArray(this.props.showPaths)) {
                 return _.contains(this.props.showPaths, path.name);
@@ -185,7 +184,7 @@ export default React.createClass({
             const n = _.clone(node);
 
             // Radius is based on the type of node, given in the nodeSizeMap
-            n.radius = this._nodeSize(node.type);
+            n.radius = this.nodeSize(node.type);
             n.labelPosition = node.label_position;
             n.labelOffsetX = node.label_dx;
             n.labelOffsetY = node.label_dy;
@@ -195,7 +194,7 @@ export default React.createClass({
             n.style = styleMap.node;
             n.labelStyle = styleMap.label;
 
-            n.shape = this._nodeShape(node.name);
+            n.shape = this.nodeShape(node.name);
             return n;
         });
 
@@ -203,22 +202,22 @@ export default React.createClass({
         topology.edges = _.map(this.props.topology.edges, edge => {
             const edgeName = `${edge.source}--${edge.target}`;
             return ({
-                width: this._edgeThickness(edge.capacity),
+                width: this.edgeThickness(edge.capacity),
                 classed: edge.capacity,
                 source: edge.source,
                 target: edge.target,
                 totalCapacity: edge.total_capacity,
                 ifaces: edge.ifaces,
                 name: edgeName,
-                shape: this._edgeShape(edgeName),
-                curveDirection: this._edgeCurveDirection(edgeName),
-                offset: this._edgeCurveOffset(edgeName)
+                shape: this.edgeShape(edgeName),
+                curveDirection: this.edgeCurveDirection(edgeName),
+                offset: this.edgeCurveOffset(edgeName)
             });
         });
 
         // Create the path list, filtering based on what is in showPaths
         if (this.props.showPaths) {
-            topology.paths = _.map(this._filteredPaths(), path => {
+            topology.paths = _.map(this.filteredPaths(), path => {
                 const color = _.has(this.props.pathColorMap, path.name) ?
                     this.props.pathColorMap[path.name] : "lightsteelblue";
                 const width = _.has(this.props.pathWidthMap, path.name) ?
@@ -226,8 +225,8 @@ export default React.createClass({
                 return {
                     name: path.name,
                     steps: path.steps,
-                    color: color,
-                    width: width
+                    color,
+                    width
                 };
             });
         }
@@ -244,13 +243,13 @@ export default React.createClass({
                     const targetSourceTraffic =
                         this.props.traffic.get(targetSourceName);
                     edge.sourceTargetColor =
-                        this._selectEdgeColor(sourceTargetTraffic);
+                        this.selectEdgeColor(sourceTargetTraffic);
                     edge.targetSourceColor =
-                        this._selectEdgeColor(targetSourceTraffic);
+                        this.selectEdgeColor(targetSourceTraffic);
                 });
             } else {
                 const edgeMap = {};
-                _.each(this._filteredPaths(), path => {
+                _.each(this.filteredPaths(), path => {
 
                     const pathAtoZTraffic =
                         this.props.traffic.get(`${path.name}--AtoZ`);
@@ -281,12 +280,12 @@ export default React.createClass({
                     if (_.has(edgeMap, sourceTargetName)) {
                         const sourceTargetTraffic = edgeMap[sourceTargetName];
                         edge.sourceTargetColor =
-                            this._selectEdgeColor(sourceTargetTraffic);
+                            this.selectEdgeColor(sourceTargetTraffic);
                     }
                     if (_.has(edgeMap, targetSourceName)) {
                         const targetSourceTraffic = edgeMap[targetSourceName];
                         edge.targetSourceColor =
-                            this._selectEdgeColor(targetSourceTraffic);
+                            this.selectEdgeColor(targetSourceTraffic);
                     }
                 });
             }
@@ -298,7 +297,7 @@ export default React.createClass({
         return topology;
     },
 
-    _handleSelectionChanged(selectionType, selection) {
+    handleSelectionChanged(selectionType, selection) {
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange(selectionType, selection);
         }
@@ -323,7 +322,7 @@ export default React.createClass({
                     margin={this.props.margin}
                     selection={this.props.selection}
                     edgeDrawingMethod={this.props.edgeDrawingMethod}
-                    onSelectionChange={this._handleSelectionChanged} />
+                    onSelectionChange={this.handleSelectionChanged} />
             </Resizable>
 
         );

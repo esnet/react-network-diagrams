@@ -8,8 +8,6 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
-"use strict";
-
 import React from "react";
 import _ from "underscore";
 import Connection from "./circuit-diagram-connection.jsx";
@@ -37,17 +35,17 @@ export default React.createClass({
             panelRoundedX: 3,
             panelRoundedY: 3,
             labelOffsetX: 0,
-            labelOffsetY: 0,
+            labelOffsetY: 0
         };
     },
 
-    _onSelectionChange(e,l) {
+    handleSelectionChange(e, value) {
         if (!this.props.noNavigate) {
-            this.props.onSelectionChange(e,l);
+            this.props.onSelectionChange(e, value);
         }
     },
 
-    _renderPanelLabel(yStart, label, key) {
+    renderPanelLabel(yStart, label, key) {
         const y = yStart - (this.props.panelSpacing / 2);
         const x = (this.props.width / 2);
         const labelStyle = {
@@ -70,7 +68,7 @@ export default React.createClass({
         );
     },
 
-    _renderFrontBackLabel(yStart, key) {
+    renderFrontBackLabel(yStart, key) {
         const x = this.props.width / 2;
         const xLeft = x - (this.props.width / 9);
         const xRight = x + (this.props.width / 9);
@@ -106,7 +104,7 @@ export default React.createClass({
         );
     },
 
-    _renderPanels(panelMap) {
+    renderPanels(panelMap) {
         const elements = [];
         const panelWidthOffset = this.props.panelWidth;
         const panelStyle = this.props.panelStyle;
@@ -147,7 +145,7 @@ export default React.createClass({
                 // draw all the circuit groups in a module
 
                 elements.push(
-                    this._renderModule(module, moduleY)
+                    this.renderModule(module, moduleY)
                 );
                 // after each module is finished, space the next module start at the middle
                 // of the first coupler group, offset by the module spacing
@@ -155,10 +153,10 @@ export default React.createClass({
                            ((module.length - 1) * this.props.couplerSpacing);
             });
             elements.push(
-                this._renderFrontBackLabel(panelY, panelIndex)
+                this.renderFrontBackLabel(panelY, panelIndex)
             );
             elements.push(
-                this._renderPanelLabel(panelY, panel.panelName, panelIndex)
+                this.renderPanelLabel(panelY, panel.panelName, panelIndex)
             );
 
             // once all panel modules are done, start the next module at the next panel
@@ -170,7 +168,7 @@ export default React.createClass({
         );
     },
 
-    _renderModule(module, moduleY) {
+    renderModule(module, moduleY) {
         // moduleY is y1, y2 of the first circuitGroup in the module
 
         const elements = [];
@@ -180,11 +178,11 @@ export default React.createClass({
         _.each(module, (circuitGroup, groupIndex) => {
             // draw the endpoints
             elements.push(
-                this._renderEndpoints(circuitGroup, y, groupIndex)
+                this.renderEndpoints(circuitGroup, y, groupIndex)
             );
             // draw the lines
             elements.push(
-                this._renderConnections(circuitGroup, y, groupIndex)
+                this.renderConnections(circuitGroup, y, groupIndex)
             );
             y += this.props.couplerStyle.size + this.props.couplerSpacing;
         });
@@ -193,14 +191,16 @@ export default React.createClass({
         );
     },
 
-    _renderEndpoints(circuitGroup, y, key) {
-        // draws 0, 2, or 4 endpoints - determined by presence of Front, Back and Coupler
-
+    /**
+     * draws 0, 2, or 4 endpoints - determined by presence of Front, Back and Coupler
+     */
+    renderEndpoints(circuitGroup, y, key) {
         const elements = [];
         const midpt = this.props.width / 2;
         let circuit;
         let x1;
         let x2;
+
         if (circuitGroup.frontCircuit) {
             circuit = circuitGroup.frontCircuit;
             x1 = this.props.margin;
@@ -260,7 +260,7 @@ export default React.createClass({
         );
     },
 
-    _renderConnections(circuitGroup, y, key) {
+    renderConnections(circuitGroup, y, key) {
         // draws center coupler and either front, back or both circuits
 
         const elements = [];
@@ -293,7 +293,7 @@ export default React.createClass({
                         radius={this.props.couplerEndpointRadius}
                         endpointShape="square"
                         size={circuit.styleProperties.size}
-                        onSelectionChange={this._onSelectionChange}
+                        onSelectionChange={this.handleSelectionChange}
                         navTo={circuit.navTo}/>
                 </g>
             );
@@ -315,7 +315,7 @@ export default React.createClass({
                         lineShape={circuit.styleProperties.lineShape}
                         label={circuit.circuitLabel}
                         labelPosition={this.props.labelPosition}
-                        onSelectionChange={this._onSelectionChange}
+                        onSelectionChange={this.handleSelectionChange}
                         navTo={circuit.navTo}/>
                 </g>
             );
@@ -358,7 +358,7 @@ export default React.createClass({
             borderTopColor: "#FFFFFF",
             borderBottomColor: "#EFEFEF",
             width: "100%",
-            height: this.props.height,
+            height: this.props.height
         };
 
         let numPanels = 0;
@@ -369,7 +369,6 @@ export default React.createClass({
         const panelMap = {};
 
         // Calculate the height for each panel and store this in a mapping by panel name
-
         _.each(this.props.panels, panel => {
             numPanels += 1; // 1
             const moduleCount = panel.modules.length; // 2
@@ -399,7 +398,7 @@ export default React.createClass({
                 <svg
                     key="panel-box"
                     preserveAspectRatio="xMinYMin">
-                    {this._renderPanels(panelMap)}
+                    {this.renderPanels(panelMap)}
                 </svg>
             </svg>
         );

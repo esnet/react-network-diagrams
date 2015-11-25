@@ -139,8 +139,9 @@ export default React.createClass({
     },
 
     handleDisabledChange() {
-        const current = this.state.disabled;
-        this.setState({disabled: current ? false : true});
+        this.setState({
+            disabled: this.state.disabled ? false : true
+        });
     },
 
     renderChoices() {

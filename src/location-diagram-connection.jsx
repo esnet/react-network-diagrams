@@ -21,7 +21,7 @@ const PANEL_WIDTH = 851;
 export default React.createClass({
 
     getInitialState() {
-        return { hover: false };
+        return {hover: false};
     },
 
     getDefaultProps() {
@@ -38,7 +38,7 @@ export default React.createClass({
     /**
      * User hovers over the circuit
      */
-    _mouseOver() {
+    handleMouseOver() {
         if (!this.props.noNavigate) {
             this.setState({hover: true});
         }
@@ -47,7 +47,7 @@ export default React.createClass({
     /**
      * Use stops hovering over circuit
      */
-    _mouseOut() {
+    handleMouseOut() {
         if (!this.props.noNavigate) {
             this.setState({hover: false});
         }
@@ -56,7 +56,7 @@ export default React.createClass({
     /**
      * User selects the circuit
      */
-    _click(e) {
+    handleClick(e) {
         if (this.props.noNavigate) {
             return;
         }
@@ -133,9 +133,9 @@ export default React.createClass({
             <g>
                 <polyline className={edge} key="line-polypath" points={points} />
                 <polyline className={hit} key="line-polypath-hit" points={points}
-                          onMouseOver={this._mouseOver}
-                          onMouseOut={this._mouseOut}
-                          onClick={this._click} />
+                          onMouseOver={this.handleMouseOver}
+                          onMouseOut={this.handleMouseOut}
+                          onClick={this.handleClick} />
                 </g>
             );
     },

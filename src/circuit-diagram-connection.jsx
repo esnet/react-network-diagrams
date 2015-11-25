@@ -14,8 +14,6 @@
  * @module CircuitConnection
  */
 
-"use strict";
-
 import React from "react";
 import Endpoint from "./circuit-diagram-endpoint";
 import Line from "./edge-simple";
@@ -42,13 +40,14 @@ export default React.createClass({
             arrowHeight: 10,
             curveDirection: "right",
             curveOffset: 20,
-            size: 40,
+            size: 40
         };
     },
+
     /**
      * User hovers over the circuit
      */
-    _mouseOver() {
+    handleMouseOver() {
         if (!this.props.noNavigate) {
             this.setState({highlighted: true});
         }
@@ -57,15 +56,15 @@ export default React.createClass({
     /**
      * Use stops hovering over circuit
      */
-    _mouseOut() {
+    handleMouseOut() {
         if (!this.props.noNavigate) {
             this.setState({highlighted: false});
         }
     },
 
-    _clicked(e,l) {
+    handleSelectionChanged(e, value) {
         if (!this.props.noNavigate) {
-            this.props.onSelectionChange(e,l);
+            this.props.onSelectionChange(e, value);
         }
     },
 
@@ -78,28 +77,30 @@ export default React.createClass({
         } else {
             return (
                 <g>
-                    <Endpoint x={this.props.x1}
-                              y={this.props.y1}
-                              key={"line-begin"}
-                              style={this.props.style}
-                              radius={this.props.radius}
-                              shape={this.props.endpointShape}
-                              roundedX={this.props.endPointRoundedX}
-                              roundedY={this.props.endPointRoundedY}
-                              highlighted={this.state.highlighted}
-                              muted={this.props.muted}
-                              selected={this.props.selected} />
-                    <Endpoint x={this.props.x2}
-                              y={this.props.y2}
-                              key={"line-end"}
-                              style={this.props.style}
-                              radius={this.props.radius}
-                              shape={this.props.endpointShape}
-                              roundedX={this.props.endPointRoundedX}
-                              roundedY={this.props.endPointRoundedY}
-                              highlighted={this.state.highlighted}
-                              muted={this.props.muted}
-                              selected={this.props.selected} />
+                    <Endpoint
+                        x={this.props.x1}
+                        y={this.props.y1}
+                        key={"line-begin"}
+                        style={this.props.style}
+                        radius={this.props.radius}
+                        shape={this.props.endpointShape}
+                        roundedX={this.props.endPointRoundedX}
+                        roundedY={this.props.endPointRoundedY}
+                        highlighted={this.state.highlighted}
+                        muted={this.props.muted}
+                        selected={this.props.selected} />
+                    <Endpoint
+                        x={this.props.x2}
+                        y={this.props.y2}
+                        key={"line-end"}
+                        style={this.props.style}
+                        radius={this.props.radius}
+                        shape={this.props.endpointShape}
+                        roundedX={this.props.endPointRoundedX}
+                        roundedY={this.props.endPointRoundedY}
+                        highlighted={this.state.highlighted}
+                        muted={this.props.muted}
+                        selected={this.props.selected} />
                 </g>
             );
         }
@@ -124,7 +125,7 @@ export default React.createClass({
         const hitStyle = {
             cursor: this.props.noNavigate ? "default" : "pointer",
             stroke: "#FFF",
-            strokeWidth: 8,
+            strokeWidth: 8
         };
 
         const navTo = this.props.navTo;
@@ -153,91 +154,94 @@ export default React.createClass({
         return (
             <g>
                 <g>
-                    <Line x1={this.props.x1}
-                          x2={this.props.x2}
-                          y1={this.props.y1}
-                          y2={this.props.y2}
-                          shape={this.props.lineShape}
-                          key={"line-path"}
-                          label={this.props.label}
-                          labelPosition={this.props.labelPosition}
-                          labelStyle={this.props.style.label}
-                          labelOffsetX={xOffset}
-                          labelOffsetY={yOffset}
-                          textAnchor={this.props.textAnchor}
-                          color={stroke}
-                          width={width}
-                          muted={this.props.muted}
-                          selected={this.props.selected}
-                          classed={this.props.classed}
-                          roundedX={this.props.roundedX}
-                          roundedY={this.props.roundedY}
-                          fillColor={fill}
-                          size={this.props.size}
-                          centerLine={this.props.centerLine}
-                          arrow={this.props.arrow}
-                          arrowWidth={this.props.arrowWidth}
-                          arrowHeight={this.props.arrowHeight}
-                          position={this.props.position}
-                          offset={offset}
-                          curveDirection={this.props.curveDirection}
-                          name={navTo} />
+                    <Line
+                        x1={this.props.x1}
+                        x2={this.props.x2}
+                        y1={this.props.y1}
+                        y2={this.props.y2}
+                        shape={this.props.lineShape}
+                        key={"line-path"}
+                        label={this.props.label}
+                        labelPosition={this.props.labelPosition}
+                        labelStyle={this.props.style.label}
+                        labelOffsetX={xOffset}
+                        labelOffsetY={yOffset}
+                        textAnchor={this.props.textAnchor}
+                        color={stroke}
+                        width={width}
+                        muted={this.props.muted}
+                        selected={this.props.selected}
+                        classed={this.props.classed}
+                        roundedX={this.props.roundedX}
+                        roundedY={this.props.roundedY}
+                        fillColor={fill}
+                        size={this.props.size}
+                        centerLine={this.props.centerLine}
+                        arrow={this.props.arrow}
+                        arrowWidth={this.props.arrowWidth}
+                        arrowHeight={this.props.arrowHeight}
+                        position={this.props.position}
+                        offset={offset}
+                        curveDirection={this.props.curveDirection}
+                        name={navTo} />
                 </g>
-                <g onMouseOver={this._mouseOver}
-                   onMouseOut={this._mouseOut}>
-                    <Line /* Positional Props used by all shapes */
-                          x1={this.props.x1}
-                          x2={this.props.x2}
-                          y1={this.props.y1}
-                          y2={this.props.y2}
+                <g onMouseOver={this.handleMouseOver}
+                   onMouseOut={this.handleMouseOut}>
+                    <Line
+                        // Positional Props used by all shapes
+                        x1={this.props.x1}
+                        x2={this.props.x2}
+                        y1={this.props.y1}
+                        y2={this.props.y2}
 
-                          /* Identity Props used by all shapes */
-                          shape={this.props.lineShape} /* controls shape of the line */
-                          key={"line-path-hit"} /* needed for react element */
+                        // Identity Props used by all shapes
+                        shape={this.props.lineShape} // controls shape of the line
+                        key={"line-path-hit"} // needed for react element
 
-                          /* Label Props used by all shapes */
-                          label={this.props.label} /* provides label to be displayed */
-                          labelPosition={this.props.labelPosition} /* controls where label
-                                                                      is situated around the line */
-                          labelStyle={this.props.style.label} /* controls the
-                                                                                style of the label */
-                          labelOffsetX={xOffset} /* controls the +/- x offset from labelPosition */
-                          labelOffsetY={yOffset} /* controls the +/- y offset from labelPosition */
-                          textAnchor={this.props.textAnchor} /* controls the positioning of the text */
+                        // Label Props used by all shapes
+                        label={this.props.label}                 // provides label to be displayed
+                        labelPosition={this.props.labelPosition} // controls where label
+                                                                 // is situated around the line
+                        labelStyle={this.props.style.label} // controls the
+                                                            // style of the label
+                        labelOffsetX={xOffset}              // controls the +/- x offset from labelPosition
+                        labelOffsetY={yOffset}              // controls the +/- y offset from labelPosition
+                        textAnchor={this.props.textAnchor}  // controls the positioning of the text
 
-                          /* Style Props */
-                          color={hitStyle.stroke} /* controls color of the line */
-                          width={hitStyle.strokeWidth} /* controls the stroke thickness */
-                          muted={this.props.muted} /* controls style */
-                          selected={this.props.selected} /* controls style */
-                          classed={this.props.classed} /* provides a psuedo css class for the line */
+                        // Style Props
+                        color={hitStyle.stroke}         // controls color of the line
+                        width={hitStyle.strokeWidth}    // controls the stroke thickness
+                        muted={this.props.muted}        // controls style
+                        selected={this.props.selected}  // controls style
+                        classed={this.props.classed}    // provides a psuedo css class for the line
 
-                          /* Square props */
-                          roundedX={this.props.roundedX} /* controls corner rounding */
-                          roundedY={this.props.roundedY} /* controls corner rounding */
-                          fillColor={fill} /* controls color of the fill */
-                          size={this.props.size} /* controls height of square */
-                          centerLine={this.props.centerLine} /* controls display of horizontal center line */
+                        // Square props
+                        roundedX={this.props.roundedX}     // controls corner rounding
+                        roundedY={this.props.roundedY}     // controls corner rounding
+                        fillColor={fill}                   // controls color of the fill
+                        size={this.props.size}             // controls height of square
+                        centerLine={this.props.centerLine} // controls display of horizontal center line
 
-                          /* Arrow props, not used by square */
-                          arrow={this.props.arrow} /* determines whether to
-                                                      display nodes or arrows at ends of line */
-                          arrowWidth={this.props.arrowWidth} /* controls width of arrow */
-                          arrowHeight={this.props.arrowHeight} /* controls height of arrow */
+                        // Arrow props, not used by square
+                        arrow={this.props.arrow}             // determines whether to
+                                                             // display nodes or arrows at ends of line
+                        arrowWidth={this.props.arrowWidth}   // controls width of arrow
+                        arrowHeight={this.props.arrowHeight} // controls height of arrow
 
-                          /* Line offset props, used by angle and arc */
-                          position={this.props.position} /* controls angle of offset */
-                          offset={offset} /* controls length of offset line */
-                          curveDirection={this.props.curveDirection} /* controls left / right
-                                                                        line path with reference
-                                                                        to line center*/
+                        // Line offset props, used by angle and arc
+                        position={this.props.position}              // controls angle of offset
+                        offset={offset}                             // controls length of offset line
+                        curveDirection={this.props.curveDirection}  // controls left / right
+                                                                    // line path with reference
+                                                                    // to line center
 
-                          /* Navigation props */
-                          name={navTo} /* returned value for _onSelection change - all */
-                          onSelectionChange={this._clicked} /* callback function to
-                                                               control what happens if the
-                                                               element is clicked */
-                          invisible={true} /* Internal prop for hiding this line */ />
+                        // Navigation props
+                        name={navTo} // returned value for _onSelection change - all
+                        onSelectionChange={this.handleSelectionChanged} // callback function to
+                                                                        // control what happens if the
+                                                                        // element is clicked
+                        invisible={true} // Internal prop for hiding this line
+                    />
                 </g>
                 <g>
                     {this.renderEndpoints()}
@@ -246,106 +250,3 @@ export default React.createClass({
         );
     }
 });
-//        const labelClassed = "circuit-label";
-// let labelX = (this.props.x1 + this.props.x2) / 2;
-//       let labelY = (this.props.y1 + this.props.y2) / 2;
-// let label2Y = (this.props.y1 + this.props.y2) / 2;
-        /*
-        let textAnchor = "middle";
-
-        let labelLine1 = this.props.label1 || "";
-        let labelLine2 = this.props.label2 || "";
-
-        const label = labelLine1 + " " + labelLine2;
-
-        switch (this.props.labelPosition) {
-            case "top":
-                if (this.props.lineShape === "angled") {
-                    yOffset += Math.abs(this.props.y1 - this.props.y2) / 2;
-                }
-                label1Y -= yOffset + fontOffset;
-                label2Y -= yOffset;
-                break;
-
-            case "bottom":
-                if (this.props.lineShape === "angled") {
-                    yOffset += Math.abs(this.props.y1 - this.props.y2) / 2;
-                }
-                if (!this.props.label1) {
-                  labelLine1 = labelLine2;
-                  labelLine2 = "";
-                }
-                label1Y += yOffset + fontOffset;
-                label2Y += yOffset + (2 * fontOffset);
-                break;
-
-            case "topleft":
-                labelX = this.props.x1 + xOffset;
-                label1Y = this.props.y1 - yOffset - fontOffset;
-                label2Y = this.props.y1 - yOffset;
-                textAnchor = "start";
-                break;
-
-            case "topright":
-                labelX = this.props.x2 - xOffset;
-                label1Y = this.props.y2 - yOffset - fontOffset;
-                label2Y = this.props.y2 - yOffset;
-                textAnchor = "end";
-                break;
-
-            case "bottomleft":
-                labelX = this.props.x1 + xOffset;
-                if (!this.props.label1) {
-                  labelLine1 = labelLine2;
-                  labelLine2 = "";
-                }
-                label1Y = this.props.y1 + yOffset + fontOffset;
-                label2Y = this.props.y1 + yOffset + (2 * fontOffset);
-                textAnchor = "start";
-                break;
-
-            case "bottomright":
-                labelX = this.props.x2 - xOffset;
-                if (!this.props.label1) {
-                  labelLine1 = labelLine2;
-                  labelLine2 = "";
-                }
-                label1Y = this.props.y1 + yOffset + fontOffset;
-                label2Y = this.props.y1 + yOffset + (2 * fontOffset);
-                textAnchor = "end";
-                break;
-
-            default:
-                break;
-        }
-        */
-/*
-                <g>
-                    <Label x1={this.props.x1}
-                           y1={this.props.y1}
-                           x2={this.props.x2}
-                           y2={this.props.y2}
-                           r={position}
-                           style={this.props.style.label[styleModifier]}
-                           label={this.props.label}
-                           xOffset={this.props.xOffset}
-                           yOffset={this.props.yOffset}
-                           labelPosition={this.props.labelPosition} />
-                </g>
-
-/*
-
-<text textAnchor={textAnchor}
-                          style={this.props.style.label[styleModifier]}
-                          key="endpoint-label"
-                          className={labelClassed}>
-                          <tspan x={labelX} y={label1Y}>
-                              {labelLine1}
-                          </tspan>
-                          <tspan x={labelX} y={label2Y}>
-                              {labelLine2}
-                          </tspan>
-                    </text>
-
-*/
-// Turn Multi-lined labels into an array

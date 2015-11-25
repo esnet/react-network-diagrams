@@ -30,8 +30,8 @@ export default React.createClass({
         });
 
         return {
+            topo,
             mode: null,
-            topo: topo,
             display: "editor",
             gridSize: 0.5
         };

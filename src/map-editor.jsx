@@ -15,52 +15,6 @@ import Resizable from "./resizable";
 import BaseMap from "./map-base";
 import Node from "./node";
 
-/**
- * Props:
- *
- * topology:
- *     Pass in the topology structure.
- *         Nodes:
- *             - type
- *         Edges:
- *             - source (refers to node name)
- *             - target (refers to node name)
- *             - capacity (string)
- *             - total_capacity (string)
- *
- *  nodeSizeMap:
- *      A mapping from the node type field to a size to draw the shape
- *
- *  edgeThinknessMap:
- *      "capacity" within the tologogy edges is a string, such as "100G".
- *      You can pass in an edgeThinknessMap that is used to look up the
- *      capacity as a line thickness for rendering the edges.
- *
- *  edgeShapeMap:
- *      A mapping of the edge name (which is source + "--" + target) to a
- *      dict of edge shape
- *      options.
- *          - shape (either "linear" or "curved")
- *          - direction (if curved, either "left" or "right")
- *          - offset (if curved, the amount of curve, which is pixel offset
- *            from a straight line between the source and target at the
- *            midpoint)
- *      e.g.
- *          {
- *            "AMST--BOST": {
- *              "shape": "curved",
- *              "direction": "right",
- *              "offset": 15
- *          }
- *
- *  callbacks:
- *
- *  handleSelectionChange(selectionType, selection):
- *      will be called when the use selects an object in the map, be it a node
- *      or a link
- *
- */
-
 let counter = 1;
 
 export default React.createClass({
@@ -87,7 +41,7 @@ export default React.createClass({
         return {
             pendingAction: null,
             selectionType: null,
-            selection: null,
+            selection: null
         };
     },
 
@@ -186,7 +140,7 @@ export default React.createClass({
             name: this.props.topology.name,
             description: this.props.topology.description,
             nodes: _.map(this.props.topology.nodes, (n) => _.clone(n)),
-            edges: _.map(this.props.topology.edges, (e) => _.clone(e)),
+            edges: _.map(this.props.topology.edges, (e) => _.clone(e))
         };
         return topo;
     },
@@ -266,10 +220,7 @@ export default React.createClass({
         } else if (selectionType === "edge") {
             selection = this.findEdge(selectionId);
         }
-        this.setState({
-            selectionType: selectionType,
-            selection: selection
-        });
+        this.setState({selectionType, selection});
     },
 
     handleChange(attr, value) {
@@ -277,7 +228,7 @@ export default React.createClass({
         selected[attr] = value;
 
         this.setState({
-            selection: selected,
+            selection: selected
         });
     },
 
@@ -318,8 +269,8 @@ export default React.createClass({
             label_position: "top",
             name: `untitled${counter++}`,
             type: "node",
-            x: x,
-            y: y
+            x,
+            y
         };
 
         topo.nodes.push(n);
@@ -377,7 +328,7 @@ export default React.createClass({
             const e = {
                 source: this.findNode(action.nodes[0]).name,
                 target: this.findNode(action.nodes[1]).name,
-                capacity: "",
+                capacity: ""
             };
             topo.edges.push(e);
 

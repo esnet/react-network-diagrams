@@ -22,7 +22,7 @@ export default React.createClass({
             labelOffsetX: 0,
             labelOffsetY: 0,
             rx: 0,
-            ry: 0,
+            ry: 0
         };
     },
 
@@ -54,6 +54,25 @@ export default React.createClass({
                     ]
                 }
             ];
+        }
+    },
+
+    handMouseClick(e) {
+        e.stopPropagation();
+        const id = this.props.id || this.props.name;
+        if (this.props.onSelectionChange) {
+            this.props.onSelectionChange("node", id);
+        }
+    },
+
+    handleMouseOver() {
+    },
+
+    handleMouseDown(e) {
+        e.stopPropagation();
+        const id = this.props.id || this.props.name;
+        if (this.props.onMouseDown) {
+            this.props.onMouseDown(id, e);
         }
     },
 
@@ -266,25 +285,5 @@ export default React.createClass({
                 </g>
             );
         }
-    },
-
-    handMouseClick(e) {
-        e.stopPropagation();
-        const id = this.props.id || this.props.name;
-        if (this.props.onSelectionChange) {
-            this.props.onSelectionChange("node", id);
-        }
-    },
-
-    handleMouseOver() {
-    },
-
-    handleMouseDown(e) {
-        e.stopPropagation();
-        const id = this.props.id || this.props.name;
-        if (this.props.onMouseDown) {
-            this.props.onMouseDown(id, e);
-        }
-    },
-
+    }
 });

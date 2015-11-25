@@ -12,18 +12,18 @@ import keyMirror from "keymirror";
 
 module.exports = {
 
-	Positions: keyMirror({
+    Positions: keyMirror({
         TOP: null,
         BOTTOM: null,
         LEFT: null,
-        RIGHT: null,
+        RIGHT: null
     }),
 
     Directions: keyMirror({
         NORTH: null,
         SOUTH: null,
         EAST: null,
-        WEST: null,
+        WEST: null
     }),
 
     CircuitTypes: keyMirror({
@@ -41,6 +41,6 @@ module.exports = {
 
     CircuitSegmentTypes: keyMirror({
         CIRCUIT: null,
-        ENDPOINT: null,
-    }),
+        ENDPOINT: null
+    })
 };

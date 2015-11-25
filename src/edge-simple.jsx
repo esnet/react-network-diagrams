@@ -26,7 +26,7 @@ export default React.createClass({
             muted: false,
             invisible: false,
             arrow: false,
-            fillColor: "none",
+            fillColor: "none"
         };
     },
 

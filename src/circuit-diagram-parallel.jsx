@@ -8,6 +8,13 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
+import React from "react";
+import _ from "underscore";
+import { Directions } from "./constants.js";
+import Endpoint from "./circuit-diagram-endpoint";
+import Connection from "./circuit-diagram-connection";
+import Navigate from "./circuit-diagram-navigate";
+
 /**
  * A component for drawing a parallel circuit.
  *
@@ -17,16 +24,6 @@
  * In addition, Concatenated should have a 'branches' prop to list out the
  * branches that make up the parallel circuits.
  */
-
-import React from "react";
-import _ from "underscore";
-import Constants from "./constants.js";
-import Endpoint from "./circuit-diagram-endpoint";
-import Connection from "./circuit-diagram-connection";
-import Navigate from "./circuit-diagram-navigate";
-
-const {Directions} = Constants;
-
 export default React.createClass({
 
     getDefaultProps() {
@@ -37,16 +34,16 @@ export default React.createClass({
             titleOffsetX: 10,
             titleOffsetY: 15,
             margin: 100,
-            noNavigate: false,
+            noNavigate: false
         };
     },
 
-    _renderCircuitTitle(title) {
+    renderCircuitTitle(title) {
         const titleStyle = {
             textAnchor: "left",
             fill: "#9D9D9D",
             fontFamily: "verdana, sans-serif",
-            fontSize: 14,
+            fontSize: 14
         };
 
         if (!this.props.hideTitle) {
@@ -64,7 +61,7 @@ export default React.createClass({
         }
     },
 
-    _renderParentNavigation(parentId) {
+    renderParentNavigation(parentId) {
         if (parentId) {
             return (
                 <g>
@@ -79,11 +76,11 @@ export default React.createClass({
         }
     },
 
-    _renderDisabledOverlay(disabled) {
+    renderDisabledOverlay(disabled) {
         if (disabled) {
             const overlayStyle = {
                 fill: "#FDFDFD",
-                fillOpacity: "0.65",
+                fillOpacity: "0.65"
             };
             return (
                 <rect className="circuit-overlay" style={overlayStyle}
@@ -94,7 +91,7 @@ export default React.createClass({
         }
     },
 
-    _renderCircuitElements() {
+    renderCircuitElements() {
         const elements = [];
         const x1 = this.props.margin;
         const x2 = this.props.width - this.props.margin;
@@ -192,11 +189,11 @@ export default React.createClass({
                 borderTopColor: "#FFFFFF",
                 borderBottomColor: "#EFEFEF",
                 width: "100%",
-                height: this.props.height,
+                height: this.props.height
             },
             disabled: {
                 width: "100%",
-                height: this.props.height,
+                height: this.props.height
             }
         };
 
@@ -215,10 +212,10 @@ export default React.createClass({
         return (
             <svg className={className} style={svgStyle} onClick={this._deselect}>
                 <svg viewBox={viewBox} preserveAspectRatio="xMinYMin">
-                    {this._renderCircuitTitle(this.props.title)}
-                    {this._renderCircuitElements()}
-                    {this._renderParentNavigation(this.props.parentId)}
-                    {this._renderDisabledOverlay(this.props.disabled)}
+                    {this.renderCircuitTitle(this.props.title)}
+                    {this.renderCircuitElements()}
+                    {this.renderParentNavigation(this.props.parentId)}
+                    {this.renderDisabledOverlay(this.props.disabled)}
                 </svg>
             </svg>
         );

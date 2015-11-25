@@ -16,14 +16,24 @@ import Endpoint from "../../src/circuit-diagram-endpoint";
 
 const text = require("raw!../markdown/endpoint.md");
 
-const labelPositionChoiceList = ["left","right","top","topright","topleft",
-                            "bottom","bottomright","bottomleft",
-                            "bottomleftangled", "bottomrightangled",
-                            "topleftangled", "toprightangled"];
+const labelPositionChoiceList = [
+    "left",
+    "right",
+    "top",
+    "topright",
+    "topleft",
+    "bottom",
+    "bottomright",
+    "bottomleft",
+    "bottomleftangled",
+    "bottomrightangled",
+    "topleftangled",
+    "toprightangled"
+];
 
 const shapeList = ["circle", "square", "cloud"];
 
-const offsetList = [0,15,20,25,30];
+const offsetList = [0, 15, 20, 25, 30];
 
 const styleModifierList = ["normal", "selected", "muted"];
 
@@ -55,7 +65,7 @@ export default React.createClass({
     getDefaultProps() {
         return {
             height: 270,
-            width: 270,
+            width: 270
         };
     },
 
@@ -67,8 +77,7 @@ export default React.createClass({
             styleModifier: styleModifierList[0],
             radiusSize: radiusSizeList[2],
             selectedStyle: false,
-            mutedStyle: false,
-
+            mutedStyle: false
         };
     },
 

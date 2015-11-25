@@ -16,6 +16,7 @@ import React from "react";
  * a chart or other svg diagram and have this drive the chart width.
  */
 export default React.createClass({
+
     getInitialState() {
         return {width: 0};
     },

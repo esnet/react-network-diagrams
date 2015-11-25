@@ -24,10 +24,7 @@ function getElementOffset(element) {
     const box = element.getBoundingClientRect();
     const top = box.top + window.pageYOffset - de.clientTop;
     const left = box.left + window.pageXOffset - de.clientLeft;
-    return {
-        top: top,
-        left: left
-    };
+    return {top, left};
 }
 
 export default React.createClass({
@@ -55,8 +52,8 @@ export default React.createClass({
             y: React.PropTypes.number,
             edgeTypes: React.PropTypes.object,
             nodeTypes: React.PropTypes.object,
-            colorSwatches: React.PropTypes.object,
-        }),
+            colorSwatches: React.PropTypes.object
+        })
     },
 
     getDefaultProps() {
@@ -79,24 +76,72 @@ export default React.createClass({
         };
     },
 
-    // get the event mouse position relative to the event rect
+    handleNodeMouseDown(id, e) {
+        const { xScale, yScale } = this.scale();
+        const { x, y } = this.getOffsetMousePosition(e);
+        const drag = {
+            id,
+            x0: xScale.invert(x),
+            y0: yScale.invert(y)
+        };
+        this.setState({dragging: drag});
+    },
+
+
+    handleSelectionChange(type, id) {
+        if (this.props.onNodeSelected) {
+            if (type === "node") {
+                this.props.onNodeSelected(id);
+            }
+        } else if (this.props.onEdgeSelected) {
+            if (type === "edge") {
+                this.props.onEdgeSelected(id);
+            }
+        } else if (this.props.onSelectionChange) {
+            this.props.onSelectionChange(type, id);
+        }
+    },
+
+    handleMouseMove(e) {
+        e.preventDefault();
+        if (this.state.dragging) {
+            const { id } = this.state.dragging;
+            const { xScale, yScale } = this.scale();
+            const { x, y } = this.getOffsetMousePosition(e);
+            if (this.props.onNodeDrag) {
+                this.props.onNodeDrag(id, xScale.invert(x), yScale.invert(y));
+            }
+        }
+    },
+
+    handleMouseUp(e) {
+        e.stopPropagation();
+        this.setState({dragging: null});
+    },
+
+    handleClick(e) {
+        if (this.props.onNodeSelected || this.props.onEdgeSelected) {
+            return;
+        }
+        if (this.props.onPositionSelected) {
+            const { xScale, yScale } = this.scale();
+            const { x, y } = this.getOffsetMousePosition(e);
+            this.props.onPositionSelected(xScale.invert(x), yScale.invert(y));
+        }
+        if (this.props.onSelectionChange) {
+            this.props.onSelectionChange(null);
+        }
+    },
+
+    /**
+     * Get the event mouse position relative to the event rect
+     */
     getOffsetMousePosition(e) {
         const trackerRect = React.findDOMNode(this.refs.map);
         const offset = getElementOffset(trackerRect);
         const x = e.pageX - offset.left;
         const y = e.pageY - offset.top;
         return {x: Math.round(x), y: Math.round(y)};
-    },
-
-    handleNodeMouseDown(id, e) {
-        const { xScale, yScale } = this.scale();
-        const { x, y } = this.getOffsetMousePosition(e);
-        const drag = {
-            id: id,
-            x0: xScale.invert(x),
-            y0: yScale.invert(y)
-        };
-        this.setState({dragging: drag});
     },
 
     scale() {
@@ -218,10 +263,10 @@ export default React.createClass({
                     nodePaths[a].targetMap[z].push(pathName);
                 } else {
                     if (!_.has(nodeCoordinates, node)) {
-                        console.warn(`Missing node in path '${pathName}': ${node}`);
+                        throw new Error(`Missing node in path '${pathName}': ${node}`);
                     }
                     if (!_.has(nodeCoordinates, next)) {
-                        console.warn(`Missing node in path '${pathName}': ${next}`);
+                        throw new Error(`Missing node in path '${pathName}': ${next}`);
                     }
                 }
             }
@@ -517,50 +562,5 @@ export default React.createClass({
                 </g>
             </svg>
         );
-    },
-
-    handleSelectionChange(type, id) {
-        if (this.props.onNodeSelected) {
-            if (type === "node") {
-                this.props.onNodeSelected(id);
-            }
-        } else if (this.props.onEdgeSelected) {
-            if (type === "edge") {
-                this.props.onEdgeSelected(id);
-            }
-        } else if (this.props.onSelectionChange) {
-            this.props.onSelectionChange(type, id);
-        }
-    },
-
-    handleMouseMove(e) {
-        e.preventDefault();
-        if (this.state.dragging) {
-            const { id } = this.state.dragging;
-            const { xScale, yScale } = this.scale();
-            const { x, y } = this.getOffsetMousePosition(e);
-            if (this.props.onNodeDrag) {
-                this.props.onNodeDrag(id, xScale.invert(x), yScale.invert(y));
-            }
-        }
-    },
-
-    handleMouseUp(e) {
-        e.stopPropagation();
-        this.setState({dragging: null});
-    },
-
-    handleClick(e) {
-        if (this.props.onNodeSelected || this.props.onEdgeSelected) {
-            return;
-        }
-        if (this.props.onPositionSelected) {
-            const { xScale, yScale } = this.scale();
-            const { x, y } = this.getOffsetMousePosition(e);
-            this.props.onPositionSelected(xScale.invert(x), yScale.invert(y));
-        }
-        if (this.props.onSelectionChange) {
-            this.props.onSelectionChange(null);
-        }
     }
 });

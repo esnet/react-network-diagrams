@@ -28,7 +28,6 @@ export default React.createClass({
 
     render() {
         const paths = [];
-
         const sourceToTargetName = `${this.props.source}--${this.props.target}`;
         const targetToSourceName = `${this.props.target}--${this.props.source}`;
 
@@ -38,53 +37,56 @@ export default React.createClass({
         if (this.props.shape === "curved") {
             return (
                 <g>
-                    <ArcEdge name={this.props.name}
-                             x1={this.props.x1}
-                             y1={this.props.y1}
-                             x2={this.props.x2}
-                             y2={this.props.y2}
-                             arrow={true}
-                             position={position}
-                             color={this.props.sourceTargetColor}
-                             width={this.props.width}
-                             classed={this.props.classed}
-                             key={sourceToTargetName}
-                             curveDirection={this.props.curveDirection}
-                             offset={this.props.offset}
-                             selected={this.props.selected}
-                             onSelectionChange={this.props.onSelectionChange}
-                             muted={this.props.muted} />
+                    <ArcEdge
+                        name={this.props.name}
+                        x1={this.props.x1}
+                        y1={this.props.y1}
+                        x2={this.props.x2}
+                        y2={this.props.y2}
+                        arrow={true}
+                        position={position}
+                        color={this.props.sourceTargetColor}
+                        width={this.props.width}
+                        classed={this.props.classed}
+                        key={sourceToTargetName}
+                        curveDirection={this.props.curveDirection}
+                        offset={this.props.offset}
+                        selected={this.props.selected}
+                        onSelectionChange={this.props.onSelectionChange}
+                        muted={this.props.muted} />
 
-                    <ArcEdge name={this.props.name}
-                             x1={this.props.x2}
-                             y1={this.props.y2}
-                             x2={this.props.x1}
-                             y2={this.props.y1}
-                             arrow={true}
-                             position={position}
-                             color={this.props.targetSourceColor}
-                             width={this.props.width}
-                             classed={this.props.classed}
-                             key={targetToSourceName}
-                             curveDirection={this.props.curveDirection}
-                             offset={this.props.offset}
-                             selected={this.props.selected}
-                             onSelectionChange={this.props.onSelectionChange}
-                             muted={this.props.muted} />
+                    <ArcEdge
+                        name={this.props.name}
+                        x1={this.props.x2}
+                        y1={this.props.y2}
+                        x2={this.props.x1}
+                        y2={this.props.y1}
+                        arrow={true}
+                        position={position}
+                        color={this.props.targetSourceColor}
+                        width={this.props.width}
+                        classed={this.props.classed}
+                        key={targetToSourceName}
+                        curveDirection={this.props.curveDirection}
+                        offset={this.props.offset}
+                        selected={this.props.selected}
+                        onSelectionChange={this.props.onSelectionChange}
+                        muted={this.props.muted} />
 
-                    <ArcEdge name={this.props.name}
-                             x1={this.props.x2}
-                             y1={this.props.y2}
-                             x2={this.props.x1}
-                             y2={this.props.y1}
-                             position={0}
-                             width={5}
-                             classed={this.props.classed}
-                             key={`${sourceToTargetName}-event-region`}
-                             onSelectionChange={this.props.onSelectionChange}
-                             curveDirection={this.props.curveDirection}
-                             offset={this.props.offset}
-                             invisible={true}/>
+                    <ArcEdge
+                        name={this.props.name}
+                        x1={this.props.x2}
+                        y1={this.props.y2}
+                        x2={this.props.x1}
+                        y2={this.props.y1}
+                        position={0}
+                        width={5}
+                        classed={this.props.classed}
+                        key={`${sourceToTargetName}-event-region`}
+                        onSelectionChange={this.props.onSelectionChange}
+                        curveDirection={this.props.curveDirection}
+                        offset={this.props.offset}
+                        invisible={true} />
                 </g>
             );
         } else {

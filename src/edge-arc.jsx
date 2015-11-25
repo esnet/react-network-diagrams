@@ -210,16 +210,17 @@ export default React.createClass({
 
         if (this.props.label) {
             labelElement = (
-                <Label x={cx}
-                       y={cy}
-                       r={labelAngle}
-                       textAnchor={this.props.textAnchor}
-                       classed={labelClassed}
-                       style={this.props.labelStyle[styleModifier]}
-                       label={this.props.label}
-                       xOffset={this.props.labelOffsetX}
-                       yOffset={this.props.labelOffsetY}
-                       labelPosition={this.props.labelPosition} />
+                <Label
+                    x={cx}
+                    y={cy}
+                    r={labelAngle}
+                    textAnchor={this.props.textAnchor}
+                    classed={labelClassed}
+                    style={this.props.labelStyle[styleModifier]}
+                    label={this.props.label}
+                    xOffset={this.props.labelOffsetX}
+                    yOffset={this.props.labelOffsetY}
+                    labelPosition={this.props.labelPosition} />
             );
         }
         if (this.props.arrow) {

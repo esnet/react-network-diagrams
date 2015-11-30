@@ -356,9 +356,7 @@ export default React.createClass({
             borderBottomStyle: "solid",
             borderWidth: 1,
             borderTopColor: "#FFFFFF",
-            borderBottomColor: "#EFEFEF",
-            width: "100%",
-            height: this.props.height
+            borderBottomColor: "#EFEFEF"
         };
 
         let numPanels = 0;
@@ -385,13 +383,13 @@ export default React.createClass({
 
         // dynamic viewBoxHeight
         viewBoxHeight += (yOffset * 3) + ((numPanels - 1) * panelSpacing);
-        const viewBox = `0 0 ${this.props.width} ${viewBoxHeight}`;
 
         // Draw in order - Panel Rectangles, Circuit Endpoints, Circuit Connections
         return (
             <svg
-                viewBox={viewBox}
                 key="panel-container"
+                width={this.props.width}
+                height={viewBoxHeight}
                 className={classed}
                 style={circuitContainer}
                 onClick={this._deselect}>

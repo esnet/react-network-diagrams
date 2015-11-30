@@ -24,7 +24,7 @@ const circuitTypeList = [
     "equipmentToEquipment",
     "crossConnect",
     "coupler",
-    "backpaneMate",
+    "backplaneMate",
     "none"
 ];
 
@@ -36,7 +36,7 @@ const circuitLabelMap = {
     equipmentToEquipment: "Equipment-Equipment",
     crossConnect: "Cross-Connect",
     coupler: "Panel Coupler",
-    backpaneMate: "Backplane Mate"
+    backplaneMate: "Backplane Mate"
 };
 
 const labelPositionChoiceList = [

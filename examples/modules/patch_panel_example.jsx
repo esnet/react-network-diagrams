@@ -11,6 +11,7 @@
 import React from "react";
 import Markdown from "react-markdown";
 import LocationPanelDiagram from "../../src/location-diagram-panel";
+import Resizable from "../../src/resizable";
 import {stylesMap} from "../styles/styles.js";
 
 const text = require("raw!../markdown/patch-panel.md");
@@ -280,17 +281,19 @@ export default React.createClass({
 
                 <div className="row">
                     <div className="col-md-12">
-                        <LocationPanelDiagram
-                            panels={panels}
-                            panelStyle={stylesMap.panel}
-                            couplerStyle={circuitTypeProperties.panelCoupler}
-                            yOffset={this.state.yOffset}
-                            moduleSpacing={this.state.moduleSpacing}
-                            panelSpacing={this.state.panelSpacing}
-                            couplerSpacing={this.state.couplerSpacing}
-                            panelWidth={this.state.panelWidth}
-                            onSelectionChange={this._onSelectionChange}
-                            endpointLabelOffset={18} />
+                        <Resizable>
+                            <LocationPanelDiagram
+                                panels={panels}
+                                panelStyle={stylesMap.panel}
+                                couplerStyle={circuitTypeProperties.panelCoupler}
+                                yOffset={this.state.yOffset}
+                                moduleSpacing={this.state.moduleSpacing}
+                                panelSpacing={this.state.panelSpacing}
+                                couplerSpacing={this.state.couplerSpacing}
+                                panelWidth={this.state.panelWidth}
+                                onSelectionChange={this._onSelectionChange}
+                                endpointLabelOffset={18} />
+                        </Resizable>
                     </div>
                 </div>
                 <div className="row">

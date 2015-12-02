@@ -10,9 +10,9 @@
 
 import React from "react";
 import _ from "underscore";
-import Connection from "./circuit-diagram-connection.jsx";
-import Endpoint from "./circuit-diagram-endpoint.jsx";
-import Label from "./edge-label.jsx";
+import Connection from "./circuit-diagram-connection";
+import Endpoint from "./circuit-diagram-endpoint";
+import Label from "./edge-label";
 
 export default React.createClass({
 

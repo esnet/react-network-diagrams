@@ -294,6 +294,7 @@ export default React.createClass({
                         endpointShape="square"
                         size={circuit.styleProperties.size}
                         onSelectionChange={this.handleSelectionChange}
+                        noNavigate={circuit.styleProperties.noNavigate}
                         navTo={circuit.navTo}/>
                 </g>
             );
@@ -316,6 +317,7 @@ export default React.createClass({
                         label={circuit.circuitLabel}
                         labelPosition={this.props.labelPosition}
                         onSelectionChange={this.handleSelectionChange}
+                        noNavigate={circuit.styleProperties.noNavigate}
                         navTo={circuit.navTo}/>
                 </g>
             );
@@ -338,6 +340,7 @@ export default React.createClass({
                         label={circuit.circuitLabel}
                         labelPosition={this.props.labelPosition}
                         onSelectionChange={this._onSelectionChange}
+                        noNavigate={circuit.styleProperties.noNavigate}
                         navTo={circuit.navTo}/>
                 </g>
             );

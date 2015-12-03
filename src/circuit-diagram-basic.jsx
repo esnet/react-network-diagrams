@@ -90,10 +90,10 @@ export default React.createClass({
             React.PropTypes.number              // Will return to the onSelectionChange
         ]),                                     // it's value
 
-        parentId: React.PropTypes.string        // If provided, will render a small nav arrow
-                                                // that when clicked, navigates to that element.
-                                                // Used mainly when we want to show a parent / child
-                                                // relationship between two circuits.
+        parentId: React.PropTypes.oneOfType([   // If provided, will render a small nav arrow
+            React.PropTypes.string,             // that when clicked, navigates to that element.
+            React.PropTypes.number              // Used mainly when we want to show a parent / child
+        ])                                      // relationship between two circuits.        
     },
 
     renderCircuitTitle(title) {

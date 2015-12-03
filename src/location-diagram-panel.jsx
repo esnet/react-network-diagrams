@@ -339,7 +339,7 @@ export default React.createClass({
                         lineShape={circuit.styleProperties.lineShape}
                         label={circuit.circuitLabel}
                         labelPosition={this.props.labelPosition}
-                        onSelectionChange={this._onSelectionChange}
+                        onSelectionChange={this.handleSelectionChange}
                         noNavigate={circuit.styleProperties.noNavigate}
                         navTo={circuit.navTo}/>
                 </g>

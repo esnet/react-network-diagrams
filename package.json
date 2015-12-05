@@ -17,6 +17,7 @@
     "test-only": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf lib/* && cp src/*.css lib && babel src --optional runtime --stage 0 --out-dir lib",
     "start-website": "webpack-dev-server  --config webpack.examples.config.js",
+    "build-website": "webpack --config webpack.examples.config.js",
     "deploy-website": "gh-pages-deploy"
   },
   "pre-commit": [

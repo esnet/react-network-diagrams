@@ -35,7 +35,7 @@ export default React.createClass({
         let curY = this.props.y;
         const lineCenter = this.props.lineHeight / 2;
 
-        let elements = [];
+        const elements = [];
         if (this.props.nodeTypes.length > 0) {
             _.each(this.props.nodeTypes, node => {
                 const textX = curX + this.props.exampleWidth;
@@ -75,12 +75,13 @@ export default React.createClass({
 
                 elements.push(
                     <g>
-                        <line x1={x}
-                              y1={y}
-                              x2={x + this.props.exampleWidth}
-                              y2={y}
-                              stroke={this.props.edgeColor}
-                              strokeWidth={edge.strokeWidth} />
+                        <line
+                            x1={x}
+                            y1={y}
+                            x2={x + this.props.exampleWidth}
+                            y2={y}
+                            stroke={this.props.edgeColor}
+                            strokeWidth={edge.strokeWidth} />
                         <text x={textX} y={textY} textAnchor={"begin"}>
                             {edge.text}
                         </text>
@@ -114,12 +115,13 @@ export default React.createClass({
 
                 elements.push(
                     <g>
-                        <rect x={x}
-                              y={y}
-                              width={width}
-                              height={height}
-                              stroke={color.stroke}
-                              fill={color.fill} />
+                        <rect
+                            x={x}
+                            y={y}
+                            width={width}
+                            height={height}
+                            stroke={color.stroke}
+                            fill={color.fill} />
                         <text x={textX} y={textY} textAnchor={"begin"}>
                             {color.text}
                         </text>

@@ -1,15 +1,21 @@
 # React Network Diagrams [![Build Status](https://travis-ci.org/esnet/react-network-diagrams.svg?branch=master)](https://travis-ci.org/esnet/react-network-diagrams)
 
 
-This repository contains an initial set of React based mapping components which are used within the ESnet Portal, but are not tied to ESnet, or even to network visualization. In the future it will also contain our circuit diagram rendering code.
+This repository contains an initial set of React circuit drawing and network mapping components which are used within the ESnet Portal, but are not tied to ESnet, or even to network visualization.
 
-The library is used in the public facing [ESnet Portal](http://my.es.net).
+The mapping portion of this library is used in the public facing [ESnet Portal](http://my.es.net). The circuit diagrams code us used internally to track ESnet circuits in the ESDB.
 
 Current features of the library include:
 
- * General nodes and edge topology rendering
- * Higher level network traffic maps
- * Multiple link types: linear, arcs, bidirectional traffic
+ * Circuit diagrams:
+     - Basic
+     - Concatenated
+     - Parallel
+ * Circuit couplers
+ * Patch panel diagrams
+ * Topology mapping
+     - Higher level network traffic visualization
+     - Linear, arc, bidirectional traffic and square edge types
  * Route rendering
 
 Please browse the examples for a feel for the library, or read on to get started.
@@ -19,11 +25,11 @@ Getting started
 
 The charts library is intended to be used with npm and the built into your project with something like webpack.
 
-    npm install @esnet/react-network-diagrams --save
+    npm install react-network-diagrams --save
 
 Once installed, you can import the necessary components from the library:
 
-    import {TrafficMap} from "@esnet/react-network-diagrams";
+    import { TrafficMap } from "react-network-diagrams";
 
 You can then `render()` the traffic map in your component:
 
@@ -40,7 +46,8 @@ You can then `render()` the traffic map in your component:
                 selection={mapSelection}
                 onSelectionChange={this.handleSelectionChanged} />
                 
-See the examples for more information about these props.
+
+See the examples for more information.
 
 Examples
 --------

@@ -17,8 +17,63 @@ export default React.createClass({
             radius: 5,
             selected: false,
             shape: "circle",
-            style: {}
+            style: {},
+            isDragging: false,
+            labelOffsetX: 0,
+            labelOffsetY: 0,
+            rx: 0,
+            ry: 0
         };
+    },
+
+    statics: {
+        /**
+         * Provides a spec for the editor UI to render properties
+         * for this node
+         */
+        spec() {
+            return [
+                {attr: "name", label: "Name", type: "text"},
+                {attr: "x", label: "Position x", type: "integer"},
+                {attr: "y", label: "Position y", type: "integer"},
+                {attr: "label_dx", label: "Label offset x", type: "integer"},
+                {attr: "label_dy", label: "Label offset y", type: "integer"},
+                {
+                    attr: "label_position",
+                    label: "Label position",
+                    type: "choice",
+                    options: [
+                        {value: "top", label: "Top"},
+                        {value: "bottom", label: "Bottom"},
+                        {value: "left", label: "Left"},
+                        {value: "right", label: "Right"},
+                        {value: "topleft", label: "Top left"},
+                        {value: "topright", label: "Top right"},
+                        {value: "bottomleft", label: "Bottom left"},
+                        {value: "bottomright", label: "Bottom right"}
+                    ]
+                }
+            ];
+        }
+    },
+
+    handMouseClick(e) {
+        e.stopPropagation();
+        const id = this.props.id || this.props.name;
+        if (this.props.onSelectionChange) {
+            this.props.onSelectionChange("node", id);
+        }
+    },
+
+    handleMouseOver() {
+    },
+
+    handleMouseDown(e) {
+        e.stopPropagation();
+        const id = this.props.id || this.props.name;
+        if (this.props.onMouseDown) {
+            this.props.onMouseDown(id, e);
+        }
     },
 
     render() {
@@ -35,15 +90,22 @@ export default React.createClass({
             nodeClasses += " muted";
             labelClasses += " muted";
         }
+        if (this.props.highlighted) {
+            styleModifier = "highlighted";
+            nodeClasses += " highlighted";
+            labelClasses += " highlighted";
+        }
 
-        const basicOffset = this.props.radius * 1.33;
+        const basicOffset = this.props.offset ? this.props.offset : this.props.radius * 1.33;
 
         // 0.8 * font size? ish..
         const fontOffset = 8;
 
         let labelX = this.props.x;
         let labelY = this.props.y;
+        let labelR = 0;
         let textAnchor = "middle";
+        let rotate = `rotate(${labelR} ${labelX}, ${labelY})`;
         switch (this.props.labelPosition) {
             case "left":
                 labelX -= basicOffset;
@@ -77,7 +139,7 @@ export default React.createClass({
                 labelY += basicOffset + fontOffset;
                 break;
 
-            case "bottomrigh":
+            case "bottomright":
                 labelY += basicOffset + fontOffset;
                 labelX += basicOffset;
                 textAnchor = "start";
@@ -89,9 +151,42 @@ export default React.createClass({
                 textAnchor = "end";
                 break;
 
+            case "bottomleftangled":
+                labelX += 2;
+                labelY += basicOffset + fontOffset;
+                labelR = -45;
+                rotate = `rotate(${labelR} ${labelX}, ${labelY})`;
+                textAnchor = "end";
+                break;
+
+            case "bottomrightangled":
+                labelX -= 2;
+                labelY += basicOffset + fontOffset;
+                labelR = 45;
+                rotate = `rotate(${labelR} ${labelX}, ${labelY})`;
+                textAnchor = "start";
+                break;
+
+            case "topleftangled":
+                labelY -= basicOffset;
+                labelR = 45;
+                rotate = `rotate(${labelR} ${labelX}, ${labelY})`;
+                textAnchor = "end";
+                break;
+
+            case "toprightangled":
+                labelY -= basicOffset;
+                labelR = -45;
+                rotate = `rotate(${labelR} ${labelX}, ${labelY})`;
+                textAnchor = "start";
+                break;
+
             default:
                 break;
         }
+
+        labelX += this.props.labelOffsetX;
+        labelY += this.props.labelOffsetY;
 
         let nodeElement;
         if (this.props.shape === "cloud") {
@@ -118,7 +213,7 @@ export default React.createClass({
                     break;
                 case "bottom":
                 case "bottomleft":
-                case "bottomrigh":
+                case "bottomright":
                     labelY -= 15;
                     break;
                 default:
@@ -134,6 +229,8 @@ export default React.createClass({
             nodeElement = (
               <rect x={x}
                     y={y}
+                    rx={this.props.rx}
+                    ry={this.props.ry}
                     width={width}
                     height={width}
                     style={this.props.style[styleModifier]}
@@ -162,27 +259,31 @@ export default React.createClass({
             );
         }
 
-        return (
-            <g onClick={this._click}
-               onMouseOver={this._mouseOver}>
-                {nodeElement}
-                <text x={labelX}
-                      y={labelY}
-                      textAnchor={textAnchor}
-                      style={this.props.labelStyle[styleModifier]}
-                      className={labelClasses} >{this.props.label}</text>
-            </g>
-        );
-    },
-
-    _click(e) {
-        e.stopPropagation();
-
-        if (this.props.onSelectionChange) {
-            this.props.onSelectionChange("node", this.props.name);
+        if (this.props.label) {
+            return (
+                <g onClick={this.handMouseClick}
+                   onMouseOver={this.handleMouseOver}
+                   onMouseDown={this.handleMouseDown}
+                   onMouseMove={this.handleMouseMove}>
+                    {nodeElement}
+                    <text x={labelX}
+                          y={labelY}
+                          textAnchor={textAnchor}
+                          transform={rotate}
+                          style={this.props.labelStyle[styleModifier]}
+                          className={labelClasses} >{this.props.label}</text>
+                </g>
+            );
+        } else {
+            return (
+                <g onClick={this.handMouseClick}
+                   onMouseOver={this.handleMouseOver}
+                   onMouseDown={this.handleMouseDown}
+                   onMouseMove={this.handleMouseMove}
+                   onMouseUp={this.handleMouseUp}>
+                    {nodeElement}
+                </g>
+            );
         }
-    },
-
-    _mouseOver() {
     }
 });

@@ -1,0 +1,2023 @@
+{
+  "name": [
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "left",
+      "name": "ALBQ",
+      "site": null,
+      "type": "hub",
+      "x": 75,
+      "y": 85,
+      "id": "29fb2630-0afb-4885-bb6f-81383456a277"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "AMST",
+      "site": null,
+      "type": "hub",
+      "x": 230,
+      "y": 50,
+      "id": "9cc9f5dc-1398-4ac7-b604-61ac5201809d"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "right",
+      "name": "AOFA",
+      "site": null,
+      "type": "hub",
+      "x": 168,
+      "y": 67,
+      "id": "14a84016-c06b-45c6-866a-2da50c4e66b9"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "right",
+      "name": "ATLA",
+      "site": null,
+      "type": "hub",
+      "x": 135,
+      "y": 100,
+      "id": "0ea09083-3ec7-449b-9066-4926a18f6364"
+    },
+    {
+      "capacity": "",
+      "label_dx": 5,
+      "label_dy": null,
+      "label_position": "right",
+      "name": "BNL",
+      "site": 4,
+      "site_link": "/site/bnl/summary",
+      "site_type": "SC Lab",
+      "type": "esnet-site",
+      "x": 182,
+      "y": 53,
+      "id": "593d1a4b-b019-45f7-9190-fb9e81a14b08"
+    },
+    {
+      "capacity": "10G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "left",
+      "name": "BOIS",
+      "site": null,
+      "type": "hub",
+      "x": 37.5,
+      "y": 41,
+      "id": "66cb4d3f-67aa-42a5-bd98-465483a99493"
+    },
+    {
+      "capacity": "10G",
+      "label_dx": null,
+      "label_dy": -13,
+      "label_position": "top",
+      "name": "BOST",
+      "site": null,
+      "type": "hub",
+      "x": 175,
+      "y": 40,
+      "id": "99d19e0b-e903-449f-afcc-b19fc236fc88"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottom",
+      "name": "CERN",
+      "site": "CERN",
+      "type": "esnet-site",
+      "x": 230,
+      "y": 70,
+      "id": "3844f377-719b-4acd-9db1-3589b52ca744"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": 8,
+      "label_dy": -9,
+      "label_position": "bottomleft",
+      "name": "CHIC",
+      "site": null,
+      "type": "hub",
+      "x": 120,
+      "y": 60,
+      "id": "154385f2-3397-49a8-bcb9-74e4c9c1b404"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": -5,
+      "label_dy": 18,
+      "label_position": "bottomleft",
+      "name": "DENV",
+      "site": null,
+      "type": "hub",
+      "x": 75,
+      "y": 60,
+      "id": "a362114e-6e36-4293-a444-fff6916ebd9e"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottom",
+      "name": "ELPA",
+      "site": null,
+      "type": "hub",
+      "x": 75,
+      "y": 105,
+      "id": "d9f608bc-3453-41bc-a6cf-b7b353978447"
+    },
+    {
+      "capacity": "",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "FNAL",
+      "site": 3,
+      "site_link": "/site/fnal/summary",
+      "site_type": "SC Lab",
+      "type": "esnet-site",
+      "x": 120,
+      "y": 40,
+      "id": "921a2830-ceda-4bc9-9b3f-e793a465873a"
+    },
+    {
+      "capacity": "100G",
+      "label": "exoGENI",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "GENI-NERSC",
+      "site": null,
+      "type": "cloud",
+      "x": 0,
+      "y": 77,
+      "id": "724b54dd-7ced-42ca-ae0b-176db8dad065"
+    },
+    {
+      "capacity": "100G",
+      "label": "exoGENI",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "GENI-STARLIGHT",
+      "site": null,
+      "type": "cloud",
+      "x": 96,
+      "y": 41,
+      "id": "d9b82ddc-16d5-4264-a00f-b862c2678356"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottomleft",
+      "name": "HOUS",
+      "site": null,
+      "type": "hub",
+      "x": 100,
+      "y": 105,
+      "id": "b7a64a66-91ad-4909-9feb-448b39d998a2"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": -13,
+      "label_position": "top",
+      "name": "KANS",
+      "site": null,
+      "type": "hub",
+      "x": 100,
+      "y": 60,
+      "id": "332c14bf-484f-4013-8f33-a6236c780ffe"
+    },
+    {
+      "capacity": "",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "LLNL",
+      "site": 18,
+      "site_link": "/site/llnl/summary",
+      "site_type": "Multi-purpose Lab",
+      "type": "esnet-site",
+      "x": 30,
+      "y": 77,
+      "id": "a3dfd4d6-da2c-45c4-bc95-2fac2165309f"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottom",
+      "name": "LOND",
+      "site": null,
+      "type": "hub",
+      "x": 220,
+      "y": 60,
+      "id": "67f1bfd6-f9f8-40e7-87f7-fee356f10525"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottomleft",
+      "name": "MAX",
+      "site": null,
+      "type": "exchange",
+      "x": 165,
+      "y": 82,
+      "id": "5dceadc0-820a-4274-937a-08273e7bdc1f"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "right",
+      "name": "NASA",
+      "site": null,
+      "type": "cloud",
+      "x": 175,
+      "y": 82,
+      "id": "6619fc2d-cbfb-40be-b0d9-889bb26bf540"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "topright",
+      "name": "NASH",
+      "site": null,
+      "type": "hub",
+      "x": 120,
+      "y": 85,
+      "id": "35bb18ff-a99a-46eb-889e-9047664d84e9"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "left",
+      "name": "NERSC",
+      "site": 21,
+      "site_link": "/site/nersc/summary",
+      "site_type": "SC Facility",
+      "type": "esnet-site",
+      "x": 10,
+      "y": 85,
+      "id": "7b9f09fc-ea49-40bc-bae8-bab9ddee84c2"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "NERSC-TB1",
+      "site": null,
+      "type": "hub",
+      "x": 10,
+      "y": 75,
+      "id": "2322b450-8d4c-47de-98c7-fff39b053b6a"
+    },
+    {
+      "capacity": "100G",
+      "label": "ESnet Testbed",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "NERSC-TESTBED",
+      "site": null,
+      "type": "cloud",
+      "x": 10,
+      "y": 67,
+      "id": "47271d67-8b07-4942-9acc-c460a08d61d5"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "right",
+      "name": "NEWY",
+      "site": null,
+      "type": "hub",
+      "x": 175,
+      "y": 60,
+      "id": "e0ce56e2-d881-440d-a310-1ecf4dc74441"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottom",
+      "name": "NRL",
+      "site": null,
+      "type": "cloud",
+      "x": 165,
+      "y": 92,
+      "id": "a89c576a-12a3-4a38-9dc2-bdb30873ec8c"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": -13,
+      "label_position": "top",
+      "name": "PNWG",
+      "site": null,
+      "type": "hub",
+      "x": 20,
+      "y": 20,
+      "id": "ed4edf1d-02e2-4da0-91b7-2fc707ee5356"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": 5,
+      "label_dy": -10,
+      "label_position": "topright",
+      "name": "SACR",
+      "site": null,
+      "type": "hub",
+      "x": 20,
+      "y": 60,
+      "id": "7b9ad5ce-e872-4948-a0d8-b06f420c03d7"
+    },
+    {
+      "capacity": "10G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "left",
+      "name": "SAND",
+      "site": null,
+      "type": "hub",
+      "x": 20,
+      "y": 105,
+      "id": "69c3b6ac-115c-42ab-a087-d6025bc3c19f"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottom",
+      "name": "SC15",
+      "site": null,
+      "type": "sc15",
+      "x": 102,
+      "y": 113,
+      "id": "dfc50239-d747-4f87-9474-ef07abef9d10"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": -13,
+      "label_dy": 15,
+      "label_position": "topright",
+      "name": "STAR",
+      "site": null,
+      "type": "hub",
+      "x": 120,
+      "y": 50,
+      "id": "936e20ff-5f59-43ba-a25c-7b12d7647f0d"
+    },
+    {
+      "capacity": "100G",
+      "label": "StarLight",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "left",
+      "name": "STARLIGHT",
+      "site": null,
+      "type": "exchange",
+      "x": 105,
+      "y": 50,
+      "id": "a3a4dd4f-9eef-4a01-a107-c0c73261a785"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottom",
+      "name": "STAR-TB1",
+      "site": null,
+      "type": "hub",
+      "x": 105,
+      "y": 44,
+      "id": "0b05445b-8773-4cae-9a70-7abf523e75f6"
+    },
+    {
+      "capacity": "100G",
+      "label": "ESnet Testbed",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "STAR-TESTBED",
+      "site": null,
+      "type": "cloud",
+      "x": 105,
+      "y": 35,
+      "id": "ce99ce4b-7add-4d04-881b-5214a2041ac2"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottom",
+      "name": "SUNN",
+      "site": null,
+      "type": "hub",
+      "x": 20,
+      "y": 85,
+      "id": "115d25f4-e64a-4037-9282-828dac87a3f2"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "NCSA",
+      "site": null,
+      "type": "cloud",
+      "x": 111,
+      "y": 57,
+      "id": "f9064048-36de-4c5c-9a58-c5687ece74df"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": -14,
+      "label_dy": null,
+      "label_position": "left",
+      "name": "WASH",
+      "site": null,
+      "type": "hub",
+      "x": 158,
+      "y": 77,
+      "id": "e8682b5e-e7cc-4184-8863-8e044527932d"
+    },
+    {
+      "id": "32331551-c8d3-4d51-a377-7cfea9467401",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "NRL Test",
+      "type": "node",
+      "x": 111,
+      "y": 39
+    }
+  ],
+  "description": "<p>\r\nThis high level map of the ESnet 5 network highlights the sites\r\nESnet serves, the structure of the network and the current traffic load.  More\r\ninformation about each node and edge on the map is available by clicking on\r\nthat node or edge.\r\n</p>\r\n<p>\r\nIn order to increase the legibility of this map two simplifications have been\r\nsystematically applied.  The first simplification is that connectivity for\r\neach site is shown as a single pair of lines which show the traffic traversing\r\nall connections to the site.  This simplification means that this map does not\r\nshow the fault tolerence which has been carefully engineered to provide the\r\nsites with highly available connectivity.  An additional map is under\r\ndevelopment which will show this fault tolerence at some cost to legibility.\r\nThe second simplification is that for any pair of nodes shown there is only a\r\nsingle pair of lines representing all of the connections between that pair of\r\nnodes.  \r\n</p>",
+  "nodes": [
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "left",
+      "name": "ALBQ",
+      "site": null,
+      "type": "hub",
+      "x": 75,
+      "y": 85,
+      "id": "29fb2630-0afb-4885-bb6f-81383456a277"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "AMST",
+      "site": null,
+      "type": "hub",
+      "x": 230,
+      "y": 50,
+      "id": "9cc9f5dc-1398-4ac7-b604-61ac5201809d"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "right",
+      "name": "AOFA",
+      "site": null,
+      "type": "hub",
+      "x": 168,
+      "y": 67,
+      "id": "14a84016-c06b-45c6-866a-2da50c4e66b9"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "right",
+      "name": "ATLA",
+      "site": null,
+      "type": "hub",
+      "x": 135,
+      "y": 100,
+      "id": "0ea09083-3ec7-449b-9066-4926a18f6364"
+    },
+    {
+      "capacity": "",
+      "label_dx": 5,
+      "label_dy": null,
+      "label_position": "right",
+      "name": "BNL",
+      "site": 4,
+      "site_link": "/site/bnl/summary",
+      "site_type": "SC Lab",
+      "type": "esnet-site",
+      "x": 182,
+      "y": 53,
+      "id": "593d1a4b-b019-45f7-9190-fb9e81a14b08"
+    },
+    {
+      "capacity": "10G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "left",
+      "name": "BOIS",
+      "site": null,
+      "type": "hub",
+      "x": 37.5,
+      "y": 41,
+      "id": "66cb4d3f-67aa-42a5-bd98-465483a99493"
+    },
+    {
+      "capacity": "10G",
+      "label_dx": null,
+      "label_dy": -13,
+      "label_position": "top",
+      "name": "BOST",
+      "site": null,
+      "type": "hub",
+      "x": 175,
+      "y": 40,
+      "id": "99d19e0b-e903-449f-afcc-b19fc236fc88"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottom",
+      "name": "CERN",
+      "site": "CERN",
+      "type": "esnet-site",
+      "x": 230,
+      "y": 70,
+      "id": "3844f377-719b-4acd-9db1-3589b52ca744"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": 8,
+      "label_dy": -9,
+      "label_position": "bottomleft",
+      "name": "CHIC",
+      "site": null,
+      "type": "hub",
+      "x": 120,
+      "y": 60,
+      "id": "154385f2-3397-49a8-bcb9-74e4c9c1b404"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": -5,
+      "label_dy": 18,
+      "label_position": "bottomleft",
+      "name": "DENV",
+      "site": null,
+      "type": "hub",
+      "x": 75,
+      "y": 60,
+      "id": "a362114e-6e36-4293-a444-fff6916ebd9e"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottom",
+      "name": "ELPA",
+      "site": null,
+      "type": "hub",
+      "x": 75,
+      "y": 105,
+      "id": "d9f608bc-3453-41bc-a6cf-b7b353978447"
+    },
+    {
+      "capacity": "",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "FNAL",
+      "site": 3,
+      "site_link": "/site/fnal/summary",
+      "site_type": "SC Lab",
+      "type": "esnet-site",
+      "x": 120,
+      "y": 40,
+      "id": "921a2830-ceda-4bc9-9b3f-e793a465873a"
+    },
+    {
+      "capacity": "100G",
+      "label": "exoGENI",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "GENI-NERSC",
+      "site": null,
+      "type": "cloud",
+      "x": 0,
+      "y": 77,
+      "id": "724b54dd-7ced-42ca-ae0b-176db8dad065"
+    },
+    {
+      "capacity": "100G",
+      "label": "exoGENI",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "GENI-STARLIGHT",
+      "site": null,
+      "type": "cloud",
+      "x": 96,
+      "y": 41,
+      "id": "d9b82ddc-16d5-4264-a00f-b862c2678356"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottomleft",
+      "name": "HOUS",
+      "site": null,
+      "type": "hub",
+      "x": 100,
+      "y": 105,
+      "id": "b7a64a66-91ad-4909-9feb-448b39d998a2"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": -13,
+      "label_position": "top",
+      "name": "KANS",
+      "site": null,
+      "type": "hub",
+      "x": 100,
+      "y": 60,
+      "id": "332c14bf-484f-4013-8f33-a6236c780ffe"
+    },
+    {
+      "capacity": "",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "LLNL",
+      "site": 18,
+      "site_link": "/site/llnl/summary",
+      "site_type": "Multi-purpose Lab",
+      "type": "esnet-site",
+      "x": 30,
+      "y": 77,
+      "id": "a3dfd4d6-da2c-45c4-bc95-2fac2165309f"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottom",
+      "name": "LOND",
+      "site": null,
+      "type": "hub",
+      "x": 220,
+      "y": 60,
+      "id": "67f1bfd6-f9f8-40e7-87f7-fee356f10525"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottomleft",
+      "name": "MAX",
+      "site": null,
+      "type": "exchange",
+      "x": 165,
+      "y": 82,
+      "id": "5dceadc0-820a-4274-937a-08273e7bdc1f"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "right",
+      "name": "NASA",
+      "site": null,
+      "type": "cloud",
+      "x": 175,
+      "y": 82,
+      "id": "6619fc2d-cbfb-40be-b0d9-889bb26bf540"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "topright",
+      "name": "NASH",
+      "site": null,
+      "type": "hub",
+      "x": 120,
+      "y": 85,
+      "id": "35bb18ff-a99a-46eb-889e-9047664d84e9"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "left",
+      "name": "NERSC",
+      "site": 21,
+      "site_link": "/site/nersc/summary",
+      "site_type": "SC Facility",
+      "type": "esnet-site",
+      "x": 10,
+      "y": 85,
+      "id": "7b9f09fc-ea49-40bc-bae8-bab9ddee84c2"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "NERSC-TB1",
+      "site": null,
+      "type": "hub",
+      "x": 10,
+      "y": 75,
+      "id": "2322b450-8d4c-47de-98c7-fff39b053b6a"
+    },
+    {
+      "capacity": "100G",
+      "label": "ESnet Testbed",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "NERSC-TESTBED",
+      "site": null,
+      "type": "cloud",
+      "x": 10,
+      "y": 67,
+      "id": "47271d67-8b07-4942-9acc-c460a08d61d5"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "right",
+      "name": "NEWY",
+      "site": null,
+      "type": "hub",
+      "x": 175,
+      "y": 60,
+      "id": "e0ce56e2-d881-440d-a310-1ecf4dc74441"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottom",
+      "name": "NRL",
+      "site": null,
+      "type": "cloud",
+      "x": 165,
+      "y": 92,
+      "id": "a89c576a-12a3-4a38-9dc2-bdb30873ec8c"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": -13,
+      "label_position": "top",
+      "name": "PNWG",
+      "site": null,
+      "type": "hub",
+      "x": 20,
+      "y": 20,
+      "id": "ed4edf1d-02e2-4da0-91b7-2fc707ee5356"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": 5,
+      "label_dy": -10,
+      "label_position": "topright",
+      "name": "SACR",
+      "site": null,
+      "type": "hub",
+      "x": 20,
+      "y": 60,
+      "id": "7b9ad5ce-e872-4948-a0d8-b06f420c03d7"
+    },
+    {
+      "capacity": "10G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "left",
+      "name": "SAND",
+      "site": null,
+      "type": "hub",
+      "x": 20,
+      "y": 105,
+      "id": "69c3b6ac-115c-42ab-a087-d6025bc3c19f"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottom",
+      "name": "SC15",
+      "site": null,
+      "type": "sc15",
+      "x": 102,
+      "y": 113,
+      "id": "dfc50239-d747-4f87-9474-ef07abef9d10"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": -13,
+      "label_dy": 15,
+      "label_position": "topright",
+      "name": "STAR",
+      "site": null,
+      "type": "hub",
+      "x": 120,
+      "y": 50,
+      "id": "936e20ff-5f59-43ba-a25c-7b12d7647f0d"
+    },
+    {
+      "capacity": "100G",
+      "label": "StarLight",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "left",
+      "name": "STARLIGHT",
+      "site": null,
+      "type": "exchange",
+      "x": 105,
+      "y": 50,
+      "id": "a3a4dd4f-9eef-4a01-a107-c0c73261a785"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottom",
+      "name": "STAR-TB1",
+      "site": null,
+      "type": "hub",
+      "x": 105,
+      "y": 44,
+      "id": "0b05445b-8773-4cae-9a70-7abf523e75f6"
+    },
+    {
+      "capacity": "100G",
+      "label": "ESnet Testbed",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "STAR-TESTBED",
+      "site": null,
+      "type": "cloud",
+      "x": 105,
+      "y": 35,
+      "id": "ce99ce4b-7add-4d04-881b-5214a2041ac2"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "bottom",
+      "name": "SUNN",
+      "site": null,
+      "type": "hub",
+      "x": 20,
+      "y": 85,
+      "id": "115d25f4-e64a-4037-9282-828dac87a3f2"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "NCSA",
+      "site": null,
+      "type": "cloud",
+      "x": 111,
+      "y": 57,
+      "id": "f9064048-36de-4c5c-9a58-c5687ece74df"
+    },
+    {
+      "capacity": "100G",
+      "label_dx": -14,
+      "label_dy": null,
+      "label_position": "left",
+      "name": "WASH",
+      "site": null,
+      "type": "hub",
+      "x": 158,
+      "y": 77,
+      "id": "e8682b5e-e7cc-4184-8863-8e044527932d"
+    },
+    {
+      "id": "32331551-c8d3-4d51-a377-7cfea9467401",
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "NRL Test",
+      "type": "node",
+      "x": 111,
+      "y": 39
+    }
+  ],
+  "edges": [
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "albq-cr5",
+          "device_target": "denv-cr5",
+          "iface_source": "to_denv-cr5_ip-a",
+          "iface_target": "to_albq-cr5_ip-a",
+          "loc_source": "ALBQ",
+          "loc_target": "DENV"
+        }
+      ],
+      "site": null,
+      "source": "ALBQ",
+      "target": "DENV",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "albq-cr5",
+          "device_target": "elpa-cr5",
+          "iface_source": "to_elpa-cr5_ip-a",
+          "iface_target": "to_albq-cr5_ip-a",
+          "loc_source": "ALBQ",
+          "loc_target": "ELPA"
+        }
+      ],
+      "site": null,
+      "source": "ALBQ",
+      "target": "ELPA",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [],
+      "site": null,
+      "source": "STAR",
+      "target": "STARLIGHT",
+      "total_capacity": 100000000000,
+      "type": "testbed"
+    },
+    {
+      "capacity": "100G",
+      "site": null,
+      "source": "AOFA",
+      "target": "LOND",
+      "total_capacity": 100000000000,
+      "type": "eex"
+    },
+    {
+      "capacity": "10G",
+      "ifaces": [
+        {
+          "device_source": "amst-cr5",
+          "device_target": "bost-cr5",
+          "iface_source": "to_bost-cr5_ip-a",
+          "iface_target": "to_amst-cr5_ip-a",
+          "loc_source": "AMST",
+          "loc_target": "BOST"
+        }
+      ],
+      "site": null,
+      "source": "AMST",
+      "target": "BOST",
+      "total_capacity": 40000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "amst-cr5",
+          "device_target": "cern-272-cr5",
+          "iface_source": "to_cern-272-cr5_ip-a",
+          "iface_target": "to_amst-cr5_ip-a",
+          "loc_source": "AMST",
+          "loc_target": "CERN"
+        }
+      ],
+      "site": null,
+      "source": "AMST",
+      "target": "CERN",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "amst-cr5",
+          "device_target": "lond-cr5",
+          "iface_source": "to_lond-cr5_ip-a",
+          "iface_target": "to_amst-cr5_ip-a",
+          "loc_source": "AMST",
+          "loc_target": "LOND"
+        }
+      ],
+      "site": null,
+      "source": "AMST",
+      "target": "LOND",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "aofa-cr5",
+          "device_target": "newy-cr5",
+          "iface_source": "to_newy-cr5_ip-a",
+          "iface_target": "to_aofa-cr5_ip-a",
+          "loc_source": "AOFA",
+          "loc_target": "NEWY"
+        }
+      ],
+      "site": null,
+      "source": "AOFA",
+      "target": "NEWY",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "aofa-cr5",
+          "device_target": "wash-cr5",
+          "iface_source": "to_wash-cr5_ip-a",
+          "iface_target": "to_aofa-cr5_ip-a",
+          "loc_source": "AOFA",
+          "loc_target": "WASH"
+        }
+      ],
+      "site": null,
+      "source": "AOFA",
+      "target": "WASH",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "atla-cr5",
+          "device_target": "nash-cr5",
+          "iface_source": "to_nash-cr5_ip-a",
+          "iface_target": "to_atla-cr5_ip-a",
+          "loc_source": "ATLA",
+          "loc_target": "NASH"
+        }
+      ],
+      "site": null,
+      "source": "ATLA",
+      "target": "NASH",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "site": null,
+      "source": "CERN",
+      "target": "WASH",
+      "total_capacity": 100000000000,
+      "type": "eex"
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "atla-cr5",
+          "device_target": "wash-cr5",
+          "iface_source": "to_wash-cr5_ip-a",
+          "iface_target": "to_atla-cr5_ip-a",
+          "loc_source": "ATLA",
+          "loc_target": "WASH"
+        }
+      ],
+      "site": null,
+      "source": "ATLA",
+      "target": "WASH",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "newy-cr5",
+          "device_target": "BNL",
+          "iface_source": "to_bnl_ip-m_v4",
+          "iface_target": "site",
+          "loc_source": "NEWY",
+          "loc_target": "BNL"
+        },
+        {
+          "device_source": "aofa-cr5",
+          "device_target": "BNL",
+          "iface_source": "4/2/1",
+          "iface_target": "site",
+          "loc_source": "AOFA",
+          "loc_target": "BNL"
+        },
+        {
+          "device_source": "aofa-cr5",
+          "device_target": "BNL",
+          "iface_source": "to_bnl_ip-a_v4",
+          "iface_target": "site",
+          "loc_source": "AOFA",
+          "loc_target": "BNL"
+        },
+        {
+          "device_source": "pppl-rt5",
+          "device_target": "BNL",
+          "iface_source": "ge-0/1/1.0",
+          "iface_target": "site",
+          "loc_source": "PPPL",
+          "loc_target": "BNL"
+        },
+        {
+          "device_source": "bnl-mr2",
+          "device_target": "BNL",
+          "iface_source": "xe-2/1/0",
+          "iface_target": "site",
+          "loc_source": "BNL",
+          "loc_target": "BNL"
+        },
+        {
+          "device_source": "bnl-mr2",
+          "device_target": "BNL",
+          "iface_source": "xe-4/2/0",
+          "iface_target": "site",
+          "loc_source": "BNL",
+          "loc_target": "BNL"
+        },
+        {
+          "device_source": "newy-cr5",
+          "device_target": "BNL",
+          "iface_source": "3/1/1",
+          "iface_target": "site",
+          "loc_source": "NEWY",
+          "loc_target": "BNL"
+        }
+      ],
+      "site": "BNL",
+      "source": "BNL",
+      "target": "NEWY",
+      "total_capacity": 421000000000
+    },
+    {
+      "capacity": "10G",
+      "ifaces": [
+        {
+          "device_source": "bois-cr1",
+          "device_target": "denv-cr5",
+          "iface_source": "xe-7/1/0.5",
+          "iface_target": "to_bois-cr1_ip-b",
+          "loc_source": "BOIS",
+          "loc_target": "DENV"
+        }
+      ],
+      "site": null,
+      "source": "BOIS",
+      "target": "DENV",
+      "total_capacity": 10000000000
+    },
+    {
+      "capacity": "10G",
+      "ifaces": [
+        {
+          "device_source": "bois-cr1",
+          "device_target": "pnwg-cr5",
+          "iface_source": "xe-0/0/0.5",
+          "iface_target": "to_bois-cr1_ip-a",
+          "loc_source": "BOIS",
+          "loc_target": "PNWG"
+        }
+      ],
+      "site": null,
+      "source": "BOIS",
+      "target": "PNWG",
+      "total_capacity": 10000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [],
+      "site": null,
+      "source": "NERSC-TB1",
+      "target": "STAR-TB1",
+      "total_capacity": 100000000000,
+      "type": "testbed"
+    },
+    {
+      "capacity": "10G",
+      "ifaces": [
+        {
+          "device_source": "bost-cr5",
+          "device_target": "newy-cr5",
+          "iface_source": "to_newy-cr5_ip-c",
+          "iface_target": "to_bost-cr1_ip-a",
+          "loc_source": "BOST",
+          "loc_target": "NEWY"
+        },
+        {
+          "device_source": "bost-cr5",
+          "device_target": "newy-cr5",
+          "iface_source": "to_newy-cr5_ip-b",
+          "iface_target": "to_bost-cr1_ip-b",
+          "loc_source": "BOST",
+          "loc_target": "NEWY"
+        }
+      ],
+      "site": null,
+      "source": "BOST",
+      "target": "NEWY",
+      "total_capacity": 20000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [],
+      "site": null,
+      "source": "NERSC-TB1",
+      "target": "NERSC-TESTBED",
+      "total_capacity": 100000000000,
+      "type": "production"
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [],
+      "site": null,
+      "source": "GENI-NERSC",
+      "target": "NERSC-TB1",
+      "total_capacity": 100000000000,
+      "type": "production"
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [],
+      "site": null,
+      "source": "SC15",
+      "target": "STAR",
+      "total_capacity": 100000000000,
+      "type": "testbed"
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [],
+      "site": null,
+      "source": "AOFA",
+      "target": "STAR-TB1",
+      "total_capacity": 100000000000,
+      "type": "testbed"
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [],
+      "site": null,
+      "source": "STAR",
+      "target": "STAR-TB1",
+      "total_capacity": 100000000000,
+      "type": "production"
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [],
+      "site": null,
+      "source": "STARLIGHT",
+      "target": "STAR-TB1",
+      "total_capacity": 100000000000,
+      "type": "testbed"
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [],
+      "site": null,
+      "source": "GENI-STARLIGHT",
+      "target": "STAR-TB1",
+      "total_capacity": 100000000000,
+      "type": "demo"
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [],
+      "site": null,
+      "source": "STAR-TB1",
+      "target": "STAR-TESTBED",
+      "total_capacity": 100000000000,
+      "type": "testbed"
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [],
+      "site": null,
+      "source": "HOUS",
+      "target": "SC15",
+      "total_capacity": 100000000000,
+      "type": "testbed"
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [],
+      "site": null,
+      "source": "MAX",
+      "target": "WASH",
+      "total_capacity": 100000000000,
+      "type": "demo"
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [],
+      "site": null,
+      "source": "MAX",
+      "target": "NASA",
+      "total_capacity": 100000000000,
+      "type": "demo"
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [],
+      "site": null,
+      "source": "MAX",
+      "target": "NRL",
+      "total_capacity": 100000000000,
+      "type": "demo"
+    },
+    {
+      "capacity": "10G",
+      "ifaces": [
+        {
+          "device_source": "bost-cr5",
+          "device_target": "star-cr5",
+          "iface_source": "to_star-cr5_ip-b",
+          "iface_target": "to_bost-cr1_ip-b",
+          "loc_source": "BOST",
+          "loc_target": "STAR"
+        },
+        {
+          "device_source": "bost-cr5",
+          "device_target": "star-cr5",
+          "iface_source": "to_star-cr5_ip-c",
+          "iface_target": "to_bost-cr1_ip-a",
+          "loc_source": "BOST",
+          "loc_target": "STAR"
+        }
+      ],
+      "site": null,
+      "source": "BOST",
+      "target": "STAR",
+      "total_capacity": 20000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "cern-513-cr5",
+          "device_target": "lond-cr5",
+          "iface_source": "to_lond-cr5_ip-a",
+          "iface_target": "to_cern-513-cr5_ip-a",
+          "loc_source": "CERN",
+          "loc_target": "LOND"
+        }
+      ],
+      "site": null,
+      "source": "CERN",
+      "target": "LOND",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "chic-cr5",
+          "device_target": "kans-cr5",
+          "iface_source": "to_kans-cr5_ip-a",
+          "iface_target": "to_chic-cr5_ip-a",
+          "loc_source": "CHIC",
+          "loc_target": "KANS"
+        }
+      ],
+      "site": null,
+      "source": "CHIC",
+      "target": "KANS",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "chic-cr5",
+          "device_target": "nash-cr5",
+          "iface_source": "to_nash-cr5_ip-a",
+          "iface_target": "to_chic-cr5_ip-a",
+          "loc_source": "CHIC",
+          "loc_target": "NASH"
+        }
+      ],
+      "site": null,
+      "source": "CHIC",
+      "target": "NASH",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "chic-cr5",
+          "device_target": "star-cr5",
+          "iface_source": "to_star-cr5_ip-a",
+          "iface_target": "to_chic-cr5_ip-a",
+          "loc_source": "CHIC",
+          "loc_target": "STAR"
+        }
+      ],
+      "site": null,
+      "source": "CHIC",
+      "target": "STAR",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "chic-cr5",
+          "device_target": "wash-cr5",
+          "iface_source": "to_wash-cr5_ip-a",
+          "iface_target": "to_chic-cr5_ip-a",
+          "loc_source": "CHIC",
+          "loc_target": "WASH"
+        }
+      ],
+      "site": null,
+      "source": "CHIC",
+      "target": "WASH",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "denv-cr5",
+          "device_target": "kans-cr5",
+          "iface_source": "to_kans-cr5_ip-a",
+          "iface_target": "to_denv-cr5_ip-a",
+          "loc_source": "DENV",
+          "loc_target": "KANS"
+        }
+      ],
+      "site": null,
+      "source": "DENV",
+      "target": "KANS",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "10G",
+      "ifaces": [
+        {
+          "device_source": "denv-cr5",
+          "device_target": "pnwg-cr5",
+          "iface_source": "to_pnwg-cr5_ip-b",
+          "iface_target": "to_denv-cr5_ip-b",
+          "loc_source": "DENV",
+          "loc_target": "PNWG"
+        },
+        {
+          "device_source": "denv-cr5",
+          "device_target": "pnwg-cr5",
+          "iface_source": "to_pnwg-cr5_ip-a",
+          "iface_target": "to_denv-cr5_ip-a",
+          "loc_source": "DENV",
+          "loc_target": "PNWG"
+        }
+      ],
+      "site": null,
+      "source": "DENV",
+      "target": "PNWG",
+      "total_capacity": 20000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [],
+      "site": null,
+      "source": "AOFA",
+      "target": "SC15",
+      "total_capacity": 100000000000,
+      "type": "demo"
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "denv-cr5",
+          "device_target": "sacr-cr5",
+          "iface_source": "to_sacr-cr5_ip-a",
+          "iface_target": "to_denv-cr5_ip-a",
+          "loc_source": "DENV",
+          "loc_target": "SACR"
+        }
+      ],
+      "site": null,
+      "source": "DENV",
+      "target": "SACR",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "site": null,
+      "source": "STARLIGHT",
+      "target": "NCSA",
+      "total_capacity": 100000000000,
+      "type": "demo"
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "elpa-cr5",
+          "device_target": "hous-cr5",
+          "iface_source": "to_hous-cr5_ip-a",
+          "iface_target": "to_elpa-cr5_ip-a",
+          "loc_source": "ELPA",
+          "loc_target": "HOUS"
+        }
+      ],
+      "site": null,
+      "source": "ELPA",
+      "target": "HOUS",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "elpa-cr5",
+          "device_target": "sunn-cr5",
+          "iface_source": "to_sunn-cr5_ip-a",
+          "iface_target": "to_elpa-cr5_ip-a",
+          "loc_source": "ELPA",
+          "loc_target": "SUNN"
+        }
+      ],
+      "site": null,
+      "source": "ELPA",
+      "target": "SUNN",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "fnal-mr3",
+          "device_target": "FNAL",
+          "iface_source": "xe-0/1/0",
+          "iface_target": "site",
+          "loc_source": "FNAL",
+          "loc_target": "FNAL"
+        },
+        {
+          "device_source": "fnal-mr3",
+          "device_target": "FNAL",
+          "iface_source": "xe-1/1/0.0",
+          "iface_target": "site",
+          "loc_source": "FNAL",
+          "loc_target": "FNAL"
+        },
+        {
+          "device_source": "anl-mr2",
+          "device_target": "FNAL",
+          "iface_source": "xe-7/3/0.1805",
+          "iface_target": "site",
+          "loc_source": "ANL",
+          "loc_target": "FNAL"
+        },
+        {
+          "device_source": "fnal-mr2",
+          "device_target": "FNAL",
+          "iface_source": "ae0.0",
+          "iface_target": "site",
+          "loc_source": "FNAL",
+          "loc_target": "FNAL"
+        },
+        {
+          "device_source": "fnal-mr2",
+          "device_target": "FNAL",
+          "iface_source": "xe-2/3/0.1801",
+          "iface_target": "site",
+          "loc_source": "FNAL",
+          "loc_target": "FNAL"
+        },
+        {
+          "device_source": "fnal-mr2",
+          "device_target": "FNAL",
+          "iface_source": "xe-8/0/0",
+          "iface_target": "site",
+          "loc_source": "FNAL",
+          "loc_target": "FNAL"
+        },
+        {
+          "device_source": "fnal-mr3",
+          "device_target": "FNAL",
+          "iface_source": "xe-2/2/0",
+          "iface_target": "site",
+          "loc_source": "FNAL",
+          "loc_target": "FNAL"
+        },
+        {
+          "device_source": "star-cr5",
+          "device_target": "FNAL",
+          "iface_source": "2/2/1",
+          "iface_target": "site",
+          "loc_source": "STAR",
+          "loc_target": "FNAL"
+        }
+      ],
+      "site": "FNAL",
+      "source": "FNAL",
+      "target": "STAR",
+      "total_capacity": 180000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "hous-cr5",
+          "device_target": "kans-cr5",
+          "iface_source": "to_kans-cr5_ip-a",
+          "iface_target": "to_hous-cr5_ip-a",
+          "loc_source": "HOUS",
+          "loc_target": "KANS"
+        }
+      ],
+      "site": null,
+      "source": "HOUS",
+      "target": "KANS",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "hous-cr5",
+          "device_target": "nash-cr5",
+          "iface_source": "to_nash-cr5_ip-a",
+          "iface_target": "to_hous-cr5_ip-a",
+          "loc_source": "HOUS",
+          "loc_target": "NASH"
+        }
+      ],
+      "site": null,
+      "source": "HOUS",
+      "target": "NASH",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "snll-mr2",
+          "device_target": "LLNL",
+          "iface_source": "xe-2/3/0.1120",
+          "iface_target": "site",
+          "loc_source": "SNLL",
+          "loc_target": "LLNL"
+        },
+        {
+          "device_source": "llnl-mr2",
+          "device_target": "LLNL",
+          "iface_source": "xe-2/2/0.54",
+          "iface_target": "site",
+          "loc_source": "LLNL",
+          "loc_target": "LLNL"
+        },
+        {
+          "device_source": "sunn-cr5",
+          "device_target": "LLNL",
+          "iface_source": "to_llnl_ip-a",
+          "iface_target": "site",
+          "loc_source": "SUNN",
+          "loc_target": "LLNL"
+        },
+        {
+          "device_source": "llnl-mr2",
+          "device_target": "LLNL",
+          "iface_source": "xe-2/1/0.44",
+          "iface_target": "site",
+          "loc_source": "LLNL",
+          "loc_target": "LLNL"
+        },
+        {
+          "device_source": "llnl-mr2",
+          "device_target": "LLNL",
+          "iface_source": "xe-3/3/0.64",
+          "iface_target": "site",
+          "loc_source": "LLNL",
+          "loc_target": "LLNL"
+        },
+        {
+          "device_source": "albq-cr5",
+          "device_target": "LLNL",
+          "iface_source": "to_llnl_ip-a",
+          "iface_target": "site",
+          "loc_source": "ALBQ",
+          "loc_target": "LLNL"
+        }
+      ],
+      "site": "LLNL",
+      "source": "LLNL",
+      "target": "SUNN",
+      "total_capacity": 150000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "lond-cr5",
+          "device_target": "newy-cr5",
+          "iface_source": "to_newy-cr5_ip-a",
+          "iface_target": "to_lond-cr5_ip-a",
+          "loc_source": "LOND",
+          "loc_target": "NEWY"
+        }
+      ],
+      "site": null,
+      "source": "LOND",
+      "target": "NEWY",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "nersc-mr2",
+          "device_target": "NERSC",
+          "iface_source": "xe-7/1/0.303",
+          "iface_target": "site",
+          "loc_source": "NERSC",
+          "loc_target": "NERSC"
+        },
+        {
+          "device_source": "sunn-cr5",
+          "device_target": "NERSC",
+          "iface_source": "to_nersc_ip-a",
+          "iface_target": "site",
+          "loc_source": "SUNN",
+          "loc_target": "NERSC"
+        },
+        {
+          "device_source": "nersc-mr2",
+          "device_target": "NERSC",
+          "iface_source": "xe-0/1/0.1111",
+          "iface_target": "site",
+          "loc_source": "NERSC",
+          "loc_target": "NERSC"
+        },
+        {
+          "device_source": "sunn-cr5",
+          "device_target": "NERSC",
+          "iface_source": "to_nersc-kbase_ip-a",
+          "iface_target": "site",
+          "loc_source": "SUNN",
+          "loc_target": "NERSC"
+        },
+        {
+          "device_source": "nersc-mr2",
+          "device_target": "NERSC",
+          "iface_source": "xe-7/1/0.652",
+          "iface_target": "site",
+          "loc_source": "NERSC",
+          "loc_target": "NERSC"
+        }
+      ],
+      "site": "NERSC",
+      "source": "NERSC",
+      "target": "SUNN",
+      "total_capacity": 230000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "newy-cr5",
+          "device_target": "star-cr5",
+          "iface_source": "to_star-cr5_ip-a",
+          "iface_target": "to_newy-cr5_ip-a",
+          "loc_source": "NEWY",
+          "loc_target": "STAR"
+        },
+        {
+          "device_source": "newy-cr5",
+          "device_target": "star-cr5",
+          "iface_source": "to_star-cr5_ip-b",
+          "iface_target": "to_newy-cr5_ip-b",
+          "loc_source": "NEWY",
+          "loc_target": "STAR"
+        },
+        {
+          "device_source": "newy-cr5",
+          "device_target": "star-cr5",
+          "iface_source": "to_star-cr5_ip-c",
+          "iface_target": "to_newy-cr5_ip-c",
+          "loc_source": "NEWY",
+          "loc_target": "STAR"
+        }
+      ],
+      "site": null,
+      "source": "NEWY",
+      "target": "STAR",
+      "total_capacity": 120000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "pnwg-cr5",
+          "device_target": "sacr-cr5",
+          "iface_source": "to_sacr-cr5_ip-a",
+          "iface_target": "to_pnwg-cr5_ip-a",
+          "loc_source": "PNWG",
+          "loc_target": "SACR"
+        }
+      ],
+      "site": null,
+      "source": "PNWG",
+      "target": "SACR",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "100G",
+      "ifaces": [
+        {
+          "device_source": "sacr-cr5",
+          "device_target": "sunn-cr5",
+          "iface_source": "to_sunn-cr5_ip-a",
+          "iface_target": "to_sacr-cr5_ip-a",
+          "loc_source": "SACR",
+          "loc_target": "SUNN"
+        }
+      ],
+      "site": null,
+      "source": "SACR",
+      "target": "SUNN",
+      "total_capacity": 100000000000
+    },
+    {
+      "capacity": "10G",
+      "ifaces": [
+        {
+          "device_source": "sdsc-sdn2",
+          "device_target": "sunn-cr5",
+          "iface_source": "xe-0/1/0.5",
+          "iface_target": "to_sdsc-sdn2_ip-a",
+          "loc_source": "SDSC",
+          "loc_target": "SUNN"
+        }
+      ],
+      "site": null,
+      "source": "SAND",
+      "target": "SUNN",
+      "total_capacity": 10000000000
+    },
+    {
+      "source": "NRL Test",
+      "target": "STAR-TB1",
+      "capacity": ""
+    },
+    {
+      "source": "NRL",
+      "target": "SC15",
+      "capacity": ""
+    },
+    {
+      "source": "NERSC-TB1",
+      "target": "SUNN",
+      "capacity": ""
+    },
+    {
+      "source": "SC15",
+      "target": "STARLIGHT",
+      "capacity": ""
+    },
+    {
+      "source": "STAR",
+      "target": "AOFA",
+      "capacity": ""
+    }
+  ],
+  "paths": [
+    {
+      "ends": [],
+      "steps": [
+        "STAR-TB1",
+        "NERSC-TB1"
+      ],
+      "name": "MDTM"
+    },
+    {
+      "ends": [
+        {
+          "type": "sap",
+          "target": "star-cr5 6146-3_1_1-2605"
+        }
+      ],
+      "steps": [
+        "NERSC-TB1",
+        "STAR-TB1",
+        "STARLIGHT",
+        "SC15"
+      ],
+      "name": "Caltech_NERSC"
+    },
+    {
+      "ends": [],
+      "steps": [
+        "CERN",
+        "AMST",
+        "LOND",
+        "AOFA",
+        "SC15"
+      ],
+      "name": "Caltech_CERN"
+    },
+    {
+      "ends": [
+        {
+          "type": "sap",
+          "target": "wash-cr5 6167-5_2_1-1862"
+        }
+      ],
+      "steps": [
+        "SC15",
+        "STARLIGHT",
+        "STAR",
+        "AOFA",
+        "WASH",
+        "MAX",
+        "NASA"
+      ],
+      "name": "NASA_north"
+    },
+    {
+      "ends": [
+        {
+          "type": "sap",
+          "target": "wash-cr5 6168-5_2_1-1860"
+        }
+      ],
+      "steps": [
+        "NASA",
+        "MAX",
+        "WASH",
+        "ATLA",
+        "NASH",
+        "HOUS",
+        "SC15"
+      ],
+      "name": "NASA_south"
+    },
+    {
+      "ends": [],
+      "steps": [
+        "NRL",
+        "SC15"
+      ],
+      "name": "NRL_direct"
+    },
+    {
+      "ends": [
+        {
+          "type": "interface",
+          "target": "hous-cr5 4/1/1"
+        },
+        {
+          "type": "interface",
+          "target": "hous-cr5 4/2/1"
+        },
+        {
+          "type": "interface",
+          "target": "star-cr5 4/1/1"
+        },
+        {
+          "type": "interface",
+          "target": "aofa-cr5 6/1/1"
+        }
+      ],
+      "steps": [],
+      "name": "summary"
+    }
+  ]
+}

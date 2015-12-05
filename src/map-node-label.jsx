@@ -11,6 +11,7 @@
 import React from "react";
 
 export default React.createClass({
+
     render() {
         let textAnchor;
         switch (this.props.labelPosition) {
@@ -26,11 +27,12 @@ export default React.createClass({
         }
 
         return (
-            <text x={this.props.x}
-                  y={this.props.y}
-                  label={this.props.label}
-                  textAnchor={textAnchor}
-                  className={"map-label"}>
+            <text
+                x={this.props.x}
+                y={this.props.y}
+                label={this.props.label}
+                textAnchor={textAnchor}
+                className={"map-label"}>
                 {this.props.label}
             </text>
         );

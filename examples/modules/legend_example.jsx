@@ -27,10 +27,7 @@ export default React.createClass({
     },
 
     handleSelectionChanged(selectionType, selection) {
-        this.setState({
-            selectionType: selectionType,
-            selection: selection
-        });
+        this.setState({selectionType, selection});
     },
 
     render() {
@@ -107,4 +104,3 @@ export default React.createClass({
         );
     }
 });
-

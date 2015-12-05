@@ -10,10 +10,10 @@
 
 import React from "react";
 import _ from "underscore";
-import {Event} from "@esnet/pond";
+import { Event } from "pondjs";
 import TrafficMap from "../../src/traffic-map";
+import Markdown from "react-markdown";
 
-import Markdown from "react-markdown-el";
 const text = require("raw!../markdown/trafficmap.md");
 
 // Test data
@@ -28,14 +28,14 @@ import rawTraffic from "../data/portal_traffic.json";
 //
 
 const timestamp = rawTraffic.timestamp * 1000;
-let edgeTraffic = {};
+const edgeTraffic = {};
 _.each(rawTraffic.edges, edge => {
     _.each(edge.bps, (bps, dir) => {
         edgeTraffic[dir] = bps;
     });
 });
 
-let traffic = new Event(timestamp, edgeTraffic);
+const traffic = new Event(timestamp, edgeTraffic);
 
 //
 // Example
@@ -51,15 +51,12 @@ export default React.createClass({
     },
 
     handleSelectionChanged(selectionType, selection) {
-        this.setState({
-            selectionType: selectionType,
-            selection: selection
-        });
+        this.setState({selectionType, selection});
     },
 
     render() {
 
-        let mapSelection = {
+        const mapSelection = {
             nodes: this.state.selectionType === "node" ?
                 [this.state.selection] : [],
             edges: this.state.selectionType === "edge" ?
@@ -158,8 +155,8 @@ export default React.createClass({
 
         // Mapping of node type to style
         const stylesMap = {
-            "hub": hubStyle,
-            "esnet_site": siteStyle
+            hub: hubStyle,
+            esnet_site: siteStyle
         };
 
         return (
@@ -173,7 +170,7 @@ export default React.createClass({
                 <div className="row">
                     <div className="col-md-12">
                         <TrafficMap
-                            width={980} height={500} margin={50}
+                            bounds={{x1: -5, y1: 5, x2: 240, y2: 120}}
                             topology={topo}
                             traffic={traffic}
                             edgeColorMap={edgeColorMap}
@@ -192,7 +189,7 @@ export default React.createClass({
 
                 <div className="row">
                     <div className="col-md-12">
-                        <Markdown text={text} />
+                        <Markdown source={text} />
                     </div>
                 </div>
 

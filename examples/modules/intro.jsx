@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import Markdown from "react-markdown-el";
+import Markdown from "react-markdown";
 
 const text = require("raw!../../README.md");
 
@@ -20,7 +20,7 @@ export default React.createClass({
             <div>
                 <div className="row">
                     <div className="col-md-12">
-                        <Markdown text={text}/>
+                        <Markdown source={text}/>
                     </div>
                 </div>
             </div>

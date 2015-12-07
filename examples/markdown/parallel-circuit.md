@@ -2,12 +2,7 @@
 
 The Parallel Circuit is an array of circuits of length N, with each circuit being rendered as a linear connection, sharing two master endpoints.  The Parallel Circuit currenly only accepts the "linear" shape.  The Parallel Circuit assumes a horizontal positioning of a circuit where the y1 and y2 values are equal.  A parallel circuit builds an \<svg\> element out of the `width` and `height` props, and then positions the beginning and end of the circuit based on the `margin` prop.  
 
-Members are rendered as individual connections without endpoints, offset from each other.  As each member is rendered, they will alternate paths from top to bottom offset, with the offset length and angle increasing slightly with every other added member.  The angle direction for each member will alternate, giving a "mirror image" effect for every two circuits added.  For a list of 4 members, the order will end up as:
-
- * Member 3 - Rendered 3rd (top) 
- * Member 1 - Rendered 1st (top)
- * Member 2 - Rendered 2nd (bottom)
- * Member 4 - Rendered 4th (bottom)
+Members are rendered as individual connections without endpoints, offset from each other. The offset will increase by a multiplicative amount based on the number of members in the parallel circuit, and members are rendered sequentially.
 
 To render a parallel circuit, we pass in the list of member circuits, with props defined in the style map, explained in **Style** below:
 

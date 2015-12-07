@@ -120,45 +120,22 @@ export default React.createClass({
                       label={this.props.endpointLabelZ} />
         );
 
-        let position = -8;
-        let val = true;
-        let rx1;
-        let rx2;
-        let ry1;
-        let ry2;
-        const yOffset = 0;
+        const yOffset = 4;
+        
+        let offset = 0;
 
-        /* Alternate rendering a circuit back and forth, incrementing the position
-         * from the center each time, starting with the top for a single circuit
-         * This will render the following order
-         *      Circuit 3, Circuit 1, Circuit 2, Circuit 4
-         */
-
+        if (memberList.length > 0) {
+            offset = -(memberList.length - 1) * 0.5 - 1;
+        }
+        
         _.each(memberList, (member, memberIndex) => {
-            if ((memberIndex + 1) % 2) {
-                position += 16;
-            }
-            switch (val) {
-                case true:
-                    rx1 = x2;
-                    rx2 = x1;
-                    ry1 = y2;
-                    ry2 = y1;
-                    break;
-                case false:
-                    rx1 = x1;
-                    rx2 = x2;
-                    ry1 = y1;
-                    ry2 = y2;
-                    break;
-                default:
-                    break;
-            }
+            offset += 1;
+            const position = 18 * offset;
             elements.push(
-                <Connection x1={rx1}
-                            x2={rx2}
-                            y1={ry1}
-                            y2={ry2}
+                <Connection x1={x1}
+                            x2={x2}
+                            y1={y1}
+                            y2={y2}
                             key={"circuit-" + memberIndex}
                             style={member.styleProperties.style}
                             lineShape={member.styleProperties.lineShape}
@@ -170,7 +147,6 @@ export default React.createClass({
                             position={position}
                             onSelectionChange={this.props.onSelectionChange}/>
             );
-            val = !val;
         });
         return (
             <g>

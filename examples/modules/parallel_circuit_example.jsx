@@ -15,7 +15,7 @@ import ParallelCircuit from "../../src/circuit-diagram-parallel";
 import Resizable from "../../src/resizable";
 import { stylesMap } from "../styles/styles.js";
 
-const text = require("raw!../markdown/concatenated-circuit.md");
+const text = require("raw!../markdown/parallel-circuit.md");
 
 const circuitTypeList = [
     "optical",
@@ -231,7 +231,7 @@ export default React.createClass({
             <div>
                 <div className="row">
                     <div className="col-md-12">
-                        <h3>Concatenated Circuit Example</h3>
+                        <h3>Parallel Circuit Example</h3>
                     </div>
                 </div>
                 <div className="row">

@@ -151,7 +151,6 @@ export default React.createClass({
                             onSelectionChange={this.props.onSelectionChange}/>
             );
             memberList.shift();
-            // position = -9;
         }
    
         /* Alternate rendering a circuit back and forth, incrementing the position

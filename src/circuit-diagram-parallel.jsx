@@ -120,14 +120,40 @@ export default React.createClass({
                       label={this.props.endpointLabelZ} />
         );
 
-        let position = -8;
+        let position = 0;
         let val = true;
         let rx1;
         let rx2;
         let ry1;
         let ry2;
-        const yOffset = 0;
-
+        const yOffset = 4;
+        
+        // If the array is even, just return the offset for the angle
+        if (memberList.length % 2 === 0) {
+            position = -9;
+        } else {
+        // If the array is not even, then add the 1st circuit as a straight line, and remove it from the array
+            const member = memberList[0];
+            elements.push(
+                <Connection x1={x1}
+                            x2={x2}
+                            y1={y1}
+                            y2={y2}
+                            key={"circuit-center"}
+                            style={member.styleProperties.style}
+                            lineShape={member.styleProperties.lineShape}
+                            label={member.circuitLabel}
+                            labelPosition={this.props.connectionLabelPosition}
+                            labelOffsetY={yOffset}
+                            noNavigate={member.styleProperties.noNavigate}
+                            navTo={member.navTo}
+                            position={position}
+                            onSelectionChange={this.props.onSelectionChange}/>
+            );
+            memberList.shift();
+            // position = -9;
+        }
+   
         /* Alternate rendering a circuit back and forth, incrementing the position
          * from the center each time, starting with the top for a single circuit
          * This will render the following order
@@ -136,7 +162,7 @@ export default React.createClass({
 
         _.each(memberList, (member, memberIndex) => {
             if ((memberIndex + 1) % 2) {
-                position += 16;
+                position += 18;
             }
             switch (val) {
                 case true:

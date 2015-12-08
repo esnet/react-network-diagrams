@@ -170,6 +170,7 @@ export default React.createClass({
                 <div className="row">
                     <div className="col-md-12">
                         <TrafficMap
+                            autoSize={true}
                             bounds={{x1: -5, y1: 5, x2: 240, y2: 120}}
                             topology={topo}
                             traffic={traffic}

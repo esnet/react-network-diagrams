@@ -10,7 +10,8 @@
 
 import React from "react";
 import Markdown from "react-markdown";
-import LocationPanelDiagram from "../../src/location-diagram-panel";
+import APIDocs from "./docs";
+import LocationPanelDiagram from "../../src/circuit-diagram-patchpanel";
 import Resizable from "../../src/resizable";
 import {stylesMap} from "../styles/styles.js";
 
@@ -296,10 +297,18 @@ export default React.createClass({
                         </Resizable>
                     </div>
                 </div>
+
                 <div className="row">
                     <div className="col-md-12">
                         <hr />
                         <Markdown source={text} />
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12">
+                        <hr />
+                        <APIDocs file="src/circuit-diagram-patchpanel.jsx"/>
                     </div>
                 </div>
             </div>

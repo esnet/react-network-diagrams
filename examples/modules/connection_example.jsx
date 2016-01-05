@@ -11,9 +11,9 @@
 import React from "react";
 import _ from "underscore";
 import Markdown from "react-markdown";
+import APIDocs from "./docs";
 import Connection from "../../src/circuit-diagram-connection";
-
-import {stylesMap} from "../styles/styles.js";
+import { stylesMap } from "../styles/styles.js";
 
 const text = require("raw!../markdown/connection.md");
 
@@ -23,19 +23,16 @@ const endpointShapeList = ["circle", "square", "cloud", "arrow"];
 const noNavigateList = ["Yes", "No"];
 const styleList = ["Style 1", "Style 2", "Style 3"];
 const labelPositionChoiceList = ["top", "bottom", "center"];
-                                // "topleft", "topright",
-                                // "bottomleft", "bottomright",
 const textAnchorList = ["middle", "begin", "end"];
-const numberList = [0,1,2,3,5,7,10,15,20,25,30];
-const sizeList = [5,10,20,40,60,100];
-const positionList = [-90,-45,-30,-20,-15,-10,-3,-1,0,1,3,10,15,20,30,45,90];
-const curveDirectionList = ["left","right"];
-const xyChoiceList = [75,125,175,225,275,325,375,425];
-let toRender;
+const numberList = [0, 1, 2, 3, 5, 7, 10, 15, 20, 25, 30];
+const sizeList = [5, 10, 20, 40, 60, 100];
+const positionList = [-90, -45, -30, -20, -15, -10, -3, -1, 0, 1, 3, 10, 15, 20, 30, 45, 90];
+const curveDirectionList = ["left", "right"];
+const xyChoiceList = [75, 125, 175, 225, 275, 325, 375, 425];
 
 const Selector = React.createClass({
 
-    _handleChange(e) {
+    handleChange(e) {
         const val = e.target.value;
         this.props.handleChange(val);
     },
@@ -47,7 +44,11 @@ const Selector = React.createClass({
             );
         });
         return (
-            <select ref="menu" value={this.props.selected} onChange={this._handleChange}>
+            <select
+                ref="menu"
+                style={{marginRight: 5}}
+                value={this.props.selected}
+                onChange={this.handleChange}>
                 {options}
             </select>
         );
@@ -99,7 +100,7 @@ export default React.createClass({
         };
     },
 
-    _endpointShapeChange(val) {
+    handleEndpointShapeChange(val) {
         if (val === "arrow") {
             this.setState({arrowStyle: true});
             this.setState({endpointShape: val});
@@ -109,7 +110,7 @@ export default React.createClass({
         }
     },
 
-    _noNavigateChange(val) {
+    handleNoNavigateChange(val) {
         switch (val) {
             case "Yes":
                 this.setState({noNavigate: true});
@@ -125,7 +126,7 @@ export default React.createClass({
         this.setState({noNavigateChoice: val});
     },
 
-    _centerLineChange(val) {
+    handleCenterLineChange(val) {
         switch (val) {
             case "Yes":
                 this.setState({centerLine: true});
@@ -141,7 +142,7 @@ export default React.createClass({
         this.setState({centerLineChoice: val});
     },
 
-    _styleTypeChange(val) {
+    handleStyleTypeChange(val) {
         switch (val) {
             case "Style 1":
                 this.setState({style: stylesMap.line1});
@@ -161,7 +162,7 @@ export default React.createClass({
         this.setState({styleType: val});
     },
 
-    _styleModChange(val) {
+    handleStyleModChange(val) {
         switch (val) {
             case "normal":
                 this.setState({mutedStyle: false});
@@ -184,106 +185,112 @@ export default React.createClass({
         this.setState({styleModifier: val});
     },
 
-    _positionOffsetChange(val) {
+    handlePositionOffsetChange(val) {
         const i = parseInt(val,10);
         this.setState({position: i});
     },
 
-    _onSelectionChange(e,val) {
+    handleSelectionChange(e,val) {
         const message = `You clicked connection ${e} with name ${val}`;
         window.alert(message);
     },
     // these choices apply to all
 
-    _renderDefaultPropChoices() {
+    renderDefaultPropChoices() {
         return (
             <div>
                 <div>
-                    <Selector selected={this.state.lineShape}
-                              selectionList={lineShapeList}
-                              handleChange={val => {
-                                  this.setState({lineShape: val});
-                              }} />
-                    <p>Select the line shape</p>
+                    <Selector
+                        selected={this.state.lineShape}
+                        selectionList={lineShapeList}
+                        handleChange={lineShape => this.setState({lineShape})} />
+                    <p>Select the "lineShape" on the connection</p>
                 </div>
                 <div>
-                    <Selector selected={this.state.x1}
-                              selectionList={xyChoiceList}
-                              handleChange={val => {
-                                  const i = parseInt(val,10);
-                                  this.setState({x1: i});
-                              }} />
-                    <Selector selected={this.state.y1}
-                              selectionList={xyChoiceList}
-                              handleChange={val => {
-                                  const i = parseInt(val,10);
-                                  this.setState({y1: i});
-                              }} />
-                    <Selector selected={this.state.x2}
-                              selectionList={xyChoiceList}
-                              handleChange={val => {
-                                  const i = parseInt(val,10);
-                                  this.setState({x2: i});
-                              }} />
-                    <Selector selected={this.state.y2}
-                              selectionList={xyChoiceList}
-                              handleChange={val => {
-                                  const i = parseInt(val,10);
-                                  this.setState({y2: i});
-                              }} />
-                    <p>Select the x1, y1, x2, y2 for the connection</p>
+                    <Selector
+                        selected={this.state.x1}
+                        selectionList={xyChoiceList}
+                        handleChange={val => {
+                            const x1 = parseInt(val, 10);
+                            this.setState({x1});
+                        }} />
+                    <Selector
+                        selected={this.state.y1}
+                        selectionList={xyChoiceList}
+                        handleChange={val => {
+                            const y1 = parseInt(val, 10);
+                            this.setState({y1});
+                        }} />
+                    <Selector
+                        selected={this.state.x2}
+                        selectionList={xyChoiceList}
+                        handleChange={val => {
+                            const x2 = parseInt(val, 10);
+                            this.setState({x2});
+                        }} />
+                    <Selector
+                        selected={this.state.y2}
+                        selectionList={xyChoiceList}
+                        handleChange={val => {
+                            const y2 = parseInt(val, 10);
+                            this.setState({y2});
+                        }} />
+                    <p>Select the "x1", "y1", "x2", "y2" position props for the connection</p>
                 </div>
                 <div>
-                    <Selector selected={this.state.styleType}
-                              selectionList={styleList}
-                              handleChange={this._styleTypeChange} />
-                    <Selector selected={this.state.styleModifier}
-                              selectionList={styleModifierList}
-                              handleChange={this._styleModChange} />
-                    <p>Select the line style and modifier</p>
+                    <Selector
+                        selected={this.state.styleType}
+                        selectionList={styleList}
+                        handleChange={this.handleStyleTypeChange} />
+                    <Selector
+                        selected={this.state.styleModifier}
+                        selectionList={styleModifierList}
+                        handleChange={this.handleStyleModChange} />
+                    <p>Select the line style preset and modifier</p>
                 </div>
                 <div>
-                    <Selector selected={this.state.labelPosition}
-                              selectionList={labelPositionChoiceList}
-                              handleChange={val => {
-                                  this.setState({labelPosition: val});
-                              }} />
-                    <p>Select the label position</p>
+                    <Selector
+                        selected={this.state.labelPosition}
+                        selectionList={labelPositionChoiceList}
+                        handleChange={labelPosition => this.setState({labelPosition})} />
+                    <p>Select the "labelPosition" prop</p>
                 </div>
                 <div>
-                    <Selector selected={this.state.textAnchor}
-                              selectionList={textAnchorList}
-                              handleChange={val => {
-                                  this.setState({textAnchor: val});
-                              }} />
-                    <p>Select the text position</p>
+                    <Selector
+                        selected={this.state.textAnchor}
+                        selectionList={textAnchorList}
+                        handleChange={textAnchor => this.setState({textAnchor})} />
+                    <p>Select the label's "textAnchor" prop</p>
                 </div>
                 <div>
-                    <Selector selected={this.state.labelOffsetX}
-                              selectionList={positionList}
-                              handleChange={val => {
-                                  const i = parseInt(val,10);
-                                  this.setState({labelOffsetX: i});
-                              }} />
-                    <Selector selected={this.state.labelOffsetY}
-                              selectionList={positionList}
-                              handleChange={val => {
-                                  const i = parseInt(val,10);
-                                  this.setState({labelOffsetY: i});
-                              }} />
-                    <p>Select the X and Y label offset</p>
+                    <Selector
+                        selected={this.state.labelOffsetX}
+                        selectionList={positionList}
+                        handleChange={val => {
+                            const labelOffsetX = parseInt(val, 10);
+                            this.setState({labelOffsetX});
+                        }} />
+                    <Selector
+                        selected={this.state.labelOffsetY}
+                        selectionList={positionList}
+                        handleChange={val => {
+                            const labelOffsetY = parseInt(val, 10);
+                            this.setState({labelOffsetY});
+                        }} />
+                    <p>Select the "labelOffsetX" and "labelOffsetY" label offset</p>
                 </div>
                 <div>
-                    <Selector selected={this.state.noNavigateChoice}
-                              selectionList={noNavigateList}
-                              handleChange={this._noNavigateChange} />
+                    <Selector
+                        selected={this.state.noNavigateChoice}
+                        selectionList={noNavigateList}
+                        handleChange={this.handleNoNavigateChange} />
                     <p>Select whether to disable navigation</p>
                 </div>
             </div>
         );
     },
 
-    _renderBiDirectionalChoice() {
+    renderBiDirectionalChoice() {
         return (
             <div>
                 <Selector selected={this.state.bidirectionalChoice}
@@ -296,14 +303,14 @@ export default React.createClass({
         );
     },
 
-    _renderEndpointPropsChoices() {
+    renderEndpointPropsChoices() {
         if (this.state.arrowStyle === true) {
             return (
                 <div>
                     <div>
                         <Selector selected={this.state.endpointShape}
                                   selectionList={endpointShapeList}
-                                  handleChange={this._endpointShapeChange}/>
+                                  handleChange={this.handleEndpointShapeChange}/>
                         <p>Select the endpoint shape</p>
                     </div>
                     {this._renderArrowChoices()}
@@ -315,7 +322,7 @@ export default React.createClass({
                     <div>
                         <Selector selected={this.state.endpointShape}
                                   selectionList={endpointShapeList}
-                                  handleChange={this._endpointShapeChange}/>
+                                  handleChange={this.handleEndpointShapeChange}/>
                         <p>Select the endpoint shape</p>
                     </div>
                     <div>
@@ -332,24 +339,24 @@ export default React.createClass({
         }
     },
 
-    _renderLinearChoices() {
+    renderLinearChoices() {
         return (
             <div>
                 <Selector selected={this.state.position}
                           selectionList={positionList}
-                          handleChange={this._positionOffsetChange} />
+                          handleChange={this.handlePositionOffsetChange} />
                 <p>Select line position offset</p>
             </div>
         );
     },
 
-    _renderCurvedChoices() {
+    renderCurvedChoices() {
         return (
             <div>
                 <div>
                     <Selector selected={this.state.position}
                               selectionList={positionList}
-                              handleChange={this._positionOffsetChange} />
+                              handleChange={this.handlePositionOffsetChange} />
                     <p>Select line position offset</p>
                 </div>
                 <div>
@@ -390,7 +397,7 @@ export default React.createClass({
         );
     },
 
-    _renderSquareChoices() {
+    renderSquareChoices() {
         return (
             <div>
                 <div>
@@ -420,20 +427,20 @@ export default React.createClass({
                 <div>
                     <Selector selected={this.state.centerLineChoice}
                               selectionList={noNavigateList}
-                              handleChange={this._centerLineChange} />
+                              handleChange={this.handleCenterLineChange} />
                     <p>Select to render a center line</p>
                 </div>
             </div>
         );
     },
 
-    _renderAngledChoices() {
+    renderAngledChoices() {
         return (
             <div>
                 <div>
                     <Selector selected={this.state.position}
                               selectionList={positionList}
-                              handleChange={this._positionOffsetChange} />
+                              handleChange={this.handlePositionOffsetChange} />
                     <p>Select the position angle</p>
                 </div>
                 <div>
@@ -454,7 +461,7 @@ export default React.createClass({
         );
     },
 
-    _renderSimpleConnection() {
+    renderSimpleConnection() {
         return (
             <svg width={this.props.width}
                  height={this.props.height}
@@ -487,14 +494,14 @@ export default React.createClass({
                                 noNavigate={this.state.noNavigate}
                                 size={this.state.size}
                                 centerLine={this.state.centerLine}
-                                onSelectionChange={this._onSelectionChange}
+                                onSelectionChange={this.handleSelectionChange}
                                 navTo={this.state.labelPosition}/>
                 </g>
             </svg>
         );
     },
 
-    _renderBiDirectionalConnection() {
+    renderBiDirectionalConnection() {
         return (
             <svg width={this.props.width}
                  height={this.props.height}
@@ -527,7 +534,7 @@ export default React.createClass({
                                 noNavigate={this.state.noNavigate}
                                 size={this.state.size}
                                 centerLine={this.state.centerLine}
-                                onSelectionChange={this._onSelectionChange}
+                                onSelectionChange={this.handleSelectionChange}
                                 navTo={this.state.labelPosition}/>
                 </g>
                 <g>
@@ -558,46 +565,46 @@ export default React.createClass({
                                 noNavigate={this.state.noNavigate}
                                 size={this.state.size}
                                 centerLine={this.state.centerLine}
-                                onSelectionChange={this._onSelectionChange}
+                                onSelectionChange={this.handleSelectionChange}
                                 navTo={this.state.labelPosition}/>
                 </g>
             </svg>
         );
     },
 
-    _renderConnection() {
+    renderConnection() {
         if (this.state.bidirectionalChoice === "Yes") {
             return (
                 <div>
-                    {this._renderBiDirectionalConnection()}
+                    {this.renderBiDirectionalConnection()}
                 </div>
             );
         } else {
             return (
                 <div>
-                    {this._renderSimpleConnection()}
+                    {this.renderSimpleConnection()}
                 </div>
             );
         }
     },
 
-    _determineShapeRendering() {
+    determineShapeRendering() {
         switch (this.state.lineShape) {
             case "linear":
-                return this._renderLinearChoices();
+                return this.renderLinearChoices();
             case "curved":
-                return this._renderCurvedChoices();
+                return this.renderCurvedChoices();
             case "square":
-                return this._renderSquareChoices();
+                return this.renderSquareChoices();
             case "angled":
-                return this._renderAngledChoices();
+                return this.renderAngledChoices();
             default:
                 break;
         }
     },
 
     render() {
-        toRender = this._determineShapeRendering();
+        const toRender = this.determineShapeRendering();
         return (
             <div>
                 <div className="row">
@@ -609,25 +616,32 @@ export default React.createClass({
                 <div className="row">
                     <div className="col-md-4">
                         <h4>Connection Options</h4>
-                        {this._renderBiDirectionalChoice()}
+                        {this.renderBiDirectionalChoice()}
                         <p><strong>Line Properties</strong></p>
-                        {this._renderDefaultPropChoices()}
+                        {this.renderDefaultPropChoices()}
                         <strong>Line shape unique properties</strong>
                         {toRender}
                         <br />
                         <strong>Line cap properties</strong>
-                        {this._renderEndpointPropsChoices()}
+                        {this.renderEndpointPropsChoices()}
                     </div>
 
                     <div className="col-md-8">
                         <h4>Connection Rendering</h4>
-                        {this._renderConnection()}
+                        {this.renderConnection()}
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
                         <hr />
                         <Markdown source={text} />
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12">
+                        <hr />
+                        <APIDocs file="src/circuit-diagram-connection.jsx"/>
                     </div>
                 </div>
             </div>

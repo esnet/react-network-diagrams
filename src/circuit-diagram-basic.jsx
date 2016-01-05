@@ -15,12 +15,14 @@ import Navigate from "./circuit-diagram-navigate";
 import { Directions } from "./constants.js";
 
 /**
- * Renders a horizontal circuit by determining x1, x2, y1, y2
+ * Renders a horizontal circuit by determining `x1`, `x2`, `y1`, `y2`
  * coordinates on the page and then render a basic circuit by combining the
  * connection and endpoint props. Connection shape, style, and label information,
  * are passed in as props
  */
 export default React.createClass({
+
+    displayName: "BasicDiagram",
 
     getDefaultProps() {
         return {
@@ -38,36 +40,74 @@ export default React.createClass({
     },
 
     propTypes: {
-        lineStyle: React.PropTypes.object,
+        /** The style of the line */
+        lineStyle: React.PropTypes.object.isRequired,
+
+        /** Text value describing the shape of the line, "linear", "curved", etc. */
         lineShape: React.PropTypes.oneOf([
             "linear",
             "curved",
             "square",
             "angled"
         ]),
+
+        /**
+         * Describes the position of the connection label.
+         */
         connectionLabelPosition: React.PropTypes.oneOf([
             "top",
             "center",
             "bottom"
         ]),
+
+        /**
+         * String to be displayed for the connection. If an array of strings is
+         * supplied they will be displayed in a multi-line layout.
+         */
         circuitLabel: React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.arrayOf(React.PropTypes.string)
         ]),
-        yOffset: React.PropTypes.number,
-        title: React.PropTypes.string,
-        noNavigate: React.PropTypes.bool,
-        size: React.PropTypes.number,          // controls size of square
-        centerLine: React.PropTypes.bool,      // controls if a horizontal line is drawn down the center
-                                               // of a square
-        squareWidth: React.PropTypes.number,   // This value is used to determine X coordinates
-                                               // for a square, if you want the square to be smaller
-                                               // than the default line width. Overrides the margin prop
-                                               // if a square is displayed
 
-        endpointStyle: React.PropTypes.object, // the style of the endpoint
-                                               // TODO: be more explicit here about the expected shape
-        endpointLabelPosition: React.PropTypes.oneOf([ // The position of the label around the endpoint.
+        /**
+         * Vertical distance from the center line to offset the connection label.
+         */
+        yOffset: React.PropTypes.number,
+
+        /**
+         * The string to display in the top left corner of the diagram.
+         */
+        title: React.PropTypes.string,
+
+        /**
+         * Boolean value that determines if the element uses the onSelectionChange
+         * change and can be clicked
+         */
+        noNavigate: React.PropTypes.bool,
+
+        /** Controls the size of the square */
+        size: React.PropTypes.number,
+
+        /** controls if a horizontal line is drawn down the center of a square */
+        centerLine: React.PropTypes.bool,
+
+        /**
+         * This value is used to determine X coordinates for a square, if you want
+         * the square to be smaller than the default line width. Overrides the
+         * margin prop if a square is displayed
+         */
+        squareWidth: React.PropTypes.number,
+
+        /**
+         * The style of the endpoint.
+         * TODO: be more explicit here about the expected shape.
+         */
+        endpointStyle: React.PropTypes.object,
+
+        /**
+         * The position of the label around the endpoint.
+         */
+        endpointLabelPosition: React.PropTypes.oneOf([
             "left",
             "right",
             "top",
@@ -80,20 +120,46 @@ export default React.createClass({
             "bottomrightangled",
             "topleftangled",
             "toprightangled"]),
-        endpointLabelA: React.PropTypes.string, // Left side endpoint label
-        endpointLabelZ: React.PropTypes.string, // Right side endpoint label
-        disabled: React.PropTypes.bool,         // Disables the circuit
-        onSelectionChange: React.PropTypes.func, // Callback used to handle clicks.
 
-        navTo: React.PropTypes.oneOfType([      // Value passed down to the click
-            React.PropTypes.string,             // handler at the lowest level primitive.
-            React.PropTypes.number              // Will return to the onSelectionChange
-        ]),                                     // it's value
+        /**
+         * Left side endpoint label
+         */
+        endpointLabelA: React.PropTypes.string,
 
-        parentId: React.PropTypes.oneOfType([   // If provided, will render a small nav arrow
-            React.PropTypes.string,             // that when clicked, navigates to that element.
-            React.PropTypes.number              // Used mainly when we want to show a parent / child
-        ])                                      // relationship between two circuits.        
+        /**
+         * Right side endpoint label
+         */
+        endpointLabelZ: React.PropTypes.string,
+
+        /**
+         * Disables the circuit by muting the colors and disabling events.
+         */
+        disabled: React.PropTypes.bool,
+
+        /**
+         * Callback specified to handle selection of the circuit. The value supplied
+         * to the callback is whatever was specified in the navTo prop.
+         */
+        onSelectionChange: React.PropTypes.func,
+
+        /**
+         * Value passed down to the click handler at the lowest level primitive.
+         * Will return to the onSelectionChange its value.
+         */
+        navTo: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.number
+        ]),
+
+        /**
+         * If provided, will render a small nav arrow that when clicked,
+         * navigates to that element. Used mainly when we want to show a parent / child
+         * relationship between two circuits.
+         */
+        parentId: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.number
+        ])
     },
 
     renderCircuitTitle(title) {

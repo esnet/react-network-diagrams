@@ -43,6 +43,130 @@ export default React.createClass({
         };
     },
 
+    propTypes: {
+
+        /** The width of the circuit diagram */
+        width: React.PropTypes.number,
+
+        /** The height of the circuit diagram */
+        height: React.PropTypes.number,
+
+        /** The position of the title relative to the left side of the diagram */
+        titleOffsetX: React.PropTypes.number,
+
+        /** The position of the title relative to the top of the diagram */
+        titleOffsetY: React.PropTypes.number,
+
+        /** The blank margin around the diagram drawing */
+        margin: React.PropTypes.number,
+
+        /**
+         * Controls shape of the line, can be "linear", "square", "angled", "arc".
+         */
+        lineShape: React.PropTypes.oneOf(["linear", "square", "angled", "arc"]),
+
+        /**
+         * To accurately display each of the member circuits, the concatenated circuit
+         * requires an ordered array of circuit objects, where each object contains
+         * the props to be used by the lower level connection and endpoint primitives.
+         * Since the list renders sequentially, it assumes that the member circuits are in order. The list can be any length and needs to be constructed as such:
+         *
+         * ```
+         * const memberList = [
+         *     {
+         *         styleProperties: darkFiberStyle,
+         *         endpointStyle: stylesMap.endpoint,
+         *         endpointLabelA: "Endpoint 1",
+         *         endpointLabelZ: "Endpoint 2",
+         *         circuitLabel: "Member 1",
+         *         navTo: "Member 1"
+         *     }, {
+         *         styleProperties: couplerStyle,
+         *         endpointStyle: stylesMap.endpoint,
+         *         endpointLabelA: "Endpoint 2",
+         *         endpointLabelZ: "Endpoint 3",
+         *         circuitLabel: "Member 2",
+         *         navTo: "Member 2"
+         *     }, {
+         *         styleProperties: leasedStyle,
+         *         endpointStyle: stylesMap.endpoint,
+         *         endpointLabelA: "Endpoint 3",
+         *         endpointLabelZ: "Endpoint 4",
+         *         circuitLabel: "Member 3",
+         *         navTo: "Member 3"
+         *     }
+         * ];
+         * ```
+         */
+        memberList: React.PropTypes.array.isRequired,
+        
+        /**
+         * Described the position of the connection label; accepts **"top"**, **"center"**, or **"bottom"**
+         */
+        connectionLabelPosition: React.PropTypes.oneOf(["top", "center", "bottom"]),
+        
+        /**
+         * The position of the label around the endpoint.
+         */
+        endpointLabelPosition: React.PropTypes.oneOf([
+            "left",
+            "right",
+            "top",
+            "topright",
+            "topleft",
+            "bottom",
+            "bottomright",
+            "bottomleft",
+            "bottomleftangled",
+            "bottomrightangled",
+            "topleftangled",
+            "toprightangled"
+        ]),
+        
+        /**
+         * This is the vertical distance from the center line to offset
+         * the connection label.
+         */
+        yOffset: React.PropTypes.number,
+        
+        /**
+         * This is the distance from the endpoint that the endpoint
+         * label will be rendered.
+         */
+        endpointLabelOffset: React.PropTypes.number,
+        
+        /**
+         * The string to display in the top left corner of the diagram
+         */
+        title: React.PropTypes.string,
+
+        /**
+         * Value that determines whether or not the upper left corner title is displayed
+         */
+        hideTitle: React.PropTypes.bool,
+                
+        /**
+         * Determines if the circuit view is muted.  Typically used in
+         * conjunction with `parentID`
+         */
+        disabled: React.PropTypes.bool,
+        
+        /**
+         * Callback function used to handle clicks.
+         */
+        onSelectionChange: React.PropTypes.func,
+        
+        /**
+         * Value that if provided, will render a small nav arrow that
+         * when clicked, navigates to that element. Used mainly when we want
+         * to show a parent / child relationship between two circuits.
+         */
+        parentId: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.Number
+        ])
+    },
+
     renderCircuitTitle(title) {
         const titleStyle = {
             textAnchor: "left",
@@ -53,12 +177,13 @@ export default React.createClass({
 
         if (!this.props.hideTitle) {
             return (
-                <text className="circuit-title"
-                      key="circuit-title"
-                      style={titleStyle}
-                      x={this.props.titleOffsetX}
-                      y={this.props.titleOffsetY}>
-                      {title}
+                <text
+                    className="circuit-title"
+                    key="circuit-title"
+                    style={titleStyle}
+                    x={this.props.titleOffsetX}
+                    y={this.props.titleOffsetY}>
+                    {title}
                 </text>
             );
         } else {
@@ -104,19 +229,20 @@ export default React.createClass({
     renderCircuitElements() {
         const elements = [];
 
-        // determine the initial position
+        // Determine the initial position
         const y1 = this.props.height / 4;
         const y2 = y1;
         let x1 = this.props.margin;
         let x2 = this.props.width - this.props.margin;
         const memberList = this.props.memberList;
 
-        /* Since squares may be a different width than other connections, and may appear
-         * at different positions inside the concatenation, we need to determine
-         * the total combined squareWidth of all the square connectors, then subtract that
-         * from the total available width.  The remaining length divided by the number
-         * of non-square segments is how long the remaining non-square segments can be
-         */
+        //
+        // Since squares may be a different width than other connections, and may appear
+        // at different positions inside the concatenation, we need to determine
+        // the total combined squareWidth of all the square connectors, then subtract that
+        // from the total available width.  The remaining length divided by the number
+        // of non-square segments is how long the remaining non-square segments can be
+        //
 
         const memberCount = memberList.length;
         let squareMemberCount = 0;
@@ -134,15 +260,15 @@ export default React.createClass({
         const lineWidth = (totalWidth - totalSquareWidth) / (memberCount - squareMemberCount);
 
         // Draw the first endpoint
-
         elements.push(
-            <Endpoint x={x1}
-                      y={y1}
-                      key={"endpoint-0"}
-                      style={memberList[0].endpointStyle}
-                      labelPosition={this.props.endpointLabelPosition}
-                      offset={this.props.endpointLabelOffset}
-                      label={memberList[0].endpointLabelA} />
+            <Endpoint
+                x={x1}
+                y={y1}
+                key={"endpoint-0"}
+                style={memberList[0].endpointStyle}
+                labelPosition={this.props.endpointLabelPosition}
+                offset={this.props.endpointLabelOffset}
+                label={memberList[0].endpointLabelA} />
         );
 
         /* since the Z of each member is shared with the A of the next member, render only
@@ -156,13 +282,14 @@ export default React.createClass({
                 x2 = x1 + lineWidth;
             }
             elements.push(
-                <Endpoint x={x2}
-                          y={y2}
-                          key={"endpoint-" + (memberIndex + 1)}
-                          style={member.endpointStyle}
-                          labelPosition={this.props.endpointLabelPosition}
-                          offset={this.props.endpointLabelOffset}
-                          label={member.endpointLabelZ} />
+                <Endpoint
+                    x={x2}
+                    y={y2}
+                    key={"endpoint-" + (memberIndex + 1)}
+                    style={member.endpointStyle}
+                    labelPosition={this.props.endpointLabelPosition}
+                    offset={this.props.endpointLabelOffset}
+                    label={member.endpointLabelZ} />
             );
             x1 = x2;
         });
@@ -182,23 +309,24 @@ export default React.createClass({
                 x2 = x1 + lineWidth;
             }
             elements.push(
-                <Connection x1={x1}
-                            x2={x2}
-                            y1={y1}
-                            y2={y2}
-                            key={"circuit-" + memberIndex}
-                            roundedX={roundedX}
-                            roundedY={roundedY}
-                            style={member.styleProperties.style}
-                            lineShape={member.styleProperties.lineShape}
-                            label={member.circuitLabel}
-                            labelPosition={this.props.connectionLabelPosition}
-                            labelOffsetY={this.props.yOffset}
-                            noNavigate={member.styleProperties.noNavigate}
-                            navTo={member.navTo}
-                            size={member.styleProperties.size}
-                            centerLine={member.styleProperties.centerLine}
-                            onSelectionChange={this.props.onSelectionChange}/>
+                <Connection
+                    x1={x1}
+                    x2={x2}
+                    y1={y1}
+                    y2={y2}
+                    key={"circuit-" + memberIndex}
+                    roundedX={roundedX}
+                    roundedY={roundedY}
+                    style={member.styleProperties.style}
+                    lineShape={member.styleProperties.lineShape}
+                    label={member.circuitLabel}
+                    labelPosition={this.props.connectionLabelPosition}
+                    labelOffsetY={this.props.yOffset}
+                    noNavigate={member.styleProperties.noNavigate}
+                    navTo={member.navTo}
+                    size={member.styleProperties.size}
+                    centerLine={member.styleProperties.centerLine}
+                    onSelectionChange={this.props.onSelectionChange} />
             );
             x1 = x2;
         });

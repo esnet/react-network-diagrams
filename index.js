@@ -12,9 +12,11 @@ module.exports = {
     BaseMap: require("./lib/map-base.js"),
     TrafficMap: require("./lib/traffic-map.js"),
     MapLegend: require("./lib/map-legend.js"),
+    Connection: require("./lib/circuit-diagram-connection"),
+    Endpoint: require("./lib/circuit-diagram-endpoint"),
     BasicCircuit: require("./lib/circuit-diagram-basic.js"),
     ConcatenatedCircuit: require("./lib/circuit-diagram-concatenated.js"),
     ParallelCircuit: require("./lib/circuit-diagram-parallel.js"),
-    LocationDiagramPanel: require("./lib/location-diagram-panel.js"),
+    PatchPanel: require("./lib/circuit-diagram-patchpanel.js"),
     Resizable: require("./lib/resizable.js")
 };

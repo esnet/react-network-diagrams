@@ -11,7 +11,8 @@
 import React from "react";
 import _ from "underscore";
 import Markdown from "react-markdown";
-import {stylesMap} from "../styles/styles.js";
+import APIDocs from "./docs";
+import { stylesMap } from "../styles/styles.js";
 import Endpoint from "../../src/circuit-diagram-endpoint";
 
 const text = require("raw!../markdown/endpoint.md");
@@ -32,18 +33,15 @@ const labelPositionChoiceList = [
 ];
 
 const shapeList = ["circle", "square", "cloud"];
-
 const offsetList = [0, 15, 20, 25, 30];
-
 const styleModifierList = ["normal", "selected", "muted"];
-
-const radiusSizeList = [3,5,7,10];
+const radiusSizeList = [3, 5, 7, 10];
 
 const Selector = React.createClass({
 
-    _handleChange(e) {
+    handleChange(e) {
         const l = e.target.value;
-        this.props.handleChange(l);
+        this.props.onChange(l);
     },
 
     render() {
@@ -53,7 +51,7 @@ const Selector = React.createClass({
             );
         });
         return (
-            <select ref="menu" value={this.props.selected} onChange={this._handleChange}>
+            <select ref="menu" value={this.props.selected} onChange={this.handleChange}>
                 {options}
             </select>
         );
@@ -81,20 +79,20 @@ export default React.createClass({
         };
     },
 
-    _positionChange(l) {
-        this.setState({labelPosition: l});
+    handlePositionChange(labelPosition) {
+        this.setState({labelPosition});
     },
 
-    _shapeChange(l) {
-        this.setState({shape: l});
+    handleShapeChange(shape) {
+        this.setState({shape});
     },
 
-    _offsetChange(l) {
-        const i = parseInt(l,10);
-        this.setState({offset: i});
+    handleOffsetChange(val) {
+        const offset = parseInt(val, 10);
+        this.setState({offset});
     },
 
-    _styleModChange(l) {
+    handleStyleModChange(l) {
         switch (l) {
             case "normal":
                 this.setState({mutedStyle: false});
@@ -117,7 +115,7 @@ export default React.createClass({
         this.setState({styleModifier: l});
     },
 
-    _radiusChange(l) {
+    handleRadiusChange(l) {
         const i = parseInt(l,10);
         this.setState({radiusSize: i});
     },
@@ -129,41 +127,46 @@ export default React.createClass({
             <div>
                 <div className="row">
                     <div className="col-md-12">
-                        <h3>Endpoint Example</h3>
+                        <h3>Endpoint</h3>
                         <hr />
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col-md-4">
-                        <h4>Endpoint Options</h4>
+                        <h4>Endpoint example</h4>
                         <div>
-                            <Selector selected={this.state.labelPosition}
-                                      selectionList={labelPositionChoiceList}
-                                      handleChange={this._positionChange} />
-                            <Selector selected={this.state.offset}
-                                      selectionList={offsetList}
-                                      handleChange={this._offsetChange} />
-                            <p>Select the Label Position and Offset</p>
+                            <Selector
+                                selected={this.state.labelPosition}
+                                selectionList={labelPositionChoiceList}
+                                onChange={this.handlePositionChange} />
+                            <Selector
+                                selected={this.state.offset}
+                                selectionList={offsetList}
+                                onChange={this.handleOffsetChange} />
+                            <p>Select the "labelPosition" and "offset"</p>
                         </div>
                         <div>
-                            <Selector selected={this.state.shape}
-                                      selectionList={shapeList}
-                                      handleChange={this._shapeChange} />
-                            <p>Select the Shape</p>
+                            <Selector
+                                selected={this.state.shape}
+                                selectionList={shapeList}
+                                onChange={this.handleShapeChange} />
+                            <p>Select the "shape"</p>
                         </div>
                         <div>
-                            <Selector selected={this.state.radiusSize}
-                                      selectionList={radiusSizeList}
-                                      handleChange={this._radiusChange} />
-                            <p>Select the Radius Size</p>
+                            <Selector
+                                selected={this.state.radiusSize}
+                                selectionList={radiusSizeList}
+                                onChange={this.handleRadiusChange} />
+                            <p>Select the "radius" of the endpoint</p>
                         </div>
                         <div>
 
-                            <Selector selected={this.state.styleModifier}
-                                      selectionList={styleModifierList}
-                                      handleChange={this._styleModChange} />
-                            <p>Select the Style Modifier</p>
+                            <Selector
+                                selected={this.state.styleModifier}
+                                selectionList={styleModifierList}
+                                onChange={this.handleStyleModChange} />
+                            <p>Select the "style"</p>
                         </div>
                     </div>
 
@@ -175,16 +178,17 @@ export default React.createClass({
                                      height={this.props.height}
                                      style={{borderStyle: "solid", borderWidth: 1, borderColor: "#ddd"}}>
                                     <g>
-                                        <Endpoint x={x}
-                                                  y={y}
-                                                  style={stylesMap.endpoint1}
-                                                  labelPosition={this.state.labelPosition}
-                                                  label={this.state.labelPosition}
-                                                  offset={this.state.offset}
-                                                  shape={this.state.shape}
-                                                  radius={this.state.radiusSize}
-                                                  muted={this.state.mutedStyle}
-                                                  selected={this.state.selectedStyle} />
+                                        <Endpoint
+                                            x={x}
+                                            y={y}
+                                            style={stylesMap.endpoint1}
+                                            labelPosition={this.state.labelPosition}
+                                            label={this.state.labelPosition}
+                                            offset={this.state.offset}
+                                            shape={this.state.shape}
+                                            radius={this.state.radiusSize}
+                                            muted={this.state.mutedStyle}
+                                            selected={this.state.selectedStyle} />
                                     </g>
                                 </svg>
                             </div>
@@ -196,6 +200,13 @@ export default React.createClass({
                     <div className="col-md-12">
                         <hr />
                         <Markdown source={text} />
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12">
+                        <hr />
+                        <APIDocs file="src/circuit-diagram-endpoint.jsx"/>
                     </div>
                 </div>
             </div>

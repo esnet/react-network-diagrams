@@ -11,6 +11,7 @@
 import React from "react";
 import _ from "underscore";
 import Markdown from "react-markdown";
+import APIDocs from "./docs";
 import ConcatenatedCircuit from "../../src/circuit-diagram-concatenated";
 import Resizable from "../../src/resizable";
 import { stylesMap } from "../styles/styles.js";
@@ -162,34 +163,39 @@ export default React.createClass({
     renderSegmentChoices() {
         return (
             <div>
-                <Selector selected={this.state.circuits[0]}
-                          selectionList={circuitTypeList}
-                          labelMap={circuitLabelMap}
-                          handleChange={value => this.handleSelectCircuitType(0, value)} />
+                <Selector
+                    selected={this.state.circuits[0]}
+                    selectionList={circuitTypeList}
+                    labelMap={circuitLabelMap}
+                    handleChange={value => this.handleSelectCircuitType(0, value)} />
                 <p>Select the circuit type for segment 1</p>
 
-                <Selector selected={this.state.circuits[1]}
-                          selectionList={circuitTypeList}
-                          labelMap={circuitLabelMap}
-                          handleChange={value => this.handleSelectCircuitType(1, value)} />
+                <Selector
+                    selected={this.state.circuits[1]}
+                    selectionList={circuitTypeList}
+                    labelMap={circuitLabelMap}
+                    handleChange={value => this.handleSelectCircuitType(1, value)} />
                 <p>Select the circuit type for segment 2</p>
                 
-                <Selector selected={this.state.circuits[2]}
-                          selectionList={circuitTypeList}
-                          labelMap={circuitLabelMap}
-                          handleChange={value => this.handleSelectCircuitType(2, value)} />
+                <Selector
+                    selected={this.state.circuits[2]}
+                    selectionList={circuitTypeList}
+                    labelMap={circuitLabelMap}
+                    handleChange={value => this.handleSelectCircuitType(2, value)} />
                 <p>Select the circuit type for segment 3</p>
                 
-                <Selector selected={this.state.circuits[3]}
-                          selectionList={circuitTypeList}
-                          labelMap={circuitLabelMap}
-                          handleChange={value => this.handleSelectCircuitType(3, value)} />
+                <Selector
+                    selected={this.state.circuits[3]}
+                    selectionList={circuitTypeList}
+                    labelMap={circuitLabelMap}
+                    handleChange={value => this.handleSelectCircuitType(3, value)} />
                 <p>Select the circuit type for segment 4</p>
                 
-                <Selector selected={this.state.circuits[4]}
-                          selectionList={circuitTypeList}
-                          labelMap={circuitLabelMap}
-                          handleChange={value => this.handleSelectCircuitType(4, value)} />
+                <Selector
+                    selected={this.state.circuits[4]}
+                    selectionList={circuitTypeList}
+                    labelMap={circuitLabelMap}
+                    handleChange={value => this.handleSelectCircuitType(4, value)} />
                 <p>Select the circuit type for segment 5</p>
             </div>
         );
@@ -198,32 +204,38 @@ export default React.createClass({
     renderChoices() {
         return (
             <div>
-                <Selector selected={this.state.circuitLabelPositionChoice}
-                          selectionList={labelPositionChoiceList}
-                          labelMap={positionLabelMap}
-                          handleChange={l => {
-                              this.setState({circuitLabelPositionChoice: l});
-                          }} />
+                <Selector
+                    selected={this.state.circuitLabelPositionChoice}
+                    selectionList={labelPositionChoiceList}
+                    labelMap={positionLabelMap}
+                    handleChange={
+                        circuitLabelPositionChoice => this.setState({circuitLabelPositionChoice})
+                    } />
                 <p>Select the position of the circuit label</p>
-                <Selector selected={this.state.endpointLabelPositionChoice}
-                          selectionList={endpointPositionChoiceList}
-                          labelMap={positionLabelMap}
-                          handleChange={l => {
-                              this.setState({endpointLabelPositionChoice: l});
-                          }} />
+
+                <Selector
+                    selected={this.state.endpointLabelPositionChoice}
+                    selectionList={endpointPositionChoiceList}
+                    labelMap={positionLabelMap}
+                    handleChange={
+                        endpointLabelPositionChoice => this.setState({endpointLabelPositionChoice})
+                    } />
                 <p>Select the position of the endpoint labels</p>
+
                 <input
                     type="checkbox"
                     name="disable"
                     value={this.state.disabled}
                     onChange={this.handleDisabledChange} /> Disable
                 <p>Select whether to render the circuit as disabled</p>
+
                 <input
                     type="checkbox"
                     name="disable"
                     value={this.state.hideTitle}
                     onChange={this.handleHideTitleChange} /> Hide
                 <p>Select whether to hide the circuit title </p>
+
             </div>
         );
     },
@@ -281,6 +293,14 @@ export default React.createClass({
                     <div className="col-md-12">
                         <hr />
                         <Markdown source={text} />
+                    </div>
+                </div>
+
+
+                <div className="row">
+                    <div className="col-md-12">
+                        <hr />
+                        <APIDocs file="src/circuit-diagram-concatenated.jsx"/>
                     </div>
                 </div>
             </div>

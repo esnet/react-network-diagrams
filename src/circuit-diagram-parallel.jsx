@@ -16,13 +16,7 @@ import Connection from "./circuit-diagram-connection";
 import Navigate from "./circuit-diagram-navigate";
 
 /**
- * A component for drawing a parallel circuit.
- *
- * The parallel component takes a 'circuit' prop, in addition to a
- * 'disabled' prop to display them disabled and mute events on them.
- *
- * In addition, Concatenated should have a 'branches' prop to list out the
- * branches that make up the parallel circuits.
+ * A component for drawing parallel sets of circuits.
  */
 export default React.createClass({
 
@@ -34,8 +28,127 @@ export default React.createClass({
             titleOffsetX: 10,
             titleOffsetY: 15,
             margin: 100,
-            noNavigate: false
+            noNavigate: false,
+            lineShape: "linear"
         };
+    },
+
+    propTypes: {
+
+        /** The width of the circuit diagram */
+        width: React.PropTypes.number,
+
+        /** The height of the circuit diagram */
+        height: React.PropTypes.number,
+
+        /** The position of the title relative to the left side of the diagram */
+        titleOffsetX: React.PropTypes.number,
+
+        /** The position of the title relative to the top of the diagram */
+        titleOffsetY: React.PropTypes.number,
+
+        /** The blank margin around the diagram drawing */
+        margin: React.PropTypes.number,
+
+        /**
+         * Controls shape of the line but currenly only can be "linear".
+         */
+        lineShape: React.PropTypes.oneOf(["linear"]),
+
+        /**
+         * To accurately display each of the member circuits, the concatenated circuit
+         * requires an ordered array of circuit objects, where each object contains
+         * the props to be used by the lower level connection and endpoint primitives.
+         * Since the list renders sequentially, it assumes that the member circuits are in order. The list can be any length and needs to be constructed as such:
+         *
+         * ```
+         * const memberList = [
+         *     {
+         *         styleProperties: darkFiberStyle,
+         *         endpointStyle: stylesMap.endpoint,
+         *         endpointLabelA: "Endpoint 1",
+         *         endpointLabelZ: "Endpoint 2",
+         *         circuitLabel: "Member 1",
+         *         navTo: "Member 1"
+         *     }, {
+         *         styleProperties: couplerStyle,
+         *         endpointStyle: stylesMap.endpoint,
+         *         endpointLabelA: "Endpoint 2",
+         *         endpointLabelZ: "Endpoint 3",
+         *         circuitLabel: "Member 2",
+         *         navTo: "Member 2"
+         *     }, {
+         *         styleProperties: leasedStyle,
+         *         endpointStyle: stylesMap.endpoint,
+         *         endpointLabelA: "Endpoint 3",
+         *         endpointLabelZ: "Endpoint 4",
+         *         circuitLabel: "Member 3",
+         *         navTo: "Member 3"
+         *     }
+         * ];
+         * ```
+         */
+        memberList: React.PropTypes.array.isRequired,
+        
+        /**
+         * Described the position of the connection label; accepts **"top"**, **"center"**, or **"bottom"**
+         */
+        connectionLabelPosition: React.PropTypes.oneOf(["top", "center", "bottom"]),
+        
+        /**
+         * The position of the label around the endpoint.
+         */
+        endpointLabelPosition: React.PropTypes.oneOf([
+            "left",
+            "right",
+            "top",
+            "topright",
+            "topleft",
+            "bottom",
+            "bottomright",
+            "bottomleft",
+            "bottomleftangled",
+            "bottomrightangled",
+            "topleftangled",
+            "toprightangled"
+        ]),
+
+        /**
+         * This is the distance from the endpoint that the endpoint
+         * label will be rendered.
+         */
+        endpointLabelOffset: React.PropTypes.number,
+        
+        /**
+         * The string to display in the top left corner of the diagram
+         */
+        title: React.PropTypes.string,
+
+        /**
+         * Value that determines whether or not the upper left corner title is displayed
+         */
+        hideTitle: React.PropTypes.bool,
+                
+        /**
+         * Determines if the circuit view is muted.  Typically used in
+         * conjunction with `parentID`
+         */
+        disabled: React.PropTypes.bool,
+        
+        /**
+         * Callback function used to handle clicks.
+         */
+        onSelectionChange: React.PropTypes.func,
+        
+        /**
+         * Value that if provided, will render a small nav arrow that
+         * when clicked, navigates to that element. Used mainly when we want
+         * to show a parent / child relationship between two circuits.
+         */
+        parentId: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.Number
+        ])
     },
 
     renderCircuitTitle(title) {

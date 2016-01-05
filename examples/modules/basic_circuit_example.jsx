@@ -11,6 +11,7 @@
 import React from "react";
 import _ from "underscore";
 import Markdown from "react-markdown";
+import APIDocs from "./docs";
 import BasicCircuit from "../../src/circuit-diagram-basic";
 import Resizable from "../../src/resizable";
 import { stylesMap } from "../styles/styles.js";
@@ -239,6 +240,13 @@ export default React.createClass({
                     <div className="col-md-12">
                         <hr />
                         <Markdown source={text} />
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12">
+                        <hr />
+                        <APIDocs file="src/circuit-diagram-basic.jsx"/>
                     </div>
                 </div>
 

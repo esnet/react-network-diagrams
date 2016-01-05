@@ -14,55 +14,8 @@ import BaseMap from "./map-base";
 import Resizable from "./resizable";
 
 /**
- * Props:
- *
- * topology:
- *     Pass in the topology structure.
- *         Nodes:
- *             - type
- *         Edges:
- *             - source (refers to node name)
- *             - target (refers to node name)
- *             - capacity (string)
- *             - total_capacity (string)
- *         Paths:
- *             - name
- *             - steps
- *  showPaths:
- *      Maybe a boolean to show all paths, or none. Or it maybe an array
- *      of path names to show a selection of paths
- *
- *  nodeSizeMap:
- *      A mapping from the node type field to a size to draw the shape
- *
- *  edgeThinknessMap:
- *      "capacity" within the tologogy edges is a string, such as "100G".
- *      You can pass in an edgeThinknessMap that is used to look up the
- *      capacity as a line thickness for rendering the edges.
- *
- *  edgeShapeMap:
- *      A mapping of the edge name (which is source + "--" + target) to a
- *      dict of edge shape
- *      options.
- *          - shape (either "linear" or "curved")
- *          - direction (if curved, either "left" or "right")
- *          - offset (if curved, the amount of curve, which is pixel offset
- *            from a straight line between the source and target at the
- *            midpoint)
- *      e.g.
- *          {
- *            "AMST--BOST": {
- *              "shape": "curved",
- *              "direction": "right",
- *              "offset": 15
- *          }
- *
- *  callbacks:
- *
- *  handleSelectionChange(selectionType, selection):
- *      will be called when the use selects an object in the map, be it a node
- *      or a link
- *
+ * A high level component for showing network topology, including visualizing
+ * network traffic as a heat map.
  */
 export default React.createClass({
 
@@ -83,6 +36,134 @@ export default React.createClass({
             stylesMap: {},
             showPaths: false
         };
+    },
+
+
+    propTypes: {
+
+        /** The width of the circuit diagram */
+        width: React.PropTypes.number,
+
+        /**
+         * The topology structure, as detailed above. This contains the
+         * descriptions of nodes, edges and paths used to render the topology
+         */
+        topology: React.PropTypes,
+
+        /**
+         * Specified as an object containing x1, y1 and x2, y2. This is the region
+         * to display on the map. If this isn't specified the bounds will be
+         * calculated from the nodes in the Map.
+         */
+        bounds: React.PropTypes,
+
+        /**
+         * The is the overall rendering style for the edge connections. Maybe
+         * one of the following strings:
+         *
+         *  * "simple" - simple line connections between nodes
+         *  * "bidirectionalArrow" - network traffic represented by bi-directional arrows
+         *  * "pathBidirectionalArrow" - similar to "bidirectionalArrow", but only for
+         *  edges that are used in the currently displayed path(s).
+         */
+        edgeDrawingMethod: React.PropTypes.oneOf([
+            "simple",
+            "bidirectional",
+            "pathBidirectionalArrow"
+        ]),
+
+        /**
+         * Either a boolean or a list of path names. If a bool, and true, then all
+         * paths will be shown. If a list then only the paths in that list will be
+         * shown. The default is to show no paths.
+         */
+        showPaths: React.PropTypes.oneOfType([
+            React.PropTypes.bool,
+            React.PropTypes.arrayOf(React.PropTypes.string)
+        ]),
+
+        /**
+         * A mapping of the capacity field within the tologogy edge object
+         * to a line thickness for rendering the edges.
+         *
+         * Example:
+         *
+         * ```
+         * const edgeThinknessMap = {
+         *     "100G": 5,
+         *     "10G": 3,
+         *     "1G": 1.5,
+         *     "subG": 1
+         * };
+         * ```
+         */
+        edgeThinknessMap: React.PropTypes.object,
+
+        /**
+         * A mapping of the edge name (which is source + "--" + target) to a
+         * dict of edge shape options:
+         *  * `shape` (either "linear" or "curved")
+         *  * `direction` (if shape is curved, either "left" or "right")
+         *  * `offset` (if shape is curved, the amount of curve, which is
+         *  pixel offset from a straight line between the source and target at the midpoint)
+         *
+         * Example:
+         * ```
+         * const edgeShapeMap = {
+         *     ALBQ--DENV: {
+         *         shape: "curved",
+         *         direction: "right",
+         *         offset: 15
+         *     }, ...
+         *  }
+         */
+        edgeColorMap: React.PropTypes.array,
+
+        /**
+         * A mapping from the type field in the node object to a size to draw the shape
+         *
+         * Example:
+         * ```
+         * const nodeSizeMap = {
+         *     hub: 5.5,
+         *     esnet_site: 7
+         * };
+         * ```
+         */
+        nodeSizeMap: React.PropTypes.object,
+
+        /**
+         * Mapping of node name to shape (default is "circle", other options are
+         * "cloud" or "square", currently).
+         *
+         * Example:
+         * ```
+         * const nodeShapeMap = {
+         *     DENV: "square"
+         * };
+         * ```
+         */
+        nodeShapeMap: React.PropTypes.object,
+
+        /**
+         * A mapping of the edge name (which is source + "--" + target) to a
+         * dict of edge shape options:
+         *  * `shape` (either "linear" or "curved")
+         *  * `direction` (if shape is curved, either "left" or "right")
+         *  * `offset` (if shape is curved, the amount of curve, which is
+         *  pixel offset from a straight line between the source and target at the midpoint)
+         *
+         * Example:
+         * ```
+         * const edgeShapeMap = {
+         *     "ALBQ--DENV": {
+         *     "shape": "curved",
+         *     "direction": "right",
+         *     "offset": 15
+         * }
+         * ```
+         */
+        edgeShapeMap: React.PropTypes.object
     },
 
     bounds() {

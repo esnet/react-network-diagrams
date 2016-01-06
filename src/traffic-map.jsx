@@ -38,7 +38,6 @@ export default React.createClass({
         };
     },
 
-
     propTypes: {
 
         /** The width of the circuit diagram */
@@ -48,14 +47,19 @@ export default React.createClass({
          * The topology structure, as detailed above. This contains the
          * descriptions of nodes, edges and paths used to render the topology
          */
-        topology: React.PropTypes,
+        topology: React.PropTypes.object,
 
         /**
          * Specified as an object containing x1, y1 and x2, y2. This is the region
          * to display on the map. If this isn't specified the bounds will be
          * calculated from the nodes in the Map.
          */
-        bounds: React.PropTypes,
+        bounds: React.PropTypes.shape({
+            x1: React.PropTypes.number,
+            y1: React.PropTypes.number,
+            x2: React.PropTypes.number,
+            y2: React.PropTypes.number
+        }),
 
         /**
          * The is the overall rendering style for the edge connections. Maybe

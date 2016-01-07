@@ -1,6 +1,6 @@
 {
   "name": "react-network-diagrams",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "main": "index.js",
   "author": "ESnet Tools Team <tools@es.net>",
   "repository": {

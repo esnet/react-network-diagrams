@@ -87,7 +87,10 @@ export default React.createClass({
          * Provides label to be displayed; Takes either a string, or an array of
          * strings for multi-line labels.
          */
-        label: React.PropTypes.string,
+        label: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.arrayOf(React.PropTypes.string)
+        ]),
 
         /**
          * Controls where label is situated around the line.

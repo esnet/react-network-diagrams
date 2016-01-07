@@ -612,7 +612,18 @@
       },
       "label": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "string"
+              }
+            }
+          ]
         },
         "required": false,
         "description": "Provides label to be displayed; Takes either a string, or an array of\nstrings for multi-line labels."
@@ -2297,16 +2308,32 @@
       },
       "topology": {
         "type": {
-          "name": "custom",
-          "raw": "React.PropTypes"
+          "name": "object"
         },
         "required": false,
         "description": "The topology structure, as detailed above. This contains the\ndescriptions of nodes, edges and paths used to render the topology"
       },
       "bounds": {
         "type": {
-          "name": "custom",
-          "raw": "React.PropTypes"
+          "name": "shape",
+          "value": {
+            "x1": {
+              "name": "number",
+              "required": false
+            },
+            "y1": {
+              "name": "number",
+              "required": false
+            },
+            "x2": {
+              "name": "number",
+              "required": false
+            },
+            "y2": {
+              "name": "number",
+              "required": false
+            }
+          }
         },
         "required": false,
         "description": "Specified as an object containing x1, y1 and x2, y2. This is the region\nto display on the map. If this isn't specified the bounds will be\ncalculated from the nodes in the Map."

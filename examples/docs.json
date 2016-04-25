@@ -1950,6 +1950,64 @@
       }
     }
   },
+  "src/equipment-base.jsx": {
+    "description": "",
+    "props": {
+      "yOffset": {
+        "defaultValue": {
+          "value": "25",
+          "computed": false
+        }
+      },
+      "xOffset": {
+        "defaultValue": {
+          "value": "25",
+          "computed": false
+        }
+      },
+      "pxToInch": {
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/equipment.jsx": {
+    "description": "",
+    "props": {
+      "noNavigate": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "labelPosition": {
+        "defaultValue": {
+          "value": "\"top\"",
+          "computed": false
+        }
+      },
+      "classed": {
+        "defaultValue": {
+          "value": "\"equipment\"",
+          "computed": false
+        }
+      },
+      "selected": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "muted": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      }
+    }
+  },
   "src/map-base.jsx": {
     "description": "",
     "displayName": "BaseMap",
@@ -2288,6 +2346,53 @@
       "ry": {
         "defaultValue": {
           "value": "0",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/rack.jsx": {
+    "description": "",
+    "props": {
+      "yOffset": {
+        "defaultValue": {
+          "value": "50",
+          "computed": false
+        }
+      },
+      "width": {
+        "defaultValue": {
+          "value": "851",
+          "computed": false
+        }
+      },
+      "rackHeight": {
+        "defaultValue": {
+          "value": "42",
+          "computed": false
+        }
+      },
+      "rackWidth": {
+        "defaultValue": {
+          "value": "19",
+          "computed": false
+        }
+      },
+      "pxToInch": {
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "widthOffset": {
+        "defaultValue": {
+          "value": ".875",
+          "computed": false
+        }
+      },
+      "rackStyle": {
+        "defaultValue": {
+          "value": "\"telco\"",
           "computed": false
         }
       }

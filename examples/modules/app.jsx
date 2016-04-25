@@ -42,6 +42,13 @@ export default React.createClass({
                         <li><Link to="patchPanel">Patch Panel</Link></li>
                     </ul>
 
+                    <div className="sidebar-heading">Equipment</div>
+
+                    <ul className="nav nav-sidebar">
+                        <li><Link to="rack">Rack</Link></li>
+                        <li><Link to="equipment">Equipment</Link></li>
+                    </ul>
+
                     <div className="sidebar-heading">Maps</div>
 
                     <ul className="nav nav-sidebar">

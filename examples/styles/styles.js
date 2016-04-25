@@ -408,6 +408,18 @@ const panelStyle = {
     fill: "#FFFFFF"
 };
 
+const rackStyle1 = {
+    stroke: "#737373",
+    strokeWidth: 1,
+    fill: "#D5D5D5"
+};
+
+const rackStyle2 = {
+    stroke: "#000000",
+    strokeWidth: 2,
+    fill: "#E8E8E8"
+};
+
 const stylesMap = {
     endpoint1: endpointStyle1,
     endpoint2: endpointStyle2,
@@ -422,7 +434,9 @@ const stylesMap = {
     coupler: couplerStyle,
     endpoint: endpointStyle,
     panelCoupler: panelCouplerStyle,
-    panel: panelStyle
+    panel: panelStyle,
+    rack1: rackStyle1,
+    rack2: rackStyle2
 };
 
 const lineShapeMap = {

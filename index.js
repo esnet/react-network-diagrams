@@ -18,5 +18,6 @@ module.exports = {
     ConcatenatedCircuit: require("./lib/circuit-diagram-concatenated.js"),
     ParallelCircuit: require("./lib/circuit-diagram-parallel.js"),
     PatchPanel: require("./lib/circuit-diagram-patchpanel.js"),
+    RackElevation: require("./lib/rack-elevation.js"),
     Resizable: require("./lib/resizable.js")
 };

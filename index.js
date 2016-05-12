@@ -16,5 +16,6 @@ module.exports = {
     ConcatenatedCircuit: require("./lib/circuit-diagram-concatenated.js"),
     ParallelCircuit: require("./lib/circuit-diagram-parallel.js"),
     LocationDiagramPanel: require("./lib/location-diagram-panel.js"),
-    Resizable: require("./lib/resizable.js")
+    Resizable: require("./lib/resizable.js"),
+    MapEditor: require("./lib/map-editor.js")
 };

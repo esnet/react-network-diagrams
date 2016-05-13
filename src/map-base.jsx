@@ -137,7 +137,7 @@ export default React.createClass({
      * Get the event mouse position relative to the event rect
      */
     getOffsetMousePosition(e) {
-        const trackerRect = React.findDOMNode(this.refs.map);
+        const trackerRect = this.refs.map;
         const offset = getElementOffset(trackerRect);
         const x = e.pageX - offset.left;
         const y = e.pageY - offset.top;

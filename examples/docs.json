@@ -1,0 +1,2459 @@
+{
+  "src/circuit-diagram-basic.jsx": {
+    "description": "Renders a horizontal circuit by determining `x1`, `x2`, `y1`, `y2`\ncoordinates on the page and then render a basic circuit by combining the\nconnection and endpoint props. Connection shape, style, and label information,\nare passed in as props",
+    "displayName": "BasicDiagram",
+    "props": {
+      "lineStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": true,
+        "description": "The style of the line"
+      },
+      "lineShape": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"linear\"",
+              "computed": false
+            },
+            {
+              "value": "\"curved\"",
+              "computed": false
+            },
+            {
+              "value": "\"square\"",
+              "computed": false
+            },
+            {
+              "value": "\"angled\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Text value describing the shape of the line, \"linear\", \"curved\", etc."
+      },
+      "connectionLabelPosition": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"top\"",
+              "computed": false
+            },
+            {
+              "value": "\"center\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottom\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Describes the position of the connection label."
+      },
+      "circuitLabel": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "string"
+              }
+            }
+          ]
+        },
+        "required": false,
+        "description": "String to be displayed for the connection. If an array of strings is\nsupplied they will be displayed in a multi-line layout."
+      },
+      "yOffset": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Vertical distance from the center line to offset the connection label."
+      },
+      "title": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The string to display in the top left corner of the diagram."
+      },
+      "noNavigate": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Boolean value that determines if the element uses the onSelectionChange\nchange and can be clicked",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "size": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the size of the square"
+      },
+      "centerLine": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "controls if a horizontal line is drawn down the center of a square"
+      },
+      "squareWidth": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "This value is used to determine X coordinates for a square, if you want\nthe square to be smaller than the default line width. Overrides the\nmargin prop if a square is displayed",
+        "defaultValue": {
+          "value": "25",
+          "computed": false
+        }
+      },
+      "endpointStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The style of the endpoint.\nTODO: be more explicit here about the expected shape."
+      },
+      "endpointLabelPosition": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"left\"",
+              "computed": false
+            },
+            {
+              "value": "\"right\"",
+              "computed": false
+            },
+            {
+              "value": "\"top\"",
+              "computed": false
+            },
+            {
+              "value": "\"topright\"",
+              "computed": false
+            },
+            {
+              "value": "\"topleft\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottom\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomright\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomleft\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomleftangled\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomrightangled\"",
+              "computed": false
+            },
+            {
+              "value": "\"topleftangled\"",
+              "computed": false
+            },
+            {
+              "value": "\"toprightangled\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "The position of the label around the endpoint."
+      },
+      "endpointLabelA": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Left side endpoint label"
+      },
+      "endpointLabelZ": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Right side endpoint label"
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Disables the circuit by muting the colors and disabling events.",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "onSelectionChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Callback specified to handle selection of the circuit. The value supplied\nto the callback is whatever was specified in the navTo prop."
+      },
+      "navTo": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Value passed down to the click handler at the lowest level primitive.\nWill return to the onSelectionChange its value."
+      },
+      "parentId": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "If provided, will render a small nav arrow that when clicked,\nnavigates to that element. Used mainly when we want to show a parent / child\nrelationship between two circuits."
+      },
+      "width": {
+        "defaultValue": {
+          "value": "851",
+          "computed": false
+        }
+      },
+      "height": {
+        "defaultValue": {
+          "value": "250",
+          "computed": false
+        }
+      },
+      "titleOffsetX": {
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "titleOffsetY": {
+        "defaultValue": {
+          "value": "15",
+          "computed": false
+        }
+      },
+      "margin": {
+        "defaultValue": {
+          "value": "100",
+          "computed": false
+        }
+      },
+      "roundedX": {
+        "defaultValue": {
+          "value": "5",
+          "computed": false
+        }
+      },
+      "roundedY": {
+        "defaultValue": {
+          "value": "5",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/circuit-diagram-concatenated.jsx": {
+    "description": "Draw a Concatenated circuit\n\nThis component determines the (x1, y1), (x2, y2) coordinates on the page\nand then renders a group of circuits by combining the\nconnection and endpoint props. Connection shape, style, and label information,\nare passed in as props.\n\nThis is of the form:\n    [endpoint, connection, endpoint, connection, endpoint, ...]",
+    "props": {
+      "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The width of the circuit diagram",
+        "defaultValue": {
+          "value": "851",
+          "computed": false
+        }
+      },
+      "height": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The height of the circuit diagram",
+        "defaultValue": {
+          "value": "250",
+          "computed": false
+        }
+      },
+      "titleOffsetX": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The position of the title relative to the left side of the diagram",
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "titleOffsetY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The position of the title relative to the top of the diagram",
+        "defaultValue": {
+          "value": "15",
+          "computed": false
+        }
+      },
+      "margin": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The blank margin around the diagram drawing",
+        "defaultValue": {
+          "value": "100",
+          "computed": false
+        }
+      },
+      "lineShape": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"linear\"",
+              "computed": false
+            },
+            {
+              "value": "\"square\"",
+              "computed": false
+            },
+            {
+              "value": "\"angled\"",
+              "computed": false
+            },
+            {
+              "value": "\"arc\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Controls shape of the line, can be \"linear\", \"square\", \"angled\", \"arc\"."
+      },
+      "memberList": {
+        "type": {
+          "name": "array"
+        },
+        "required": true,
+        "description": "To accurately display each of the member circuits, the concatenated circuit\nrequires an ordered array of circuit objects, where each object contains\nthe props to be used by the lower level connection and endpoint primitives.\nSince the list renders sequentially, it assumes that the member circuits are in order. The list can be any length and needs to be constructed as such:\n\n```\nconst memberList = [\n    {\n        styleProperties: darkFiberStyle,\n        endpointStyle: stylesMap.endpoint,\n        endpointLabelA: \"Endpoint 1\",\n        endpointLabelZ: \"Endpoint 2\",\n        circuitLabel: \"Member 1\",\n        navTo: \"Member 1\"\n    }, {\n        styleProperties: couplerStyle,\n        endpointStyle: stylesMap.endpoint,\n        endpointLabelA: \"Endpoint 2\",\n        endpointLabelZ: \"Endpoint 3\",\n        circuitLabel: \"Member 2\",\n        navTo: \"Member 2\"\n    }, {\n        styleProperties: leasedStyle,\n        endpointStyle: stylesMap.endpoint,\n        endpointLabelA: \"Endpoint 3\",\n        endpointLabelZ: \"Endpoint 4\",\n        circuitLabel: \"Member 3\",\n        navTo: \"Member 3\"\n    }\n];\n```"
+      },
+      "connectionLabelPosition": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"top\"",
+              "computed": false
+            },
+            {
+              "value": "\"center\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottom\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Described the position of the connection label; accepts **\"top\"**, **\"center\"**, or **\"bottom\"**"
+      },
+      "endpointLabelPosition": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"left\"",
+              "computed": false
+            },
+            {
+              "value": "\"right\"",
+              "computed": false
+            },
+            {
+              "value": "\"top\"",
+              "computed": false
+            },
+            {
+              "value": "\"topright\"",
+              "computed": false
+            },
+            {
+              "value": "\"topleft\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottom\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomright\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomleft\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomleftangled\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomrightangled\"",
+              "computed": false
+            },
+            {
+              "value": "\"topleftangled\"",
+              "computed": false
+            },
+            {
+              "value": "\"toprightangled\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "The position of the label around the endpoint."
+      },
+      "yOffset": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "This is the vertical distance from the center line to offset\nthe connection label."
+      },
+      "endpointLabelOffset": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "This is the distance from the endpoint that the endpoint\nlabel will be rendered."
+      },
+      "title": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The string to display in the top left corner of the diagram"
+      },
+      "hideTitle": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Value that determines whether or not the upper left corner title is displayed"
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Determines if the circuit view is muted.  Typically used in\nconjunction with `parentID`",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "onSelectionChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Callback function used to handle clicks."
+      },
+      "parentId": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "custom",
+              "raw": "React.PropTypes.Number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Value that if provided, will render a small nav arrow that\nwhen clicked, navigates to that element. Used mainly when we want\nto show a parent / child relationship between two circuits."
+      },
+      "noNavigate": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "squareWidth": {
+        "defaultValue": {
+          "value": "25",
+          "computed": false
+        }
+      },
+      "roundedX": {
+        "defaultValue": {
+          "value": "5",
+          "computed": false
+        }
+      },
+      "roundedY": {
+        "defaultValue": {
+          "value": "5",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/circuit-diagram-connection.jsx": {
+    "description": "The `x1`, `x2`, `y1`, and `y2` properties determine the position of the endpoints on the `<svg>` element.\nA path is then drawn betwween the endpoints. If the lineShape property is set to \"square\",\nthe width of the square will be the distance between x1 and x2, with the height of the square\ndetermined by the size prop.\n\nThe `labelPosition`, determines where the label will be positioned around the line. The `xOffset` and\n`yOffset` properties allow you to customize the distance the label is from the `x` and `y` properties.\n\nThe `label` property is the name that will be displayed on the line. If you want to display multiple\nlines, the label can take an array of strings, with each array element displayed on a separate line.",
+    "props": {
+      "lineShape": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"linear\"",
+              "computed": false
+            },
+            {
+              "value": "\"square\"",
+              "computed": false
+            },
+            {
+              "value": "\"angled\"",
+              "computed": false
+            },
+            {
+              "value": "\"arc\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Controls shape of the line, can be \"linear\", \"square\", \"angled\", \"arc\".",
+        "defaultValue": {
+          "value": "\"linear\"",
+          "computed": false
+        }
+      },
+      "x1": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the x-coordinate of the line beginning."
+      },
+      "x2": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the x-coordinate of the line end."
+      },
+      "y1": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the y-coordinate of the line beginning."
+      },
+      "y2": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the y-coordinate of the line end."
+      },
+      "label": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "string"
+              }
+            }
+          ]
+        },
+        "required": false,
+        "description": "Provides label to be displayed; Takes either a string, or an array of\nstrings for multi-line labels."
+      },
+      "labelPosition": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"top\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottom\"",
+              "computed": false
+            },
+            {
+              "value": "\"center\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Controls where label is situated around the line.",
+        "defaultValue": {
+          "value": "\"top\"",
+          "computed": false
+        }
+      },
+      "labelOffsetX": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the x pixel offset from labelPosition"
+      },
+      "labelOffsetY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the y pixel offset from labelPosition"
+      },
+      "textAnchor": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"begin\"",
+              "computed": false
+            },
+            {
+              "value": "\"middle\"",
+              "computed": false
+            },
+            {
+              "value": "\"end\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Controls the justification of the text label"
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Object prop that controls the inline style for the react element.\n\nThe style has three components, one for the two Line-caps (`node`),\none for the label (`label`) and one for the line (`line`). Each group\nhas up to four different possible options depending on the way the\nline and endpoint should be rendered:\n * `normal` - provides the standard view of the component\n * `selected` - for when the component is clicked\n * `muted` - for when the component is in the background\n * `highlighted` - is used when the component is hovered over\n\nThe muted and selected props are boolean values that tell the lower\nlevel primitive that you want to use these styles. They will default\nto false unless specified. The `fill` css style on each category is used\nfor line-caps and square connections, allowing different colors to be\nspecified for the interior of the shapes."
+      },
+      "muted": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint muted",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint selected",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "roundedX": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "When the endpoint shape is a `square`, this controls the radius of corners."
+      },
+      "roundedY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "When the endpoint shape is a `square`, this controls the radius of corners."
+      },
+      "size": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Used to determine the height of the square if the endpoint shape is a `square`,\nas well as when calculating the label position around a square.",
+        "defaultValue": {
+          "value": "40",
+          "computed": false
+        }
+      },
+      "centerLine": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Boolean value that controls if a horizontal line is drawn down the center of a square."
+      },
+      "position": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the angle of the offset from the center of the line.",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "curveOffset": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the distance from the center x axis the curve will arc through",
+        "defaultValue": {
+          "value": "20",
+          "computed": false
+        }
+      },
+      "bendOffset": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the length of the offset line"
+      },
+      "curveDirection": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"left\"",
+              "computed": false
+            },
+            {
+              "value": "\"right\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "The curveDirection property determines whether the curve moves to the\nleft or the right of the non-horizontal vector between x1,y1 and x2,y2.\nThe curveOffset property specifies the distance of the curve from the vector\nbetween x1, y1 and x2, y2. When position is specified, this will offset a linear,\nor curved line from the x1, y1, x2, y2 corrdinates using a combination of\nvectors.\n\nThis functions slightly differently for angled connections and\nwill instead rotate a point offset from the x and y by an angle. If the\ncurveDirection is left, this will move clockwise, and will move counterClockwise if right.",
+        "defaultValue": {
+          "value": "\"right\"",
+          "computed": false
+        }
+      },
+      "radius": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the size of the Line-cap",
+        "defaultValue": {
+          "value": "2",
+          "computed": false
+        }
+      },
+      "endpointShape": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"circle\"",
+              "computed": false
+            },
+            {
+              "value": "\"square\"",
+              "computed": false
+            },
+            {
+              "value": "\"cloud\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Controls the shape of the line-cap.",
+        "defaultValue": {
+          "value": "\"circle\"",
+          "computed": false
+        }
+      },
+      "endPointRoundedX": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "If a square endpoint shape is used, controls the corner rounding of the x-axis of the square"
+      },
+      "endPointRoundedY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "If a square endpoint shape is used, controls the corner rounding of the y-axis of the square"
+      },
+      "arrow": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Boolean value that controls if a directional arrow is drawn instead of line-caps.\nWhen arrow is set to \"true\", the vector between x1, y1 and x2, y2 will have the\nLine-caps replaced with a directional arrow. Arrowheads can be sized using the\narrowWidth and arrowHeight property.",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "arrowWidth": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the width of an arrow head",
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "arrowHeight": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the height of an arrow head",
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "noNavigate": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Boolean value that determines if the element uses the onSelectionChange change and can be clicked",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "onSelectionChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Callback specified to handle selection of the circuit. The value supplied\nto the callback is whatever was specified in the navTo prop."
+      },
+      "navTo": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Value passed down to the click handler at the lowest level primitive.\nWill return to the onSelectionChange its value."
+      },
+      "classed": {
+        "defaultValue": {
+          "value": "\"circuit\"",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/circuit-diagram-endpoint.jsx": {
+    "description": "Endpoint drawing primative. This essentially renders the shape we use to represent\nfor an endpoint on the circuit diagrams. The result is a `<g>` element containing\nthe endpoint rendering, so this needs to be used within the context of an `<svg>` block, or\nmore likely, just use a `<Circuit>`.\n\nThe `x` and `y` props determine the position of the endpoint on the svg grid, while\n'labelPosition' determines where the label for the endpoint will be positioned around\nthe endpoint. The `offset` property allow you to customize the distance the label has\nfrom the endpoint's `x` and `y` as the initial position of the label is determined\nbased on these props. The `offset` property has no effect on the angled labels, as\nthese require pre-determined offset distances based on the rotation. The `label` prop\nis the name that will be displayed on the endpoint.",
+    "props": {
+      "label": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The label for the endpoint"
+      },
+      "labelPosition": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"left\"",
+              "computed": false
+            },
+            {
+              "value": "\"right\"",
+              "computed": false
+            },
+            {
+              "value": "\"top\"",
+              "computed": false
+            },
+            {
+              "value": "\"topright\"",
+              "computed": false
+            },
+            {
+              "value": "\"topleft\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottom\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomright\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomleft\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomleftangled\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomrightangled\"",
+              "computed": false
+            },
+            {
+              "value": "\"topleftangled\"",
+              "computed": false
+            },
+            {
+              "value": "\"toprightangled\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Where the label is positioned relative to the endpoint node as well\nas how the label is drawn (angled or not).",
+        "defaultValue": {
+          "value": "\"top\"",
+          "computed": false
+        }
+      },
+      "offset": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "An offset to the position of the label which can be used for fine tuning",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "shape": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"circle\"",
+              "computed": false
+            },
+            {
+              "value": "\"square\"",
+              "computed": false
+            },
+            {
+              "value": "\"cloud\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "The shape of the endpoint",
+        "defaultValue": {
+          "value": "\"circle\"",
+          "computed": false
+        }
+      },
+      "radius": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "When the endpoint shape is a `circle`, this controls the size of the endpoint",
+        "defaultValue": {
+          "value": "7",
+          "computed": false
+        }
+      },
+      "roundedX": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "When the endpoint shape is a `square`, this controls the radius of corners"
+      },
+      "roundedY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "When the endpoint shape is a `square`, this controls the radius of corners"
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The style of the `<Endpoint>` has two components, one for the\nendpoint itself (node) and one for the label (the label). Each group\nhas three different possible options depending on the way the\nendpoint should be rendered:\n\n * `normal` provides the standard view of the endpoint\n * `selected` for when the endpoint is moused over\n * `muted` for when the endpoint is not selected.\n\nFor example:\n\n```\nconst endpointStyle = {\n    node: {\n        normal: {fill: \"none\", stroke: \"#DBDBDB\", strokeWidth: 4},\n        selected: {fill: \"none\", stroke: \"#B1B1B1\", strokeWidth: 6},\n        muted: {fill: \"none\", stroke: \"#DBDBDB\", strokeWidth: 2, opacity: 0.6, cursor: \"pointer\"}\n    },\n    label: {\n        normal: {fill: \"#9D9D9D\", fontSize: 10, fontFamily: \"verdana, sans-serif\"},\n        selected: {fill: \"#333\",stroke: \"none\", fontSize: 11},\n        muted: {fill: \"#696969\", stroke: \"none\", fontSize: 9, opacity: 0.6}\n    }\n}\n```"
+      },
+      "muted": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint muted",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint as selected",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "highlighted": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint highlighted",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/circuit-diagram-navigate.jsx": {
+    "description": "Draws a navigation triangle used to navigate back up to the parent. This is\nprobably overblown at this point. This is only really used now to navigate\nback up to the parent circuit, but could be expanded if we want more\ncomplicated navigation in the future.",
+    "props": {
+      "navTo": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": ""
+      },
+      "direction": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "Directions.NORTH",
+              "computed": true
+            },
+            {
+              "value": "Directions.SOUTH",
+              "computed": true
+            }
+          ]
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "Directions.SOUTH",
+          "computed": true
+        }
+      },
+      "margin": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "50",
+          "computed": false
+        }
+      },
+      "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "851",
+          "computed": false
+        }
+      },
+      "height": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "200",
+          "computed": false
+        }
+      },
+      "onSelectionChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      }
+    }
+  },
+  "src/circuit-diagram-parallel.jsx": {
+    "description": "A component for drawing parallel sets of circuits.",
+    "props": {
+      "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The width of the circuit diagram",
+        "defaultValue": {
+          "value": "851",
+          "computed": false
+        }
+      },
+      "height": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The height of the circuit diagram",
+        "defaultValue": {
+          "value": "250",
+          "computed": false
+        }
+      },
+      "titleOffsetX": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The position of the title relative to the left side of the diagram",
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "titleOffsetY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The position of the title relative to the top of the diagram",
+        "defaultValue": {
+          "value": "15",
+          "computed": false
+        }
+      },
+      "margin": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The blank margin around the diagram drawing",
+        "defaultValue": {
+          "value": "100",
+          "computed": false
+        }
+      },
+      "lineShape": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"linear\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Controls shape of the line but currenly only can be \"linear\".",
+        "defaultValue": {
+          "value": "\"linear\"",
+          "computed": false
+        }
+      },
+      "memberList": {
+        "type": {
+          "name": "array"
+        },
+        "required": true,
+        "description": "To accurately display each of the member circuits, the concatenated circuit\nrequires an ordered array of circuit objects, where each object contains\nthe props to be used by the lower level connection and endpoint primitives.\nSince the list renders sequentially, it assumes that the member circuits are in order. The list can be any length and needs to be constructed as such:\n\n```\nconst memberList = [\n    {\n        styleProperties: darkFiberStyle,\n        endpointStyle: stylesMap.endpoint,\n        endpointLabelA: \"Endpoint 1\",\n        endpointLabelZ: \"Endpoint 2\",\n        circuitLabel: \"Member 1\",\n        navTo: \"Member 1\"\n    }, {\n        styleProperties: couplerStyle,\n        endpointStyle: stylesMap.endpoint,\n        endpointLabelA: \"Endpoint 2\",\n        endpointLabelZ: \"Endpoint 3\",\n        circuitLabel: \"Member 2\",\n        navTo: \"Member 2\"\n    }, {\n        styleProperties: leasedStyle,\n        endpointStyle: stylesMap.endpoint,\n        endpointLabelA: \"Endpoint 3\",\n        endpointLabelZ: \"Endpoint 4\",\n        circuitLabel: \"Member 3\",\n        navTo: \"Member 3\"\n    }\n];\n```"
+      },
+      "connectionLabelPosition": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"top\"",
+              "computed": false
+            },
+            {
+              "value": "\"center\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottom\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Described the position of the connection label; accepts **\"top\"**, **\"center\"**, or **\"bottom\"**"
+      },
+      "endpointLabelPosition": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"left\"",
+              "computed": false
+            },
+            {
+              "value": "\"right\"",
+              "computed": false
+            },
+            {
+              "value": "\"top\"",
+              "computed": false
+            },
+            {
+              "value": "\"topright\"",
+              "computed": false
+            },
+            {
+              "value": "\"topleft\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottom\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomright\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomleft\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomleftangled\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomrightangled\"",
+              "computed": false
+            },
+            {
+              "value": "\"topleftangled\"",
+              "computed": false
+            },
+            {
+              "value": "\"toprightangled\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "The position of the label around the endpoint."
+      },
+      "endpointLabelOffset": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "This is the distance from the endpoint that the endpoint\nlabel will be rendered."
+      },
+      "title": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The string to display in the top left corner of the diagram"
+      },
+      "hideTitle": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Value that determines whether or not the upper left corner title is displayed"
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Determines if the circuit view is muted.  Typically used in\nconjunction with `parentID`",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "onSelectionChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Callback function used to handle clicks."
+      },
+      "parentId": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "custom",
+              "raw": "React.PropTypes.Number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Value that if provided, will render a small nav arrow that\nwhen clicked, navigates to that element. Used mainly when we want\nto show a parent / child relationship between two circuits."
+      },
+      "noNavigate": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/circuit-diagram-patchpanel.jsx": {
+    "description": "",
+    "props": {
+      "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The width of the circuit diagram",
+        "defaultValue": {
+          "value": "851",
+          "computed": false
+        }
+      },
+      "panels": {
+        "type": {
+          "name": "array"
+        },
+        "required": true,
+        "description": "To accurately display each panel, modules, and groups of circuits,\nthe Patch Panel requires an array of panels, where each panel contains\na panel object.  The panel object has two keys, `panelName` to display\nthe title of the panel, and `modules` which is a two dimensional array\nof coupler objects.  The rendering is sequential, and will display each\npanel, with the panels modules and coupler groupings  in the order they\nare presented in the list.\n\nEach module in the two-dimensional `modules` array is an array of\ncoupler groupings objects.  The coupler groupings objects allways have:\n\n * `frontCircuit` - The circuit and its properties to be displayed to\n the left of the coupler.  May be left `null`\n * `backCircuit` - The circuit and its properties to be displayed to\n the right of the coupler.  May be left `null`\n * `coupler` - The circuit and its properties to be displayed in the\n center\n\nEach of these objects have there own style, labels, and navigation\ncontrols.  The below structure, will render one panel, with one module,\nwith 2 coupler groups.\n\n```js\nconst panels = [\n    {\n        panelName: \"Panel 1\",\n        modules: [\n            [\n                 {\n                     frontCircuit: {\n                         styleProperties: circuitTypeProperties.crossConnect,\n                         endpointStyle: stylesMap.endpoint,\n                         endpointLabelA: \"Endpoint 1\",\n                         endpointLabelZ: \"Endpoint 2\",\n                         circuitLabel: \"Member 1\",\n                         navTo: \"Member 1\",\n                     },\n                     coupler: {\n                         styleProperties: circuitTypeProperties.panelCoupler,\n                         endpointStyle: circuitTypeProperties.panelCoupler,\n                         endpointLabelA: \"Endpoint 2\",\n                         endpointlabelZ: \"Endpoint 3\",\n                         circuitLabel: \"1/2-SC\",\n                         navTo: \"Coupler 1/2\",\n                     },\n                     backCircuit: {\n                         styleProperties: circuitTypeProperties.leased,\n                         endpointStyle: stylesMap.endpoint,\n                         endpointLabelA: \"Endpoint 3\",\n                         endpointLabelZ: \"Endpoint 4\",\n                         circuitLabel: \"Member 3\",\n                         navTo: \"Member 3\",\n                     },\n                     frontLabel: \"Endpoint A\",\n                     backLabel: \"Endpoint Z\",\n                 },\n                 {\n                     frontCircuit: null,\n                     coupler: {\n                         styleProperties: circuitTypeProperties.panelCoupler,\n                         endpointStyle: circuitTypeProperties.panelCoupler,\n                         endpointLabelA: \"Endpoint 2\",\n                         endpointlabelZ: \"Endpoint 3\",\n                         circuitLabel: \"3/4-SC\",\n                         navTo: \"Coupler 3/4\",\n                     },\n                     backCircuit: null,\n                     frontLabel: \"Endpoint A\",\n                     backLabel: \"Endpoint Z\",\n                 },\n             ]\n         ]\n     }\n];\n```"
+      },
+      "panelStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The style of the panel - this is the \"container\" for the modules and couplers."
+      },
+      "couplerStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The style for the couplers, rendered in groups according to their modules."
+      },
+      "yOffset": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "This is the vertical distance from the center line to offset the connection label",
+        "defaultValue": {
+          "value": "30",
+          "computed": false
+        }
+      },
+      "moduleSpacing": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "This is the vertical spacing between each module group"
+      },
+      "panelSpacing": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "This is the vertical spacing between each panel"
+      },
+      "couplerSpacing": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "This is the vertical spacing between each coupler"
+      },
+      "panelWidth": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "This is the distance from the center of the \\<svg\\> grid that the panel\nis to be rendered"
+      },
+      "onSelectionChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Callback evoked when the selection changes"
+      },
+      "endpointLabelOffset": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "This is the distance from the endpoint that the endpoint label will be rendered."
+      },
+      "roundedX": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the corner rounding of the center coupler on the x-axis",
+        "defaultValue": {
+          "value": "5",
+          "computed": false
+        }
+      },
+      "roundedY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the corner rounding of the center coupler on the y-axis",
+        "defaultValue": {
+          "value": "5",
+          "computed": false
+        }
+      },
+      "couplerEndpointRadius": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the size of the couper line cap",
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "endpointRoundedX": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the corner rounding of the square line-caps on the x-axis",
+        "defaultValue": {
+          "value": "2",
+          "computed": false
+        }
+      },
+      "endpointRoundedY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the corner rounding of the square line-caps on the y-axis",
+        "defaultValue": {
+          "value": "2",
+          "computed": false
+        }
+      },
+      "couplerLabelPosition": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"top\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottom\"",
+              "computed": false
+            },
+            {
+              "value": "\"center\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Controls where label is situated in the center coupler",
+        "defaultValue": {
+          "value": "\"center\"",
+          "computed": false
+        }
+      },
+      "panelRoundedX": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the corner rounding of the panel on the x-axis",
+        "defaultValue": {
+          "value": "3",
+          "computed": false
+        }
+      },
+      "panelRoundedY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the corner rounding of the panel on the y-axis",
+        "defaultValue": {
+          "value": "3",
+          "computed": false
+        }
+      },
+      "labelOffsetX": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the +/- x offset from labelPosition",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "labelOffsetY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the +/- y offset from labelPosition",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "margin": {
+        "defaultValue": {
+          "value": "150",
+          "computed": false
+        }
+      },
+      "labelPosition": {
+        "defaultValue": {
+          "value": "\"top\"",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/edge-angled.jsx": {
+    "description": "This component draws an angled path between a source and target. The\nsource and target are specified as props x1, y1 and x2, y2.\n\nThe angle of the path is either left aligned (vertical, then horizontal)\nor right aligned (horizontal, then vertical) as specified by curve\ndirection.  The offset and position prop are used to position the line\nin relation to the endpoints for bi-directional purposes.\n\nAn arrow may be added by passing an 'arrow' prop of true and may be\ncustomized by supplying arrowWidth and/or arrowHeight. It defaults to\nbeing the width*1.5 wide and width*2 long.\n\nStroke color and width can also be supplied.",
+    "props": {
+      "offset": {
+        "defaultValue": {
+          "value": "15",
+          "computed": false
+        }
+      },
+      "width": {
+        "defaultValue": {
+          "value": "1",
+          "computed": false
+        }
+      },
+      "color": {
+        "defaultValue": {
+          "value": "\"#ddd\"",
+          "computed": false
+        }
+      },
+      "curveDirection": {
+        "defaultValue": {
+          "value": "\"left\"",
+          "computed": false
+        }
+      },
+      "arrow": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "position": {
+        "defaultValue": {
+          "value": "30",
+          "computed": false
+        }
+      },
+      "selected": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "muted": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/edge-arc.jsx": {
+    "description": "This component draws a curved path between a source and target. The\nsource and target are specified as props x1, y1 and x2, y2.\n\nThe curve of the path arcs through a point offset from the mid-point\nof the line between source and target. This is specified as the prop\noffset. The offset may be \"left\" or \"right\" as specified as curveDirection.\n\nAn arrow may be added by passing an 'arrow' prop of true and may be\ncustomized by supplying arrowWidth and/or arrowHeight. It defaults to\nbeing the width*1.5 wide and width*2 long.0\n\nStroke color and width can also be supplied.",
+    "props": {
+      "offset": {
+        "defaultValue": {
+          "value": "20",
+          "computed": false
+        }
+      },
+      "width": {
+        "defaultValue": {
+          "value": "1",
+          "computed": false
+        }
+      },
+      "color": {
+        "defaultValue": {
+          "value": "\"#ddd\"",
+          "computed": false
+        }
+      },
+      "curveDirection": {
+        "defaultValue": {
+          "value": "\"left\"",
+          "computed": false
+        }
+      },
+      "arrow": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "position": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "selected": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "muted": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/edge-bidirectional.jsx": {
+    "description": "",
+    "props": {
+      "width": {
+        "defaultValue": {
+          "value": "1",
+          "computed": false
+        }
+      },
+      "spacing": {
+        "defaultValue": {
+          "value": "3.5",
+          "computed": false
+        }
+      },
+      "offset": {
+        "defaultValue": {
+          "value": "18",
+          "computed": false
+        }
+      },
+      "sourceTargetColor": {
+        "defaultValue": {
+          "value": "\"#C9CACC\"",
+          "computed": false
+        }
+      },
+      "targetSourceColor": {
+        "defaultValue": {
+          "value": "\"#C9CACC\"",
+          "computed": false
+        }
+      },
+      "selected": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "muted": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/edge-label.jsx": {
+    "description": "Gets an x, y, labelPosition, textAnchor and rotation and\nrenders a label based on the position.\nThe label can be a single string, or an array of strings\nto display on multiple lines.",
+    "props": {
+      "r": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "xOffset": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "yOffset": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/edge-linear.jsx": {
+    "description": "This component draws a linear bent path between a source and target. The\nsource and target are specified as props 'x1', 'y1' and 'x2', 'y2'. The\nbend is specified with the prop 'position'.\n\nAn arrow may be added by passing an 'arrow' prop of true and may be\ncustomized by supplying 'arrowWidth' and/or 'arrowHeight'. Both default to\n10px.\n\nThe color and width of the edge may also be supplied.",
+    "props": {
+      "width": {
+        "defaultValue": {
+          "value": "1",
+          "computed": false
+        }
+      },
+      "color": {
+        "defaultValue": {
+          "value": "\"#ddd\"",
+          "computed": false
+        }
+      },
+      "position": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "arrow": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "selected": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "muted": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/edge-simple.jsx": {
+    "description": "",
+    "props": {
+      "color": {
+        "defaultValue": {
+          "value": "\"#ddd\"",
+          "computed": false
+        }
+      },
+      "width": {
+        "defaultValue": {
+          "value": "4",
+          "computed": false
+        }
+      },
+      "position": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "selected": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "muted": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "invisible": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "arrow": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "fillColor": {
+        "defaultValue": {
+          "value": "\"none\"",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/edge-square.jsx": {
+    "description": "This component draws a rectangle using the source and target to determine sizing and position. The\nsource and target are specified as props 'x1', 'y1' and 'x2', 'y2'. Rounding is specified with the\nprops roundedX and roundedY.\n\n\nThe color and width of the rectangle may also be supplied.",
+    "props": {
+      "roundedX": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "roundedY": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "color": {
+        "defaultValue": {
+          "value": "\"#ddd\"",
+          "computed": false
+        }
+      },
+      "position": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "arrow": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "selected": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "muted": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "size": {
+        "defaultValue": {
+          "value": "40",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/map-base.jsx": {
+    "description": "",
+    "displayName": "BaseMap",
+    "props": {
+      "topology": {
+        "type": {
+          "name": "object"
+        },
+        "required": true,
+        "description": ""
+      },
+      "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "800",
+          "computed": false
+        }
+      },
+      "height": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "600",
+          "computed": false
+        }
+      },
+      "margin": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "20",
+          "computed": false
+        }
+      },
+      "bounds": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "x1": {
+              "name": "number",
+              "required": false
+            },
+            "y1": {
+              "name": "number",
+              "required": false
+            },
+            "x2": {
+              "name": "number",
+              "required": false
+            },
+            "y2": {
+              "name": "number",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "{x1: 0, y1: 0, x2: 1, y2: 1}",
+          "computed": false
+        }
+      },
+      "edgeDrawingMethod": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"simple\"",
+              "computed": false
+            },
+            {
+              "value": "\"bidirectionalArrow\"",
+              "computed": false
+            },
+            {
+              "value": "\"pathBidirectionalArrow\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "\"simple\"",
+          "computed": false
+        }
+      },
+      "legendItems": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "x": {
+              "name": "number",
+              "required": false
+            },
+            "y": {
+              "name": "number",
+              "required": false
+            },
+            "edgeTypes": {
+              "name": "object",
+              "required": false
+            },
+            "nodeTypes": {
+              "name": "object",
+              "required": false
+            },
+            "colorSwatches": {
+              "name": "object",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "selection": {
+        "defaultValue": {
+          "value": "{ nodes: {}, edges: {} }",
+          "computed": false
+        }
+      },
+      "paths": {
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
+      },
+      "pathWidth": {
+        "defaultValue": {
+          "value": "5",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/map-editor.jsx": {
+    "description": "",
+    "props": {
+      "edgeThinknessMap": {
+        "defaultValue": {
+          "value": "{\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    subG: 1\n}",
+          "computed": false
+        }
+      },
+      "selected": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "edgeColorMap": {
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
+      },
+      "nodeSizeMap": {
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      },
+      "nodeShapeMap": {
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      },
+      "edgeShapeMap": {
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      },
+      "stylesMap": {
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      },
+      "gridSize": {
+        "defaultValue": {
+          "value": "0.25",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/map-legend.jsx": {
+    "description": "",
+    "props": {
+      "x": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "y": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "lineHeight": {
+        "defaultValue": {
+          "value": "20",
+          "computed": false
+        }
+      },
+      "columns": {
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "itemsPerColumn": {
+        "defaultValue": {
+          "value": "4",
+          "computed": false
+        }
+      },
+      "columnWidth": {
+        "defaultValue": {
+          "value": "100",
+          "computed": false
+        }
+      },
+      "exampleWidth": {
+        "defaultValue": {
+          "value": "20",
+          "computed": false
+        }
+      },
+      "gutter": {
+        "defaultValue": {
+          "value": "8",
+          "computed": false
+        }
+      },
+      "edgeColor": {
+        "defaultValue": {
+          "value": "\"#333\"",
+          "computed": false
+        }
+      },
+      "nodeTypes": {
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
+      },
+      "edgeTypes": {
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
+      },
+      "colorSwatches": {
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/map-node-label.jsx": {
+    "description": ""
+  },
+  "src/node.jsx": {
+    "description": "",
+    "props": {
+      "radius": {
+        "defaultValue": {
+          "value": "5",
+          "computed": false
+        }
+      },
+      "selected": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "shape": {
+        "defaultValue": {
+          "value": "\"circle\"",
+          "computed": false
+        }
+      },
+      "style": {
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      },
+      "isDragging": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "labelOffsetX": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "labelOffsetY": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "rx": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "ry": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/resizable.jsx": {
+    "description": "This takes a single child and inserts a prop 'width' on it that is the\ncurrent width of the this container. This is handy if you want to surround\na chart or other svg diagram and have this drive the chart width."
+  },
+  "src/traffic-map.jsx": {
+    "description": "A high level component for showing network topology, including visualizing\nnetwork traffic as a heat map.",
+    "props": {
+      "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The width of the circuit diagram"
+      },
+      "topology": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The topology structure, as detailed above. This contains the\ndescriptions of nodes, edges and paths used to render the topology"
+      },
+      "bounds": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "x1": {
+              "name": "number",
+              "required": false
+            },
+            "y1": {
+              "name": "number",
+              "required": false
+            },
+            "x2": {
+              "name": "number",
+              "required": false
+            },
+            "y2": {
+              "name": "number",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "Specified as an object containing x1, y1 and x2, y2. This is the region\nto display on the map. If this isn't specified the bounds will be\ncalculated from the nodes in the Map."
+      },
+      "edgeDrawingMethod": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"simple\"",
+              "computed": false
+            },
+            {
+              "value": "\"bidirectional\"",
+              "computed": false
+            },
+            {
+              "value": "\"pathBidirectionalArrow\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "The is the overall rendering style for the edge connections. Maybe\none of the following strings:\n\n * \"simple\" - simple line connections between nodes\n * \"bidirectionalArrow\" - network traffic represented by bi-directional arrows\n * \"pathBidirectionalArrow\" - similar to \"bidirectionalArrow\", but only for\n edges that are used in the currently displayed path(s)."
+      },
+      "showPaths": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "bool"
+            },
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "string"
+              }
+            }
+          ]
+        },
+        "required": false,
+        "description": "Either a boolean or a list of path names. If a bool, and true, then all\npaths will be shown. If a list then only the paths in that list will be\nshown. The default is to show no paths.",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "edgeThinknessMap": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "A mapping of the capacity field within the tologogy edge object\nto a line thickness for rendering the edges.\n\nExample:\n\n```\nconst edgeThinknessMap = {\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    \"subG\": 1\n};\n```",
+        "defaultValue": {
+          "value": "{\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    subG: 1\n}",
+          "computed": false
+        }
+      },
+      "edgeColorMap": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "A mapping of the edge name (which is source + \"--\" + target) to a\ndict of edge shape options:\n * `shape` (either \"linear\" or \"curved\")\n * `direction` (if shape is curved, either \"left\" or \"right\")\n * `offset` (if shape is curved, the amount of curve, which is\n pixel offset from a straight line between the source and target at the midpoint)\n\nExample:\n```\nconst edgeShapeMap = {\n    ALBQ--DENV: {\n        shape: \"curved\",\n        direction: \"right\",\n        offset: 15\n    }, ...\n }",
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
+      },
+      "nodeSizeMap": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "A mapping from the type field in the node object to a size to draw the shape\n\nExample:\n```\nconst nodeSizeMap = {\n    hub: 5.5,\n    esnet_site: 7\n};\n```",
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      },
+      "nodeShapeMap": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Mapping of node name to shape (default is \"circle\", other options are\n\"cloud\" or \"square\", currently).\n\nExample:\n```\nconst nodeShapeMap = {\n    DENV: \"square\"\n};\n```",
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      },
+      "edgeShapeMap": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "A mapping of the edge name (which is source + \"--\" + target) to a\ndict of edge shape options:\n * `shape` (either \"linear\" or \"curved\")\n * `direction` (if shape is curved, either \"left\" or \"right\")\n * `offset` (if shape is curved, the amount of curve, which is\n pixel offset from a straight line between the source and target at the midpoint)\n\nExample:\n```\nconst edgeShapeMap = {\n    \"ALBQ--DENV\": {\n    \"shape\": \"curved\",\n    \"direction\": \"right\",\n    \"offset\": 15\n}\n```",
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      },
+      "selected": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "shape": {
+        "defaultValue": {
+          "value": "\"circle\"",
+          "computed": false
+        }
+      },
+      "stylesMap": {
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      }
+    }
+  }
+}

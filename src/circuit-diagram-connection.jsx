@@ -18,6 +18,18 @@ import React from "react";
 import Endpoint from "./circuit-diagram-endpoint";
 import Line from "./edge-simple";
 
+/**
+ * The `x1`, `x2`, `y1`, and `y2` properties determine the position of the endpoints on the `<svg>` element.
+ * A path is then drawn betwween the endpoints. If the lineShape property is set to "square",
+ * the width of the square will be the distance between x1 and x2, with the height of the square
+ * determined by the size prop.
+ *
+ * The `labelPosition`, determines where the label will be positioned around the line. The `xOffset` and
+ * `yOffset` properties allow you to customize the distance the label is from the `x` and `y` properties.
+ *
+ * The `label` property is the name that will be displayed on the line. If you want to display multiple
+ * lines, the label can take an array of strings, with each array element displayed on a separate line.
+ */
 export default React.createClass({
 
     getInitialState() {
@@ -42,6 +54,216 @@ export default React.createClass({
             curveOffset: 20,
             size: 40
         };
+    },
+
+    propTypes: {
+
+        /**
+         * Controls shape of the line, can be "linear", "square", "angled", "arc".
+         */
+        lineShape: React.PropTypes.oneOf(["linear", "square", "angled", "arc"]),
+
+        //
+        // Positional Props used by all shapes
+        //
+
+        /** Controls the x-coordinate of the line beginning. */
+        x1: React.PropTypes.number,
+
+        /** Controls the x-coordinate of the line end. */
+        x2: React.PropTypes.number,
+
+        /** Controls the y-coordinate of the line beginning. */
+        y1: React.PropTypes.number,
+
+        /** Controls the y-coordinate of the line end. */
+        y2: React.PropTypes.number,
+
+        //
+        // Label Props used by all shapes
+        //
+
+        /**
+         * Provides label to be displayed; Takes either a string, or an array of
+         * strings for multi-line labels.
+         */
+        label: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.arrayOf(React.PropTypes.string)
+        ]),
+
+        /**
+         * Controls where label is situated around the line.
+         */
+        labelPosition: React.PropTypes.oneOf(["top", "bottom", "center"]),
+
+        /**
+         * Controls the x pixel offset from labelPosition
+         */
+        labelOffsetX: React.PropTypes.number,
+
+        /**
+         * Controls the y pixel offset from labelPosition
+         */
+        labelOffsetY: React.PropTypes.number,
+
+
+        /**
+         * Controls the justification of the text label
+         */
+        textAnchor: React.PropTypes.oneOf(["begin", "middle", "end"]),
+
+        //
+        // Style Props, used by all shapes
+        //
+
+        /**
+         * Object prop that controls the inline style for the react element.
+         *
+         * The style has three components, one for the two Line-caps (`node`),
+         * one for the label (`label`) and one for the line (`line`). Each group
+         * has up to four different possible options depending on the way the
+         * line and endpoint should be rendered:
+         *  * `normal` - provides the standard view of the component
+         *  * `selected` - for when the component is clicked
+         *  * `muted` - for when the component is in the background
+         *  * `highlighted` - is used when the component is hovered over
+         *
+         * The muted and selected props are boolean values that tell the lower
+         * level primitive that you want to use these styles. They will default
+         * to false unless specified. The `fill` css style on each category is used
+         * for line-caps and square connections, allowing different colors to be
+         * specified for the interior of the shapes.
+         */
+        style: React.PropTypes.object,
+
+        /** Display the endpoint muted */
+        muted: React.PropTypes.bool,
+
+        /** Display the endpoint selected */
+        selected: React.PropTypes.bool,
+
+        //
+        // Props for "square" shape
+        //
+
+        /** When the endpoint shape is a `square`, this controls the radius of corners. */
+        roundedX: React.PropTypes.number,
+
+        /** When the endpoint shape is a `square`, this controls the radius of corners. */
+        roundedY: React.PropTypes.number,
+
+        /**
+         * Used to determine the height of the square if the endpoint shape is a `square`,
+         * as well as when calculating the label position around a square.
+         */
+        size: React.PropTypes.number,
+
+        /** Boolean value that controls if a horizontal line is drawn down the center of a square. */
+        centerLine: React.PropTypes.bool,
+
+        //
+        // Line offset Props, used by "angle" and "curved" shapes
+        //
+
+        /**
+         * Controls the angle of the offset from the center of the line.
+         */
+        position: React.PropTypes.number,
+
+        /**
+         * Controls the distance from the center x axis the curve will arc through
+         */
+        curveOffset: React.PropTypes.number,
+
+        /**
+         * Controls the length of the offset line
+         */
+        bendOffset: React.PropTypes.number,
+
+        /**
+         * The curveDirection property determines whether the curve moves to the
+         * left or the right of the non-horizontal vector between x1,y1 and x2,y2.
+         * The curveOffset property specifies the distance of the curve from the vector
+         * between x1, y1 and x2, y2. When position is specified, this will offset a linear,
+         * or curved line from the x1, y1, x2, y2 corrdinates using a combination of
+         * vectors.
+         *
+         * This functions slightly differently for angled connections and
+         * will instead rotate a point offset from the x and y by an angle. If the
+         * curveDirection is left, this will move clockwise, and will move counterClockwise if right.
+         */
+        curveDirection: React.PropTypes.oneOf(["left", "right"]),
+
+        //
+        // Linecap props, used by all shapes
+        //
+
+        /**
+         * Controls the size of the Line-cap
+         */
+        radius: React.PropTypes.number,
+
+        /**
+         * Controls the shape of the line-cap.
+         */
+        endpointShape: React.PropTypes.oneOf(["circle", "square", "cloud"]),
+
+        /**
+         * If a square endpoint shape is used, controls the corner rounding of the x-axis of the square
+         */
+        endPointRoundedX: React.PropTypes.number,
+
+        /**
+         * If a square endpoint shape is used, controls the corner rounding of the y-axis of the square
+         */
+        endPointRoundedY: React.PropTypes.number,
+
+        //
+        // Arrow props, not used by "square"
+        //
+
+        /**
+         * Boolean value that controls if a directional arrow is drawn instead of line-caps.
+         * When arrow is set to "true", the vector between x1, y1 and x2, y2 will have the
+         * Line-caps replaced with a directional arrow. Arrowheads can be sized using the
+         * arrowWidth and arrowHeight property.
+         */
+        arrow: React.PropTypes.bool,
+
+        /**
+         * Controls the width of an arrow head
+         */
+        arrowWidth: React.PropTypes.number,
+
+        /**
+         * Controls the height of an arrow head
+         */
+        arrowHeight: React.PropTypes.number,
+
+        //
+        // Navigation Props, used by all shapes
+        //
+
+        /**
+         * Boolean value that determines if the element uses the onSelectionChange change and can be clicked
+         */
+        noNavigate: React.PropTypes.bool,
+
+        /**
+         * Callback specified to handle selection of the circuit. The value supplied
+         * to the callback is whatever was specified in the navTo prop.
+         */
+        onSelectionChange: React.PropTypes.func,
+
+        /**
+         * Value passed down to the click handler at the lowest level primitive.
+         * Will return to the onSelectionChange its value.
+         */
+        navTo: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.number
+        ])
     },
 
     /**

@@ -10,6 +10,7 @@
 
 import React from "react";
 import _ from "underscore";
+import APIDocs from "./docs";
 import { Event } from "pondjs";
 import TrafficMap from "../../src/traffic-map";
 import Markdown from "react-markdown";
@@ -194,6 +195,12 @@ export default React.createClass({
                     </div>
                 </div>
 
+                <div className="row">
+                    <div className="col-md-12">
+                        <hr />
+                        <APIDocs file="src/traffic-map.jsx"/>
+                    </div>
+                </div>
             </div>
         );
     }

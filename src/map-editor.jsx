@@ -672,11 +672,10 @@ export default React.createClass({
 
         if (this.props.autoSize) {
             return (
-                <Resizable aspect={aspect} style={{
-                        background: "#F6F6F6",
-                        borderStyle: "solid",
-                        borderWidth: "thin",
-                        borderColor: "#E6E6E6"}}>
+                <Resizable aspect={aspect} style={{background: "#F6F6F6",
+                                                   borderStyle: "solid",
+                                                   borderWidth: "thin",
+                                                   borderColor: "#E6E6E6"}}>
                     <BaseMap
                         topology={topo}
                         width={this.props.width}
@@ -694,21 +693,23 @@ export default React.createClass({
                 </Resizable>
             );
         } else {
-            <BaseMap
-                topology={topo}
-                width={this.props.width}
-                height={this.props.height}
-                autoSize={this.props.autoSize}
-                margin={this.props.margin}
-                bounds={bounds}
-                selection={mapSelection}
-                edgeDrawingMethod="simple"
-                onSelectionChange={this.handleSelectionChanged}
-                onPositionSelected={positionSelected}
-                onNodeSelected={nodeSelected}
-                onEdgeSelected={edgeSelected}
-                onNodeDrag={this.handleNodeDrag} />
-       }
+            return (
+                <BaseMap
+                    topology={topo}
+                    width={this.props.width}
+                    height={this.props.height}
+                    autoSize={this.props.autoSize}
+                    margin={this.props.margin}
+                    bounds={bounds}
+                    selection={mapSelection}
+                    edgeDrawingMethod="simple"
+                    onSelectionChange={this.handleSelectionChanged}
+                    onPositionSelected={positionSelected}
+                    onNodeSelected={nodeSelected}
+                    onEdgeSelected={edgeSelected}
+                    onNodeDrag={this.handleNodeDrag} />
+            );
+        }
     },
 
     render() {

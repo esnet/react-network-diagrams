@@ -19,5 +19,6 @@ module.exports = {
     ParallelCircuit: require("./lib/circuit-diagram-parallel.js"),
     PatchPanel: require("./lib/circuit-diagram-patchpanel.js"),
     RackElevation: require("./lib/rack-elevation.js"),
-    Resizable: require("./lib/resizable.js")
+    Resizable: require("./lib/resizable.js"),
+    MapEditor: require("./lib/map-editor.js")
 };

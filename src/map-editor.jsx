@@ -670,16 +670,35 @@ export default React.createClass({
                 [`${this.state.selection.source}--${this.state.selection.target}`] : []
         };
 
-        return (
-            <Resizable aspect={aspect} style={{
-                background: "#F6F6F6",
-                borderStyle: "solid",
-                borderWidth: "thin",
-                borderColor: "#E6E6E6"}}>
+        if (this.props.autoSize) {
+            return (
+                <Resizable aspect={aspect} style={{background: "#F6F6F6",
+                                                   borderStyle: "solid",
+                                                   borderWidth: "thin",
+                                                   borderColor: "#E6E6E6"}}>
+                    <BaseMap
+                        topology={topo}
+                        width={this.props.width}
+                        height={this.props.height}
+                        autoSize={this.props.autoSize}
+                        margin={this.props.margin}
+                        bounds={bounds}
+                        selection={mapSelection}
+                        edgeDrawingMethod="simple"
+                        onSelectionChange={this.handleSelectionChanged}
+                        onPositionSelected={positionSelected}
+                        onNodeSelected={nodeSelected}
+                        onEdgeSelected={edgeSelected}
+                        onNodeDrag={this.handleNodeDrag} />
+                </Resizable>
+            );
+        } else {
+            return (
                 <BaseMap
                     topology={topo}
                     width={this.props.width}
                     height={this.props.height}
+                    autoSize={this.props.autoSize}
                     margin={this.props.margin}
                     bounds={bounds}
                     selection={mapSelection}
@@ -689,8 +708,8 @@ export default React.createClass({
                     onNodeSelected={nodeSelected}
                     onEdgeSelected={edgeSelected}
                     onNodeDrag={this.handleNodeDrag} />
-            </Resizable>
-        );
+            );
+        }
     },
 
     render() {

@@ -34,7 +34,8 @@ export default React.createClass({
             selected: false,
             shape: "circle",
             stylesMap: {},
-            showPaths: false
+            showPaths: false,
+            autoSize: true
         };
     },
 
@@ -392,24 +393,45 @@ export default React.createClass({
         const topo = this.buildTopology();
         const bounds = this.bounds();
         const aspect = (bounds.x2 - bounds.x1) / (bounds.y2 - bounds.y1);
-        return (
-            <Resizable aspect={aspect} style={{
-                background: "#F6F6F6",
-                borderStyle: "solid",
-                borderWidth: "thin",
-                borderColor: "#E6E6E6"}}>
-                <BaseMap
-                    topology={topo}
-                    paths={topo.paths}
-                    bounds={bounds}
-                    width={this.props.width}
-                    height={this.props.height}
-                    margin={this.props.margin}
-                    selection={this.props.selection}
-                    edgeDrawingMethod={this.props.edgeDrawingMethod}
-                    onSelectionChange={this.handleSelectionChanged} />
-            </Resizable>
-
-        );
+        const autoSize = this.props.autoSize;
+        if (autoSize) {
+            return (
+                <Resizable aspect={aspect} style={{
+                    background: "#F6F6F6",
+                    borderStyle: "solid",
+                    borderWidth: "thin",
+                    borderColor: "#E6E6E6"}}>
+                    <BaseMap
+                        topology={topo}
+                        paths={topo.paths}
+                        bounds={bounds}
+                        width={this.props.width}
+                        height={this.props.height}
+                        margin={this.props.margin}
+                        selection={this.props.selection}
+                        edgeDrawingMethod={this.props.edgeDrawingMethod}
+                        onSelectionChange={this.handleSelectionChanged} />
+                </Resizable>
+            );
+        } else {
+            return (
+                <div style={{
+                    background: "#F6F6F6",
+                    borderStyle: "solid",
+                    borderWidth: "thin",
+                    borderColor: "#E6E6E6"}}>
+                    <BaseMap
+                        topology={topo}
+                        paths={topo.paths}
+                        bounds={bounds}
+                        width={this.props.width}
+                        height={this.props.height}
+                        margin={this.props.margin}
+                        selection={this.props.selection}
+                        edgeDrawingMethod={this.props.edgeDrawingMethod}
+                        onSelectionChange={this.handleSelectionChanged} />
+                </div>
+            );
+        }
     }
 });

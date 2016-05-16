@@ -1,6 +1,6 @@
 {
   "name": "react-network-diagrams",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "main": "index.js",
   "author": "ESnet Tools Team <tools@es.net>",
   "repository": {
@@ -36,6 +36,7 @@
     "d3": "^3.5.5",
     "keymirror": "^0.1.1",
     "pondjs": "^0.3.0",
+    "react-select": "^0.9.1",
     "underscore": "^1.7.0",
     "victor": "^0.2.6"
   },
@@ -64,7 +65,6 @@
     "react-dom": "^0.14.3",
     "react-markdown": "^1.0.5",
     "react-router": "^1.0.0",
-    "react-select": "^0.9.1",
     "style-loader": "^0.8.0",
     "url-loader": "^0.5.5",
     "webpack": "^1.12.14",

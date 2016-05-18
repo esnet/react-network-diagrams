@@ -197,7 +197,7 @@ export default React.createClass({
 
         const nodeCoordinates = {};
         const nodes = _.map(this.props.topology.nodes, node => {
-            const {x, y, name, id, label, ...props} = node;
+            const { name, id, label, ...props } = node;
             props.id = id || name;
             props.x = xScale(node.x);
             props.y = yScale(node.y);

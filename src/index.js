@@ -8,14 +8,14 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
-export BaseMap from "./map-base.js";
-export TrafficMap from "./traffic-map.js";
-export MapLegend from "./map-legend.js";
-export Connection from "./circuit-diagram-connection";
-export Endpoint from "./circuit-diagram-endpoint";
-export BasicCircuit from "./circuit-diagram-basic.js";
-export ConcatenatedCircuit from "./circuit-diagram-concatenated.js";
-export ParallelCircuit from "./circuit-diagram-parallel.js";
-export PatchPanel from "./circuit-diagram-patchpanel.js";
-export Resizable from "./resizable.js";
-export MapEditor from "./map-editor.js";
+export BaseMap from "./components/BaseMap";
+export TrafficMap from "./components/TrafficMap";
+export MapLegend from "./components/MapLegend";
+export Connection from "./components/Connection";
+export Endpoint from "./components/Endpoint";
+export BasicCircuit from "./components/BasicCircuit";
+export ConcatenatedCircuit from "./components/ConcatenatedCircuit";
+export ParallelCircuit from "./components/ParallelCircuit";
+export PatchPanel from "./components/PatchPanel";
+export Resizable from "./components/Resizable";
+export MapEditor from "./components/MapEditor";

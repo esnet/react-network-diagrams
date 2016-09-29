@@ -39,22 +39,23 @@ export default React.createClass({
 
         const elements = [];
         if (this.props.nodeTypes.length > 0) {
-            _.each(this.props.nodeTypes, node => {
+            _.each(this.props.nodeTypes, (node, i) => {
                 const textX = curX + this.props.exampleWidth;
                 const textY = curY + lineCenter;
                 const classed = "map-node " + node.classed;
                 const style = {stroke: node.stroke, fill: node.fill};
-
                 elements.push(
-                    <g>
-                        <circle style={style}
-                                cx={curX}
-                                cy={textY}
-                                r={node.radius}
-                                className={classed} />
-                        <text x={textX}
-                              y={textY + 4}
-                              textAnchor={"begin"}>
+                    <g key={`node-${i}`}>
+                        <circle
+                            style={style}
+                            cx={curX}
+                            cy={textY}
+                            r={node.radius}
+                            className={classed} />
+                        <text
+                            x={textX}
+                            y={textY + 4}
+                            textAnchor={"begin"}>
                             {node.text}
                         </text>
                     </g>
@@ -69,14 +70,14 @@ export default React.createClass({
         }
 
         if (this.props.edgeTypes.length > 0) {
-            _.each(this.props.edgeTypes, edge => {
+            _.each(this.props.edgeTypes, (edge, i) => {
                 const x = curX;
                 const y = curY + lineCenter - edge.strokeWidth / 2;
                 const textX = x + this.props.exampleWidth + this.props.gutter;
                 const textY = curY + lineCenter;
 
                 elements.push(
-                    <g>
+                    <g key={`edge-${i}`}>
                         <line
                             x1={x}
                             y1={y}
@@ -104,7 +105,7 @@ export default React.createClass({
             const height = this.props.lineHeight - 4;
             let itemCount = 0;
 
-            _.each(this.props.colorSwatches, color => {
+            _.each(this.props.colorSwatches, (color, i) => {
                 if (itemCount && itemCount % this.props.itemsPerColumn === 0) {
                     curX += this.props.columnWidth;
                     curY = this.props.y;
@@ -116,7 +117,7 @@ export default React.createClass({
                 const textY = curY + lineCenter;
 
                 elements.push(
-                    <g>
+                    <g key={`color-${i}`}>
                         <rect
                             x={x}
                             y={y}

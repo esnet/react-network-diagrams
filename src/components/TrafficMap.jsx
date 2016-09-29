@@ -76,7 +76,7 @@ export default React.createClass({
          */
         edgeDrawingMethod: React.PropTypes.oneOf([
             "simple",
-            "bidirectional",
+            "bidirectionalArrow",
             "pathBidirectionalArrow"
         ]),
 

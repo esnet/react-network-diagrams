@@ -93,7 +93,7 @@ exports.default = _react2.default.createClass({
          *  * "pathBidirectionalArrow" - similar to "bidirectionalArrow", but only for
          *  edges that are used in the currently displayed path(s).
          */
-        edgeDrawingMethod: _react2.default.PropTypes.oneOf(["simple", "bidirectional", "pathBidirectionalArrow"]),
+        edgeDrawingMethod: _react2.default.PropTypes.oneOf(["simple", "bidirectionalArrow", "pathBidirectionalArrow"]),
 
         /**
          * Either a boolean or a list of path names. If a bool, and true, then all

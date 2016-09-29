@@ -53,23 +53,24 @@ exports.default = _react2.default.createClass({
 
         var elements = [];
         if (this.props.nodeTypes.length > 0) {
-            _underscore2.default.each(this.props.nodeTypes, function (node) {
+            _underscore2.default.each(this.props.nodeTypes, function (node, i) {
                 var textX = curX + _this.props.exampleWidth;
                 var textY = curY + lineCenter;
                 var classed = "map-node " + node.classed;
                 var style = { stroke: node.stroke, fill: node.fill };
-
                 elements.push(_react2.default.createElement(
                     "g",
-                    null,
-                    _react2.default.createElement("circle", { style: style,
+                    { key: "node-" + i },
+                    _react2.default.createElement("circle", {
+                        style: style,
                         cx: curX,
                         cy: textY,
                         r: node.radius,
                         className: classed }),
                     _react2.default.createElement(
                         "text",
-                        { x: textX,
+                        {
+                            x: textX,
                             y: textY + 4,
                             textAnchor: "begin" },
                         node.text
@@ -85,7 +86,7 @@ exports.default = _react2.default.createClass({
         }
 
         if (this.props.edgeTypes.length > 0) {
-            _underscore2.default.each(this.props.edgeTypes, function (edge) {
+            _underscore2.default.each(this.props.edgeTypes, function (edge, i) {
                 var x = curX;
                 var y = curY + lineCenter - edge.strokeWidth / 2;
                 var textX = x + _this.props.exampleWidth + _this.props.gutter;
@@ -93,7 +94,7 @@ exports.default = _react2.default.createClass({
 
                 elements.push(_react2.default.createElement(
                     "g",
-                    null,
+                    { key: "edge-" + i },
                     _react2.default.createElement("line", {
                         x1: x,
                         y1: y,
@@ -123,7 +124,7 @@ exports.default = _react2.default.createClass({
                 var height = _this.props.lineHeight - 4;
                 var itemCount = 0;
 
-                _underscore2.default.each(_this.props.colorSwatches, function (color) {
+                _underscore2.default.each(_this.props.colorSwatches, function (color, i) {
                     if (itemCount && itemCount % _this.props.itemsPerColumn === 0) {
                         curX += _this.props.columnWidth;
                         curY = _this.props.y;
@@ -136,7 +137,7 @@ exports.default = _react2.default.createClass({
 
                     elements.push(_react2.default.createElement(
                         "g",
-                        null,
+                        { key: "color-" + i },
                         _react2.default.createElement("rect", {
                             x: x,
                             y: y,

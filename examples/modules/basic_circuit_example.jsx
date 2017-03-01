@@ -16,7 +16,7 @@ import BasicCircuit from "../../src/circuit-diagram-basic";
 import Resizable from "../../src/resizable";
 import { stylesMap } from "../styles/styles.js";
 
-const text = require("raw!../markdown/basic-circuit.md");
+const text = require("raw-loader!../markdown/basic-circuit.md");
 
 const circuitTypeList = [
     "Optical",

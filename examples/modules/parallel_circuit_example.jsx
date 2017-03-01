@@ -16,7 +16,7 @@ import ParallelCircuit from "../../src/circuit-diagram-parallel";
 import Resizable from "../../src/resizable";
 import { stylesMap } from "../styles/styles.js";
 
-const text = require("raw!../markdown/parallel-circuit.md");
+const text = require("raw-loader!../markdown/parallel-circuit.md");
 
 const circuitTypeList = [
     "optical",

@@ -15,7 +15,7 @@ import APIDocs from "./docs";
 import Connection from "../../src/circuit-diagram-connection";
 import { stylesMap } from "../styles/styles.js";
 
-const text = require("raw!../markdown/connection.md");
+const text = require("raw-loader!../markdown/connection.md");
 
 const styleModifierList = ["normal", "selected", "muted"];
 const lineShapeList = ["linear", "curved", "square", "angled"];

@@ -15,7 +15,7 @@ import { Event } from "pondjs";
 import TrafficMap from "../../src/traffic-map";
 import Markdown from "react-markdown";
 
-const text = require("raw!../markdown/trafficmap.md");
+const text = require("raw-loader!../markdown/trafficmap.md");
 
 // Test data
 import topo from "../data/portal_topo.json";

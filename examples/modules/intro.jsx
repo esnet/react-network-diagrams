@@ -11,7 +11,7 @@
 import React from "react";
 import Markdown from "react-markdown";
 
-const text = require("raw!../../README.md");
+const text = require("raw-loader!../../README.md");
 
 export default React.createClass({
 

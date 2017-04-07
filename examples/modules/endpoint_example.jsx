@@ -15,7 +15,7 @@ import APIDocs from "./docs";
 import { stylesMap } from "../styles/styles.js";
 import Endpoint from "../../src/circuit-diagram-endpoint";
 
-const text = require("raw!../markdown/endpoint.md");
+const text = require("raw-loader!../markdown/endpoint.md");
 
 const labelPositionChoiceList = [
     "left",

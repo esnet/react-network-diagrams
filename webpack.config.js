@@ -22,7 +22,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.(js|jsx)$/,
-                loader: "babel",
+                loader: "babel-loader",
                 exclude: /node_modules/
             },
             {
@@ -32,10 +32,6 @@ module.exports = {
             {
                 test: /\.(png|jpg|gif)$/,
                 loader: "url-loader?limit=8192"
-            },
-            {
-                test: /\.json$/,
-                loader: "json-loader"
             },
             {
                 test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -51,6 +47,6 @@ module.exports = {
     ],
 
     resolve: {
-        extensions: ["", ".js", ".jsx", ".json"]
+        extensions: [".js", ".jsx", ".json"]
     }
 };

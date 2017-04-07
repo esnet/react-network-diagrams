@@ -16,7 +16,7 @@ import ConcatenatedCircuit from "../../src/circuit-diagram-concatenated";
 import Resizable from "../../src/resizable";
 import { stylesMap } from "../styles/styles.js";
 
-const text = require("raw!../markdown/concatenated-circuit.md");
+const text = require("raw-loader!../markdown/concatenated-circuit.md");
 
 const circuitTypeList = [
     "optical",

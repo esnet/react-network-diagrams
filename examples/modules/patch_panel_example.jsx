@@ -15,7 +15,7 @@ import LocationPanelDiagram from "../../src/circuit-diagram-patchpanel";
 import Resizable from "../../src/resizable";
 import {stylesMap} from "../styles/styles.js";
 
-const text = require("raw!../markdown/patch-panel.md");
+const text = require("raw-loader!../markdown/patch-panel.md");
 
 
 const circuitTypeProperties = {

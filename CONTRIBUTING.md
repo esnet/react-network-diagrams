@@ -9,7 +9,7 @@ painless as possible for yourself and for the developers.
 1. *Communicate.* please create an GitHub issue in the appropriate GitHub
 project communicating your plans.  This allows coordination -- it's possible
 someone else has ideas about this topic and it can save a lot of time if
-things are disucssed before you dive in. When you submit your pull request
+things are discussed before you dive in. When you submit your pull request
 please include the issue number with the discussion relevant to this pull
 request.
 
@@ -30,7 +30,7 @@ please be sure to check that all of the examples continue to work before
 submitting your pull request. If you have suggestions on how to build tests
 we'd love to hear them.
 
-The [jQuery guidlines](http://contribute.jquery.org/commits-and-pull-requests/)
+The [jQuery guidelines](http://contribute.jquery.org/commits-and-pull-requests/)
 have some good suggestions for rectifying common Git mistakes
 
 Once you have you are ready to share your code go ahead and follow the

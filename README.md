@@ -45,7 +45,7 @@ You can then `render()` the traffic map in your component:
                 stylesMap={stylesMap}
                 selection={mapSelection}
                 onSelectionChange={this.handleSelectionChanged} />
-                
+
 
 See the examples for more information.
 
@@ -68,6 +68,6 @@ And now, for the magic, point your browser to:
 
 From now on, if you change the source code, webpack will rebuild the examples bundle and the browser will refresh itself. Errors will also be reported in the browser window.
 
-Before commiting back, run:
+Before committing back, run:
 
     npm run build

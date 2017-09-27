@@ -52,7 +52,7 @@ const equipment = {
         rmu: 1,
         style: stylesMap.line1,
         label: "ALU-7750-SR12",
-        showHeight: true,
+        showHeight: false,
         navTo: "Equipment link for ALU"
     },
     dc1: {

@@ -2,6 +2,51 @@
   "src/circuit-diagram-basic.jsx": {
     "description": "Renders a horizontal circuit by determining `x1`, `x2`, `y1`, `y2`\ncoordinates on the page and then render a basic circuit by combining the\nconnection and endpoint props. Connection shape, style, and label information,\nare passed in as props",
     "displayName": "BasicDiagram",
+    "methods": [
+      {
+        "name": "renderCircuitTitle",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "title",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderParentNavigation",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "parentId",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderDisabledOverlay",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "disabled",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderCircuitElements",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
     "props": {
       "lineStyle": {
         "type": {
@@ -296,6 +341,51 @@
   },
   "src/circuit-diagram-concatenated.jsx": {
     "description": "Draw a Concatenated circuit\n\nThis component determines the (x1, y1), (x2, y2) coordinates on the page\nand then renders a group of circuits by combining the\nconnection and endpoint props. Connection shape, style, and label information,\nare passed in as props.\n\nThis is of the form:\n    [endpoint, connection, endpoint, connection, endpoint, ...]",
+    "methods": [
+      {
+        "name": "renderCircuitTitle",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "title",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderParentNavigation",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "parentId",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderDisabledOverlay",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "disabled",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderCircuitElements",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
     "props": {
       "width": {
         "type": {
@@ -552,6 +642,47 @@
   },
   "src/circuit-diagram-connection.jsx": {
     "description": "The `x1`, `x2`, `y1`, and `y2` properties determine the position of the endpoints on the `<svg>` element.\nA path is then drawn betwween the endpoints. If the lineShape property is set to \"square\",\nthe width of the square will be the distance between x1 and x2, with the height of the square\ndetermined by the size prop.\n\nThe `labelPosition`, determines where the label will be positioned around the line. The `xOffset` and\n`yOffset` properties allow you to customize the distance the label is from the `x` and `y` properties.\n\nThe `label` property is the name that will be displayed on the line. If you want to display multiple\nlines, the label can take an array of strings, with each array element displayed on a separate line.",
+    "methods": [
+      {
+        "name": "handleMouseOver",
+        "docblock": "User hovers over the circuit",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "User hovers over the circuit"
+      },
+      {
+        "name": "handleMouseOut",
+        "docblock": "Use stops hovering over circuit",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "Use stops hovering over circuit"
+      },
+      {
+        "name": "handleSelectionChanged",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          },
+          {
+            "name": "value",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderEndpoints",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
     "props": {
       "lineShape": {
         "type": {
@@ -925,6 +1056,7 @@
   },
   "src/circuit-diagram-endpoint.jsx": {
     "description": "Endpoint drawing primative. This essentially renders the shape we use to represent\nfor an endpoint on the circuit diagrams. The result is a `<g>` element containing\nthe endpoint rendering, so this needs to be used within the context of an `<svg>` block, or\nmore likely, just use a `<Circuit>`.\n\nThe `x` and `y` props determine the position of the endpoint on the svg grid, while\n'labelPosition' determines where the label for the endpoint will be positioned around\nthe endpoint. The `offset` property allow you to customize the distance the label has\nfrom the endpoint's `x` and `y` as the initial position of the label is determined\nbased on these props. The `offset` property has no effect on the angled labels, as\nthese require pre-determined offset distances based on the rotation. The `label` prop\nis the name that will be displayed on the endpoint.",
+    "methods": [],
     "props": {
       "label": {
         "type": {
@@ -1099,6 +1231,31 @@
   },
   "src/circuit-diagram-navigate.jsx": {
     "description": "Draws a navigation triangle used to navigate back up to the parent. This is\nprobably overblown at this point. This is only really used now to navigate\nback up to the parent circuit, but could be expanded if we want more\ncomplicated navigation in the future.",
+    "methods": [
+      {
+        "name": "handleMouseOver",
+        "docblock": "User hovers over the navigational arrow",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "User hovers over the navigational arrow"
+      },
+      {
+        "name": "handleMouseOut",
+        "docblock": "User stops hovering over navigational arrow",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "User stops hovering over navigational arrow"
+      },
+      {
+        "name": "handleMouseClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
     "props": {
       "navTo": {
         "type": {
@@ -1180,6 +1337,51 @@
   },
   "src/circuit-diagram-parallel.jsx": {
     "description": "A component for drawing parallel sets of circuits.",
+    "methods": [
+      {
+        "name": "renderCircuitTitle",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "title",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderParentNavigation",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "parentId",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderDisabledOverlay",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "disabled",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderCircuitElements",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
     "props": {
       "width": {
         "type": {
@@ -1403,6 +1605,126 @@
   },
   "src/circuit-diagram-patchpanel.jsx": {
     "description": "",
+    "methods": [
+      {
+        "name": "handleSelectionChange",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          },
+          {
+            "name": "value",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderPanelLabel",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "yStart",
+            "type": null
+          },
+          {
+            "name": "label",
+            "type": null
+          },
+          {
+            "name": "key",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderFrontBackLabel",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "yStart",
+            "type": null
+          },
+          {
+            "name": "key",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderPanels",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "panelMap",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderModule",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "module",
+            "type": null
+          },
+          {
+            "name": "moduleY",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderEndpoints",
+        "docblock": "draws 0, 2, or 4 endpoints - determined by presence of Front, Back and Coupler",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "circuitGroup"
+          },
+          {
+            "name": "y"
+          },
+          {
+            "name": "key"
+          }
+        ],
+        "returns": null,
+        "description": "draws 0, 2, or 4 endpoints - determined by presence of Front, Back and Coupler"
+      },
+      {
+        "name": "renderConnections",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "circuitGroup",
+            "type": null
+          },
+          {
+            "name": "y",
+            "type": null
+          },
+          {
+            "name": "key",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "width": {
         "type": {
@@ -1629,6 +1951,44 @@
   },
   "src/edge-angled.jsx": {
     "description": "This component draws an angled path between a source and target. The\nsource and target are specified as props x1, y1 and x2, y2.\n\nThe angle of the path is either left aligned (vertical, then horizontal)\nor right aligned (horizontal, then vertical) as specified by curve\ndirection.  The offset and position prop are used to position the line\nin relation to the endpoints for bi-directional purposes.\n\nAn arrow may be added by passing an 'arrow' prop of true and may be\ncustomized by supplying arrowWidth and/or arrowHeight. It defaults to\nbeing the width*1.5 wide and width*2 long.\n\nStroke color and width can also be supplied.",
+    "methods": [
+      {
+        "name": "rotateOffset",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "cx",
+            "type": null
+          },
+          {
+            "name": "x",
+            "type": null
+          },
+          {
+            "name": "y",
+            "type": null
+          },
+          {
+            "name": "a",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "offset": {
         "defaultValue": {
@@ -1682,6 +2042,20 @@
   },
   "src/edge-arc.jsx": {
     "description": "This component draws a curved path between a source and target. The\nsource and target are specified as props x1, y1 and x2, y2.\n\nThe curve of the path arcs through a point offset from the mid-point\nof the line between source and target. This is specified as the prop\noffset. The offset may be \"left\" or \"right\" as specified as curveDirection.\n\nAn arrow may be added by passing an 'arrow' prop of true and may be\ncustomized by supplying arrowWidth and/or arrowHeight. It defaults to\nbeing the width*1.5 wide and width*2 long.0\n\nStroke color and width can also be supplied.",
+    "methods": [
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "offset": {
         "defaultValue": {
@@ -1735,6 +2109,7 @@
   },
   "src/edge-bidirectional.jsx": {
     "description": "",
+    "methods": [],
     "props": {
       "width": {
         "defaultValue": {
@@ -1782,6 +2157,7 @@
   },
   "src/edge-label.jsx": {
     "description": "Gets an x, y, labelPosition, textAnchor and rotation and\nrenders a label based on the position.\nThe label can be a single string, or an array of strings\nto display on multiple lines.",
+    "methods": [],
     "props": {
       "r": {
         "defaultValue": {
@@ -1805,6 +2181,20 @@
   },
   "src/edge-linear.jsx": {
     "description": "This component draws a linear bent path between a source and target. The\nsource and target are specified as props 'x1', 'y1' and 'x2', 'y2'. The\nbend is specified with the prop 'position'.\n\nAn arrow may be added by passing an 'arrow' prop of true and may be\ncustomized by supplying 'arrowWidth' and/or 'arrowHeight'. Both default to\n10px.\n\nThe color and width of the edge may also be supplied.",
+    "methods": [
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "width": {
         "defaultValue": {
@@ -1846,6 +2236,7 @@
   },
   "src/edge-simple.jsx": {
     "description": "",
+    "methods": [],
     "props": {
       "color": {
         "defaultValue": {
@@ -1899,6 +2290,44 @@
   },
   "src/edge-square.jsx": {
     "description": "This component draws a rectangle using the source and target to determine sizing and position. The\nsource and target are specified as props 'x1', 'y1' and 'x2', 'y2'. Rounding is specified with the\nprops roundedX and roundedY.\n\n\nThe color and width of the rectangle may also be supplied.",
+    "methods": [
+      {
+        "name": "_rotateOffset",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "cx",
+            "type": null
+          },
+          {
+            "name": "x",
+            "type": null
+          },
+          {
+            "name": "y",
+            "type": null
+          },
+          {
+            "name": "a",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "roundedX": {
         "defaultValue": {
@@ -1952,6 +2381,20 @@
   },
   "src/equipment-base.jsx": {
     "description": "",
+    "methods": [
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "yOffset": {
         "defaultValue": {
@@ -1975,6 +2418,40 @@
   },
   "src/equipment.jsx": {
     "description": "",
+    "methods": [
+      {
+        "name": "handleMouseOver",
+        "docblock": "User hovers over the equipment",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "User hovers over the equipment"
+      },
+      {
+        "name": "handleMouseOut",
+        "docblock": "Use stops hovering over equipment",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "Use stops hovering over equipment"
+      },
+      {
+        "name": "handleSelectionChanged",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          },
+          {
+            "name": "value",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "noNavigate": {
         "defaultValue": {
@@ -2011,6 +2488,95 @@
   "src/map-base.jsx": {
     "description": "",
     "displayName": "BaseMap",
+    "methods": [
+      {
+        "name": "handleNodeMouseDown",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "id",
+            "type": null
+          },
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleSelectionChange",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "type",
+            "type": null
+          },
+          {
+            "name": "id",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleMouseMove",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleMouseUp",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "getOffsetMousePosition",
+        "docblock": "Get the event mouse position relative to the event rect",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e"
+          }
+        ],
+        "returns": null,
+        "description": "Get the event mouse position relative to the event rect"
+      },
+      {
+        "name": "scale",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
     "props": {
       "topology": {
         "type": {
@@ -2161,6 +2727,368 @@
   },
   "src/map-editor.jsx": {
     "description": "",
+    "methods": [
+      {
+        "name": "constrain",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "x",
+            "type": null
+          },
+          {
+            "name": "y",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "makeId",
+        "docblock": "When we create new elements we give it a id",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "When we create new elements we give it a id"
+      },
+      {
+        "name": "findNode",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "id",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "findEdge",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "id",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "nodeSize",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "name",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "nodeShape",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "name",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "edgeThickness",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "capacity",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "edgeShape",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "name",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "edgeCurveDirection",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "name",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "edgeCurveOffset",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "name",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "bounds",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "cloneTopo",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "buildTopology",
+        "docblock": "Build a topology suitable for passing into the BaseMap for rendering\nas nodes and edges",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "Build a topology suitable for passing into the BaseMap for rendering\nas nodes and edges"
+      },
+      {
+        "name": "handleSelectionChanged",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "selectionType",
+            "type": null
+          },
+          {
+            "name": "selectionId",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleChange",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "attr",
+            "type": null
+          },
+          {
+            "name": "value",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleNodeDrag",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "id",
+            "type": null
+          },
+          {
+            "name": "posx",
+            "type": null
+          },
+          {
+            "name": "posy",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleAddNode",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleAddNodePosition",
+        "docblock": "TODO: actual handling of the add node should be done at\nthe application level (action) rather than down here in the editor.",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "posx"
+          },
+          {
+            "name": "posy"
+          }
+        ],
+        "returns": null,
+        "description": "TODO: actual handling of the add node should be done at\nthe application level (action) rather than down here in the editor."
+      },
+      {
+        "name": "handleAddEdge",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleDeleteNode",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleDeleteEdge",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleAddSelection",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "node",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleDeleteNodeSelection",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "nodeId",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleDeleteEdgeSelection",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "edgeId",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderTextProperty",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "attr",
+            "type": null
+          },
+          {
+            "name": "value",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderIntegerProperty",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "attr",
+            "type": null
+          },
+          {
+            "name": "value",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderChoiceProperty",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "attr",
+            "type": null
+          },
+          {
+            "name": "options",
+            "type": null
+          },
+          {
+            "name": "value",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderNodeProperties",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "renderEdgeProperties",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "renderProperties",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "renderToolbar",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "renderMap",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
     "props": {
       "edgeThinknessMap": {
         "defaultValue": {
@@ -2214,6 +3142,7 @@
   },
   "src/map-legend.jsx": {
     "description": "",
+    "methods": [],
     "props": {
       "x": {
         "defaultValue": {
@@ -2290,10 +3219,54 @@
     }
   },
   "src/map-node-label.jsx": {
-    "description": ""
+    "description": "",
+    "methods": []
   },
   "src/node.jsx": {
     "description": "",
+    "methods": [
+      {
+        "name": "handMouseClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleMouseOver",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleMouseDown",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "spec",
+        "docblock": "Provides a spec for the editor UI to render properties\nfor this node",
+        "modifiers": [
+          "static"
+        ],
+        "params": [],
+        "returns": null,
+        "description": "Provides a spec for the editor UI to render properties\nfor this node"
+      }
+    ],
     "props": {
       "radius": {
         "defaultValue": {
@@ -2353,6 +3326,128 @@
   },
   "src/rack.jsx": {
     "description": "",
+    "methods": [
+      {
+        "name": "drawSide",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "width",
+            "type": null
+          },
+          {
+            "name": "height",
+            "type": null
+          },
+          {
+            "name": "xCorner",
+            "type": null
+          },
+          {
+            "name": "yCorner",
+            "type": null
+          },
+          {
+            "name": "key",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "drawRack",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "rackPxHeight",
+            "type": null
+          },
+          {
+            "name": "rackPxWidth",
+            "type": null
+          },
+          {
+            "name": "rackPxOffset",
+            "type": null
+          },
+          {
+            "name": "inchToRmu",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "drawHeightMarkers",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "inchToRmu",
+            "type": null
+          },
+          {
+            "name": "middle",
+            "type": null
+          },
+          {
+            "name": "x",
+            "type": null
+          },
+          {
+            "name": "initialY",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "drawLabel",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "x",
+            "type": null
+          },
+          {
+            "name": "y",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderChildren",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "childElements",
+            "type": null
+          },
+          {
+            "name": "rackPxHeight",
+            "type": null
+          },
+          {
+            "name": "rackPxWidth",
+            "type": null
+          },
+          {
+            "name": "rackPxOffset",
+            "type": null
+          },
+          {
+            "name": "inchToRmu",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "yOffset": {
         "defaultValue": {
@@ -2399,10 +3494,142 @@
     }
   },
   "src/resizable.jsx": {
-    "description": "This takes a single child and inserts a prop 'width' on it that is the\ncurrent width of the this container. This is handy if you want to surround\na chart or other svg diagram and have this drive the chart width."
+    "description": "This takes a single child and inserts a prop 'width' on it that is the\ncurrent width of the this container. This is handy if you want to surround\na chart or other svg diagram and have this drive the chart width.",
+    "methods": [
+      {
+        "name": "handleResize",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ]
   },
   "src/traffic-map.jsx": {
     "description": "A high level component for showing network topology, including visualizing\nnetwork traffic as a heat map.",
+    "methods": [
+      {
+        "name": "bounds",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "nodeSize",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "name",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "nodeShape",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "name",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "edgeThickness",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "capacity",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "edgeShape",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "name",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "edgeCurveDirection",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "name",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "edgeCurveOffset",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "name",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "selectEdgeColor",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "bps",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "filteredPaths",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "buildTopology",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleSelectionChanged",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "selectionType",
+            "type": null
+          },
+          {
+            "name": "selection",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "width": {
         "type": {
@@ -2556,6 +3783,12 @@
       "stylesMap": {
         "defaultValue": {
           "value": "{}",
+          "computed": false
+        }
+      },
+      "autoSize": {
+        "defaultValue": {
+          "value": "true",
           "computed": false
         }
       }

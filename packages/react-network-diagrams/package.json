@@ -1,0 +1,64 @@
+{
+  "name": "react-network-diagrams",
+  "version": "0.6.0",
+  "description": "Declarative timeseries charts",
+  "keywords": [
+    "network",
+    "circuits",
+    "maps",
+    "concatenated",
+    "parallel",
+    "editor",
+    "react"
+  ],
+  "main": "lib/index",
+  "homepage": "http://software.es.net/react-network-diagrams",
+  "author": "ESnet Tools Team <tools@es.net>",
+  "repository": "esnet/react-network-diagrams",
+  "bugs": {
+    "url": "https://github.com/esnet/react-network-diagrams/issues"
+  },
+  "scripts": {
+    "docs": "echo \"*** Building API docs\n\" && react-docgen src/components/*.jsx -x js -o ../website/src/api/docs.json --pretty",
+    "lint": "eslint src/**/*.js",
+    "test": "npm run lint",
+    "watch": "echo \"*** Watching...\n\" && babel src/components --optional runtime --stage 0 --out-dir lib/components  --watch",
+    "build": "echo \"*** Building lib\n\" && rm -rf lib && mkdir lib && mkdir lib/components && cp src/components/*.css lib/components && babel src/components --optional runtime --stage 0 --out-dir lib/components && babel src/index.js --optional runtime --stage 0 --out-file lib/index.js",
+    "start-website": "react-scripts start",
+    "build-website": "echo \"*** Building website\n\" && rm -rf docs && react-scripts build && mv build docs"
+  },
+  "pre-commit": [
+    "lint",
+    "build"
+  ],
+  "license": "BSD-3-Clause-LBNL",
+  "peerDependencies": {
+    "pondjs": "^0.8.7",
+    "react": "^15.6.2"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.5.0",
+    "d3-scale": "^0.7.2",
+    "keymirror": "^0.1.1",
+    "pondjs": "^0.9.0-alpha.fff751e8",
+    "react": "^15.6.2",
+    "react-select": "^1.0.0-rc.10",
+    "underscore": "^1.7.0",
+    "victor": "^0.2.6"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.5.1",
+    "babel-core": "^6.5.2",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "create-react-class": "^15.6.2",
+    "lerna": "^2.0.0",
+    "prop-types": "^15.6.0",
+    "react-docgen": "^2.18.0",
+    "react-scripts": "^1.0.14"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  }
+}

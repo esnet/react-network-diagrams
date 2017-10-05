@@ -46,6 +46,24 @@ export default createReactClass({
 
     propTypes: {
 
+        /** The blank margin around the diagram drawing */
+        margin: PropTypes.number,
+
+        labelPosition: PropTypes.oneOf([
+            "left",
+            "right",
+            "center",
+            "top",
+            "topright",
+            "topleft",
+            "bottom",
+            "bottomright",
+            "bottomleft",
+            "bottomleftangled",
+            "bottomrightangled",
+            "topleftangled",
+            "toprightangled"]),
+
         /** The width of the circuit diagram */
         width: PropTypes.number,
 

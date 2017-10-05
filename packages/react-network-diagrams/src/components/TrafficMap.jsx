@@ -109,24 +109,6 @@ export default createReactClass({
          */
         edgeThinknessMap: PropTypes.object,
 
-        /**
-         * A mapping of the edge name (which is source + "--" + target) to a
-         * dict of edge shape options:
-         *  * `shape` (either "linear" or "curved")
-         *  * `direction` (if shape is curved, either "left" or "right")
-         *  * `offset` (if shape is curved, the amount of curve, which is
-         *  pixel offset from a straight line between the source and target at the midpoint)
-         *
-         * Example:
-         * ```
-         * const edgeShapeMap = {
-         *     ALBQ--DENV: {
-         *         shape: "curved",
-         *         direction: "right",
-         *         offset: 15
-         *     }, ...
-         *  }
-         */
         edgeColorMap: PropTypes.array,
 
         /**
@@ -173,7 +155,17 @@ export default createReactClass({
          * }
          * ```
          */
-        edgeShapeMap: PropTypes.object
+        edgeShapeMap: PropTypes.object,
+        
+        /** Display the endpoint selected */
+        selected: PropTypes.bool,
+        
+        /** The shape of the endpoint */
+        shape: PropTypes.oneOf(["circle", "square", "cloud"]),
+        
+        stylesMap: PropTypes.object,
+
+        autoSize: PropTypes.bool
     },
 
     bounds() {

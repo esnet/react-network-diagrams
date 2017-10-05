@@ -32,12 +32,25 @@ export default createReactClass({
     },
 
     propTypes: {
+
+        /** The width of the circuit diagram */
         width: PropTypes.number,
+
+        /**
+         * This is the vertical spacing
+         */
         spacing: PropTypes.number,
+
+        /** An offset to the position of the label which can be used for fine tuning */
         offset: PropTypes.number,
+
         sourceTargetColor: PropTypes.string,
         targetSourceColor: PropTypes.string,
+
+        /** Display the endpoint selected */
         selected: PropTypes.bool,
+
+        /** Display the endpoint muted */
         muted: PropTypes.bool
     },
 

@@ -9,11 +9,71 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
 import createReactClass from "create-react-class";
 
 export default createReactClass({
 
     displayName: "Node",
+
+    propTypes: {
+
+        /** When the node shape is a `circle`, this controls the size of the node */
+        radius: PropTypes.number,
+
+        /** Display the node as selected */
+        selected: PropTypes.bool,
+
+        /** The shape of the node */
+        shape: PropTypes.oneOf(["circle", "square", "cloud"]),
+
+        /**
+         * The style of the `<Node>` has two components, one for the
+         * node itself and one for the label (the label). Each group
+         * has three different possible options depending on the way the
+         * node should be rendered:
+         *
+         *  * `normal` provides the standard view of the node
+         *  * `selected` for when the node is moused over
+         *  * `muted` for when the node is not selected.
+         *
+         * For example:
+         *
+         * ```
+         * const nodeStyle = {
+         *     node: {
+         *         normal: {fill: "none", stroke: "#DBDBDB", strokeWidth: 4},
+         *         selected: {fill: "none", stroke: "#B1B1B1", strokeWidth: 6},
+         *         muted: {fill: "none", stroke: "#DBDBDB", strokeWidth: 2, opacity: 0.6, cursor: "pointer"}
+         *     },
+         *     label: {
+         *         normal: {fill: "#9D9D9D", fontSize: 10, fontFamily: "verdana, sans-serif"},
+         *         selected: {fill: "#333",stroke: "none", fontSize: 11},
+         *         muted: {fill: "#696969", stroke: "none", fontSize: 9, opacity: 0.6}
+         *     }
+         * }
+         * ```
+         */
+        style: PropTypes.object,
+        
+        isDragging: PropTypes.bool,
+        
+        /**
+         * Controls the x pixel offset from labelPosition
+         */
+        labelOffsetX: PropTypes.number,
+        
+        /**
+         * Controls the y pixel offset from labelPosition
+         */
+        labelOffsetY: PropTypes.number,
+        
+        /** When the node shape is a `square`, this controls the radius of corners. */
+        rx: PropTypes.number,
+
+        /** When the node shape is a `square`, this controls the radius of corners. */
+        ry: PropTypes.number
+    },
 
     getDefaultProps() {
         return {

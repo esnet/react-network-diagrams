@@ -9,6 +9,7 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types"
 import createReactClass from "create-react-class";
 import _ from "underscore";
 
@@ -21,6 +22,20 @@ import _ from "underscore";
 export default createReactClass({
 
     displayName: "Label",
+
+    propTypes: {
+        r: PropTypes.number,
+
+        /**
+         * Horizontal distance from the center line to offset the connection label.
+         */
+        xOffset: PropTypes.number,
+
+        /**
+         * Vertical distance from the center line to offset the connection label.
+         */
+        yOffset: PropTypes.number
+    },
 
     getDefaultProps() {
         return {

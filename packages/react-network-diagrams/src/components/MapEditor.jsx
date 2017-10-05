@@ -9,6 +9,7 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
 import _ from "underscore";
 import Select from "react-select";
 
@@ -22,6 +23,70 @@ let counter = 1;
 export default createReactClass({
 
     displayName: "MapEditor",
+
+    propTypes: {
+
+        /**
+         * A mapping of the capacity field within the tologogy edge object
+         * to a line thickness for rendering the edges.
+         *
+         * Example:
+         *
+         * ```
+         * const edgeThinknessMap = {
+         *     "100G": 5,
+         *     "10G": 3,
+         *     "1G": 1.5,
+         *     "subG": 1
+         * };
+         * ```
+         */
+        edgeThicknessMap: PropTypes.object,
+
+        /** Display the endpoint selected */
+        selected: PropTypes.bool,
+
+        edgeColorMap: PropTypes.array,
+
+        /**
+         * A mapping from the type field in the node object to a size to draw the shape
+         *
+         * Example:
+         * ```
+         * const nodeSizeMap = {
+         *     hub: 5.5,
+         *     esnet_site: 7
+         * };
+         * ```
+         */
+        nodeSizeMap: PropTypes.object,
+        
+        nodeShapeMap: PropTypes.object,
+        
+        /**
+         * A mapping of the edge name (which is source + "--" + target) to a
+         * dict of edge shape options:
+         *  * `shape` (either "linear" or "curved")
+         *  * `direction` (if shape is curved, either "left" or "right")
+         *  * `offset` (if shape is curved, the amount of curve, which is
+         *  pixel offset from a straight line between the source and target at the midpoint)
+         *
+         * Example:
+         * ```
+         * const edgeShapeMap = {
+         *     "ALBQ--DENV": {
+         *     "shape": "curved",
+         *     "direction": "right",
+         *     "offset": 15
+         * }
+         * ```
+         */
+        edgeShapeMap: PropTypes.object,
+        
+        stylesMap: PropTypes.object,
+
+        gridSize: PropTypes.number
+    },
 
     getDefaultProps() {
         return {

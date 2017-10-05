@@ -40,13 +40,34 @@ export default createReactClass({
     displayName: "AngledEdge",
 
     propTypes: {
+
+        /** An offset to the position of the label which can be used for fine tuning */
         offset: PropTypes.number,
+
+        /** The width of the circuit diagram */
         width: PropTypes.number,
+
         color: PropTypes.string,
+
         curveDirection: PropTypes.string,
+
+        /**
+         * Boolean value that controls if a directional arrow is drawn instead of line-caps.
+         * When arrow is set to "true", the vector between x1, y1 and x2, y2 will have the
+         * Line-caps replaced with a directional arrow. Arrowheads can be sized using the
+         * arrowWidth and arrowHeight property.
+         */
         arrow: PropTypes.bool,
+
+        /**
+         * Controls the angle of the offset from the center of the line.
+         */
         position: PropTypes.number,
+
+        /** Display the endpoint selected */
         selected: PropTypes.bool,
+
+        /** Display the endpoint muted */
         muted: PropTypes.bool
     },
 

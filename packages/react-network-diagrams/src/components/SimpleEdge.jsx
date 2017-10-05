@@ -10,7 +10,7 @@
 
 import _ from "underscore";
 import React from "react";
-
+import PropTypes from "prop-types";
 import AngledEdge from "./AngledEdge";
 import ArcEdge from "./ArcEdge";
 import LinearEdge from "./LinearEdge";
@@ -20,6 +20,38 @@ import createReactClass from "create-react-class";
 export default createReactClass({
 
     displayName: "SimpleEdge",
+
+    propTypes: {
+        color: PropTypes.string,
+
+        /** The width of the circuit diagram */
+        width: PropTypes.number,
+
+        /**
+         * Controls the angle of the offset from the center of the line.
+         */
+        position: PropTypes.number,
+
+        /** Display the edge selected */
+        selected: PropTypes.bool,
+
+        /** Display the edge muted */
+        muted: PropTypes.bool,
+
+        /** Display the edge invisible */
+        invisible: PropTypes.bool,
+
+        /**
+         * Boolean value that controls if a directional arrow is drawn instead of line-caps.
+         * When arrow is set to "true", the vector between x1, y1 and x2, y2 will have the
+         * Line-caps replaced with a directional arrow. Arrowheads can be sized using the
+         * arrowWidth and arrowHeight property.
+         */
+        arrow: PropTypes.bool,
+
+        /** Color of the edge */
+        fillColor: PropTypes.string
+    },
 
     getDefaultProps() {
         return {

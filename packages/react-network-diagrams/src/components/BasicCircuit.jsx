@@ -164,10 +164,13 @@ export default createReactClass({
             PropTypes.number
         ]),
 
+        /** The width of the circuit diagram */
         width: PropTypes.number,
         height: PropTypes.number,
         titleOffsetX: PropTypes.number,
         titleOffsetY: PropTypes.number,
+
+        /** The blank margin around the diagram drawing */
         margin: PropTypes.number,
         roundedX: PropTypes.number,
         roundedY: PropTypes.number

@@ -42,48 +42,88 @@
     ],
     "props": {
       "offset": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "An offset to the position of the label which can be used for fine tuning",
         "defaultValue": {
           "value": "15",
           "computed": false
         }
       },
       "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The width of the circuit diagram",
         "defaultValue": {
           "value": "1",
           "computed": false
         }
       },
       "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "\"#ddd\"",
           "computed": false
         }
       },
       "curveDirection": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "\"left\"",
           "computed": false
         }
       },
       "arrow": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Boolean value that controls if a directional arrow is drawn instead of line-caps.\nWhen arrow is set to \"true\", the vector between x1, y1 and x2, y2 will have the\nLine-caps replaced with a directional arrow. Arrowheads can be sized using the\narrowWidth and arrowHeight property.",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "position": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the angle of the offset from the center of the line.",
         "defaultValue": {
           "value": "30",
           "computed": false
         }
       },
       "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint selected",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "muted": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint muted",
         "defaultValue": {
           "value": "false",
           "computed": false
@@ -110,48 +150,88 @@
     ],
     "props": {
       "offset": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "An offset to the position of the label which can be used for fine tuning",
         "defaultValue": {
           "value": "20",
           "computed": false
         }
       },
       "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The width of the circuit diagram",
         "defaultValue": {
           "value": "1",
           "computed": false
         }
       },
       "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "\"#ddd\"",
           "computed": false
         }
       },
       "curveDirection": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "\"left\"",
           "computed": false
         }
       },
       "arrow": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Boolean value that controls if a directional arrow is drawn instead of line-caps.\nWhen arrow is set to \"true\", the vector between x1, y1 and x2, y2 will have the\nLine-caps replaced with a directional arrow. Arrowheads can be sized using the\narrowWidth and arrowHeight property.",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "position": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the angle of the offset from the center of the line.",
         "defaultValue": {
           "value": "0",
           "computed": false
         }
       },
       "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint selected",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "muted": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint muted",
         "defaultValue": {
           "value": "false",
           "computed": false
@@ -257,14 +337,14 @@
           "name": "object"
         },
         "required": true,
-        "description": ""
+        "description": "The topology structure, as detailed above. This contains the\ndescriptions of nodes, edges and paths used to render the topology"
       },
       "width": {
         "type": {
           "name": "number"
         },
         "required": false,
-        "description": "",
+        "description": "The width of the circuit diagram",
         "defaultValue": {
           "value": "800",
           "computed": false
@@ -275,7 +355,7 @@
           "name": "number"
         },
         "required": false,
-        "description": "",
+        "description": "The height of the circuit diagram",
         "defaultValue": {
           "value": "600",
           "computed": false
@@ -286,7 +366,7 @@
           "name": "number"
         },
         "required": false,
-        "description": "",
+        "description": "The blank margin around the diagram drawing",
         "defaultValue": {
           "value": "20",
           "computed": false
@@ -315,7 +395,7 @@
           }
         },
         "required": false,
-        "description": "",
+        "description": "Specified as an object containing x1, y1 and x2, y2. This is the region\nto display on the map. If this isn't specified the bounds will be\ncalculated from the nodes in the Map.",
         "defaultValue": {
           "value": "{x1: 0, y1: 0, x2: 1, y2: 1}",
           "computed": false
@@ -340,7 +420,7 @@
           ]
         },
         "required": false,
-        "description": "",
+        "description": "The is the overall rendering style for the edge connections. Maybe\none of the following strings:\n\n * \"simple\" - simple line connections between nodes\n * \"bidirectionalArrow\" - network traffic represented by bi-directional arrows\n * \"pathBidirectionalArrow\" - similar to \"bidirectionalArrow\", but only for\n edges that are used in the currently displayed path(s).",
         "defaultValue": {
           "value": "\"simple\"",
           "computed": false
@@ -380,18 +460,33 @@
         }
       },
       "selection": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "{ nodes: {}, edges: {} }",
           "computed": false
         }
       },
       "paths": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "[]",
           "computed": false
         }
       },
       "pathWidth": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "5",
           "computed": false
@@ -696,42 +791,77 @@
         "description": "If provided, will render a small nav arrow that when clicked,\nnavigates to that element. Used mainly when we want to show a parent / child\nrelationship between two circuits."
       },
       "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The width of the circuit diagram",
         "defaultValue": {
           "value": "851",
           "computed": false
         }
       },
       "height": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "250",
           "computed": false
         }
       },
       "titleOffsetX": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "10",
           "computed": false
         }
       },
       "titleOffsetY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "15",
           "computed": false
         }
       },
       "margin": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The blank margin around the diagram drawing",
         "defaultValue": {
           "value": "100",
           "computed": false
         }
       },
       "roundedX": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "5",
           "computed": false
         }
       },
       "roundedY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "5",
           "computed": false
@@ -745,42 +875,77 @@
     "methods": [],
     "props": {
       "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The width of the circuit diagram",
         "defaultValue": {
           "value": "1",
           "computed": false
         }
       },
       "spacing": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "This is the vertical spacing",
         "defaultValue": {
           "value": "3.5",
           "computed": false
         }
       },
       "offset": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "An offset to the position of the label which can be used for fine tuning",
         "defaultValue": {
           "value": "18",
           "computed": false
         }
       },
       "sourceTargetColor": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "\"#C9CACC\"",
           "computed": false
         }
       },
       "targetSourceColor": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "\"#C9CACC\"",
           "computed": false
         }
       },
       "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint selected",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "muted": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint muted",
         "defaultValue": {
           "value": "false",
           "computed": false
@@ -1057,7 +1222,7 @@
             },
             {
               "name": "custom",
-              "raw": "React.PropTypes.Number"
+              "raw": "PropTypes.Number"
             }
           ]
         },
@@ -1065,24 +1230,44 @@
         "description": "Value that if provided, will render a small nav arrow that\nwhen clicked, navigates to that element. Used mainly when we want\nto show a parent / child relationship between two circuits."
       },
       "noNavigate": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Boolean value that determines if the element uses the onSelectionChange\nchange and can be clicked",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "squareWidth": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "This value is used to determine X coordinates for a square, if you want\nthe square to be smaller than the default line width. Overrides the\nmargin prop if a square is displayed",
         "defaultValue": {
           "value": "25",
           "computed": false
         }
       },
       "roundedX": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "When the endpoint shape is a `square`, this controls the radius of corners.",
         "defaultValue": {
           "value": "5",
           "computed": false
         }
       },
       "roundedY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "When the endpoint shape is a `square`, this controls the radius of corners.",
         "defaultValue": {
           "value": "5",
           "computed": false
@@ -1687,18 +1872,33 @@
     "methods": [],
     "props": {
       "r": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "0",
           "computed": false
         }
       },
       "xOffset": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Horizontal distance from the center line to offset the connection label.",
         "defaultValue": {
           "value": "0",
           "computed": false
         }
       },
       "yOffset": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Vertical distance from the center line to offset the connection label.",
         "defaultValue": {
           "value": "0",
           "computed": false
@@ -1725,36 +1925,66 @@
     ],
     "props": {
       "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The width of the circuit diagram",
         "defaultValue": {
           "value": "1",
           "computed": false
         }
       },
       "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "\"#ddd\"",
           "computed": false
         }
       },
       "position": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the angle of the offset from the center of the line.",
         "defaultValue": {
           "value": "0",
           "computed": false
         }
       },
       "arrow": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Boolean value that controls if a directional arrow is drawn instead of line-caps.\nWhen arrow is set to \"true\", the vector between x1, y1 and x2, y2 will have the\nLine-caps replaced with a directional arrow. Arrowheads can be sized using the\narrowWidth and arrowHeight property.",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint selected",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "muted": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint muted",
         "defaultValue": {
           "value": "false",
           "computed": false
@@ -2128,51 +2358,93 @@
       }
     ],
     "props": {
-      "edgeThinknessMap": {
-        "defaultValue": {
-          "value": "{\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    subG: 1\n}",
-          "computed": false
-        }
+      "edgeThicknessMap": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "A mapping of the capacity field within the tologogy edge object\nto a line thickness for rendering the edges.\n\nExample:\n\n```\nconst edgeThinknessMap = {\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    \"subG\": 1\n};\n```"
       },
       "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint selected",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "edgeColorMap": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "[]",
           "computed": false
         }
       },
       "nodeSizeMap": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "A mapping from the type field in the node object to a size to draw the shape\n\nExample:\n```\nconst nodeSizeMap = {\n    hub: 5.5,\n    esnet_site: 7\n};\n```",
         "defaultValue": {
           "value": "{}",
           "computed": false
         }
       },
       "nodeShapeMap": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "{}",
           "computed": false
         }
       },
       "edgeShapeMap": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "A mapping of the edge name (which is source + \"--\" + target) to a\ndict of edge shape options:\n * `shape` (either \"linear\" or \"curved\")\n * `direction` (if shape is curved, either \"left\" or \"right\")\n * `offset` (if shape is curved, the amount of curve, which is\n pixel offset from a straight line between the source and target at the midpoint)\n\nExample:\n```\nconst edgeShapeMap = {\n    \"ALBQ--DENV\": {\n    \"shape\": \"curved\",\n    \"direction\": \"right\",\n    \"offset\": 15\n}\n```",
         "defaultValue": {
           "value": "{}",
           "computed": false
         }
       },
       "stylesMap": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "{}",
           "computed": false
         }
       },
       "gridSize": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "0.25",
+          "computed": false
+        }
+      },
+      "edgeThinknessMap": {
+        "defaultValue": {
+          "value": "{\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    subG: 1\n}",
           "computed": false
         }
       }
@@ -2184,72 +2456,132 @@
     "methods": [],
     "props": {
       "x": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "0",
           "computed": false
         }
       },
       "y": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "0",
           "computed": false
         }
       },
       "lineHeight": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "20",
           "computed": false
         }
       },
       "columns": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "true",
           "computed": false
         }
       },
       "itemsPerColumn": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "4",
           "computed": false
         }
       },
       "columnWidth": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "100",
           "computed": false
         }
       },
       "exampleWidth": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "20",
           "computed": false
         }
       },
       "gutter": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "8",
           "computed": false
         }
       },
       "edgeColor": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "\"#333\"",
           "computed": false
         }
       },
       "nodeTypes": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "[]",
           "computed": false
         }
       },
       "edgeTypes": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "[]",
           "computed": false
         }
       },
       "colorSwatches": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "[]",
           "computed": false
@@ -2412,54 +2744,113 @@
     ],
     "props": {
       "radius": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "When the node shape is a `circle`, this controls the size of the node",
         "defaultValue": {
           "value": "5",
           "computed": false
         }
       },
       "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the node as selected",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "shape": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"circle\"",
+              "computed": false
+            },
+            {
+              "value": "\"square\"",
+              "computed": false
+            },
+            {
+              "value": "\"cloud\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "The shape of the node",
         "defaultValue": {
           "value": "\"circle\"",
           "computed": false
         }
       },
       "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The style of the `<Node>` has two components, one for the\nnode itself and one for the label (the label). Each group\nhas three different possible options depending on the way the\nnode should be rendered:\n\n * `normal` provides the standard view of the node\n * `selected` for when the node is moused over\n * `muted` for when the node is not selected.\n\nFor example:\n\n```\nconst nodeStyle = {\n    node: {\n        normal: {fill: \"none\", stroke: \"#DBDBDB\", strokeWidth: 4},\n        selected: {fill: \"none\", stroke: \"#B1B1B1\", strokeWidth: 6},\n        muted: {fill: \"none\", stroke: \"#DBDBDB\", strokeWidth: 2, opacity: 0.6, cursor: \"pointer\"}\n    },\n    label: {\n        normal: {fill: \"#9D9D9D\", fontSize: 10, fontFamily: \"verdana, sans-serif\"},\n        selected: {fill: \"#333\",stroke: \"none\", fontSize: 11},\n        muted: {fill: \"#696969\", stroke: \"none\", fontSize: 9, opacity: 0.6}\n    }\n}\n```",
         "defaultValue": {
           "value": "{}",
           "computed": false
         }
       },
       "isDragging": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "labelOffsetX": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the x pixel offset from labelPosition",
         "defaultValue": {
           "value": "0",
           "computed": false
         }
       },
       "labelOffsetY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the y pixel offset from labelPosition",
         "defaultValue": {
           "value": "0",
           "computed": false
         }
       },
       "rx": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "When the node shape is a `square`, this controls the radius of corners.",
         "defaultValue": {
           "value": "0",
           "computed": false
         }
       },
       "ry": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "When the node shape is a `square`, this controls the radius of corners.",
         "defaultValue": {
           "value": "0",
           "computed": false
@@ -2726,7 +3117,7 @@
             },
             {
               "name": "custom",
-              "raw": "React.PropTypes.Number"
+              "raw": "PropTypes.Number"
             }
           ]
         },
@@ -2734,6 +3125,11 @@
         "description": "Value that if provided, will render a small nav arrow that\nwhen clicked, navigates to that element. Used mainly when we want\nto show a parent / child relationship between two circuits."
       },
       "noNavigate": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Boolean value that determines if the element uses the onSelectionChange\nchange and can be clicked",
         "defaultValue": {
           "value": "false",
           "computed": false
@@ -2865,6 +3261,82 @@
       }
     ],
     "props": {
+      "margin": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The blank margin around the diagram drawing",
+        "defaultValue": {
+          "value": "150",
+          "computed": false
+        }
+      },
+      "labelPosition": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"left\"",
+              "computed": false
+            },
+            {
+              "value": "\"right\"",
+              "computed": false
+            },
+            {
+              "value": "\"center\"",
+              "computed": false
+            },
+            {
+              "value": "\"top\"",
+              "computed": false
+            },
+            {
+              "value": "\"topright\"",
+              "computed": false
+            },
+            {
+              "value": "\"topleft\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottom\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomright\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomleft\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomleftangled\"",
+              "computed": false
+            },
+            {
+              "value": "\"bottomrightangled\"",
+              "computed": false
+            },
+            {
+              "value": "\"topleftangled\"",
+              "computed": false
+            },
+            {
+              "value": "\"toprightangled\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "\"top\"",
+          "computed": false
+        }
+      },
       "width": {
         "type": {
           "name": "number"
@@ -3073,18 +3545,6 @@
           "value": "0",
           "computed": false
         }
-      },
-      "margin": {
-        "defaultValue": {
-          "value": "150",
-          "computed": false
-        }
-      },
-      "labelPosition": {
-        "defaultValue": {
-          "value": "\"top\"",
-          "computed": false
-        }
       }
     }
   },
@@ -3107,48 +3567,88 @@
     "methods": [],
     "props": {
       "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "\"#ddd\"",
           "computed": false
         }
       },
       "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The width of the circuit diagram",
         "defaultValue": {
           "value": "4",
           "computed": false
         }
       },
       "position": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the angle of the offset from the center of the line.",
         "defaultValue": {
           "value": "0",
           "computed": false
         }
       },
       "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the edge selected",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "muted": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the edge muted",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "invisible": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the edge invisible",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "arrow": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Boolean value that controls if a directional arrow is drawn instead of line-caps.\nWhen arrow is set to \"true\", the vector between x1, y1 and x2, y2 will have the\nLine-caps replaced with a directional arrow. Arrowheads can be sized using the\narrowWidth and arrowHeight property.",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "fillColor": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Color of the edge",
         "defaultValue": {
           "value": "\"none\"",
           "computed": false
@@ -3199,48 +3699,88 @@
     ],
     "props": {
       "roundedX": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "When the endpoint shape is a `square`, this controls the radius of corners",
         "defaultValue": {
           "value": "0",
           "computed": false
         }
       },
       "roundedY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "When the endpoint shape is a `square`, this controls the radius of corners",
         "defaultValue": {
           "value": "0",
           "computed": false
         }
       },
       "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "\"#ddd\"",
           "computed": false
         }
       },
       "position": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the angle of the offset from the center of the line.",
         "defaultValue": {
           "value": "0",
           "computed": false
         }
       },
       "arrow": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Boolean value that controls if a directional arrow is drawn instead of line-caps.\nWhen arrow is set to \"true\", the vector between x1, y1 and x2, y2 will have the\nLine-caps replaced with a directional arrow. Arrowheads can be sized using the\narrowWidth and arrowHeight property.",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint selected",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "muted": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint muted",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "size": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Controls the size of the square",
         "defaultValue": {
           "value": "40",
           "computed": false
@@ -3423,7 +3963,7 @@
               "computed": false
             },
             {
-              "value": "\"bidirectional\"",
+              "value": "\"bidirectionalArrow\"",
               "computed": false
             },
             {
@@ -3473,7 +4013,7 @@
           "name": "array"
         },
         "required": false,
-        "description": "A mapping of the edge name (which is source + \"--\" + target) to a\ndict of edge shape options:\n * `shape` (either \"linear\" or \"curved\")\n * `direction` (if shape is curved, either \"left\" or \"right\")\n * `offset` (if shape is curved, the amount of curve, which is\n pixel offset from a straight line between the source and target at the midpoint)\n\nExample:\n```\nconst edgeShapeMap = {\n    ALBQ--DENV: {\n        shape: \"curved\",\n        direction: \"right\",\n        offset: 15\n    }, ...\n }",
+        "description": "",
         "defaultValue": {
           "value": "[]",
           "computed": false
@@ -3513,24 +4053,58 @@
         }
       },
       "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Display the endpoint selected",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "shape": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"circle\"",
+              "computed": false
+            },
+            {
+              "value": "\"square\"",
+              "computed": false
+            },
+            {
+              "value": "\"cloud\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "The shape of the endpoint",
         "defaultValue": {
           "value": "\"circle\"",
           "computed": false
         }
       },
       "stylesMap": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "{}",
           "computed": false
         }
       },
       "autoSize": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "true",
           "computed": false

@@ -169,7 +169,26 @@ export default createReactClass({
         parentId: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.Number
-        ])
+        ]),
+
+        /**
+         * Boolean value that determines if the element uses the onSelectionChange
+         * change and can be clicked
+         */
+        noNavigate: PropTypes.bool,
+
+        /**
+         * This value is used to determine X coordinates for a square, if you want
+         * the square to be smaller than the default line width. Overrides the
+         * margin prop if a square is displayed
+         */
+        squareWidth: PropTypes.number,
+
+        /** When the endpoint shape is a `square`, this controls the radius of corners. */
+        roundedX: PropTypes.number,
+
+        /** When the endpoint shape is a `square`, this controls the radius of corners. */
+        roundedY: PropTypes.number
     },
 
     renderCircuitTitle(title) {

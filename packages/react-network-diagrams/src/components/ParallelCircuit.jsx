@@ -153,7 +153,13 @@ export default createReactClass({
         parentId: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.Number
-        ])
+        ]),
+
+        /**
+         * Boolean value that determines if the element uses the onSelectionChange
+         * change and can be clicked
+         */
+        noNavigate: PropTypes.bool
     },
 
     renderCircuitTitle(title) {

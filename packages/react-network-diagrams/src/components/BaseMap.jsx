@@ -41,28 +41,63 @@ export default createReactClass({
     displayName: "BaseMap",
 
     propTypes: {
+
+        /**
+         * The topology structure, as detailed above. This contains the
+         * descriptions of nodes, edges and paths used to render the topology
+         */
         topology: PropTypes.object.isRequired,
+
+        /** The width of the circuit diagram */
         width: PropTypes.number,
+
+        /** The height of the circuit diagram */
         height: PropTypes.number,
+
+        /** The blank margin around the diagram drawing */
         margin: PropTypes.number,
+
+        /**
+         * Specified as an object containing x1, y1 and x2, y2. This is the region
+         * to display on the map. If this isn't specified the bounds will be
+         * calculated from the nodes in the Map.
+         */
         bounds: PropTypes.shape({
             x1: PropTypes.number,
             y1: PropTypes.number,
             x2: PropTypes.number,
             y2: PropTypes.number
         }),
+
+        /**
+         * The is the overall rendering style for the edge connections. Maybe
+         * one of the following strings:
+         *
+         *  * "simple" - simple line connections between nodes
+         *  * "bidirectionalArrow" - network traffic represented by bi-directional arrows
+         *  * "pathBidirectionalArrow" - similar to "bidirectionalArrow", but only for
+         *  edges that are used in the currently displayed path(s).
+         */
         edgeDrawingMethod: PropTypes.oneOf([
             "simple",
             "bidirectionalArrow",
             "pathBidirectionalArrow"
         ]),
+
         legendItems: PropTypes.shape({
             x: PropTypes.number,
             y: PropTypes.number,
             edgeTypes: PropTypes.object,
             nodeTypes: PropTypes.object,
             colorSwatches: PropTypes.object
-        })
+        }),
+
+        selection: PropTypes.object,
+
+        paths: PropTypes.array,
+
+        pathWidth: PropTypes.number
+
     },
 
     getDefaultProps() {

@@ -9,6 +9,7 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
 import _ from "underscore";
 
 import Label from "./Label";
@@ -25,6 +26,39 @@ import createReactClass from "create-react-class";
 export default createReactClass({
 
     displayName: "SquareEdge",
+
+    propTypes: {
+
+        /** When the endpoint shape is a `square`, this controls the radius of corners */
+        roundedX: PropTypes.number,
+
+        /** When the endpoint shape is a `square`, this controls the radius of corners */
+        roundedY: PropTypes.number,
+
+        color: PropTypes.string,
+
+        /**
+         * Controls the angle of the offset from the center of the line.
+         */
+        position: PropTypes.number,
+
+        /**
+         * Boolean value that controls if a directional arrow is drawn instead of line-caps.
+         * When arrow is set to "true", the vector between x1, y1 and x2, y2 will have the
+         * Line-caps replaced with a directional arrow. Arrowheads can be sized using the
+         * arrowWidth and arrowHeight property.
+         */
+        arrow: PropTypes.bool,
+
+        /** Display the endpoint selected */
+        selected: PropTypes.bool,
+
+        /** Display the endpoint muted */
+        muted: PropTypes.bool,
+
+        /** Controls the size of the square */
+        size: PropTypes.number
+    },
 
     getDefaultProps() {
         return {

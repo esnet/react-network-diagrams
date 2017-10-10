@@ -19,9 +19,8 @@ It takes a label as well in the form of a string or list of strings if multiline
 */
 
 export default React.createClass({
-
     getInitialState() {
-        return {highlighted: false };
+        return { highlighted: false };
     },
 
     getDefaultProps() {
@@ -39,7 +38,7 @@ export default React.createClass({
      */
     handleMouseOver() {
         if (!this.props.noNavigate) {
-            this.setState({highlighted: true});
+            this.setState({ highlighted: true });
         }
     },
 
@@ -48,7 +47,7 @@ export default React.createClass({
      */
     handleMouseOut() {
         if (!this.props.noNavigate) {
-            this.setState({highlighted: false});
+            this.setState({ highlighted: false });
         }
     },
 
@@ -71,10 +70,14 @@ export default React.createClass({
         let stroke;
         let fill;
 
-        if (this.state.highlighted) {
+        if (this.state.highlighted && !this.props.selected) {
             width = this.props.style.line.highlighted.strokeWidth;
             stroke = this.props.style.line.highlighted.stroke;
             fill = this.props.style.line.highlighted.fill;
+        } else if (this.props.selected) {
+            width = this.props.style.line.selected.strokeWidth;
+            stroke = this.props.style.line.selected.stroke;
+            fill = this.props.style.line.selected.fill;
         } else {
             width = this.props.style.line.normal.strokeWidth;
             stroke = this.props.style.line.normal.stroke;
@@ -93,7 +96,7 @@ export default React.createClass({
                         pxToInch={this.props.pxToInch}
                         classed={this.props.classed}
                         selected={this.props.selected}
-                        muted= {this.props.muted}
+                        muted={this.props.muted}
                         color={stroke}
                         width={width}
                         fill={fill}
@@ -104,10 +107,10 @@ export default React.createClass({
                         labelOffsetX={this.props.labelOffsetX}
                         labelOffsetY={this.props.labelOffsetY}
                         showHeight={this.props.showHeight}
-                        name={navTo} />
+                        name={navTo}
+                    />
                 </g>
-                <g onMouseOver={this.handleMouseOver}
-                   onMouseOut={this.handleMouseOut}>
+                <g onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
                     <Equipment
                         key={"equipment-base-hit"}
                         positionX={this.props.x}
@@ -117,7 +120,7 @@ export default React.createClass({
                         pxToInch={this.props.pxToInch}
                         classed={this.props.classed}
                         selected={this.props.selected}
-                        muted= {this.props.muted}
+                        muted={this.props.muted}
                         color={hitStyle.stroke}
                         width={hitStyle.strokeWidth}
                         fill={fill}
@@ -130,7 +133,8 @@ export default React.createClass({
                         name={navTo}
                         onSelectionChange={this.handleSelectionChanged}
                         showHeight={this.props.showHeight}
-                        invisible={true} />
+                        invisible={true}
+                    />
                 </g>
             </g>
         );

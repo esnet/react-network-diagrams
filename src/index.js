@@ -18,4 +18,6 @@ export ConcatenatedCircuit from "./circuit-diagram-concatenated.js";
 export ParallelCircuit from "./circuit-diagram-parallel.js";
 export PatchPanel from "./circuit-diagram-patchpanel.js";
 export Resizable from "./resizable.js";
+export Rack from "./rack";
+export Equipment from "./equipment";
 export MapEditor from "./map-editor.js";

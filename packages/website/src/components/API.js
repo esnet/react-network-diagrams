@@ -106,16 +106,11 @@ export default React.createClass({
         };
         return (
             <div>
-                <h2 style={titleStyle}>{`<${title}>`}</h2>
-                <hr />
                 <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-2"></div>
+                    <div className="col-md-9">
+                        <h2 style={titleStyle}>{`<${title}>`}</h2>
                         <TaggedExamples tag={component} />
-                    </div>
-                </div>
-                <hr />
-                <div className="row">
-                    <div className="col-md-12">
                         <APIDoc file={path}/>
                     </div>
                 </div>

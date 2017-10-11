@@ -12,7 +12,7 @@ import API from "./components/API";
 ReactDOM.render((
     <Router>
         <div>
-            <Route component={App} />
+            <Route path="/" component={App} />
             <Switch>
                 <Route exact path="/" component={Intro}/>
                 <Route path="/guide/:doc" component={Guide} />

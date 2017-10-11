@@ -65,7 +65,8 @@ export default React.createClass({
         return (
             <div>
                 <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-2"></div>
+                    <div className="col-md-9">
                         <div className="row">
                             <div className="col-md-12">
                                 <h3 style={titleStyle}>{ExampleCatalogData.title}</h3>

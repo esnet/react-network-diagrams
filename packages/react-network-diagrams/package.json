@@ -32,16 +32,12 @@
     "build"
   ],
   "license": "BSD-3-Clause-LBNL",
-  "peerDependencies": {
-    "pondjs": "^0.8.7",
-    "react": "^15.6.2"
-  },
   "dependencies": {
     "babel-runtime": "^6.5.0",
     "d3-scale": "^0.7.2",
     "keymirror": "^0.1.1",
-    "pondjs": "^0.9.0-alpha.fff751e8",
     "react": "^15.6.2",
+    "react-dom": "^15.6.2",
     "react-select": "^1.0.0-rc.10",
     "underscore": "^1.7.0",
     "victor": "^0.2.6"
@@ -53,9 +49,9 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "create-react-class": "^15.6.2",
-    "lerna": "^2.0.0",
+    "lerna": "^2.4.0",
     "prop-types": "^15.6.0",
-    "react-docgen": "^2.18.0",
+    "react-docgen": "^2.19.0",
     "react-scripts": "^1.0.14"
   },
   "eslintConfig": {

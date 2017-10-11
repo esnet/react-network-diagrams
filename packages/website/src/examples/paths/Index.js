@@ -11,6 +11,7 @@
 import React from "react";
 import _ from "underscore";
 import { TrafficMap } from "react-network-diagrams";
+import * as Immutable from "immutable";
 import { Event } from "pondjs";
 
 // Test data
@@ -217,12 +218,12 @@ const paths = React.createClass({
         //
 
         const timestamp = new Date();
-        const traffic = new Event(timestamp, {
+        const traffic = new Event(timestamp, Immutable.Map({
             "NASA_south--AtoZ": 20000000000,
             "NASA_south--ZtoA": 3000000000,
             "NASA_north--AtoZ": 40000000000,
             "NASA_north--ZtoA": 5000000000
-        });
+        }));
 
         const drawingMethod = this.state.mapMode === 0 ?
             "simple" : "pathBidirectionalArrow";
@@ -237,7 +238,7 @@ const paths = React.createClass({
                             key={this.state.mapMode}
                             initialChoice={Number(this.state.mapMode)}
                             onChange={this.handleMapToggle}/>
-                        <TrafficMap
+                         <TrafficMap
                             topology={topo}
                             traffic={traffic}
                             bounds={{x1: -5, y1: 5, x2: 240, y2: 120}}
@@ -252,7 +253,7 @@ const paths = React.createClass({
                             pathWidthMap={pathWidthMap}
                             showPaths={showPaths}
                             selection={mapSelection}
-                            onSelectionChange={this.handleSelectionChanged} />
+                            onSelectionChange={this.handleSelectionChanged} /> 
                     </div>
                 </div>
             </div>

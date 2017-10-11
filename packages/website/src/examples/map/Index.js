@@ -12,6 +12,7 @@ import React from "react";
 import _ from "underscore";
 import { Event } from "pondjs";
 import { TrafficMap } from "react-network-diagrams";
+import * as Immutable from "immutable";
 
 // Test data
 import topo from "./topo.json";
@@ -25,7 +26,7 @@ import rawTraffic from "./traffic.json";
 //
 
 const timestamp = rawTraffic.timestamp * 1000;
-const edgeTraffic = {};
+const edgeTraffic = Immutable.Map({});
 _.each(rawTraffic.edges, edge => {
     _.each(edge.bps, (bps, dir) => {
         edgeTraffic[dir] = bps;

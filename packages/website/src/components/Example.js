@@ -27,7 +27,7 @@ export default React.createClass({
             fontSize: "smaller"
         };
 
-        const exampleName = this.props.params.example;
+        const exampleName = this.props.match.params.example;
         const ExampleCatalogData = Catalog[exampleName];
         const Component = Examples[exampleName];
         const docs = Examples[`${exampleName}_docs`];

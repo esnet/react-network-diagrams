@@ -19,7 +19,7 @@ export default React.createClass({
     mixins: [Highlighter],
 
     render() {
-        const doc = this.props.params.doc;
+        const doc = this.props.match.params.doc;
         const text = Index[doc];
         return (
             <div>

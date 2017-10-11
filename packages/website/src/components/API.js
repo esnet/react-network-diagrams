@@ -11,7 +11,7 @@
 /* eslint max-len:0 */
 
 import React from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import _ from "underscore";
 import Flexbox from 'flexbox-react';
 
@@ -89,7 +89,7 @@ export default React.createClass({
     mixins: [Highlighter],
 
     render() {
-        const component = this.props.params.component;
+        const component = this.props.match.params.component;
         const path = `src/components/${component}.jsx`;
 
         if (!_.has(docsFile, path)) {

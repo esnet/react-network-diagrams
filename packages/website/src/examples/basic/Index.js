@@ -14,6 +14,9 @@ import { BasicCircuit, Resizable } from "react-network-diagrams";
 
 import { stylesMap } from "../../styles/styles";
 
+import basic_docs from "raw!./basic_docs.md";
+import basic_thumbnail from "./basic_thumbnail.png";
+
 const circuitTypeList = [
     "Optical",
     "Leased",
@@ -231,6 +234,4 @@ const basic = React.createClass({
 });
 
 // Export example
-import basic_docs from "raw!./basic_docs.md";
-import basic_thumbnail from "./basic_thumbnail.png";
 export default {basic, basic_docs, basic_thumbnail};

@@ -26,12 +26,12 @@ const positionList = [-90, -45, -30, -20, -15, -10, -3, -1, 0, 1, 3, 10, 15, 20,
 const curveDirectionList = ["left", "right"];
 const xyChoiceList = [75, 125, 175, 225, 275, 325, 375, 425];
 
-const Selector = React.createClass({
+class Selector extends React.Component {
 
     handleChange(e) {
         const val = e.target.value;
         this.props.handleChange(val);
-    },
+    }
 
     render() {
         const options = _.map(this.props.selectionList, option => {
@@ -44,24 +44,18 @@ const Selector = React.createClass({
                 ref="menu"
                 style={{marginRight: 5}}
                 value={this.props.selected}
-                onChange={this.handleChange}>
+                onChange={this.handleChange.bind(this)}>
                 {options}
             </select>
         );
     }
-});
+};
 
-const connection = React.createClass({
+class connection extends React.Component {
 
-    getDefaultProps() {
-        return {
-            height: 500,
-            width: 500
-        };
-    },
-
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             x1: xyChoiceList[0],
             x2: xyChoiceList[7],
             y1: xyChoiceList[3],
@@ -94,7 +88,15 @@ const connection = React.createClass({
             centerLineChoice: noNavigateList[1],
             textAnchor: textAnchorList[0]
         };
-    },
+
+        this.handleStyleModChange = this.handleStyleModChange.bind(this);
+        this.handleStyleTypeChange = this.handleStyleTypeChange.bind(this);
+        this.handleNoNavigateChange = this.handleNoNavigateChange.bind(this);
+        this.handlePositionOffsetChange = this.handlePositionOffsetChange.bind(this);
+        this.handleEndpointShapeChange = this.handleEndpointShapeChange.bind(this);
+        this.handleCenterLineChange = this.handleCenterLineChange.bind(this);
+        
+    }
 
     handleEndpointShapeChange(val) {
         if (val === "arrow") {
@@ -104,7 +106,7 @@ const connection = React.createClass({
             this.setState({arrowStyle: false});
             this.setState({endpointShape: val});
         }
-    },
+    }
 
     handleNoNavigateChange(val) {
         switch (val) {
@@ -120,7 +122,7 @@ const connection = React.createClass({
                 break;
         }
         this.setState({noNavigateChoice: val});
-    },
+    }
 
     handleCenterLineChange(val) {
         switch (val) {
@@ -136,7 +138,7 @@ const connection = React.createClass({
                 break;
         }
         this.setState({centerLineChoice: val});
-    },
+    }
 
     handleStyleTypeChange(val) {
         switch (val) {
@@ -156,7 +158,7 @@ const connection = React.createClass({
                 break;
         }
         this.setState({styleType: val});
-    },
+    }
 
     handleStyleModChange(val) {
         switch (val) {
@@ -179,17 +181,17 @@ const connection = React.createClass({
                 break;
         }
         this.setState({styleModifier: val});
-    },
+    }
 
     handlePositionOffsetChange(val) {
         const i = parseInt(val,10);
         this.setState({position: i});
-    },
+    }
 
     handleSelectionChange(e,val) {
         const message = `You clicked connection ${e} with name ${val}`;
         window.alert(message);
-    },
+    }
     // these choices apply to all
 
     renderDefaultPropChoices() {
@@ -284,7 +286,7 @@ const connection = React.createClass({
                 </div>
             </div>
         );
-    },
+    }
 
     renderBiDirectionalChoice() {
         return (
@@ -297,7 +299,7 @@ const connection = React.createClass({
                 <p>Select to display bidirectional lines</p>
             </div>
         );
-    },
+    }
 
     renderEndpointPropsChoices() {
         if (this.state.arrowStyle === true) {
@@ -333,7 +335,7 @@ const connection = React.createClass({
                 </div>
             );
         }
-    },
+    }
 
     renderLinearChoices() {
         return (
@@ -344,7 +346,7 @@ const connection = React.createClass({
                 <p>Select line position offset</p>
             </div>
         );
-    },
+    }
 
     renderCurvedChoices() {
         return (
@@ -371,7 +373,7 @@ const connection = React.createClass({
                 </div>
             </div>
         );
-    },
+    }
 
     _renderArrowChoices() {
         return (
@@ -391,7 +393,7 @@ const connection = React.createClass({
                 <p>Select arrow height and arrow width</p>
             </div>
         );
-    },
+    }
 
     renderSquareChoices() {
         return (
@@ -428,7 +430,7 @@ const connection = React.createClass({
                 </div>
             </div>
         );
-    },
+    }
 
     renderAngledChoices() {
         return (
@@ -455,7 +457,7 @@ const connection = React.createClass({
                 </div>
             </div>
         );
-    },
+    }
 
     renderSimpleConnection() {
         return (
@@ -495,7 +497,7 @@ const connection = React.createClass({
                 </g>
             </svg>
         );
-    },
+    }
 
     renderBiDirectionalConnection() {
         return (
@@ -566,7 +568,7 @@ const connection = React.createClass({
                 </g>
             </svg>
         );
-    },
+    }
 
     renderConnection() {
         if (this.state.bidirectionalChoice === "Yes") {
@@ -582,7 +584,7 @@ const connection = React.createClass({
                 </div>
             );
         }
-    },
+    }
 
     renderLineShapeChoices() {
         switch (this.state.lineShape) {
@@ -597,7 +599,7 @@ const connection = React.createClass({
             default:
                 break;
         }
-    },
+    }
 
     render() {
         return (
@@ -623,7 +625,12 @@ const connection = React.createClass({
             </div>
         );
     }
-});
+};
+
+connection.defaultProps = {
+    height: 500,
+    width: 500
+};
 
 // Export example
 import connection_docs from "raw!./connection_docs.md";

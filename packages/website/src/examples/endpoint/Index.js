@@ -33,12 +33,12 @@ const offsetList = [0, 15, 20, 25, 30];
 const styleModifierList = ["normal", "selected", "muted"];
 const radiusSizeList = [3, 5, 7, 10];
 
-const Selector = React.createClass({
+class Selector extends React.Component {
 
     handleChange(e) {
         const l = e.target.value;
         this.props.onChange(l);
-    },
+    }
 
     render() {
         const options = _.map(this.props.selectionList, option => {
@@ -47,24 +47,18 @@ const Selector = React.createClass({
             );
         });
         return (
-            <select ref="menu" value={this.props.selected} onChange={this.handleChange}>
+            <select ref="menu" value={this.props.selected} onChange={this.handleChange.bind(this)}>
                 {options}
             </select>
         );
     }
-});
+};
 
-const endpoint = React.createClass({
+class endpoint extends React.Component {
 
-    getDefaultProps() {
-        return {
-            height: 270,
-            width: 270
-        };
-    },
-
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             labelPosition: labelPositionChoiceList[0],
             shape: shapeList[0],
             offset: offsetList[0],
@@ -73,20 +67,26 @@ const endpoint = React.createClass({
             selectedStyle: false,
             mutedStyle: false
         };
-    },
+
+        this.handlePositionChange = this.handlePositionChange.bind(this);
+        this.handleShapeChange = this.handleShapeChange.bind(this);
+        this.handleOffsetChange = this.handleOffsetChange.bind(this);
+        this.handleStyleModChange = this.handleStyleModChange.bind(this);
+        this.handleRadiusChange = this.handleRadiusChange.bind(this);
+    }
 
     handlePositionChange(labelPosition) {
         this.setState({labelPosition});
-    },
+    }
 
     handleShapeChange(shape) {
         this.setState({shape});
-    },
+    }
 
     handleOffsetChange(val) {
         const offset = parseInt(val, 10);
         this.setState({offset});
-    },
+    }
 
     handleStyleModChange(l) {
         switch (l) {
@@ -109,12 +109,12 @@ const endpoint = React.createClass({
                 break;
         }
         this.setState({styleModifier: l});
-    },
+    }
 
     handleRadiusChange(l) {
         const i = parseInt(l,10);
         this.setState({radiusSize: i});
-    },
+    }
 
     render() {
         const x = this.props.width / 2;
@@ -188,7 +188,12 @@ const endpoint = React.createClass({
             </div>
         );
     }
-});
+};
+
+endpoint.defaultProps = {
+    height: 270,
+    width: 270
+};
 
 // Export example
 import endpoint_docs from "raw!./endpoint_docs.md";

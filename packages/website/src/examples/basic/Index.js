@@ -71,12 +71,12 @@ const circuitTypeProperties = {
     }
 };
 
-const Selector = React.createClass({
+class Selector extends React.Component {
 
     handleChange(e) {
         const value = e.target.value;
         this.props.handleChange(value);
-    },
+    }
 
     render() {
         const options = _.map(this.props.selectionList, option => {
@@ -85,29 +85,34 @@ const Selector = React.createClass({
             );
         });
         return (
-            <select ref="menu" value={this.props.selected} onChange={this.handleChange}>
+            <select ref="menu" value={this.props.selected} onChange={this.handleChange.bind(this)}>
                 {options}
             </select>
         );
     }
-});
+};
 
-const basic = React.createClass({
+class basic extends React.Component {
 
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             circuitType: circuitTypeProperties.crossConnect,
             circuitTypeChoice: circuitTypeList[4],
             circuitLabelPositionChoice: labelPositionChoiceList[0],
             endpointLabelPositionChoice: endpointPositionChoiceList[2],
             disabled: false
         };
-    },
+
+        this.handleDisabledChange = this.handleDisabledChange.bind(this);
+        this.handleSelectionChange = this.handleSelectionChange.bind(this);
+        this.handleTypeChange = this.handleTypeChange.bind(this);
+    }
 
     handleSelectionChange(e, value) {
         const message = `You clicked connection ${e} with name ${value}`;
         window.alert(message);
-    },
+    }
 
     handleTypeChange(l) {
         switch (l) {
@@ -136,13 +141,13 @@ const basic = React.createClass({
                 break;
         }
         this.setState({circuitTypeChoice: l});
-    },
+    }
 
     handleDisabledChange() {
         this.setState({
             disabled: this.state.disabled ? false : true
         });
-    },
+    }
 
     renderChoices() {
         return (
@@ -183,7 +188,7 @@ const basic = React.createClass({
                 </div>
             </div>
         );
-    },
+    }
 
     render() {
         const label = this.state.circuitTypeChoice;
@@ -231,7 +236,7 @@ const basic = React.createClass({
             </div>
         );
     }
-});
+};
 
 // Export example
 export default {basic, basic_docs, basic_thumbnail};

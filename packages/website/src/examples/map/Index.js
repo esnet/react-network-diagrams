@@ -35,18 +35,21 @@ _.each(rawTraffic.edges, edge => {
 
 const traffic = new Event(timestamp, edgeTraffic);
 
-const map = React.createClass({
+class map extends React.Component {
 
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             selectionType: null,
             selection: null
         };
-    },
+
+        this.handleSelectionChanged = this.handleSelectionChanged.bind(this);
+    }
 
     handleSelectionChanged(selectionType, selection) {
         this.setState({selectionType, selection});
-    },
+    }
 
     render() {
 
@@ -176,7 +179,7 @@ const map = React.createClass({
             </div>
         );
     }
-});
+};
 
 // Export example
 import map_docs from "raw!./map_docs.md";

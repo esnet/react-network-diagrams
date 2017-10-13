@@ -73,12 +73,12 @@ const circuitTypeProperties = {
     }
 };
 
-const Selector = React.createClass({
+class Selector extends React.Component {
 
     handleChange(e) {
         const value = e.target.value;
         this.props.handleChange(value);
-    },
+    }
 
     render() {
         const options = _.map(this.props.selectionList, option => {
@@ -89,17 +89,18 @@ const Selector = React.createClass({
         });
         const selected = _.isNull(this.props.selected) ? "none" : this.props.selected;
         return (
-            <select ref="menu" value={selected} onChange={this.handleChange}>
+            <select ref="menu" value={selected} onChange={this.handleChange.bind(this)}>
                 {options}
             </select>
         );
     }
-});
+};
 
-const parallel = React.createClass({
+class parallel extends React.Component {
 
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             circuits: [
                 "crossConnect",
                 "crossConnect",
@@ -112,30 +113,34 @@ const parallel = React.createClass({
             disabled: false,
             hideTitle: false
         };
-    },
+
+        this.handleDisabledChange = this.handleDisabledChange.bind(this);
+        this.handleHideTitleChange = this.handleHideTitleChange.bind(this);
+        this.handleSelectCircuitType = this.handleSelectCircuitType.bind(this);
+    }
 
     handleSelectionChange(e,l) {
         const message = `You clicked connection ${e} with name ${l}`;
         window.alert(message);
-    },
+    }
 
     handleDisabledChange() {
         this.setState({
             disabled: this.state.disabled ? false : true
         });
-    },
+    }
 
     handleHideTitleChange() {
         this.setState({
             hideTitle: this.state.hideTitle ? false : true
         });
-    },
+    }
 
     handleSelectCircuitType(index, circuitType) {
         const circuits = this.state.circuits;
         circuits[index] = circuitType;
         this.setState({circuits});
-    },
+    }
 
     renderSegmentChoices() {
         return (
@@ -171,7 +176,7 @@ const parallel = React.createClass({
                 <p>Select the circuit type for segment 5</p>
             </div>
         );
-    },
+    }
 
     renderChoices() {
         return (
@@ -204,7 +209,7 @@ const parallel = React.createClass({
                 <p>Select whether to hide the circuit title </p>
             </div>
         );
-    },
+    }
 
     render() {
         const memberList = [];
@@ -255,7 +260,7 @@ const parallel = React.createClass({
             </div>
         );
     }
-});
+};
 
 // Export example
 import parallel_docs from "raw!./parallel_docs.md";

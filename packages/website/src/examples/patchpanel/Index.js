@@ -243,22 +243,23 @@ const panels = [
     }
 ];
 
-const patchpanel = React.createClass({
+class patchpanel extends React.Component {
 
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             yOffset: 50,
             moduleSpacing: 15,
             panelWidth: 30,
             panelSpacing: 40,
             couplerSpacing: 3
         };
-    },
+    }
 
     handleSelectionChanged(e,val) {
         const message = `You clicked connection ${e} with name ${val}`;
         window.alert(message);
-    },
+    }
 
     render() {
         return (
@@ -284,7 +285,7 @@ const patchpanel = React.createClass({
             </div>
         );
     }
-});
+};
 
 // Export example
 import patchpanel_docs from "raw!./patchpanel_docs.md";

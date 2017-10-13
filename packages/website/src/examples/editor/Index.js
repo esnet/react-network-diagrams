@@ -19,9 +19,10 @@ import topoJSON from "./topo.json";
 /**
  * An example of putting together a topology editor
  */
-const editor = React.createClass({
+class editor extends React.Component {
 
-    getInitialState() {
+    constructor(props) {
+        super(props);
         const topo = topoJSON;
 
         // Add ids to the topology if needed
@@ -29,13 +30,17 @@ const editor = React.createClass({
             node.id = _.has(node, "id") ? node.id : this.makeId();
         });
 
-        return {
+        this.state = {
             topo,
             mode: null,
             display: "editor",
             gridSize: 0.5
         };
-    },
+
+        this.handleNavToggle = this.handleNavToggle.bind(this);
+        this.handleTopoChanged = this.handleTopoChanged.bind(this);
+        this.handleTopologyChanged = this.handleTopologyChanged.bind(this);
+    }
 
     /**
      * For the example we insert ids on the topology elements, since
@@ -48,7 +53,7 @@ const editor = React.createClass({
             const v = c === "x" ? r : ((r & 0x3) | 0x8);
             return v.toString(16);
         });
-    },
+    }
 
     /**
      * In this example the user can toggle between two displays: showing
@@ -56,7 +61,7 @@ const editor = React.createClass({
      */
     handleNavToggle(v) {
         this.setState({display: v});
-    },
+    }
 
     /**
      * In this example the user can edit the topo text directly. In
@@ -72,13 +77,13 @@ const editor = React.createClass({
         this.setState({
             topo: topo
         });
-    },
+    }
 
     handleTopologyChanged(topo) {
         this.setState({
             topo: topo
         });
-    },
+    }
 
     renderEditor() {
         const bounds = {
@@ -196,7 +201,7 @@ const editor = React.createClass({
                 gridSize={this.state.gridSize}
                 onTopologyChange={this.handleTopologyChanged} />
         );
-    },
+    }
 
     renderTopo() {
         return (
@@ -209,7 +214,7 @@ const editor = React.createClass({
                     rows="40" cols="80" />
             </div>
         );
-    },
+    }
 
     renderContent() {
         if (this.state.display === "editor") {
@@ -217,7 +222,7 @@ const editor = React.createClass({
         } else {
             return this.renderTopo();
         }
-    },
+    }
 
     render() {
         return (
@@ -242,7 +247,7 @@ const editor = React.createClass({
             </div>
         );
     }
-});
+};
 
 // Export example
 import editor_docs from "raw!./editor_docs.md";

@@ -15,18 +15,21 @@ import { MapLegend } from "react-network-diagrams";
 // Legend example
 //
 
-const legend = React.createClass({
+class legend extends React.Component {
 
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             selectionType: null,
             selection: null
         };
-    },
+
+        this.handleSelectionChanged = this.handleSelectionChanged.bind(this);
+    }
 
     handleSelectionChanged(selectionType, selection) {
         this.setState({selectionType, selection});
-    },
+    }
 
     render() {
         const trafficLegendData = [
@@ -97,7 +100,7 @@ const legend = React.createClass({
             </div>
         );
     }
-});
+};
 
 // Export example
 import legend_docs from "raw!./legend_docs.md";

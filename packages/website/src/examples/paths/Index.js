@@ -17,13 +17,13 @@ import { Event } from "pondjs";
 // Test data
 import topo from "./topo.json";
 
-const OptionsView = React.createClass({
+class OptionsView extends React.Component {
 
-    displayName: "OptionsView",
-
-    getInitialState() {
-        return {value: this.props.initialChoice};
-    },
+    constructor(props) {
+        super(props);
+        this.state = {value: this.props.initialChoice};
+        this.handleChange = this.handleChange.bind(this);
+    }
 
     handleChange(e) {
         // State changes
@@ -33,7 +33,7 @@ const OptionsView = React.createClass({
         if (this.props.onChange) {
             this.props.onChange(this.props.attr, e.target.value);
         }
-    },
+    }
 
     render() {
         const classes = "btn-group btn-group-xs";
@@ -67,29 +67,33 @@ const OptionsView = React.createClass({
             </div>
         );
     }
-});
+};
 
 //
 // Example
 //
 
-const paths = React.createClass({
+class paths extends React.Component {
 
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             selectionType: null,
             selection: null,
             mapMode: 0
         };
-    },
+
+        this.handleMapToggle = this.handleMapToggle.bind(this);
+        this.handleSelectionChanged = this.handleSelectionChanged.bind(this);
+    }
 
     handleSelectionChanged(selectionType, selection) {
         this.setState({selectionType, selection});
-    },
+    }
 
     handleMapToggle(key, value) {
         this.setState({mapMode: Number(value)});
-    },
+    }
 
     render() {
         const mapSelection = {
@@ -259,7 +263,7 @@ const paths = React.createClass({
             </div>
         );
     }
-});
+};
 
 // Export example
 import paths_docs from "raw!./paths_docs.md";

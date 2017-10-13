@@ -27,48 +27,15 @@ import createReactClass from "create-react-class";
  *
  * The color and width of the edge may also be supplied.
  */
-export default createReactClass({
+export default class LinearEdge extends React.Component {
 
-    displayName: "LinearEdge",
-
-    propTypes: {
-        
-        /** The width of the circuit diagram */
-        width: PropTypes.number,
-
-        color: PropTypes.string,
-
-        /**
-         * Controls the angle of the offset from the center of the line.
-         */
-        position: PropTypes.number,
-
-        /**
-         * Boolean value that controls if a directional arrow is drawn instead of line-caps.
-         * When arrow is set to "true", the vector between x1, y1 and x2, y2 will have the
-         * Line-caps replaced with a directional arrow. Arrowheads can be sized using the
-         * arrowWidth and arrowHeight property.
-         */
-        arrow: PropTypes.bool,
-
-        /** Display the endpoint selected */
-        selected: PropTypes.bool,
-
-        /** Display the endpoint muted */
-        muted: PropTypes.bool
-    },
-
-    getDefaultProps() {
-        return {
-            width: 1,
-            color: "#ddd",
-            position: 0,
-            arrow: false,
-            selected: false,
-            muted: false
-        };
-    },
-
+    handleClick(e) {
+        if (this.props.onSelectionChange) {
+            this.props.onSelectionChange("edge", this.props.name);
+        }
+        e.stopPropagation();
+    }
+    
     render() {
         let classed = "edge-linear";
         let labelClassed = "edge-label";
@@ -267,12 +234,40 @@ export default createReactClass({
                 </g>
             );
         }
-    },
-
-    handleClick(e) {
-        if (this.props.onSelectionChange) {
-            this.props.onSelectionChange("edge", this.props.name);
-        }
-        e.stopPropagation();
     }
-});
+};
+
+LinearEdge.propTypes = {
+    /** The width of the circuit diagram */
+    width: PropTypes.number,
+
+    color: PropTypes.string,
+
+    /**
+     * Controls the angle of the offset from the center of the line.
+     */
+    position: PropTypes.number,
+
+    /**
+     * Boolean value that controls if a directional arrow is drawn instead of line-caps.
+     * When arrow is set to "true", the vector between x1, y1 and x2, y2 will have the
+     * Line-caps replaced with a directional arrow. Arrowheads can be sized using the
+     * arrowWidth and arrowHeight property.
+     */
+    arrow: PropTypes.bool,
+
+    /** Display the endpoint selected */
+    selected: PropTypes.bool,
+
+    /** Display the endpoint muted */
+    muted: PropTypes.bool
+};
+
+LinearEdge.defaultProps = {
+    width: 1,
+    color: "#ddd",
+    position: 0,
+    arrow: false,
+    selected: false,
+    muted: false
+};

@@ -12,7 +12,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Node from "./Node";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
 /**
  * Endpoint drawing primative. This essentially renders the shape we use to represent
@@ -28,98 +28,7 @@ import createReactClass from "create-react-class";
  * these require pre-determined offset distances based on the rotation. The `label` prop
  * is the name that will be displayed on the endpoint.
  */
-export default createReactClass({
-
-    displayName: "Endpoint",
-
-    getDefaultProps() {
-        return {
-            radius: 7,
-            shape: "circle",
-            offset: 0,
-            labelPosition: "top",
-            muted: false,
-            selected: false,
-            highlighted: false
-        };
-    },
-
-    propTypes: {
-
-        /** The label for the endpoint */
-        label: PropTypes.string,
-
-        /**
-         * Where the label is positioned relative to the endpoint node as well
-         * as how the label is drawn (angled or not).
-         */
-        labelPosition: PropTypes.oneOf([
-            "left",
-            "right",
-            "top",
-            "topright",
-            "topleft",
-            "bottom",
-            "bottomright",
-            "bottomleft",
-            "bottomleftangled",
-            "bottomrightangled",
-            "topleftangled",
-            "toprightangled"]),
-
-        /** An offset to the position of the label which can be used for fine tuning */
-        offset: PropTypes.number,
-
-        /** The shape of the endpoint */
-        shape: PropTypes.oneOf(["circle", "square", "cloud"]),
-
-        /** When the endpoint shape is a `circle`, this controls the size of the endpoint */
-        radius: PropTypes.number,
-
-        /** When the endpoint shape is a `square`, this controls the radius of corners */
-        roundedX: PropTypes.number,
-
-        /** When the endpoint shape is a `square`, this controls the radius of corners */
-        roundedY: PropTypes.number,
-
-        /**
-         * The style of the `<Endpoint>` has two components, one for the
-         * endpoint itself (node) and one for the label (the label). Each group
-         * has three different possible options depending on the way the
-         * endpoint should be rendered:
-         *
-         *  * `normal` provides the standard view of the endpoint
-         *  * `selected` for when the endpoint is moused over
-         *  * `muted` for when the endpoint is not selected.
-         *
-         * For example:
-         *
-         * ```
-         * const endpointStyle = {
-         *     node: {
-         *         normal: {fill: "none", stroke: "#DBDBDB", strokeWidth: 4},
-         *         selected: {fill: "none", stroke: "#B1B1B1", strokeWidth: 6},
-         *         muted: {fill: "none", stroke: "#DBDBDB", strokeWidth: 2, opacity: 0.6, cursor: "pointer"}
-         *     },
-         *     label: {
-         *         normal: {fill: "#9D9D9D", fontSize: 10, fontFamily: "verdana, sans-serif"},
-         *         selected: {fill: "#333",stroke: "none", fontSize: 11},
-         *         muted: {fill: "#696969", stroke: "none", fontSize: 9, opacity: 0.6}
-         *     }
-         * }
-         * ```
-         */
-        style: PropTypes.object,
-
-        /** Display the endpoint muted */
-        muted: PropTypes.bool,
-
-        /** Display the endpoint as selected */
-        selected: PropTypes.bool,
-
-        /** Display the endpoint highlighted  */
-        highlighted: PropTypes.bool
-    },
+export default class Endpoint extends React.Component {
 
     render() {
         return (
@@ -143,4 +52,90 @@ export default createReactClass({
             </g>
         );
     }
-});
+};
+
+Endpoint.propTypes = {
+    /** The label for the endpoint */
+    label: PropTypes.string,
+
+    /**
+     * Where the label is positioned relative to the endpoint node as well
+     * as how the label is drawn (angled or not).
+     */
+    labelPosition: PropTypes.oneOf([
+        "left",
+        "right",
+        "top",
+        "topright",
+        "topleft",
+        "bottom",
+        "bottomright",
+        "bottomleft",
+        "bottomleftangled",
+        "bottomrightangled",
+        "topleftangled",
+        "toprightangled"]),
+
+    /** An offset to the position of the label which can be used for fine tuning */
+    offset: PropTypes.number,
+
+    /** The shape of the endpoint */
+    shape: PropTypes.oneOf(["circle", "square", "cloud"]),
+
+    /** When the endpoint shape is a `circle`, this controls the size of the endpoint */
+    radius: PropTypes.number,
+
+    /** When the endpoint shape is a `square`, this controls the radius of corners */
+    roundedX: PropTypes.number,
+
+    /** When the endpoint shape is a `square`, this controls the radius of corners */
+    roundedY: PropTypes.number,
+
+    /**
+     * The style of the `<Endpoint>` has two components, one for the
+     * endpoint itself (node) and one for the label (the label). Each group
+     * has three different possible options depending on the way the
+     * endpoint should be rendered:
+     *
+     *  * `normal` provides the standard view of the endpoint
+     *  * `selected` for when the endpoint is moused over
+     *  * `muted` for when the endpoint is not selected.
+     *
+     * For example:
+     *
+     * ```
+     * const endpointStyle = {
+     *     node: {
+     *         normal: {fill: "none", stroke: "#DBDBDB", strokeWidth: 4},
+     *         selected: {fill: "none", stroke: "#B1B1B1", strokeWidth: 6},
+     *         muted: {fill: "none", stroke: "#DBDBDB", strokeWidth: 2, opacity: 0.6, cursor: "pointer"}
+     *     },
+     *     label: {
+     *         normal: {fill: "#9D9D9D", fontSize: 10, fontFamily: "verdana, sans-serif"},
+     *         selected: {fill: "#333",stroke: "none", fontSize: 11},
+     *         muted: {fill: "#696969", stroke: "none", fontSize: 9, opacity: 0.6}
+     *     }
+     * }
+     * ```
+     */
+    style: PropTypes.object,
+
+    /** Display the endpoint muted */
+    muted: PropTypes.bool,
+
+    /** Display the endpoint as selected */
+    selected: PropTypes.bool,
+
+    /** Display the endpoint highlighted  */
+    highlighted: PropTypes.bool
+};
+
+Endpoint.defaultProps = {
+    radius: 7,
+    shape: "circle",
+    offset: 0,
+    labelPosition: "top",
+    muted: false,
+    selected: false,
+    highlighted: false
+};

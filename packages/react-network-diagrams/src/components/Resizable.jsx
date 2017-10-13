@@ -9,33 +9,34 @@
  */
 
 import React from "react";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
 /**
  * This takes a single child and inserts a prop 'width' on it that is the
  * current width of the this container. This is handy if you want to surround
  * a diagram and have this drive the width.
  */
-export default createReactClass({
+export default class Resizable extends React.Component {
 
-    displayName: "Resizable",
-
-    getInitialState() {
-        return {width: 0};
-    },
+    constructor(props) {
+        super(props);
+        this.state = {
+            width: 0
+        };
+    }
 
     handleResize() {
         this.setState({width: this.refs.container.offsetWidth});
-    },
+    }
 
     componentDidMount() {
         window.addEventListener("resize", this.handleResize);  //eslint-disable-line
         this.handleResize();
-    },
+    }
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.handleResize);  //eslint-disable-line
-    },
+    }
 
     render() {
         const props = {width: this.state.width};
@@ -51,4 +52,4 @@ export default createReactClass({
             </div>
         );
     }
-});
+};

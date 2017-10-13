@@ -13,46 +13,9 @@ import PropTypes from "prop-types";
 
 import ArcEdge from "./ArcEdge";
 import LinearEdge from "./LinearEdge";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
-export default createReactClass({
-
-    displayName: "BidirectionalEdge",
-
-    getDefaultProps() {
-        return {
-            width: 1,
-            spacing: 3.5,
-            offset: 18,
-            sourceTargetColor: "#C9CACC",
-            targetSourceColor: "#C9CACC",
-            selected: false,
-            muted: false
-        };
-    },
-
-    propTypes: {
-
-        /** The width of the circuit diagram */
-        width: PropTypes.number,
-
-        /**
-         * This is the vertical spacing
-         */
-        spacing: PropTypes.number,
-
-        /** An offset to the position of the label which can be used for fine tuning */
-        offset: PropTypes.number,
-
-        sourceTargetColor: PropTypes.string,
-        targetSourceColor: PropTypes.string,
-
-        /** Display the endpoint selected */
-        selected: PropTypes.bool,
-
-        /** Display the endpoint muted */
-        muted: PropTypes.bool
-    },
+export default class BidirectionalEdge extends React.Component {
 
     render() {
         const paths = [];
@@ -174,4 +137,36 @@ export default createReactClass({
             </g>
         );
     }
-});
+};
+
+BidirectionalEdge.propTypes = {
+    /** The width of the circuit diagram */
+    width: PropTypes.number,
+
+    /**
+     * This is the vertical spacing
+     */
+    spacing: PropTypes.number,
+
+    /** An offset to the position of the label which can be used for fine tuning */
+    offset: PropTypes.number,
+
+    sourceTargetColor: PropTypes.string,
+    targetSourceColor: PropTypes.string,
+
+    /** Display the endpoint selected */
+    selected: PropTypes.bool,
+
+    /** Display the endpoint muted */
+    muted: PropTypes.bool
+};
+
+BidirectionalEdge.defaultProps = {
+    width: 1,
+    spacing: 3.5,
+    offset: 18,
+    sourceTargetColor: "#C9CACC",
+    targetSourceColor: "#C9CACC",
+    selected: false,
+    muted: false
+};

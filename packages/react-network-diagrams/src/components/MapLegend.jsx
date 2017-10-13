@@ -11,43 +11,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "underscore";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
-export default createReactClass({
-
-    displayName: "MapLegend",
-
-    propTypes: {
-        x: PropTypes.number,
-        y: PropTypes.number,
-        lineHeight: PropTypes.number,
-        columns: PropTypes.bool,
-        itemsPerColumn: PropTypes.number,
-        columnWidth: PropTypes.number,
-        exampleWidth: PropTypes.number,
-        gutter: PropTypes.number,
-        edgeColor: PropTypes.string,
-        nodeTypes: PropTypes.array,
-        edgeTypes: PropTypes.array,
-        colorSwatches: PropTypes.array
-    },
-
-    getDefaultProps() {
-        return {
-            x: 0,
-            y: 0,
-            lineHeight: 20,
-            columns: true,
-            itemsPerColumn: 4,
-            columnWidth: 100,
-            exampleWidth: 20,
-            gutter: 8,
-            edgeColor: "#333",
-            nodeTypes: [],
-            edgeTypes: [],
-            colorSwatches: []
-        };
-    },
+export default class MapLegend extends React.Component {
 
     render() {
         let curX = this.props.x;
@@ -164,4 +130,34 @@ export default createReactClass({
             </g>
         );
     }
-});
+};
+
+MapLegend.propTypes = {
+    x: PropTypes.number,
+    y: PropTypes.number,
+    lineHeight: PropTypes.number,
+    columns: PropTypes.bool,
+    itemsPerColumn: PropTypes.number,
+    columnWidth: PropTypes.number,
+    exampleWidth: PropTypes.number,
+    gutter: PropTypes.number,
+    edgeColor: PropTypes.string,
+    nodeTypes: PropTypes.array,
+    edgeTypes: PropTypes.array,
+    colorSwatches: PropTypes.array
+};
+
+MapLegend.defaultProps = {
+    x: 0,
+    y: 0,
+    lineHeight: 20,
+    columns: true,
+    itemsPerColumn: 4,
+    columnWidth: 100,
+    exampleWidth: 20,
+    gutter: 8,
+    edgeColor: "#333",
+    nodeTypes: [],
+    edgeTypes: [],
+    colorSwatches: []
+};

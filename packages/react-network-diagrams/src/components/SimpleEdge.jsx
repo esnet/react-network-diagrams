@@ -15,56 +15,9 @@ import AngledEdge from "./AngledEdge";
 import ArcEdge from "./ArcEdge";
 import LinearEdge from "./LinearEdge";
 import SquareEdge from "./SquareEdge";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
-export default createReactClass({
-
-    displayName: "SimpleEdge",
-
-    propTypes: {
-        color: PropTypes.string,
-
-        /** The width of the circuit diagram */
-        width: PropTypes.number,
-
-        /**
-         * Controls the angle of the offset from the center of the line.
-         */
-        position: PropTypes.number,
-
-        /** Display the edge selected */
-        selected: PropTypes.bool,
-
-        /** Display the edge muted */
-        muted: PropTypes.bool,
-
-        /** Display the edge invisible */
-        invisible: PropTypes.bool,
-
-        /**
-         * Boolean value that controls if a directional arrow is drawn instead of line-caps.
-         * When arrow is set to "true", the vector between x1, y1 and x2, y2 will have the
-         * Line-caps replaced with a directional arrow. Arrowheads can be sized using the
-         * arrowWidth and arrowHeight property.
-         */
-        arrow: PropTypes.bool,
-
-        /** Color of the edge */
-        fillColor: PropTypes.string
-    },
-
-    getDefaultProps() {
-        return {
-            color: "#ddd",
-            width: 4,
-            position: 0,
-            selected: false,
-            muted: false,
-            invisible: false,
-            arrow: false,
-            fillColor: "none"
-        };
-    },
+export default class SimpleEdge extends React.Component {
 
     render() {
         // Class for edge
@@ -195,5 +148,47 @@ export default createReactClass({
             );
         }
     }
-});
+};
 
+SimpleEdge.propTypes = {
+    color: PropTypes.string,
+
+    /** The width of the circuit diagram */
+    width: PropTypes.number,
+
+    /**
+     * Controls the angle of the offset from the center of the line.
+     */
+    position: PropTypes.number,
+
+    /** Display the edge selected */
+    selected: PropTypes.bool,
+
+    /** Display the edge muted */
+    muted: PropTypes.bool,
+
+    /** Display the edge invisible */
+    invisible: PropTypes.bool,
+
+    /**
+     * Boolean value that controls if a directional arrow is drawn instead of line-caps.
+     * When arrow is set to "true", the vector between x1, y1 and x2, y2 will have the
+     * Line-caps replaced with a directional arrow. Arrowheads can be sized using the
+     * arrowWidth and arrowHeight property.
+     */
+    arrow: PropTypes.bool,
+
+    /** Color of the edge */
+    fillColor: PropTypes.string
+};
+
+SimpleEdge.defaultProps = {
+    color: "#ddd",
+    width: 4,
+    position: 0,
+    selected: false,
+    muted: false,
+    invisible: false,
+    arrow: false,
+    fillColor: "none"
+};

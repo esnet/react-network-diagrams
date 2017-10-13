@@ -14,159 +14,13 @@ import PropTypes from "prop-types";
 
 import BaseMap from "./BaseMap";
 import Resizable from "./Resizable";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
 /**
  * A high level component for showing network topology, including visualizing
  * network traffic as a heat map.
  */
-export default createReactClass({
-
-    displayName: "TrafficMap",
-
-    getDefaultProps() {
-        return {
-            edgeThinknessMap: {
-                "100G": 5,
-                "10G": 3,
-                "1G": 1.5,
-                subG: 1
-            },
-            edgeColorMap: [],
-            nodeSizeMap: {},
-            nodeShapeMap: {},
-            edgeShapeMap: {},
-            selected: false,
-            shape: "circle",
-            stylesMap: {},
-            showPaths: false,
-            autoSize: true
-        };
-    },
-
-    propTypes: {
-
-        /** The width of the circuit diagram */
-        width: PropTypes.number,
-
-        /**
-         * The topology structure, as detailed above. This contains the
-         * descriptions of nodes, edges and paths used to render the topology
-         */
-        topology: PropTypes.object,
-
-        /**
-         * Specified as an object containing x1, y1 and x2, y2. This is the region
-         * to display on the map. If this isn't specified the bounds will be
-         * calculated from the nodes in the Map.
-         */
-        bounds: PropTypes.shape({
-            x1: PropTypes.number,
-            y1: PropTypes.number,
-            x2: PropTypes.number,
-            y2: PropTypes.number
-        }),
-
-        /**
-         * The is the overall rendering style for the edge connections. Maybe
-         * one of the following strings:
-         *
-         *  * "simple" - simple line connections between nodes
-         *  * "bidirectionalArrow" - network traffic represented by bi-directional arrows
-         *  * "pathBidirectionalArrow" - similar to "bidirectionalArrow", but only for
-         *  edges that are used in the currently displayed path(s).
-         */
-        edgeDrawingMethod: PropTypes.oneOf([
-            "simple",
-            "bidirectionalArrow",
-            "pathBidirectionalArrow"
-        ]),
-
-        /**
-         * Either a boolean or a list of path names. If a bool, and true, then all
-         * paths will be shown. If a list then only the paths in that list will be
-         * shown. The default is to show no paths.
-         */
-        showPaths: PropTypes.oneOfType([
-            PropTypes.bool,
-            PropTypes.arrayOf(PropTypes.string)
-        ]),
-
-        /**
-         * A mapping of the capacity field within the tologogy edge object
-         * to a line thickness for rendering the edges.
-         *
-         * Example:
-         *
-         * ```
-         * const edgeThinknessMap = {
-         *     "100G": 5,
-         *     "10G": 3,
-         *     "1G": 1.5,
-         *     "subG": 1
-         * };
-         * ```
-         */
-        edgeThinknessMap: PropTypes.object,
-
-        edgeColorMap: PropTypes.array,
-
-        /**
-         * A mapping from the type field in the node object to a size to draw the shape
-         *
-         * Example:
-         * ```
-         * const nodeSizeMap = {
-         *     hub: 5.5,
-         *     esnet_site: 7
-         * };
-         * ```
-         */
-        nodeSizeMap: PropTypes.object,
-
-        /**
-         * Mapping of node name to shape (default is "circle", other options are
-         * "cloud" or "square", currently).
-         *
-         * Example:
-         * ```
-         * const nodeShapeMap = {
-         *     DENV: "square"
-         * };
-         * ```
-         */
-        nodeShapeMap: PropTypes.object,
-
-        /**
-         * A mapping of the edge name (which is source + "--" + target) to a
-         * dict of edge shape options:
-         *  * `shape` (either "linear" or "curved")
-         *  * `direction` (if shape is curved, either "left" or "right")
-         *  * `offset` (if shape is curved, the amount of curve, which is
-         *  pixel offset from a straight line between the source and target at the midpoint)
-         *
-         * Example:
-         * ```
-         * const edgeShapeMap = {
-         *     "ALBQ--DENV": {
-         *     "shape": "curved",
-         *     "direction": "right",
-         *     "offset": 15
-         * }
-         * ```
-         */
-        edgeShapeMap: PropTypes.object,
-        
-        /** Display the endpoint selected */
-        selected: PropTypes.bool,
-        
-        /** The shape of the endpoint */
-        shape: PropTypes.oneOf(["circle", "square", "cloud"]),
-        
-        stylesMap: PropTypes.object,
-
-        autoSize: PropTypes.bool
-    },
+export default class TrafficMap extends React.Component {
 
     bounds() {
         if (this.props.bounds) {
@@ -177,19 +31,19 @@ export default createReactClass({
         const maxX = _.max(this.props.topology.nodes, node => node.x).x;
         const maxY = _.max(this.props.topology.nodes, node => node.y).y;
         return {x1: minX, x2: maxX, y1: minY, y2: maxY};
-    },
+    }
 
     nodeSize(name) {
         return this.props.nodeSizeMap[name] || 7;
-    },
+    }
 
     nodeShape(name) {
         return this.props.nodeShapeMap[name] || "circle";
-    },
+    }
 
     edgeThickness(capacity) {
         return this.props.edgeThinknessMap[capacity] || 5;
-    },
+    }
 
     edgeShape(name) {
         if (_.has(this.props.edgeShapeMap, name)) {
@@ -197,7 +51,7 @@ export default createReactClass({
         } else {
             return "linear";
         }
-    },
+    }
 
     edgeCurveDirection(name) {
         let direction;
@@ -207,7 +61,7 @@ export default createReactClass({
             }
         }
         return direction;
-    },
+    }
 
     edgeCurveOffset(name) {
         let offset;
@@ -217,7 +71,7 @@ export default createReactClass({
             }
         }
         return offset;
-    },
+    }
 
     selectEdgeColor(bps) {
         const gbps = bps / 1.0e9;
@@ -228,7 +82,7 @@ export default createReactClass({
             }
         }
         return "#C9CACC";
-    },
+    }
 
     filteredPaths() {
         return _.filter(this.props.topology.paths, path => {
@@ -237,7 +91,7 @@ export default createReactClass({
             }
             return true;
         });
-    },
+    }
 
     buildTopology() {
         const topology = {};
@@ -378,13 +232,13 @@ export default createReactClass({
         topology.description = this.props.topology.description;
 
         return topology;
-    },
+    }
 
     handleSelectionChanged(selectionType, selection) {
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange(selectionType, selection);
         }
-    },
+    }
 
     render() {
         const topo = this.buildTopology();
@@ -431,4 +285,146 @@ export default createReactClass({
             );
         }
     }
-});
+};
+
+TrafficMap.defaultProps = {
+    edgeThinknessMap: {
+        "100G": 5,
+        "10G": 3,
+        "1G": 1.5,
+        subG: 1
+    },
+    edgeColorMap: [],
+    nodeSizeMap: {},
+    nodeShapeMap: {},
+    edgeShapeMap: {},
+    selected: false,
+    shape: "circle",
+    stylesMap: {},
+    showPaths: false,
+    autoSize: true
+};
+
+TrafficMap.propTypes = {
+
+    /** The width of the circuit diagram */
+    width: PropTypes.number,
+
+    /**
+     * The topology structure, as detailed above. This contains the
+     * descriptions of nodes, edges and paths used to render the topology
+     */
+    topology: PropTypes.object,
+
+    /**
+     * Specified as an object containing x1, y1 and x2, y2. This is the region
+     * to display on the map. If this isn't specified the bounds will be
+     * calculated from the nodes in the Map.
+     */
+    bounds: PropTypes.shape({
+        x1: PropTypes.number,
+        y1: PropTypes.number,
+        x2: PropTypes.number,
+        y2: PropTypes.number
+    }),
+
+    /**
+     * The is the overall rendering style for the edge connections. Maybe
+     * one of the following strings:
+     *
+     *  * "simple" - simple line connections between nodes
+     *  * "bidirectionalArrow" - network traffic represented by bi-directional arrows
+     *  * "pathBidirectionalArrow" - similar to "bidirectionalArrow", but only for
+     *  edges that are used in the currently displayed path(s).
+     */
+    edgeDrawingMethod: PropTypes.oneOf([
+        "simple",
+        "bidirectionalArrow",
+        "pathBidirectionalArrow"
+    ]),
+
+    /**
+     * Either a boolean or a list of path names. If a bool, and true, then all
+     * paths will be shown. If a list then only the paths in that list will be
+     * shown. The default is to show no paths.
+     */
+    showPaths: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.arrayOf(PropTypes.string)
+    ]),
+
+    /**
+     * A mapping of the capacity field within the tologogy edge object
+     * to a line thickness for rendering the edges.
+     *
+     * Example:
+     *
+     * ```
+     * const edgeThinknessMap = {
+     *     "100G": 5,
+     *     "10G": 3,
+     *     "1G": 1.5,
+     *     "subG": 1
+     * };
+     * ```
+     */
+    edgeThinknessMap: PropTypes.object,
+
+    edgeColorMap: PropTypes.array,
+
+    /**
+     * A mapping from the type field in the node object to a size to draw the shape
+     *
+     * Example:
+     * ```
+     * const nodeSizeMap = {
+     *     hub: 5.5,
+     *     esnet_site: 7
+     * };
+     * ```
+     */
+    nodeSizeMap: PropTypes.object,
+
+    /**
+     * Mapping of node name to shape (default is "circle", other options are
+     * "cloud" or "square", currently).
+     *
+     * Example:
+     * ```
+     * const nodeShapeMap = {
+     *     DENV: "square"
+     * };
+     * ```
+     */
+    nodeShapeMap: PropTypes.object,
+
+    /**
+     * A mapping of the edge name (which is source + "--" + target) to a
+     * dict of edge shape options:
+     *  * `shape` (either "linear" or "curved")
+     *  * `direction` (if shape is curved, either "left" or "right")
+     *  * `offset` (if shape is curved, the amount of curve, which is
+     *  pixel offset from a straight line between the source and target at the midpoint)
+     *
+     * Example:
+     * ```
+     * const edgeShapeMap = {
+     *     "ALBQ--DENV": {
+     *     "shape": "curved",
+     *     "direction": "right",
+     *     "offset": 15
+     * }
+     * ```
+     */
+    edgeShapeMap: PropTypes.object,
+    
+    /** Display the endpoint selected */
+    selected: PropTypes.bool,
+    
+    /** The shape of the endpoint */
+    shape: PropTypes.oneOf(["circle", "square", "cloud"]),
+    
+    stylesMap: PropTypes.object,
+
+    autoSize: PropTypes.bool
+};

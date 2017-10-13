@@ -27,243 +27,14 @@ import createReactClass from "create-react-class";
  * The `label` property is the name that will be displayed on the line. If you want to display multiple
  * lines, the label can take an array of strings, with each array element displayed on a separate line.
  */
-export default createReactClass({
+export default class Connection extends React.Component {
 
-    displayName: "Connection",
-
-    getInitialState() {
-        return {highlighted: false };
-    },
-
-    getDefaultProps() {
-        return {
-            noNavigate: false,
-            labelPosition: "top",
-            radius: 2,
-            endpointShape: "circle",
-            classed: "circuit",
-            lineShape: "linear",
-            selected: false,
-            muted: false,
-            position: 0,
-            arrow: false,
-            arrowWidth: 10,
-            arrowHeight: 10,
-            curveDirection: "right",
-            curveOffset: 20,
-            size: 40
-        };
-    },
-
-    propTypes: {
-
-        /**
-         * Controls shape of the line, can be "linear", "square", "angled", "arc".
-         */
-        lineShape: PropTypes.oneOf(["linear", "square", "angled", "arc"]),
-
-        //
-        // Positional Props used by all shapes
-        //
-
-        /** Controls the x-coordinate of the line beginning. */
-        x1: PropTypes.number,
-
-        /** Controls the x-coordinate of the line end. */
-        x2: PropTypes.number,
-
-        /** Controls the y-coordinate of the line beginning. */
-        y1: PropTypes.number,
-
-        /** Controls the y-coordinate of the line end. */
-        y2: PropTypes.number,
-
-        //
-        // Label Props used by all shapes
-        //
-
-        /**
-         * Provides label to be displayed; Takes either a string, or an array of
-         * strings for multi-line labels.
-         */
-        label: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.arrayOf(PropTypes.string)
-        ]),
-
-        /**
-         * Controls where label is situated around the line.
-         */
-        labelPosition: PropTypes.oneOf(["top", "bottom", "center"]),
-
-        /**
-         * Controls the x pixel offset from labelPosition
-         */
-        labelOffsetX: PropTypes.number,
-
-        /**
-         * Controls the y pixel offset from labelPosition
-         */
-        labelOffsetY: PropTypes.number,
-
-
-        /**
-         * Controls the justification of the text label
-         */
-        textAnchor: PropTypes.oneOf(["begin", "middle", "end"]),
-
-        //
-        // Style Props, used by all shapes
-        //
-
-        /**
-         * Object prop that controls the inline style for the react element.
-         *
-         * The style has three components, one for the two Line-caps (`node`),
-         * one for the label (`label`) and one for the line (`line`). Each group
-         * has up to four different possible options depending on the way the
-         * line and endpoint should be rendered:
-         *  * `normal` - provides the standard view of the component
-         *  * `selected` - for when the component is clicked
-         *  * `muted` - for when the component is in the background
-         *  * `highlighted` - is used when the component is hovered over
-         *
-         * The muted and selected props are boolean values that tell the lower
-         * level primitive that you want to use these styles. They will default
-         * to false unless specified. The `fill` css style on each category is used
-         * for line-caps and square connections, allowing different colors to be
-         * specified for the interior of the shapes.
-         */
-        style: PropTypes.object,
-
-        /** Display the endpoint muted */
-        muted: PropTypes.bool,
-
-        /** Display the endpoint selected */
-        selected: PropTypes.bool,
-
-        //
-        // Props for "square" shape
-        //
-
-        /** When the endpoint shape is a `square`, this controls the radius of corners. */
-        roundedX: PropTypes.number,
-
-        /** When the endpoint shape is a `square`, this controls the radius of corners. */
-        roundedY: PropTypes.number,
-
-        /**
-         * Used to determine the height of the square if the endpoint shape is a `square`,
-         * as well as when calculating the label position around a square.
-         */
-        size: PropTypes.number,
-
-        /** Boolean value that controls if a horizontal line is drawn down the center of a square. */
-        centerLine: PropTypes.bool,
-
-        //
-        // Line offset Props, used by "angle" and "curved" shapes
-        //
-
-        /**
-         * Controls the angle of the offset from the center of the line.
-         */
-        position: PropTypes.number,
-
-        /**
-         * Controls the distance from the center x axis the curve will arc through
-         */
-        curveOffset: PropTypes.number,
-
-        /**
-         * Controls the length of the offset line
-         */
-        bendOffset: PropTypes.number,
-
-        /**
-         * The curveDirection property determines whether the curve moves to the
-         * left or the right of the non-horizontal vector between x1,y1 and x2,y2.
-         * The curveOffset property specifies the distance of the curve from the vector
-         * between x1, y1 and x2, y2. When position is specified, this will offset a linear,
-         * or curved line from the x1, y1, x2, y2 corrdinates using a combination of
-         * vectors.
-         *
-         * This functions slightly differently for angled connections and
-         * will instead rotate a point offset from the x and y by an angle. If the
-         * curveDirection is left, this will move clockwise, and will move counterClockwise if right.
-         */
-        curveDirection: PropTypes.oneOf(["left", "right"]),
-
-        //
-        // Linecap props, used by all shapes
-        //
-
-        /**
-         * Controls the size of the Line-cap
-         */
-        radius: PropTypes.number,
-
-        /**
-         * Controls the shape of the line-cap.
-         */
-        endpointShape: PropTypes.oneOf(["circle", "square", "cloud"]),
-
-        /**
-         * If a square endpoint shape is used, controls the corner rounding of the x-axis of the square
-         */
-        endPointRoundedX: PropTypes.number,
-
-        /**
-         * If a square endpoint shape is used, controls the corner rounding of the y-axis of the square
-         */
-        endPointRoundedY: PropTypes.number,
-
-        //
-        // Arrow props, not used by "square"
-        //
-
-        /**
-         * Boolean value that controls if a directional arrow is drawn instead of line-caps.
-         * When arrow is set to "true", the vector between x1, y1 and x2, y2 will have the
-         * Line-caps replaced with a directional arrow. Arrowheads can be sized using the
-         * arrowWidth and arrowHeight property.
-         */
-        arrow: PropTypes.bool,
-
-        /**
-         * Controls the width of an arrow head
-         */
-        arrowWidth: PropTypes.number,
-
-        /**
-         * Controls the height of an arrow head
-         */
-        arrowHeight: PropTypes.number,
-
-        //
-        // Navigation Props, used by all shapes
-        //
-
-        /**
-         * Boolean value that determines if the element uses the onSelectionChange change and can be clicked
-         */
-        noNavigate: PropTypes.bool,
-
-        /**
-         * Callback specified to handle selection of the circuit. The value supplied
-         * to the callback is whatever was specified in the navTo prop.
-         */
-        onSelectionChange: PropTypes.func,
-
-        /**
-         * Value passed down to the click handler at the lowest level primitive.
-         * Will return to the onSelectionChange its value.
-         */
-        navTo: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number
-        ])
-    },
+    constructor(props) {
+        super(props);
+        this.state = {
+            highlighted: false
+        }
+    }
 
     /**
      * User hovers over the circuit
@@ -272,7 +43,7 @@ export default createReactClass({
         if (!this.props.noNavigate) {
             this.setState({highlighted: true});
         }
-    },
+    }
 
     /**
      * Use stops hovering over circuit
@@ -281,13 +52,13 @@ export default createReactClass({
         if (!this.props.noNavigate) {
             this.setState({highlighted: false});
         }
-    },
+    }
 
     handleSelectionChanged(e, value) {
         if (!this.props.noNavigate) {
             this.props.onSelectionChange(e, value);
         }
-    },
+    }
 
     renderEndpoints() {
         if (this.props.arrow) {
@@ -325,7 +96,7 @@ export default createReactClass({
                 </g>
             );
         }
-    },
+    }
 
     render() {
         let xOffset;
@@ -470,4 +241,232 @@ export default createReactClass({
             </g>
         );
     }
-});
+};
+
+Connection.propTypes = {
+
+    /**
+     * Controls shape of the line, can be "linear", "square", "angled", "arc".
+     */
+    lineShape: PropTypes.oneOf(["linear", "square", "angled", "arc"]),
+
+    //
+    // Positional Props used by all shapes
+    //
+
+    /** Controls the x-coordinate of the line beginning. */
+    x1: PropTypes.number,
+
+    /** Controls the x-coordinate of the line end. */
+    x2: PropTypes.number,
+
+    /** Controls the y-coordinate of the line beginning. */
+    y1: PropTypes.number,
+
+    /** Controls the y-coordinate of the line end. */
+    y2: PropTypes.number,
+
+    //
+    // Label Props used by all shapes
+    //
+
+    /**
+     * Provides label to be displayed; Takes either a string, or an array of
+     * strings for multi-line labels.
+     */
+    label: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+    ]),
+
+    /**
+     * Controls where label is situated around the line.
+     */
+    labelPosition: PropTypes.oneOf(["top", "bottom", "center"]),
+
+    /**
+     * Controls the x pixel offset from labelPosition
+     */
+    labelOffsetX: PropTypes.number,
+
+    /**
+     * Controls the y pixel offset from labelPosition
+     */
+    labelOffsetY: PropTypes.number,
+
+
+    /**
+     * Controls the justification of the text label
+     */
+    textAnchor: PropTypes.oneOf(["begin", "middle", "end"]),
+
+    //
+    // Style Props, used by all shapes
+    //
+
+    /**
+     * Object prop that controls the inline style for the react element.
+     *
+     * The style has three components, one for the two Line-caps (`node`),
+     * one for the label (`label`) and one for the line (`line`). Each group
+     * has up to four different possible options depending on the way the
+     * line and endpoint should be rendered:
+     *  * `normal` - provides the standard view of the component
+     *  * `selected` - for when the component is clicked
+     *  * `muted` - for when the component is in the background
+     *  * `highlighted` - is used when the component is hovered over
+     *
+     * The muted and selected props are boolean values that tell the lower
+     * level primitive that you want to use these styles. They will default
+     * to false unless specified. The `fill` css style on each category is used
+     * for line-caps and square connections, allowing different colors to be
+     * specified for the interior of the shapes.
+     */
+    style: PropTypes.object,
+
+    /** Display the endpoint muted */
+    muted: PropTypes.bool,
+
+    /** Display the endpoint selected */
+    selected: PropTypes.bool,
+
+    //
+    // Props for "square" shape
+    //
+
+    /** When the endpoint shape is a `square`, this controls the radius of corners. */
+    roundedX: PropTypes.number,
+
+    /** When the endpoint shape is a `square`, this controls the radius of corners. */
+    roundedY: PropTypes.number,
+
+    /**
+     * Used to determine the height of the square if the endpoint shape is a `square`,
+     * as well as when calculating the label position around a square.
+     */
+    size: PropTypes.number,
+
+    /** Boolean value that controls if a horizontal line is drawn down the center of a square. */
+    centerLine: PropTypes.bool,
+
+    //
+    // Line offset Props, used by "angle" and "curved" shapes
+    //
+
+    /**
+     * Controls the angle of the offset from the center of the line.
+     */
+    position: PropTypes.number,
+
+    /**
+     * Controls the distance from the center x axis the curve will arc through
+     */
+    curveOffset: PropTypes.number,
+
+    /**
+     * Controls the length of the offset line
+     */
+    bendOffset: PropTypes.number,
+
+    /**
+     * The curveDirection property determines whether the curve moves to the
+     * left or the right of the non-horizontal vector between x1,y1 and x2,y2.
+     * The curveOffset property specifies the distance of the curve from the vector
+     * between x1, y1 and x2, y2. When position is specified, this will offset a linear,
+     * or curved line from the x1, y1, x2, y2 corrdinates using a combination of
+     * vectors.
+     *
+     * This functions slightly differently for angled connections and
+     * will instead rotate a point offset from the x and y by an angle. If the
+     * curveDirection is left, this will move clockwise, and will move counterClockwise if right.
+     */
+    curveDirection: PropTypes.oneOf(["left", "right"]),
+
+    //
+    // Linecap props, used by all shapes
+    //
+
+    /**
+     * Controls the size of the Line-cap
+     */
+    radius: PropTypes.number,
+
+    /**
+     * Controls the shape of the line-cap.
+     */
+    endpointShape: PropTypes.oneOf(["circle", "square", "cloud"]),
+
+    /**
+     * If a square endpoint shape is used, controls the corner rounding of the x-axis of the square
+     */
+    endPointRoundedX: PropTypes.number,
+
+    /**
+     * If a square endpoint shape is used, controls the corner rounding of the y-axis of the square
+     */
+    endPointRoundedY: PropTypes.number,
+
+    //
+    // Arrow props, not used by "square"
+    //
+
+    /**
+     * Boolean value that controls if a directional arrow is drawn instead of line-caps.
+     * When arrow is set to "true", the vector between x1, y1 and x2, y2 will have the
+     * Line-caps replaced with a directional arrow. Arrowheads can be sized using the
+     * arrowWidth and arrowHeight property.
+     */
+    arrow: PropTypes.bool,
+
+    /**
+     * Controls the width of an arrow head
+     */
+    arrowWidth: PropTypes.number,
+
+    /**
+     * Controls the height of an arrow head
+     */
+    arrowHeight: PropTypes.number,
+
+    //
+    // Navigation Props, used by all shapes
+    //
+
+    /**
+     * Boolean value that determines if the element uses the onSelectionChange change and can be clicked
+     */
+    noNavigate: PropTypes.bool,
+
+    /**
+     * Callback specified to handle selection of the circuit. The value supplied
+     * to the callback is whatever was specified in the navTo prop.
+     */
+    onSelectionChange: PropTypes.func,
+
+    /**
+     * Value passed down to the click handler at the lowest level primitive.
+     * Will return to the onSelectionChange its value.
+     */
+    navTo: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ])
+};
+
+Connection.defaultProps = {
+    noNavigate: false,
+    labelPosition: "top",
+    radius: 2,
+    endpointShape: "circle",
+    classed: "circuit",
+    lineShape: "linear",
+    selected: false,
+    muted: false,
+    position: 0,
+    arrow: false,
+    arrowWidth: 10,
+    arrowHeight: 10,
+    curveDirection: "right",
+    curveOffset: 20,
+    size: 40
+};

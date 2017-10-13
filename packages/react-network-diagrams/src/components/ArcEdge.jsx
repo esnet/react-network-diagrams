@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import Victor from "victor";
 
 import Label from "./Label";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
 // Alias
 const Vector = Victor;
@@ -33,54 +33,15 @@ const Vector = Victor;
  *
  * Stroke color and width can also be supplied.
  */
-export default createReactClass({
+export default class ArcEdge extends React.Component {
 
-    displayName: "ArcEdge",
-
-    propTypes: {
-
-        /** An offset to the position of the label which can be used for fine tuning */
-        offset: PropTypes.number,
-
-        /** The width of the circuit diagram */
-        width: PropTypes.number,
-
-        color: PropTypes.string,
-        
-        curveDirection: PropTypes.string,
-
-        /**
-         * Boolean value that controls if a directional arrow is drawn instead of line-caps.
-         * When arrow is set to "true", the vector between x1, y1 and x2, y2 will have the
-         * Line-caps replaced with a directional arrow. Arrowheads can be sized using the
-         * arrowWidth and arrowHeight property.
-         */
-        arrow: PropTypes.bool,
-
-        /**
-         * Controls the angle of the offset from the center of the line.
-         */
-        position: PropTypes.number,
-
-        /** Display the endpoint selected */
-        selected: PropTypes.bool,
-
-        /** Display the endpoint muted */
-        muted: PropTypes.bool
-    },
-    
-    getDefaultProps() {
-        return {
-            offset: 20,
-            width: 1,
-            color: "#ddd",
-            curveDirection: "left",
-            arrow: false,
-            position: 0,
-            selected: false,
-            muted: false
-        };
-    },
+    handleClick(e) {
+        console.log("arcedge handleClick e, this ",e,this);
+        e.stopPropagation();
+        if (this.props.onSelectionChange) {
+            this.props.onSelectionChange("edge", this.props.name);
+        }
+    }
 
     render() {
         // Class
@@ -298,12 +259,50 @@ export default createReactClass({
                 </g>
             );
         }
-    },
-
-    handleClick(e) {
-        e.stopPropagation();
-        if (this.props.onSelectionChange) {
-            this.props.onSelectionChange("edge", this.props.name);
-        }
     }
-});
+
+};
+
+ArcEdge.propTypes = {
+
+    /** An offset to the position of the label which can be used for fine tuning */
+    offset: PropTypes.number,
+
+    /** The width of the circuit diagram */
+    width: PropTypes.number,
+
+    color: PropTypes.string,
+    
+    curveDirection: PropTypes.string,
+
+    /**
+     * Boolean value that controls if a directional arrow is drawn instead of line-caps.
+     * When arrow is set to "true", the vector between x1, y1 and x2, y2 will have the
+     * Line-caps replaced with a directional arrow. Arrowheads can be sized using the
+     * arrowWidth and arrowHeight property.
+     */
+    arrow: PropTypes.bool,
+
+    /**
+     * Controls the angle of the offset from the center of the line.
+     */
+    position: PropTypes.number,
+
+    /** Display the endpoint selected */
+    selected: PropTypes.bool,
+
+    /** Display the endpoint muted */
+    muted: PropTypes.bool
+
+};
+
+ArcEdge.defaultProps = {
+    offset: 20,
+    width: 1,
+    color: "#ddd",
+    curveDirection: "left",
+    arrow: false,
+    position: 0,
+    selected: false,
+    muted: false
+};

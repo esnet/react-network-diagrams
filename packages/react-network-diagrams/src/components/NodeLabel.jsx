@@ -9,11 +9,9 @@
  */
 
 import React from "react";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
-export default createReactClass({
-
-    displayName: "NodeLabel",
+export default class NodeLabel extends React.Component {
 
     render() {
         let textAnchor;
@@ -40,5 +38,5 @@ export default createReactClass({
             </text>
         );
     }
-});
+};
 

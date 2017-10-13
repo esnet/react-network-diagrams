@@ -16,7 +16,7 @@ import Connection from "./Connection";
 import Endpoint from "./Endpoint";
 import Navigate from "./Navigate";
 import { Directions } from "./constants.js";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
 /**
  * Draw a Concatenated circuit
@@ -29,167 +29,7 @@ import createReactClass from "create-react-class";
  * This is of the form:
  *     [endpoint, connection, endpoint, connection, endpoint, ...]
  */
-export default createReactClass({
-
-    displayName: "ConcatenatedCircuit",
-
-    getDefaultProps() {
-        return {
-            width: 851,
-            height: 250,
-            disabled: false,
-            titleOffsetX: 10,
-            titleOffsetY: 15,
-            margin: 100,
-            noNavigate: false,
-            squareWidth: 25,
-            roundedX: 5,
-            roundedY: 5
-        };
-    },
-
-    propTypes: {
-
-        /** The width of the circuit diagram */
-        width: PropTypes.number,
-
-        /** The height of the circuit diagram */
-        height: PropTypes.number,
-
-        /** The position of the title relative to the left side of the diagram */
-        titleOffsetX: PropTypes.number,
-
-        /** The position of the title relative to the top of the diagram */
-        titleOffsetY: PropTypes.number,
-
-        /** The blank margin around the diagram drawing */
-        margin: PropTypes.number,
-
-        /**
-         * Controls shape of the line, can be "linear", "square", "angled", "arc".
-         */
-        lineShape: PropTypes.oneOf(["linear", "square", "angled", "arc"]),
-
-        /**
-         * To accurately display each of the member circuits, the concatenated circuit
-         * requires an ordered array of circuit objects, where each object contains
-         * the props to be used by the lower level connection and endpoint primitives.
-         * Since the list renders sequentially, it assumes that the member circuits are in order. The list can be any length and needs to be constructed as such:
-         *
-         * ```
-         * const memberList = [
-         *     {
-         *         styleProperties: darkFiberStyle,
-         *         endpointStyle: stylesMap.endpoint,
-         *         endpointLabelA: "Endpoint 1",
-         *         endpointLabelZ: "Endpoint 2",
-         *         circuitLabel: "Member 1",
-         *         navTo: "Member 1"
-         *     }, {
-         *         styleProperties: couplerStyle,
-         *         endpointStyle: stylesMap.endpoint,
-         *         endpointLabelA: "Endpoint 2",
-         *         endpointLabelZ: "Endpoint 3",
-         *         circuitLabel: "Member 2",
-         *         navTo: "Member 2"
-         *     }, {
-         *         styleProperties: leasedStyle,
-         *         endpointStyle: stylesMap.endpoint,
-         *         endpointLabelA: "Endpoint 3",
-         *         endpointLabelZ: "Endpoint 4",
-         *         circuitLabel: "Member 3",
-         *         navTo: "Member 3"
-         *     }
-         * ];
-         * ```
-         */
-        memberList: PropTypes.array.isRequired,
-        
-        /**
-         * Described the position of the connection label; accepts **"top"**, **"center"**, or **"bottom"**
-         */
-        connectionLabelPosition: PropTypes.oneOf(["top", "center", "bottom"]),
-        
-        /**
-         * The position of the label around the endpoint.
-         */
-        endpointLabelPosition: PropTypes.oneOf([
-            "left",
-            "right",
-            "top",
-            "topright",
-            "topleft",
-            "bottom",
-            "bottomright",
-            "bottomleft",
-            "bottomleftangled",
-            "bottomrightangled",
-            "topleftangled",
-            "toprightangled"
-        ]),
-        
-        /**
-         * This is the vertical distance from the center line to offset
-         * the connection label.
-         */
-        yOffset: PropTypes.number,
-        
-        /**
-         * This is the distance from the endpoint that the endpoint
-         * label will be rendered.
-         */
-        endpointLabelOffset: PropTypes.number,
-        
-        /**
-         * The string to display in the top left corner of the diagram
-         */
-        title: PropTypes.string,
-
-        /**
-         * Value that determines whether or not the upper left corner title is displayed
-         */
-        hideTitle: PropTypes.bool,
-                
-        /**
-         * Determines if the circuit view is muted.  Typically used in
-         * conjunction with `parentID`
-         */
-        disabled: PropTypes.bool,
-        
-        /**
-         * Callback function used to handle clicks.
-         */
-        onSelectionChange: PropTypes.func,
-        
-        /**
-         * Value that if provided, will render a small nav arrow that
-         * when clicked, navigates to that element. Used mainly when we want
-         * to show a parent / child relationship between two circuits.
-         */
-        parentId: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.Number
-        ]),
-
-        /**
-         * Boolean value that determines if the element uses the onSelectionChange
-         * change and can be clicked
-         */
-        noNavigate: PropTypes.bool,
-
-        /**
-         * This value is used to determine X coordinates for a square, if you want
-         * the square to be smaller than the default line width. Overrides the
-         * margin prop if a square is displayed
-         */
-        squareWidth: PropTypes.number,
-
-        /** When the endpoint shape is a `square`, this controls the radius of corners. */
-        roundedX: PropTypes.number,
-
-        /** When the endpoint shape is a `square`, this controls the radius of corners. */
-        roundedY: PropTypes.number
-    },
+export default class ConcatenatedCircuit extends React.Component {
 
     renderCircuitTitle(title) {
         const titleStyle = {
@@ -213,7 +53,7 @@ export default createReactClass({
         } else {
             return null;
         }
-    },
+    }
 
     renderParentNavigation(parentId) {
         if (parentId) {
@@ -231,7 +71,7 @@ export default createReactClass({
         } else {
             return null;
         }
-    },
+    }
 
     renderDisabledOverlay(disabled) {
         const style = {fill: "#FDFDFD", fillOpacity: 0.65};
@@ -248,7 +88,7 @@ export default createReactClass({
         } else {
             return null;
         }
-    },
+    }
 
     renderCircuitElements() {
         const elements = [];
@@ -359,7 +199,7 @@ export default createReactClass({
                 {elements}
             </g>
         );
-    },
+    }
 
     render() {
         const circuitContainer = {
@@ -397,4 +237,160 @@ export default createReactClass({
             </svg>
         );
     }
-});
+};
+
+ConcatenatedCircuit.propTypes = {
+
+    /** The width of the circuit diagram */
+    width: PropTypes.number,
+
+    /** The height of the circuit diagram */
+    height: PropTypes.number,
+
+    /** The position of the title relative to the left side of the diagram */
+    titleOffsetX: PropTypes.number,
+
+    /** The position of the title relative to the top of the diagram */
+    titleOffsetY: PropTypes.number,
+
+    /** The blank margin around the diagram drawing */
+    margin: PropTypes.number,
+
+    /**
+     * Controls shape of the line, can be "linear", "square", "angled", "arc".
+     */
+    lineShape: PropTypes.oneOf(["linear", "square", "angled", "arc"]),
+
+    /**
+     * To accurately display each of the member circuits, the concatenated circuit
+     * requires an ordered array of circuit objects, where each object contains
+     * the props to be used by the lower level connection and endpoint primitives.
+     * Since the list renders sequentially, it assumes that the member circuits are in order. The list can be any length and needs to be constructed as such:
+     *
+     * ```
+     * const memberList = [
+     *     {
+     *         styleProperties: darkFiberStyle,
+     *         endpointStyle: stylesMap.endpoint,
+     *         endpointLabelA: "Endpoint 1",
+     *         endpointLabelZ: "Endpoint 2",
+     *         circuitLabel: "Member 1",
+     *         navTo: "Member 1"
+     *     }, {
+     *         styleProperties: couplerStyle,
+     *         endpointStyle: stylesMap.endpoint,
+     *         endpointLabelA: "Endpoint 2",
+     *         endpointLabelZ: "Endpoint 3",
+     *         circuitLabel: "Member 2",
+     *         navTo: "Member 2"
+     *     }, {
+     *         styleProperties: leasedStyle,
+     *         endpointStyle: stylesMap.endpoint,
+     *         endpointLabelA: "Endpoint 3",
+     *         endpointLabelZ: "Endpoint 4",
+     *         circuitLabel: "Member 3",
+     *         navTo: "Member 3"
+     *     }
+     * ];
+     * ```
+     */
+    memberList: PropTypes.array.isRequired,
+    
+    /**
+     * Described the position of the connection label; accepts **"top"**, **"center"**, or **"bottom"**
+     */
+    connectionLabelPosition: PropTypes.oneOf(["top", "center", "bottom"]),
+    
+    /**
+     * The position of the label around the endpoint.
+     */
+    endpointLabelPosition: PropTypes.oneOf([
+        "left",
+        "right",
+        "top",
+        "topright",
+        "topleft",
+        "bottom",
+        "bottomright",
+        "bottomleft",
+        "bottomleftangled",
+        "bottomrightangled",
+        "topleftangled",
+        "toprightangled"
+    ]),
+    
+    /**
+     * This is the vertical distance from the center line to offset
+     * the connection label.
+     */
+    yOffset: PropTypes.number,
+    
+    /**
+     * This is the distance from the endpoint that the endpoint
+     * label will be rendered.
+     */
+    endpointLabelOffset: PropTypes.number,
+    
+    /**
+     * The string to display in the top left corner of the diagram
+     */
+    title: PropTypes.string,
+
+    /**
+     * Value that determines whether or not the upper left corner title is displayed
+     */
+    hideTitle: PropTypes.bool,
+            
+    /**
+     * Determines if the circuit view is muted.  Typically used in
+     * conjunction with `parentID`
+     */
+    disabled: PropTypes.bool,
+    
+    /**
+     * Callback function used to handle clicks.
+     */
+    onSelectionChange: PropTypes.func,
+    
+    /**
+     * Value that if provided, will render a small nav arrow that
+     * when clicked, navigates to that element. Used mainly when we want
+     * to show a parent / child relationship between two circuits.
+     */
+    parentId: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.Number
+    ]),
+
+    /**
+     * Boolean value that determines if the element uses the onSelectionChange
+     * change and can be clicked
+     */
+    noNavigate: PropTypes.bool,
+
+    /**
+     * This value is used to determine X coordinates for a square, if you want
+     * the square to be smaller than the default line width. Overrides the
+     * margin prop if a square is displayed
+     */
+    squareWidth: PropTypes.number,
+
+    /** When the endpoint shape is a `square`, this controls the radius of corners. */
+    roundedX: PropTypes.number,
+
+    /** When the endpoint shape is a `square`, this controls the radius of corners. */
+    roundedY: PropTypes.number
+};
+
+ConcatenatedCircuit.defaultProps = {
+    width: 851,
+    height: 250,
+    disabled: false,
+    titleOffsetX: 10,
+    titleOffsetY: 15,
+    margin: 100,
+    noNavigate: false,
+    squareWidth: 25,
+    roundedX: 5,
+    roundedY: 5
+};

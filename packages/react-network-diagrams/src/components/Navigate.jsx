@@ -12,7 +12,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { Directions } from "./constants.js";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
 /**
  * Draws a navigation triangle used to navigate back up to the parent. This is
@@ -20,59 +20,34 @@ import createReactClass from "create-react-class";
  * back up to the parent circuit, but could be expanded if we want more
  * complicated navigation in the future.
  */
-export default createReactClass({
+export default class Navigate extends React.Component {
 
-    displayName: "Navigate",
-
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             hover: false
         };
-    },
-
-    propTypes: {
-        navTo: PropTypes.oneOfType([      // Value passed down to the click
-            PropTypes.string,             // handler at the lowest level primitive.
-            PropTypes.number              // Will return to the onSelectionChange
-        ]),
-        direction: PropTypes.oneOf([      // Should the navigation go at the top or
-            Directions.NORTH,                   // bottom of the container
-            Directions.SOUTH
-        ]),
-        margin: PropTypes.number,         // How far to inset the navigation
-        width: PropTypes.number,          // Height and width of the container to
-        height: PropTypes.number,         // guide positioning of the navigation
-        onSelectionChange: PropTypes.func // Callback for when the navigation is pressed
-    },
-
-    getDefaultProps() {
-        return {
-            direction: Directions.SOUTH,
-            margin: 50,
-            width: 851,
-            height: 200
-        };
-    },
+    }
 
     /**
      * User hovers over the navigational arrow
      */
     handleMouseOver() {
         this.setState({hover: true});
-    },
+    }
 
     /**
      * User stops hovering over navigational arrow
      */
     handleMouseOut() {
         this.setState({hover: false});
-    },
+    }
 
     handleMouseClick() {
         if (this.props.id) {
             this.props.onSelectionChange(this.props.direction, this.props.id);
         }
-    },
+    }
 
     render() {
         const x = this.props.xpos >= 0 ? this.props.xpos : this.props.width / 2;
@@ -157,4 +132,26 @@ export default createReactClass({
             return null;
         }
     }
-});
+};
+
+Navigate.propTypes = {
+    navTo: PropTypes.oneOfType([      // Value passed down to the click
+        PropTypes.string,             // handler at the lowest level primitive.
+        PropTypes.number              // Will return to the onSelectionChange
+    ]),
+    direction: PropTypes.oneOf([      // Should the navigation go at the top or
+        Directions.NORTH,                   // bottom of the container
+        Directions.SOUTH
+    ]),
+    margin: PropTypes.number,         // How far to inset the navigation
+    width: PropTypes.number,          // Height and width of the container to
+    height: PropTypes.number,         // guide positioning of the navigation
+    onSelectionChange: PropTypes.func // Callback for when the navigation is pressed
+};
+
+Navigate.defaultProps = {
+    direction: Directions.SOUTH,
+    margin: 50,
+    width: 851,
+    height: 200
+};

@@ -15,7 +15,7 @@ import Connection from "./Connection";
 import Endpoint from "./Endpoint";
 import Navigate from "./Navigate";
 import { Directions } from "./constants";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
 /**
  * Renders a horizontal circuit by determining `x1`, `x2`, `y1`, `y2`
@@ -23,158 +23,7 @@ import createReactClass from "create-react-class";
  * connection and endpoint props. Connection shape, style, and label information,
  * are passed in as props
  */
-export default createReactClass({
-
-    displayName: "BasicCircuit",
-
-    getDefaultProps() {
-        return {
-            width: 851,
-            height: 250,
-            disabled: false,
-            titleOffsetX: 10,
-            titleOffsetY: 15,
-            margin: 100,
-            noNavigate: false,
-            squareWidth: 25,
-            roundedX: 5,
-            roundedY: 5
-        };
-    },
-
-    propTypes: {
-        /** The style of the line */
-        lineStyle: PropTypes.object.isRequired,
-
-        /** Text value describing the shape of the line, "linear", "curved", etc. */
-        lineShape: PropTypes.oneOf([
-            "linear",
-            "curved",
-            "square",
-            "angled"
-        ]),
-
-        /**
-         * Describes the position of the connection label.
-         */
-        connectionLabelPosition: PropTypes.oneOf([
-            "top",
-            "center",
-            "bottom"
-        ]),
-
-        /**
-         * String to be displayed for the connection. If an array of strings is
-         * supplied they will be displayed in a multi-line layout.
-         */
-        circuitLabel: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.arrayOf(PropTypes.string)
-        ]),
-
-        /**
-         * Vertical distance from the center line to offset the connection label.
-         */
-        yOffset: PropTypes.number,
-
-        /**
-         * The string to display in the top left corner of the diagram.
-         */
-        title: PropTypes.string,
-
-        /**
-         * Boolean value that determines if the element uses the onSelectionChange
-         * change and can be clicked
-         */
-        noNavigate: PropTypes.bool,
-
-        /** Controls the size of the square */
-        size: PropTypes.number,
-
-        /** controls if a horizontal line is drawn down the center of a square */
-        centerLine: PropTypes.bool,
-
-        /**
-         * This value is used to determine X coordinates for a square, if you want
-         * the square to be smaller than the default line width. Overrides the
-         * margin prop if a square is displayed
-         */
-        squareWidth: PropTypes.number,
-
-        /**
-         * The style of the endpoint.
-         * TODO: be more explicit here about the expected shape.
-         */
-        endpointStyle: PropTypes.object,
-
-        /**
-         * The position of the label around the endpoint.
-         */
-        endpointLabelPosition: PropTypes.oneOf([
-            "left",
-            "right",
-            "top",
-            "topright",
-            "topleft",
-            "bottom",
-            "bottomright",
-            "bottomleft",
-            "bottomleftangled",
-            "bottomrightangled",
-            "topleftangled",
-            "toprightangled"]),
-
-        /**
-         * Left side endpoint label
-         */
-        endpointLabelA: PropTypes.string,
-
-        /**
-         * Right side endpoint label
-         */
-        endpointLabelZ: PropTypes.string,
-
-        /**
-         * Disables the circuit by muting the colors and disabling events.
-         */
-        disabled: PropTypes.bool,
-
-        /**
-         * Callback specified to handle selection of the circuit. The value supplied
-         * to the callback is whatever was specified in the navTo prop.
-         */
-        onSelectionChange: PropTypes.func,
-
-        /**
-         * Value passed down to the click handler at the lowest level primitive.
-         * Will return to the onSelectionChange its value.
-         */
-        navTo: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number
-        ]),
-
-        /**
-         * If provided, will render a small nav arrow that when clicked,
-         * navigates to that element. Used mainly when we want to show a parent / child
-         * relationship between two circuits.
-         */
-        parentId: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number
-        ]),
-
-        /** The width of the circuit diagram */
-        width: PropTypes.number,
-        height: PropTypes.number,
-        titleOffsetX: PropTypes.number,
-        titleOffsetY: PropTypes.number,
-
-        /** The blank margin around the diagram drawing */
-        margin: PropTypes.number,
-        roundedX: PropTypes.number,
-        roundedY: PropTypes.number
-    },
+export default class BasicCircuit extends React.Component {
 
     renderCircuitTitle(title) {
         const titleStyle = {
@@ -198,7 +47,7 @@ export default createReactClass({
         } else {
             return null;
         }
-    },
+    }
 
     renderParentNavigation(parentId) {
         if (parentId) {
@@ -216,7 +65,7 @@ export default createReactClass({
         } else {
             return null;
         }
-    },
+    }
 
     renderDisabledOverlay(disabled) {
         if (disabled) {
@@ -236,7 +85,7 @@ export default createReactClass({
         } else {
             return null;
         }
-    },
+    }
 
     renderCircuitElements() {
         const elements = [];
@@ -308,7 +157,7 @@ export default createReactClass({
                 {elements}
             </g>
         );
-    },
+    }
 
     render() {
         const circuitContainer = {
@@ -345,4 +194,152 @@ export default createReactClass({
             </svg>
         );
     }
-});
+};
+
+BasicCircuit.propTypes = {
+    
+    /** The style of the line */
+    lineStyle: PropTypes.object.isRequired,
+
+    /** Text value describing the shape of the line, "linear", "curved", etc. */
+    lineShape: PropTypes.oneOf([
+        "linear",
+        "curved",
+        "square",
+        "angled"
+    ]),
+
+    /**
+     * Describes the position of the connection label.
+     */
+    connectionLabelPosition: PropTypes.oneOf([
+        "top",
+        "center",
+        "bottom"
+    ]),
+
+    /**
+     * String to be displayed for the connection. If an array of strings is
+     * supplied they will be displayed in a multi-line layout.
+     */
+    circuitLabel: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+    ]),
+
+    /**
+     * Vertical distance from the center line to offset the connection label.
+     */
+    yOffset: PropTypes.number,
+
+    /**
+     * The string to display in the top left corner of the diagram.
+     */
+    title: PropTypes.string,
+
+    /**
+     * Boolean value that determines if the element uses the onSelectionChange
+     * change and can be clicked
+     */
+    noNavigate: PropTypes.bool,
+
+    /** Controls the size of the square */
+    size: PropTypes.number,
+
+    /** controls if a horizontal line is drawn down the center of a square */
+    centerLine: PropTypes.bool,
+
+    /**
+     * This value is used to determine X coordinates for a square, if you want
+     * the square to be smaller than the default line width. Overrides the
+     * margin prop if a square is displayed
+     */
+    squareWidth: PropTypes.number,
+
+    /**
+     * The style of the endpoint.
+     * TODO: be more explicit here about the expected shape.
+     */
+    endpointStyle: PropTypes.object,
+
+    /**
+     * The position of the label around the endpoint.
+     */
+    endpointLabelPosition: PropTypes.oneOf([
+        "left",
+        "right",
+        "top",
+        "topright",
+        "topleft",
+        "bottom",
+        "bottomright",
+        "bottomleft",
+        "bottomleftangled",
+        "bottomrightangled",
+        "topleftangled",
+        "toprightangled"]),
+
+    /**
+     * Left side endpoint label
+     */
+    endpointLabelA: PropTypes.string,
+
+    /**
+     * Right side endpoint label
+     */
+    endpointLabelZ: PropTypes.string,
+
+    /**
+     * Disables the circuit by muting the colors and disabling events.
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * Callback specified to handle selection of the circuit. The value supplied
+     * to the callback is whatever was specified in the navTo prop.
+     */
+    onSelectionChange: PropTypes.func,
+
+    /**
+     * Value passed down to the click handler at the lowest level primitive.
+     * Will return to the onSelectionChange its value.
+     */
+    navTo: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
+
+    /**
+     * If provided, will render a small nav arrow that when clicked,
+     * navigates to that element. Used mainly when we want to show a parent / child
+     * relationship between two circuits.
+     */
+    parentId: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
+
+    /** The width of the circuit diagram */
+    width: PropTypes.number,
+    height: PropTypes.number,
+    titleOffsetX: PropTypes.number,
+    titleOffsetY: PropTypes.number,
+
+    /** The blank margin around the diagram drawing */
+    margin: PropTypes.number,
+    roundedX: PropTypes.number,
+    roundedY: PropTypes.number
+};
+
+BasicCircuit.defaultProps = {
+    width: 851,
+    height: 250,
+    disabled: false,
+    titleOffsetX: 10,
+    titleOffsetY: 15,
+    margin: 100,
+    noNavigate: false,
+    squareWidth: 25,
+    roundedX: 5,
+    roundedY: 5
+};

@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import _ from "underscore";
 
 import Label from "./Label";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
 /**
  * This component draws a rectangle using the source and target to determine sizing and position. The
@@ -23,55 +23,14 @@ import createReactClass from "create-react-class";
  *
  * The color and width of the rectangle may also be supplied.
  */
-export default createReactClass({
+export default class SquareEdge extends React.Component {
 
-    displayName: "SquareEdge",
-
-    propTypes: {
-
-        /** When the endpoint shape is a `square`, this controls the radius of corners */
-        roundedX: PropTypes.number,
-
-        /** When the endpoint shape is a `square`, this controls the radius of corners */
-        roundedY: PropTypes.number,
-
-        color: PropTypes.string,
-
-        /**
-         * Controls the angle of the offset from the center of the line.
-         */
-        position: PropTypes.number,
-
-        /**
-         * Boolean value that controls if a directional arrow is drawn instead of line-caps.
-         * When arrow is set to "true", the vector between x1, y1 and x2, y2 will have the
-         * Line-caps replaced with a directional arrow. Arrowheads can be sized using the
-         * arrowWidth and arrowHeight property.
-         */
-        arrow: PropTypes.bool,
-
-        /** Display the endpoint selected */
-        selected: PropTypes.bool,
-
-        /** Display the endpoint muted */
-        muted: PropTypes.bool,
-
-        /** Controls the size of the square */
-        size: PropTypes.number
-    },
-
-    getDefaultProps() {
-        return {
-            roundedX: 0,
-            roundedY: 0,
-            color: "#ddd",
-            position: 0,
-            arrow: false,
-            selected: false,
-            muted: false,
-            size: 40
-        };
-    },
+    handleClick(e) {
+        if (this.props.onSelectionChange) {
+            this.props.onSelectionChange("edge", this.props.name);
+        }
+        e.stopPropagation();
+    }
 
     _rotateOffset(cx, x, y, a) {
         const r = (Math.PI / 180) * a;
@@ -80,7 +39,7 @@ export default createReactClass({
         const nx = x - ((x - cx) * cos);
         const ny = y - ((x - cx) * sin);
         return [nx, ny];
-    },
+    }
 
     render() {
         let classed = "edge-square";
@@ -260,12 +219,49 @@ export default createReactClass({
                 </g>
             );
         }
-    },
-
-    handleClick(e) {
-        if (this.props.onSelectionChange) {
-            this.props.onSelectionChange("edge", this.props.name);
-        }
-        e.stopPropagation();
     }
-});
+};
+
+SquareEdge.propTypes = {
+
+    /** When the endpoint shape is a `square`, this controls the radius of corners */
+    roundedX: PropTypes.number,
+
+    /** When the endpoint shape is a `square`, this controls the radius of corners */
+    roundedY: PropTypes.number,
+
+    color: PropTypes.string,
+
+    /**
+     * Controls the angle of the offset from the center of the line.
+     */
+    position: PropTypes.number,
+
+    /**
+     * Boolean value that controls if a directional arrow is drawn instead of line-caps.
+     * When arrow is set to "true", the vector between x1, y1 and x2, y2 will have the
+     * Line-caps replaced with a directional arrow. Arrowheads can be sized using the
+     * arrowWidth and arrowHeight property.
+     */
+    arrow: PropTypes.bool,
+
+    /** Display the endpoint selected */
+    selected: PropTypes.bool,
+
+    /** Display the endpoint muted */
+    muted: PropTypes.bool,
+
+    /** Controls the size of the square */
+    size: PropTypes.number
+};
+
+SquareEdge.defaultProps = {
+    roundedX: 0,
+    roundedY: 0,
+    color: "#ddd",
+    position: 0,
+    arrow: false,
+    selected: false,
+    muted: false,
+    size: 40
+};

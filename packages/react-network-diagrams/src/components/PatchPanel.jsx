@@ -15,243 +15,22 @@ import PropTypes from "prop-types";
 import Connection from "./Connection";
 import Endpoint from "./Endpoint";
 import Label from "./Label";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
-export default createReactClass({
+export default class PatchPanel extends React.Component {
 
-    displayName: "PatchPanel",
-
-    getInitialState() {
-        return { hover: false };
-    },
-
-    getDefaultProps() {
-        return {
-            width: 851,
-            yOffset: 30,
-            margin: 150,
-            roundedX: 5,
-            roundedY: 5,
-            couplerEndpointRadius: 10,
-            endpointRoundedX: 2,
-            endpointRoundedY: 2,
-            couplerLabelPosition: "center",
-            labelPosition: "top",
-            panelRoundedX: 3,
-            panelRoundedY: 3,
-            labelOffsetX: 0,
-            labelOffsetY: 0
+    constructor(props) {
+        super(props);
+        this.state = { 
+            hover: false 
         };
-    },
-
-    propTypes: {
-
-        /** The blank margin around the diagram drawing */
-        margin: PropTypes.number,
-
-        labelPosition: PropTypes.oneOf([
-            "left",
-            "right",
-            "center",
-            "top",
-            "topright",
-            "topleft",
-            "bottom",
-            "bottomright",
-            "bottomleft",
-            "bottomleftangled",
-            "bottomrightangled",
-            "topleftangled",
-            "toprightangled"]),
-
-        /** The width of the circuit diagram */
-        width: PropTypes.number,
-
-        /**
-         * To accurately display each panel, modules, and groups of circuits,
-         * the Patch Panel requires an array of panels, where each panel contains
-         * a panel object.  The panel object has two keys, `panelName` to display
-         * the title of the panel, and `modules` which is a two dimensional array
-         * of coupler objects.  The rendering is sequential, and will display each
-         * panel, with the panels modules and coupler groupings  in the order they
-         * are presented in the list.
-         *
-         * Each module in the two-dimensional `modules` array is an array of
-         * coupler groupings objects.  The coupler groupings objects allways have:
-         *
-         *  * `frontCircuit` - The circuit and its properties to be displayed to
-         *  the left of the coupler.  May be left `null`
-         *  * `backCircuit` - The circuit and its properties to be displayed to
-         *  the right of the coupler.  May be left `null`
-         *  * `coupler` - The circuit and its properties to be displayed in the
-         *  center
-         *
-         * Each of these objects have there own style, labels, and navigation
-         * controls.  The below structure, will render one panel, with one module,
-         * with 2 coupler groups.
-         *
-         * ```js
-         * const panels = [
-         *     {
-         *         panelName: "Panel 1",
-         *         modules: [
-         *             [
-         *                  {
-         *                      frontCircuit: {
-         *                          styleProperties: circuitTypeProperties.crossConnect,
-         *                          endpointStyle: stylesMap.endpoint,
-         *                          endpointLabelA: "Endpoint 1",
-         *                          endpointLabelZ: "Endpoint 2",
-         *                          circuitLabel: "Member 1",
-         *                          navTo: "Member 1",
-         *                      },
-         *                      coupler: {
-         *                          styleProperties: circuitTypeProperties.panelCoupler,
-         *                          endpointStyle: circuitTypeProperties.panelCoupler,
-         *                          endpointLabelA: "Endpoint 2",
-         *                          endpointlabelZ: "Endpoint 3",
-         *                          circuitLabel: "1/2-SC",
-         *                          navTo: "Coupler 1/2",
-         *                      },
-         *                      backCircuit: {
-         *                          styleProperties: circuitTypeProperties.leased,
-         *                          endpointStyle: stylesMap.endpoint,
-         *                          endpointLabelA: "Endpoint 3",
-         *                          endpointLabelZ: "Endpoint 4",
-         *                          circuitLabel: "Member 3",
-         *                          navTo: "Member 3",
-         *                      },
-         *                      frontLabel: "Endpoint A",
-         *                      backLabel: "Endpoint Z",
-         *                  },
-         *                  {
-         *                      frontCircuit: null,
-         *                      coupler: {
-         *                          styleProperties: circuitTypeProperties.panelCoupler,
-         *                          endpointStyle: circuitTypeProperties.panelCoupler,
-         *                          endpointLabelA: "Endpoint 2",
-         *                          endpointlabelZ: "Endpoint 3",
-         *                          circuitLabel: "3/4-SC",
-         *                          navTo: "Coupler 3/4",
-         *                      },
-         *                      backCircuit: null,
-         *                      frontLabel: "Endpoint A",
-         *                      backLabel: "Endpoint Z",
-         *                  },
-         *              ]
-         *          ]
-         *      }
-         * ];
-         * ```
-         */
-        panels: PropTypes.array.isRequired,
-
-        /**
-         * The style of the panel - this is the "container" for the modules and couplers.
-         */
-        panelStyle: PropTypes.object,
-
-        /**
-         * The style for the couplers, rendered in groups according to their modules.
-         */
-        couplerStyle: PropTypes.object,
-
-        /**
-         * This is the vertical distance from the center line to offset the connection label
-         */
-        yOffset: PropTypes.number,
-
-        /**
-         * This is the vertical spacing between each module group
-         */
-        moduleSpacing: PropTypes.number,
-
-        /**
-         * This is the vertical spacing between each panel
-         */
-        panelSpacing: PropTypes.number,
-
-        /**
-         * This is the vertical spacing between each coupler
-         */
-        couplerSpacing: PropTypes.number,
-
-        /**
-         * This is the distance from the center of the \<svg\> grid that the panel
-         * is to be rendered
-         */
-        panelWidth: PropTypes.number,
-
-        /**
-         * Callback evoked when the selection changes
-         */
-        onSelectionChange: PropTypes.func,
-
-        /**
-         * This is the distance from the endpoint that the endpoint label will be rendered.
-         */
-        endpointLabelOffset: PropTypes.number,
-
-        //
-        // The following props have default values and are optional for styling:
-        //
-
-        /**
-         * Controls the corner rounding of the center coupler on the x-axis
-         */
-        roundedX: PropTypes.number,
-
-        /**
-         * Controls the corner rounding of the center coupler on the y-axis
-         */
-        roundedY: PropTypes.number,
-
-        /**
-         * Controls the size of the couper line cap
-         */
-        couplerEndpointRadius: PropTypes.number,
-
-        /**
-         * Controls the corner rounding of the square line-caps on the x-axis
-         */
-        endpointRoundedX: PropTypes.number,
-
-        /**
-         * Controls the corner rounding of the square line-caps on the y-axis
-         */
-        endpointRoundedY: PropTypes.number,
-
-        /**
-         * Controls where label is situated in the center coupler
-         */
-        couplerLabelPosition: PropTypes.oneOf(["top", "bottom", "center"]),
-
-        /**
-         * Controls the corner rounding of the panel on the x-axis
-         */
-        panelRoundedX: PropTypes.number,
-
-        /**
-         * Controls the corner rounding of the panel on the y-axis
-         */
-        panelRoundedY: PropTypes.number,
-
-        /**
-         * Controls the +/- x offset from labelPosition
-         */
-        labelOffsetX: PropTypes.number,
-
-        /**
-         * Controls the +/- y offset from labelPosition
-         */
-        labelOffsetY: PropTypes.number
-    },
+    }
 
     handleSelectionChange(e, value) {
         if (!this.props.noNavigate) {
             this.props.onSelectionChange(e, value);
         }
-    },
+    }
 
     renderPanelLabel(yStart, label, key) {
         const y = yStart - (this.props.panelSpacing / 2);
@@ -274,7 +53,7 @@ export default createReactClass({
                     style={labelStyle} />
             </g>
         );
-    },
+    }
 
     renderFrontBackLabel(yStart, key) {
         const x = this.props.width / 2;
@@ -310,7 +89,7 @@ export default createReactClass({
                 </text>
             </g>
         );
-    },
+    }
 
     renderPanels(panelMap) {
         const elements = [];
@@ -374,7 +153,7 @@ export default createReactClass({
         return (
             elements
         );
-    },
+    }
 
     renderModule(module, moduleY) {
         // moduleY is y1, y2 of the first circuitGroup in the module
@@ -397,7 +176,7 @@ export default createReactClass({
         return (
             elements
         );
-    },
+    }
 
     /**
      * draws 0, 2, or 4 endpoints - determined by presence of Front, Back and Coupler
@@ -466,7 +245,7 @@ export default createReactClass({
         return (
             elements
         );
-    },
+    }
 
     renderConnections(circuitGroup, y, key) {
         // draws center coupler and either front, back or both circuits
@@ -556,8 +335,7 @@ export default createReactClass({
         return (
             elements
         );
-    },
-
+    }
 
     render() {
         // Styling
@@ -612,4 +390,224 @@ export default createReactClass({
             </svg>
         );
     }
-});
+};
+
+PatchPanel.propTypes = {
+
+    /** The blank margin around the diagram drawing */
+    margin: PropTypes.number,
+
+    labelPosition: PropTypes.oneOf([
+        "left",
+        "right",
+        "center",
+        "top",
+        "topright",
+        "topleft",
+        "bottom",
+        "bottomright",
+        "bottomleft",
+        "bottomleftangled",
+        "bottomrightangled",
+        "topleftangled",
+        "toprightangled"]),
+
+    /** The width of the circuit diagram */
+    width: PropTypes.number,
+
+    /**
+     * To accurately display each panel, modules, and groups of circuits,
+     * the Patch Panel requires an array of panels, where each panel contains
+     * a panel object.  The panel object has two keys, `panelName` to display
+     * the title of the panel, and `modules` which is a two dimensional array
+     * of coupler objects.  The rendering is sequential, and will display each
+     * panel, with the panels modules and coupler groupings  in the order they
+     * are presented in the list.
+     *
+     * Each module in the two-dimensional `modules` array is an array of
+     * coupler groupings objects.  The coupler groupings objects allways have:
+     *
+     *  * `frontCircuit` - The circuit and its properties to be displayed to
+     *  the left of the coupler.  May be left `null`
+     *  * `backCircuit` - The circuit and its properties to be displayed to
+     *  the right of the coupler.  May be left `null`
+     *  * `coupler` - The circuit and its properties to be displayed in the
+     *  center
+     *
+     * Each of these objects have there own style, labels, and navigation
+     * controls.  The below structure, will render one panel, with one module,
+     * with 2 coupler groups.
+     *
+     * ```js
+     * const panels = [
+     *     {
+     *         panelName: "Panel 1",
+     *         modules: [
+     *             [
+     *                  {
+     *                      frontCircuit: {
+     *                          styleProperties: circuitTypeProperties.crossConnect,
+     *                          endpointStyle: stylesMap.endpoint,
+     *                          endpointLabelA: "Endpoint 1",
+     *                          endpointLabelZ: "Endpoint 2",
+     *                          circuitLabel: "Member 1",
+     *                          navTo: "Member 1",
+     *                      },
+     *                      coupler: {
+     *                          styleProperties: circuitTypeProperties.panelCoupler,
+     *                          endpointStyle: circuitTypeProperties.panelCoupler,
+     *                          endpointLabelA: "Endpoint 2",
+     *                          endpointlabelZ: "Endpoint 3",
+     *                          circuitLabel: "1/2-SC",
+     *                          navTo: "Coupler 1/2",
+     *                      },
+     *                      backCircuit: {
+     *                          styleProperties: circuitTypeProperties.leased,
+     *                          endpointStyle: stylesMap.endpoint,
+     *                          endpointLabelA: "Endpoint 3",
+     *                          endpointLabelZ: "Endpoint 4",
+     *                          circuitLabel: "Member 3",
+     *                          navTo: "Member 3",
+     *                      },
+     *                      frontLabel: "Endpoint A",
+     *                      backLabel: "Endpoint Z",
+     *                  },
+     *                  {
+     *                      frontCircuit: null,
+     *                      coupler: {
+     *                          styleProperties: circuitTypeProperties.panelCoupler,
+     *                          endpointStyle: circuitTypeProperties.panelCoupler,
+     *                          endpointLabelA: "Endpoint 2",
+     *                          endpointlabelZ: "Endpoint 3",
+     *                          circuitLabel: "3/4-SC",
+     *                          navTo: "Coupler 3/4",
+     *                      },
+     *                      backCircuit: null,
+     *                      frontLabel: "Endpoint A",
+     *                      backLabel: "Endpoint Z",
+     *                  },
+     *              ]
+     *          ]
+     *      }
+     * ];
+     * ```
+     */
+    panels: PropTypes.array.isRequired,
+
+    /**
+     * The style of the panel - this is the "container" for the modules and couplers.
+     */
+    panelStyle: PropTypes.object,
+
+    /**
+     * The style for the couplers, rendered in groups according to their modules.
+     */
+    couplerStyle: PropTypes.object,
+
+    /**
+     * This is the vertical distance from the center line to offset the connection label
+     */
+    yOffset: PropTypes.number,
+
+    /**
+     * This is the vertical spacing between each module group
+     */
+    moduleSpacing: PropTypes.number,
+
+    /**
+     * This is the vertical spacing between each panel
+     */
+    panelSpacing: PropTypes.number,
+
+    /**
+     * This is the vertical spacing between each coupler
+     */
+    couplerSpacing: PropTypes.number,
+
+    /**
+     * This is the distance from the center of the \<svg\> grid that the panel
+     * is to be rendered
+     */
+    panelWidth: PropTypes.number,
+
+    /**
+     * Callback evoked when the selection changes
+     */
+    onSelectionChange: PropTypes.func,
+
+    /**
+     * This is the distance from the endpoint that the endpoint label will be rendered.
+     */
+    endpointLabelOffset: PropTypes.number,
+
+    //
+    // The following props have default values and are optional for styling:
+    //
+
+    /**
+     * Controls the corner rounding of the center coupler on the x-axis
+     */
+    roundedX: PropTypes.number,
+
+    /**
+     * Controls the corner rounding of the center coupler on the y-axis
+     */
+    roundedY: PropTypes.number,
+
+    /**
+     * Controls the size of the couper line cap
+     */
+    couplerEndpointRadius: PropTypes.number,
+
+    /**
+     * Controls the corner rounding of the square line-caps on the x-axis
+     */
+    endpointRoundedX: PropTypes.number,
+
+    /**
+     * Controls the corner rounding of the square line-caps on the y-axis
+     */
+    endpointRoundedY: PropTypes.number,
+
+    /**
+     * Controls where label is situated in the center coupler
+     */
+    couplerLabelPosition: PropTypes.oneOf(["top", "bottom", "center"]),
+
+    /**
+     * Controls the corner rounding of the panel on the x-axis
+     */
+    panelRoundedX: PropTypes.number,
+
+    /**
+     * Controls the corner rounding of the panel on the y-axis
+     */
+    panelRoundedY: PropTypes.number,
+
+    /**
+     * Controls the +/- x offset from labelPosition
+     */
+    labelOffsetX: PropTypes.number,
+
+    /**
+     * Controls the +/- y offset from labelPosition
+     */
+    labelOffsetY: PropTypes.number
+};
+
+PatchPanel.defaultProps = {
+    width: 851,
+    yOffset: 30,
+    margin: 150,
+    roundedX: 5,
+    roundedY: 5,
+    couplerEndpointRadius: 10,
+    endpointRoundedX: 2,
+    endpointRoundedY: 2,
+    couplerLabelPosition: "center",
+    labelPosition: "top",
+    panelRoundedX: 3,
+    panelRoundedY: 3,
+    labelOffsetX: 0,
+    labelOffsetY: 0
+};

@@ -18,7 +18,7 @@ import Label from "./NodeLabel";
 import Legend from "./MapLegend";
 import Node from "./Node";
 import SimpleEdge from "./SimpleEdge";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
 import "./map.css";
 
@@ -36,91 +36,17 @@ function getElementOffset(element) {
  * by the `<TrafficMap>` to produce the chart seen of the front
  * page of my.es.net.
  */
-export default createReactClass({
+export default class BaseMap extends React.Component {
 
-    displayName: "BaseMap",
-
-    propTypes: {
-
-        /**
-         * The topology structure, as detailed above. This contains the
-         * descriptions of nodes, edges and paths used to render the topology
-         */
-        topology: PropTypes.object.isRequired,
-
-        /** The width of the circuit diagram */
-        width: PropTypes.number,
-
-        /** The height of the circuit diagram */
-        height: PropTypes.number,
-
-        /** The blank margin around the diagram drawing */
-        margin: PropTypes.number,
-
-        /**
-         * Specified as an object containing x1, y1 and x2, y2. This is the region
-         * to display on the map. If this isn't specified the bounds will be
-         * calculated from the nodes in the Map.
-         */
-        bounds: PropTypes.shape({
-            x1: PropTypes.number,
-            y1: PropTypes.number,
-            x2: PropTypes.number,
-            y2: PropTypes.number
-        }),
-
-        /**
-         * The is the overall rendering style for the edge connections. Maybe
-         * one of the following strings:
-         *
-         *  * "simple" - simple line connections between nodes
-         *  * "bidirectionalArrow" - network traffic represented by bi-directional arrows
-         *  * "pathBidirectionalArrow" - similar to "bidirectionalArrow", but only for
-         *  edges that are used in the currently displayed path(s).
-         */
-        edgeDrawingMethod: PropTypes.oneOf([
-            "simple",
-            "bidirectionalArrow",
-            "pathBidirectionalArrow"
-        ]),
-
-        legendItems: PropTypes.shape({
-            x: PropTypes.number,
-            y: PropTypes.number,
-            edgeTypes: PropTypes.object,
-            nodeTypes: PropTypes.object,
-            colorSwatches: PropTypes.object
-        }),
-
-        selection: PropTypes.object,
-
-        paths: PropTypes.array,
-
-        pathWidth: PropTypes.number
-
-    },
-
-    getDefaultProps() {
-        return {
-            width: 800,
-            height: 600,
-            margin: 20,
-            bounds: {x1: 0, y1: 0, x2: 1, y2: 1},
-            edgeDrawingMethod: "simple",
-            legendItems: null,
-            selection: { nodes: {}, edges: {} },
-            paths: [],
-            pathWidth: 5
-        };
-    },
-
-    getInitialState() {
-        return {
-            draging: null
-        };
-    },
+    constructor(props) {
+        super(props);
+        this.state = {
+            dragging: null
+        }
+    }
 
     handleNodeMouseDown(id, e) {
+        console.log("basemap handleNodeMouseDown this ",this);
         const { xScale, yScale } = this.scale();
         const { x, y } = this.getOffsetMousePosition(e);
         const drag = {
@@ -129,10 +55,10 @@ export default createReactClass({
             y0: yScale.invert(y)
         };
         this.setState({dragging: drag});
-    },
-
+    }
 
     handleSelectionChange(type, id) {
+        console.log("basemap handleSelectionChange this ",this);
         if (this.props.onNodeSelected) {
             if (type === "node") {
                 this.props.onNodeSelected(id);
@@ -144,9 +70,10 @@ export default createReactClass({
         } else if (this.props.onSelectionChange) {
             this.props.onSelectionChange(type, id);
         }
-    },
+    }
 
     handleMouseMove(e) {
+        console.log("basemap handleMouseMove this ",this);
         e.preventDefault();
         if (this.state.dragging) {
             const { id } = this.state.dragging;
@@ -156,14 +83,16 @@ export default createReactClass({
                 this.props.onNodeDrag(id, xScale.invert(x), yScale.invert(y));
             }
         }
-    },
+    }
 
     handleMouseUp(e) {
+        console.log("basemap handleMouseUp this ",this);
         e.stopPropagation();
         this.setState({dragging: null});
-    },
+    }
 
     handleClick(e) {
+        console.log("basemap handleClick this ",this);
         if (this.props.onNodeSelected || this.props.onEdgeSelected) {
             return;
         }
@@ -175,7 +104,7 @@ export default createReactClass({
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange(null);
         }
-    },
+    }
 
     /**
      * Get the event mouse position relative to the event rect
@@ -186,7 +115,7 @@ export default createReactClass({
         const x = e.pageX - offset.left;
         const y = e.pageY - offset.top;
         return {x: Math.round(x), y: Math.round(y)};
-    },
+    }
 
     scale() {
         return {
@@ -209,7 +138,7 @@ export default createReactClass({
                     this.props.height - this.props.margin * 2
                 ])
         };
-    },
+    }
 
     render() {
         const { xScale, yScale } = this.scale();
@@ -607,4 +536,76 @@ export default createReactClass({
             </svg>
         );
     }
-});
+};
+
+BaseMap.propTypes = {
+
+    /**
+     * The topology structure, as detailed above. This contains the
+     * descriptions of nodes, edges and paths used to render the topology
+     */
+    topology: PropTypes.object.isRequired,
+
+    /** The width of the circuit diagram */
+    width: PropTypes.number,
+
+    /** The height of the circuit diagram */
+    height: PropTypes.number,
+
+    /** The blank margin around the diagram drawing */
+    margin: PropTypes.number,
+
+    /**
+     * Specified as an object containing x1, y1 and x2, y2. This is the region
+     * to display on the map. If this isn't specified the bounds will be
+     * calculated from the nodes in the Map.
+     */
+    bounds: PropTypes.shape({
+        x1: PropTypes.number,
+        y1: PropTypes.number,
+        x2: PropTypes.number,
+        y2: PropTypes.number
+    }),
+
+    /**
+     * The is the overall rendering style for the edge connections. Maybe
+     * one of the following strings:
+     *
+     *  * "simple" - simple line connections between nodes
+     *  * "bidirectionalArrow" - network traffic represented by bi-directional arrows
+     *  * "pathBidirectionalArrow" - similar to "bidirectionalArrow", but only for
+     *  edges that are used in the currently displayed path(s).
+     */
+    edgeDrawingMethod: PropTypes.oneOf([
+        "simple",
+        "bidirectionalArrow",
+        "pathBidirectionalArrow"
+    ]),
+
+    legendItems: PropTypes.shape({
+        x: PropTypes.number,
+        y: PropTypes.number,
+        edgeTypes: PropTypes.object,
+        nodeTypes: PropTypes.object,
+        colorSwatches: PropTypes.object
+    }),
+
+    selection: PropTypes.object,
+
+    paths: PropTypes.array,
+
+    pathWidth: PropTypes.number
+
+};
+
+BaseMap.defaultProps = {
+    width: 800,
+    height: 600,
+    margin: 20,
+    bounds: {x1: 0, y1: 0, x2: 1, y2: 1},
+    edgeDrawingMethod: "simple",
+    legendItems: null,
+    selection: { nodes: {}, edges: {} },
+    paths: [],
+    pathWidth: 5
+};

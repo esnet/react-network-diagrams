@@ -16,103 +16,20 @@ import Select from "react-select";
 import BaseMap from "./BaseMap";
 import Node from "./Node";
 import Resizable from "./Resizable";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
 let counter = 1;
 
-export default createReactClass({
+export default class MapEditor extends React.Component {
 
-    displayName: "MapEditor",
-
-    propTypes: {
-
-        /**
-         * A mapping of the capacity field within the tologogy edge object
-         * to a line thickness for rendering the edges.
-         *
-         * Example:
-         *
-         * ```
-         * const edgeThinknessMap = {
-         *     "100G": 5,
-         *     "10G": 3,
-         *     "1G": 1.5,
-         *     "subG": 1
-         * };
-         * ```
-         */
-        edgeThicknessMap: PropTypes.object,
-
-        /** Display the endpoint selected */
-        selected: PropTypes.bool,
-
-        edgeColorMap: PropTypes.array,
-
-        /**
-         * A mapping from the type field in the node object to a size to draw the shape
-         *
-         * Example:
-         * ```
-         * const nodeSizeMap = {
-         *     hub: 5.5,
-         *     esnet_site: 7
-         * };
-         * ```
-         */
-        nodeSizeMap: PropTypes.object,
-        
-        nodeShapeMap: PropTypes.object,
-        
-        /**
-         * A mapping of the edge name (which is source + "--" + target) to a
-         * dict of edge shape options:
-         *  * `shape` (either "linear" or "curved")
-         *  * `direction` (if shape is curved, either "left" or "right")
-         *  * `offset` (if shape is curved, the amount of curve, which is
-         *  pixel offset from a straight line between the source and target at the midpoint)
-         *
-         * Example:
-         * ```
-         * const edgeShapeMap = {
-         *     "ALBQ--DENV": {
-         *     "shape": "curved",
-         *     "direction": "right",
-         *     "offset": 15
-         * }
-         * ```
-         */
-        edgeShapeMap: PropTypes.object,
-        
-        stylesMap: PropTypes.object,
-
-        gridSize: PropTypes.number
-    },
-
-    getDefaultProps() {
-        return {
-            edgeThinknessMap: {
-                "100G": 5,
-                "10G": 3,
-                "1G": 1.5,
-                subG: 1
-            },
-            selected: false,
-            edgeColorMap: [],
-            nodeSizeMap: {},
-            nodeShapeMap: {},
-            edgeShapeMap: {},
-            stylesMap: {},
-            gridSize: 0.25
-        };
-    },
-
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             pendingAction: null,
             selectionType: null,
             selection: null
-        };
-    },
+        }
+    }
 
     constrain(x, y) {
         const gridSize = this.props.gridSize;
@@ -120,7 +37,7 @@ export default createReactClass({
             x: parseInt(parseInt(x / gridSize, 10) * gridSize, 10),
             y: parseInt(parseInt(y / gridSize, 10) * gridSize, 10)
         };
-    },
+    }
 
     /**
      * When we create new elements we give it a id
@@ -131,7 +48,7 @@ export default createReactClass({
             const v = c === "x" ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
-    },
+    }
 
     findNode(id) {
         let result;
@@ -141,7 +58,7 @@ export default createReactClass({
             }
         });
         return result;
-    },
+    }
 
     findEdge(id) {
         let result;
@@ -151,19 +68,19 @@ export default createReactClass({
             }
         });
         return result;
-    },
+    }
 
     nodeSize(name) {
         return this.props.nodeSizeMap[name] || 7;
-    },
+    }
 
     nodeShape(name) {
         return this.props.nodeShapeMap[name] || "circle";
-    },
+    }
 
     edgeThickness(capacity) {
         return this.props.edgeThinknessMap[capacity] || 5;
-    },
+    }
 
     edgeShape(name) {
         if (_.has(this.props.edgeShapeMap, name)) {
@@ -171,7 +88,7 @@ export default createReactClass({
         } else {
             return "linear";
         }
-    },
+    }
 
     edgeCurveDirection(name) {
         let direction;
@@ -181,7 +98,7 @@ export default createReactClass({
             }
         }
         return direction;
-    },
+    }
 
     edgeCurveOffset(name) {
         let offset;
@@ -191,7 +108,7 @@ export default createReactClass({
             }
         }
         return offset;
-    },
+    }
 
     bounds() {
         if (this.props.bounds) {
@@ -202,7 +119,7 @@ export default createReactClass({
         const maxX = _.max(this.props.topology.nodes, node => node.x).x;
         const maxY = _.max(this.props.topology.nodes, node => node.y).y;
         return {x1: minX, x2: maxX, y1: minY, y2: maxY};
-    },
+    }
 
     cloneTopo() {
         const topo = {
@@ -212,7 +129,7 @@ export default createReactClass({
             edges: _.map(this.props.topology.edges, (e) => _.clone(e))
         };
         return topo;
-    },
+    }
 
     /**
      * Build a topology suitable for passing into the BaseMap for rendering
@@ -280,7 +197,7 @@ export default createReactClass({
         topology.description = this.props.topology.description;
 
         return topology;
-    },
+    }
 
     handleSelectionChanged(selectionType, selectionId) {
         let selection;
@@ -290,7 +207,7 @@ export default createReactClass({
             selection = this.findEdge(selectionId);
         }
         this.setState({selectionType, selection});
-    },
+    }
 
     handleChange(attr, value) {
         const selected = this.state.selection;
@@ -299,7 +216,7 @@ export default createReactClass({
         this.setState({
             selection: selected
         });
-    },
+    }
 
     handleNodeDrag(id, posx, posy) {
         const topo = this.cloneTopo();
@@ -315,14 +232,14 @@ export default createReactClass({
         if (this.props.onTopologyChange) {
             this.props.onTopologyChange(topo);
         }
-    },
+    }
 
     handleAddNode() {
         this.setState({pendingAction: {
             action: "add-node",
             instructions: "Pick a point (x,y)"
         }});
-    },
+    }
 
     /**
      * TODO: actual handling of the add node should be done at
@@ -353,7 +270,7 @@ export default createReactClass({
             selectionType: "node",
             selection: n
         });
-    },
+    }
 
     handleAddEdge() {
         this.setState({pendingAction: {
@@ -361,7 +278,7 @@ export default createReactClass({
             instructions: "Pick source node",
             nodes: []
         }});
-    },
+    }
 
     handleDeleteNode() {
         this.setState({ pendingAction: {
@@ -369,7 +286,7 @@ export default createReactClass({
             instructions: "Pick a node to delete (will delete related edges)",
             nodes: []
         }});
-    },
+    }
 
     handleDeleteEdge() {
         this.setState({ pendingAction: {
@@ -377,7 +294,7 @@ export default createReactClass({
             instructions: "Pick an edge to delete",
             edge: null
         }});
-    },
+    }
 
     handleAddSelection(node) {
         const action = this.state.pendingAction;
@@ -407,7 +324,7 @@ export default createReactClass({
 
             this.setState({pendingAction: null});
         }
-    },
+    }
 
     handleDeleteNodeSelection(nodeId) {
         const action = this.state.pendingAction;
@@ -432,7 +349,7 @@ export default createReactClass({
 
             this.setState({pendingAction: null});
         }
-    },
+    }
 
     handleDeleteEdgeSelection(edgeId) {
         const action = this.state.pendingAction;
@@ -454,7 +371,7 @@ export default createReactClass({
 
             this.setState({pendingAction: null});
         }
-    },
+    }
 
     renderTextProperty(attr, value) {
         return (
@@ -466,7 +383,7 @@ export default createReactClass({
                 onBlur={(e) =>
                     this.handleChange(attr, e.target.value)} />
         );
-    },
+    }
 
     renderIntegerProperty(attr, value) {
         const v = value || 0;
@@ -479,7 +396,7 @@ export default createReactClass({
                 onBlur={(e) =>
                     this.handleChange(attr, parseInt(e.target.value, 10))} />
         );
-    },
+    }
 
     renderChoiceProperty(attr, options, value) {
         return (
@@ -490,7 +407,7 @@ export default createReactClass({
                 options={options}
                 onChange={(val) => this.handleChange(attr, val)} />
         );
-    },
+    }
 
     renderNodeProperties() {
         const selected = this.state.selection;
@@ -537,7 +454,7 @@ export default createReactClass({
                 </tbody>
             </table>
         );
-    },
+    }
 
     renderEdgeProperties() {
         const selected = this.state.selection;
@@ -584,7 +501,7 @@ export default createReactClass({
                 </tbody>
             </table>
         );
-    },
+    }
 
     renderProperties() {
         const headerStyle = {
@@ -629,7 +546,7 @@ export default createReactClass({
                 </span>
             );
         }
-    },
+    }
 
     renderToolbar() {
         const toolbarStyle = {
@@ -706,7 +623,7 @@ export default createReactClass({
                 </span>
             </div>
         );
-    },
+    }
 
     renderMap() {
         const topo = this.buildTopology();
@@ -779,7 +696,7 @@ export default createReactClass({
                     onNodeDrag={this.handleNodeDrag} />
             );
         }
-    },
+    }
 
     render() {
         return (
@@ -804,4 +721,84 @@ export default createReactClass({
             </div>
         );
     }
-});
+};
+
+MapEditor.propTypes = {
+
+    /**
+     * A mapping of the capacity field within the tologogy edge object
+     * to a line thickness for rendering the edges.
+     *
+     * Example:
+     *
+     * ```
+     * const edgeThinknessMap = {
+     *     "100G": 5,
+     *     "10G": 3,
+     *     "1G": 1.5,
+     *     "subG": 1
+     * };
+     * ```
+     */
+    edgeThicknessMap: PropTypes.object,
+
+    /** Display the endpoint selected */
+    selected: PropTypes.bool,
+
+    edgeColorMap: PropTypes.array,
+
+    /**
+     * A mapping from the type field in the node object to a size to draw the shape
+     *
+     * Example:
+     * ```
+     * const nodeSizeMap = {
+     *     hub: 5.5,
+     *     esnet_site: 7
+     * };
+     * ```
+     */
+    nodeSizeMap: PropTypes.object,
+    
+    nodeShapeMap: PropTypes.object,
+    
+    /**
+     * A mapping of the edge name (which is source + "--" + target) to a
+     * dict of edge shape options:
+     *  * `shape` (either "linear" or "curved")
+     *  * `direction` (if shape is curved, either "left" or "right")
+     *  * `offset` (if shape is curved, the amount of curve, which is
+     *  pixel offset from a straight line between the source and target at the midpoint)
+     *
+     * Example:
+     * ```
+     * const edgeShapeMap = {
+     *     "ALBQ--DENV": {
+     *     "shape": "curved",
+     *     "direction": "right",
+     *     "offset": 15
+     * }
+     * ```
+     */
+    edgeShapeMap: PropTypes.object,
+    
+    stylesMap: PropTypes.object,
+
+    gridSize: PropTypes.number
+};
+
+MapEditor.defaultProps = {
+    edgeThinknessMap: {
+        "100G": 5,
+        "10G": 3,
+        "1G": 1.5,
+        subG: 1
+    },
+    selected: false,
+    edgeColorMap: [],
+    nodeSizeMap: {},
+    nodeShapeMap: {},
+    edgeShapeMap: {},
+    stylesMap: {},
+    gridSize: 0.25
+};

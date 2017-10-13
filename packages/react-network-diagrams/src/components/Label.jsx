@@ -19,31 +19,7 @@ import _ from "underscore";
  * The label can be a single string, or an array of strings
  * to display on multiple lines.
  */
-export default createReactClass({
-
-    displayName: "Label",
-
-    propTypes: {
-        r: PropTypes.number,
-
-        /**
-         * Horizontal distance from the center line to offset the connection label.
-         */
-        xOffset: PropTypes.number,
-
-        /**
-         * Vertical distance from the center line to offset the connection label.
-         */
-        yOffset: PropTypes.number
-    },
-
-    getDefaultProps() {
-        return {
-            r: 0,
-            xOffset: 0,
-            yOffset: 0
-        };
-    },
+export default class Label extends React.Component {
 
     render() {
         let label = [];
@@ -116,4 +92,24 @@ export default createReactClass({
             </g>
         );
     }
-});
+};
+
+Label.propTypes = {
+    r: PropTypes.number,
+
+    /**
+     * Horizontal distance from the center line to offset the connection label.
+     */
+    xOffset: PropTypes.number,
+
+    /**
+     * Vertical distance from the center line to offset the connection label.
+     */
+    yOffset: PropTypes.number
+};
+
+Label.defaultProps = {
+    r: 0,
+    xOffset: 0,
+    yOffset: 0
+};

@@ -3324,6 +3324,160 @@
       }
     }
   },
+  "src/power-node-list.jsx": {
+    "description": "",
+    "methods": [
+      {
+        "name": "assignPowerNodes",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "power",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderPositionLabel",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "label",
+            "type": null
+          },
+          {
+            "name": "x",
+            "type": null
+          },
+          {
+            "name": "y",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "drawPowerNode",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "powerNode",
+            "type": null
+          },
+          {
+            "name": "key",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "positionPowerNodes",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "newNodes",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "xOffset": {
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "yOffset": {
+        "defaultValue": {
+          "value": "30",
+          "computed": false
+        }
+      },
+      "positionLabelStyle": {
+        "defaultValue": {
+          "value": "{\n    fill: \"#9D9D9D\",\n    fontSize: 10,\n    fontFamily: \"verdana, sans-serif\"\n}",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/power-node.jsx": {
+    "description": "",
+    "methods": [
+      {
+        "name": "handleMouseOver",
+        "docblock": "User hovers over the power node",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "User hovers over the power node"
+      },
+      {
+        "name": "handleMouseOut",
+        "docblock": "Use stops hovering over power node",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "Use stops hovering over power node"
+      },
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "drawLabel",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "x",
+            "type": null
+          },
+          {
+            "name": "y",
+            "type": null
+          },
+          {
+            "name": "label",
+            "type": null
+          },
+          {
+            "name": "position",
+            "type": null
+          },
+          {
+            "name": "offset",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "radius": {
+        "defaultValue": {
+          "value": "15",
+          "computed": false
+        }
+      }
+    }
+  },
   "src/rack.jsx": {
     "description": "",
     "methods": [
@@ -3356,7 +3510,7 @@
         "returns": null
       },
       {
-        "name": "drawRack",
+        "name": "drawFrontRack",
         "docblock": null,
         "modifiers": [],
         "params": [
@@ -3374,6 +3528,10 @@
           },
           {
             "name": "inchToRmu",
+            "type": null
+          },
+          {
+            "name": "yOffsetTop",
             "type": null
           }
         ],
@@ -3415,6 +3573,18 @@
           {
             "name": "y",
             "type": null
+          },
+          {
+            "name": "label",
+            "type": null
+          },
+          {
+            "name": "position",
+            "type": null
+          },
+          {
+            "name": "offset",
+            "type": null
           }
         ],
         "returns": null
@@ -3443,15 +3613,25 @@
           {
             "name": "inchToRmu",
             "type": null
+          },
+          {
+            "name": "yOffsetTop",
+            "type": null
           }
         ],
         "returns": null
       }
     ],
     "props": {
-      "yOffset": {
+      "yOffsetTop": {
         "defaultValue": {
-          "value": "50",
+          "value": "30",
+          "computed": false
+        }
+      },
+      "yOffsetBottom": {
+        "defaultValue": {
+          "value": "40",
           "computed": false
         }
       },
@@ -3481,13 +3661,19 @@
       },
       "widthOffset": {
         "defaultValue": {
-          "value": ".875",
+          "value": "0.875",
           "computed": false
         }
       },
       "rackStyle": {
         "defaultValue": {
           "value": "\"telco\"",
+          "computed": false
+        }
+      },
+      "labelStyle": {
+        "defaultValue": {
+          "value": "{\n    normal: {\n        fill: \"#9D9D9D\",\n        fontSize: 10,\n        fontFamily: \"verdana, sans-serif\"\n    }\n}",
           "computed": false
         }
       }

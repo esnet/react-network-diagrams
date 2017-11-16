@@ -20,7 +20,14 @@ It takes a label as well in the form of a string or list of strings if multiline
 
 export default React.createClass({
     getInitialState() {
-        return { highlighted: false };
+        return {
+            highlighted: false,
+            noNavigate:
+                (this.props.facing === "Front" && this.props.rackFacing === "Back") ||
+                (this.props.facing === "Back" && this.props.rackFacing === "Front")
+                    ? true
+                    : this.props.noNavigate
+        };
     },
 
     getDefaultProps() {
@@ -37,7 +44,7 @@ export default React.createClass({
      * User hovers over the equipment
      */
     handleMouseOver() {
-        if (!this.props.noNavigate) {
+        if (!this.state.noNavigate) {
             this.setState({ highlighted: true });
         }
     },
@@ -46,13 +53,13 @@ export default React.createClass({
      * Use stops hovering over equipment
      */
     handleMouseOut() {
-        if (!this.props.noNavigate) {
+        if (!this.state.noNavigate) {
             this.setState({ highlighted: false });
         }
     },
 
     handleSelectionChanged(e, value) {
-        if (!this.props.noNavigate) {
+        if (!this.state.noNavigate) {
             this.props.onSelectionChange(e, value);
         }
     },
@@ -69,6 +76,7 @@ export default React.createClass({
         let width;
         let stroke;
         let fill;
+        const backFill = this.props.backStyle.fill;
 
         if (this.state.highlighted && !this.props.selected) {
             width = this.props.style.line.highlighted.strokeWidth;
@@ -100,6 +108,7 @@ export default React.createClass({
                         color={stroke}
                         width={width}
                         fill={fill}
+                        backFill={backFill}
                         textAnchor={this.props.textAnchor}
                         labelPosition={this.props.labelPosition}
                         labelStyle={this.props.style.label}
@@ -108,6 +117,9 @@ export default React.createClass({
                         labelOffsetY={this.props.labelOffsetY}
                         showHeight={this.props.showHeight}
                         name={navTo}
+                        facing={this.props.facing}
+                        rackFacing={this.props.rackFacing}
+                        usePattern={this.props.usePattern}
                     />
                 </g>
                 <g onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
@@ -124,6 +136,7 @@ export default React.createClass({
                         color={hitStyle.stroke}
                         width={hitStyle.strokeWidth}
                         fill={fill}
+                        backFill={backFill}
                         textAnchor={this.props.textAnchor}
                         labelPosition={this.props.labelPosition}
                         labelStyle={this.props.style.label}
@@ -134,6 +147,9 @@ export default React.createClass({
                         onSelectionChange={this.handleSelectionChanged}
                         showHeight={this.props.showHeight}
                         invisible={true}
+                        facing={this.props.facing}
+                        rackFacing={this.props.rackFacing}
+                        usePattern={this.props.usePattern}
                     />
                 </g>
             </g>

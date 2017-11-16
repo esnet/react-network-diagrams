@@ -21,7 +21,6 @@ It takes a label as well in the form of a string or list of strings if multiline
 */
 
 export default React.createClass({
-
     getDefaultProps() {
         return {
             yOffset: 25,
@@ -52,10 +51,7 @@ export default React.createClass({
             classed += " muted";
             labelClassed += "muted";
             styleModifier = "muted";
-
         }
-
-        const fill = this.props.fill || "none";
 
         let opacity = 1.0;
         if (this.props.invisible) {
@@ -73,15 +69,14 @@ export default React.createClass({
         const posX = this.props.positionX || 25;
         const posY = this.props.positionY || 25;
 
-        const centerX = (equipmentPxWidth / 2) + posX;
-        const centerY = (equipmentPxHeight / 2) + posY;
+        const centerX = equipmentPxWidth / 2 + posX;
+        const centerY = equipmentPxHeight / 2 + posY;
 
         const labelOffsetX = this.props.labelOffsetX || 0;
         const labelOffsetY = this.props.labelOffsetY || 0;
 
         let cx;
         let cy;
-
         switch (this.props.labelPosition) {
             case "top":
                 cx = centerX;
@@ -99,7 +94,11 @@ export default React.createClass({
 
         let equipmentLabel = null;
 
-        if (this.props.label) {
+        if (
+            this.props.label &&
+            (!(this.props.facing === "Front" && this.props.rackFacing === "Back") &&
+                !(this.props.facing === "Back" && this.props.rackFacing === "Front"))
+        ) {
             equipmentLabel = (
                 <Label
                     x={cx}
@@ -110,7 +109,8 @@ export default React.createClass({
                     label={this.props.label}
                     xOffset={labelOffsetX}
                     yOffset={labelOffsetY}
-                    labelPosition={this.props.labelPosition} />
+                    labelPosition={this.props.labelPosition}
+                />
             );
         }
 
@@ -128,8 +128,19 @@ export default React.createClass({
         hBottomPath += "M" + (posX + 7) + "," + (posY + equipmentPxHeight - 5);
         hBottomPath += " L " + (posX + 13) + " " + (posY + equipmentPxHeight - 5);
 
+        const heightFill = this.props.labelStyle[styleModifier];
+
+        let heightPath = (
+            <g strokeWidth={this.props.width} stroke={heightFill.fill} opacity={opacity}>
+                <path className={labelClassed} d={vPath} fill={heightFill.fill} />
+                <path className={labelClassed} d={hTopPath} fill={heightFill.fill} />
+                <path className={labelClassed} d={hBottomPath} fill={heightFill.fill} />
+            </g>
+        );
+
         const heightInRmu = this.props.equipmentHeight / 1.75;
-        const heightLabel = (
+
+        let heightLabel = (
             <Label
                 x={posX + 15}
                 y={centerY}
@@ -137,25 +148,47 @@ export default React.createClass({
                 classed={labelClassed}
                 style={this.props.labelStyle[styleModifier]}
                 label={`${heightInRmu}U`}
-                labelPosition={"center"} />
+                labelPosition={"center"}
+            />
         );
 
-        if (!this.props.showHeight) {
+        let backStyle = { fill: this.props.backFill, fillOpacity: "0.7" };
+        if (this.props.usePattern) {
+            backStyle = { fill: "url(#Pattern)" };
+        }
 
+        const frontStyle = { fill: this.props.fill };
+
+        // default to the front view.  Only show the back view if the
+        // equipment is back facing on the front of the rack,
+        // or front facing on the back of the rack
+        let eqStyle = frontStyle;
+
+        if (this.props.rackFacing === "Front" && this.props.facing === "Back") {
+            eqStyle = backStyle;
+            heightLabel = <g />;
+            heightPath = <g />;
+        } else if (this.props.rackFacing === "Back" && this.props.facing === "Front") {
+            eqStyle = backStyle;
+            heightLabel = <g />;
+            heightPath = <g />;
+        }
+
+        //const eqStyle = this.props.facing === "Front" && ? frontStyle : backStyle;);
+
+        if (!this.props.showHeight) {
             return (
                 <g>
-                    <g
-                        strokeWidth={this.props.width}
-                        stroke={this.props.color}
-                        opacity={opacity}>
+                    <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
                         <rect
                             className={classed}
                             width={equipmentPxWidth}
                             height={equipmentPxHeight}
                             x={posX}
                             y={posY}
-                            fill={fill}
-                            onClick={this.handleClick}/>
+                            style={eqStyle}
+                            onClick={this.handleClick}
+                        />
                     </g>
                     {equipmentLabel}
                 </g>
@@ -167,28 +200,19 @@ export default React.createClass({
                         strokeWidth={this.props.width}
                         stroke={this.props.color}
                         opacity={opacity}
-                        onClick={this.handleClick}>
+                        onClick={this.handleClick}
+                    >
                         <rect
                             className={classed}
                             width={equipmentPxWidth}
                             height={equipmentPxHeight}
                             x={posX}
                             y={posY}
-                            fill={fill} />
-                        <path
-                            className={classed}
-                            d={vPath}
-                            fill="none" />
-                        <path
-                            className={classed}
-                            d={hTopPath}
-                            fill="none" />
-                        <path
-                            className={classed}
-                            d={hBottomPath}
-                            fill="none" />
+                            style={eqStyle}
+                        />
                     </g>
                     {equipmentLabel}
+                    {heightPath}
                     {heightLabel}
                 </g>
             );

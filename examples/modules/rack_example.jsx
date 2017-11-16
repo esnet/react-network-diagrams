@@ -9,13 +9,14 @@
  */
 
 import React from "react";
-// import _ from "underscore";
 // import Markdown from "react-markdown";
 // import APIDocs from "./docs";
 import Rack from "../../src/rack";
 import Equipment from "../../src/equipment";
+import PowerNodeList from "../../src/power-node-list";
 import Resizable from "../../src/resizable";
 import { stylesMap } from "../styles/styles.js";
+
 /*
 const Selector = React.createClass({
 
@@ -45,170 +46,371 @@ const rackData = {
     name: "001.001"
 };
 
-const equipment = {
-    alu: {
+const equipment = [
+    {
         height: 24.5, // Inches
         width: 17.52, // Inches
         rmu: 1,
-        style: stylesMap.line1,
+        style: stylesMap.router,
         label: "ALU-7750-SR12",
         showHeight: false,
-        navTo: "Equipment link for ALU"
+        facing: "Front",
+        navTo: "ALU-7750-SR12"
     },
-    dc1: {
+    {
+        height: 3.5,
+        width: 17.52,
+        rmu: 33,
+        style: stylesMap.patchPanel,
+        label: "Patch Panel",
+        showHeight: false,
+        facing: "Front",
+        navTo: "Patch Panel"
+    },
+    {
         height: 3.5, // Inches
-        width: 17.52,  // Inches
+        width: 17.52, // Inches
         rmu: 41,
-        style: stylesMap.line1,
-        label:"DC PDU 1",
+        style: stylesMap.pdu,
+        label: "DC PDU 1",
+        facing: "Back",
         showHeight: true,
-        navTo: "Link to DC PDU 1"
+        navTo: "DC PDU 1"
     },
-    dc2: {
+    {
         height: 3.5, // Inches
-        width: 17.52,  // Inches
+        width: 17.52, // Inches
         rmu: 38,
-        style: stylesMap.line1,
+        style: stylesMap.pdu,
         label: "DC PDU 2",
+        facing: "Back",
         showHeight: true,
-        navTo: "Link to DC PDU 2"
+        navTo: "DC PDU 2"
     },
-    juniper: {
+    {
         height: 1.75, // Inches
-        width: 17.52,  // Inches
+        width: 17.52, // Inches
         rmu: 30,
-        style: stylesMap.line1,
+        style: stylesMap.switch,
         label: "Juniper EX4200",
         showHeight: true,
-        navTo: "Link to Juniper Switch"
+        facing: "Front",
+        navTo: "Juniper EX4200"
     },
-    corsa: {
+    {
+        height: 1.75,
+        width: 17.52,
+        rmu: 29,
+        style: stylesMap.blankStyle,
+        label: "Cable Management",
+        showHeight: false,
+        facing: "Front",
+        noNavigate: true
+    },
+    {
         height: 3.5, // Inches
-        width: 17.52,  // Inches
+        width: 17.52, // Inches
         rmu: 22,
-        style: stylesMap.line1,
+        style: stylesMap.switch,
         label: "Corsa Switch",
         showHeight: true,
-        navTo: "Link to Corsa Switch"
+        facing: "Front",
+        navTo: "Corsa Switch"
     },
-    cisco: {
+    {
         height: 1.75, // Inches
-        width: 17.52,  // Inches
-        rmu: 34,
-        style: stylesMap.line1,
+        width: 17.52, // Inches
+        rmu: 28,
+        style: stylesMap.switch,
         label: "Cisco 2960",
         showHeight: true,
-        navTo: "Link to Cisco Switch"
+        facing: "Front",
+        navTo: "Cisco 2960"
     },
-    ac1: {
+    {
         height: 3.5, // Inches
-        width: 17.52,  // Inches
+        width: 17.52, // Inches
         rmu: 35,
-        style: stylesMap.line1,
+        style: stylesMap.pdu,
         label: "AC PDU 1",
         showHeight: true,
-        navTo: "Link to AC PDU 1"
+        facing: "Back",
+        navTo: "AC PDU 1"
     }
-};
+];
+
+const rackpower = [
+    {
+        style: stylesMap.endpoint2,
+        vPos: "Above",
+        hPos: "Left",
+        label: "60A -48v",
+        type: "DC",
+        source: "A",
+        id: "P001",
+        navTo: "P001",
+        pdus: ["DC PDU 2"]
+    },
+    {
+        style: stylesMap.endpoint2,
+        vPos: "Above",
+        hPos: "Right",
+        label: "60A -48v",
+        type: "DC",
+        source: "B",
+        id: "P002",
+        navTo: "P002",
+        pdus: ["DC PDU 2"]
+    },
+    {
+        style: stylesMap.endpoint2,
+        vPos: "Above",
+        hPos: "Left",
+        label: "60A -48v",
+        type: "DC",
+        source: "A",
+        id: "P005",
+        navTo: "P005",
+        pdus: ["DC PDU 1"]
+    },
+    {
+        style: stylesMap.endpoint2,
+        vPos: "Above",
+        hPos: "Right",
+        label: "60A -48v",
+        type: "DC",
+        source: "B",
+        id: "P006",
+        navTo: "P006",
+        pdus: ["DC PDU 1"]
+    },
+    {
+        style: stylesMap.endpoint2,
+        vPos: "Above",
+        hPos: "Center",
+        label: "20A 120v",
+        connector: "NEMA 5-20R",
+        type: "AC",
+        source: "House",
+        id: "P003",
+        navTo: "P003",
+        pdus: ["AC PDU 1"]
+    },
+    {
+        style: stylesMap.endpoint2,
+        vPos: "Above",
+        hPos: "Center",
+        label: "20A 120v",
+        connector: "NEMA 5-20R",
+        type: "AC",
+        source: "Generator",
+        id: "P004",
+        navTo: "P004",
+        pdus: ["AC PDU 1"]
+    }
+];
+
+//const rackpower = [];
 
 export default React.createClass({
-
-    handleSelectionChange(e,val) {
-        const message = `You clicked ${e} with name ${val}`;
-        window.alert(message);
+    getInitialState() {
+        return {
+            info: null,
+            showHeight: false,
+            selected: null,
+            descending: false,
+            pduSelected: []
+        };
     },
 
+    handleSelectionChange(e, val) {
+        let o;
+        let pdus = [];
+        if (e === "equipment") {
+            o = equipment.filter(eq => {
+                return eq.label === val;
+            });
+        } else if (e === "power Node") {
+            o = rackpower.filter(p => {
+                return p.id === val;
+            });
+        }
+        if (o.length === 1) {
+            const v = o[0];
+            if (e === "equipment") {
+                v.toJSON = () => {
+                    return {
+                        Height: v.height, // Inches
+                        Width: v.width, // Inches
+                        RMU: v.rmu,
+                        Label: v.label,
+                        Facing: v.facing
+                    };
+                };
+            } else {
+                v.toJSON = () => {
+                    return {
+                        "Vertical Position": v.vPos,
+                        "Horizontal Position": v.hPos,
+                        Label: v.label,
+                        Connector: v.connector,
+                        Type: v.type,
+                        Source: v.source,
+                        ID: v.id,
+                        PDUs: v.pdus.map(pdu => {
+                            return equipment.filter(eq => {
+                                return eq.label === pdu;
+                            });
+                        })
+                    };
+                };
+                pdus = v.pdus;
+            }
+            this.setState({ info: v, selected: val, pduSelected: pdus });
+        }
+    },
+
+    handleHeightChange() {
+        this.setState({
+            showHeight: this.state.showHeight ? false : true
+        });
+    },
+
+    handleDescendingChange() {
+        this.setState({
+            descending: this.state.descending ? false : true
+        });
+    },
+
+    renderEquipment(equipment) {
+        const backStyle = { fill: "#595959" };
+        const elements = equipment.map(eq => {
+            return (
+                <Equipment
+                    key={`${eq.label}-${eq.rmu}`}
+                    equipmentHeight={eq.height}
+                    equipmentWidth={eq.width}
+                    rmu={eq.rmu}
+                    style={eq.style}
+                    backStyle={backStyle}
+                    selected={
+                        this.state.selected === eq.label ||
+                        this.state.pduSelected.includes(eq.label)
+                    }
+                    label={eq.label}
+                    navTo={eq.navTo}
+                    showHeight={this.state.showHeight}
+                    facing={eq.facing}
+                    onSelectionChange={this.handleSelectionChange}
+                />
+            );
+        });
+        return elements;
+    },
+
+    renderInfo() {
+        if (this.state.info) {
+            return (
+                <div>
+                    <b>Selected Values:</b>
+                    <pre style={{ borderLeftColor: "steelblue" }}>
+                        {JSON.stringify(this.state.info, null, 3)}
+                    </pre>
+                </div>
+            );
+        } else {
+            return <div />;
+        }
+    },
     render() {
         const rackStyle = stylesMap.rack1;
+        const pattern = (
+            <pattern id="Pattern" width="4" height="4" patternUnits="userSpaceOnUse">
+                <line stroke="#A6A6A6" strokeWidth="20px" y2="4" />
+                <path
+                    d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2"
+                    style={{ stroke: "#4D4D4D", strokeWidth: 1 }}
+                />
+            </pattern>
+        );
         return (
             <div>
                 <div className="row">
                     <div className="col-md-12">
                         <h3>Basic Rack Example</h3>
+                        <hr />
                     </div>
                 </div>
+
                 <div className="row">
-                    <div className="col-md-9">
+                    <div className="col-md-2">
+                        <b>Rack Power</b>
+                        <Resizable>
+                            <PowerNodeList
+                                powerNodes={rackpower}
+                                selected={this.state.selected}
+                                onSelectionChange={this.handleSelectionChange}
+                            />
+                        </Resizable>
+                    </div>
+                    <div className="col-md-3" style={{ textAlign: "center" }}>
+                        <b>Rack Front View</b>
                         <Resizable>
                             <Rack
                                 rackHeight={rackData.height}
                                 rackWidth={rackData.width}
                                 pxToInch={10}
                                 label={rackData.name}
-                                rackStyle={rackStyle}>
-                                <Equipment
-                                    key={`${equipment.dc1.label}-${equipment.dc1.rmu}`}
-                                    equipmentHeight={equipment.dc1.height}
-                                    equipmentWidth={equipment.dc1.width}
-                                    rmu={equipment.dc1.rmu}
-                                    style={equipment.dc1.style}
-                                    label={equipment.dc1.label}
-                                    navTo={equipment.dc1.navTo}
-                                    showHeight={equipment.dc1.showHeight}
-                                    onSelectionChange={this.handleSelectionChange} />
-                                <Equipment
-                                    key={`${equipment.dc2.label}-${equipment.dc2.rmu}`}
-                                    equipmentHeight={equipment.dc2.height}
-                                    equipmentWidth={equipment.dc2.width}
-                                    rmu={equipment.dc2.rmu}
-                                    style={equipment.dc2.style}
-                                    label={equipment.dc2.label}
-                                    navTo={equipment.dc2.navTo}
-                                    showHeight={equipment.dc2.showHeight}
-                                    onSelectionChange={this.handleSelectionChange} />
-                                <Equipment
-                                    key={`${equipment.juniper.label}-${equipment.juniper.rmu}`}
-                                    equipmentHeight={equipment.juniper.height}
-                                    equipmentWidth={equipment.juniper.width}
-                                    rmu={equipment.juniper.rmu}
-                                    style={equipment.juniper.style}
-                                    label={equipment.juniper.label}
-                                    navTo={equipment.juniper.navTo}
-                                    showHeight={equipment.juniper.showHeight}
-                                    onSelectionChange={this.handleSelectionChange} />
-                                <Equipment
-                                    key={`${equipment.ac1.label}-${equipment.ac1.rmu}`}
-                                    equipmentHeight={equipment.ac1.height}
-                                    equipmentWidth={equipment.ac1.width}
-                                    rmu={equipment.ac1.rmu}
-                                    style={equipment.ac1.style}
-                                    label={equipment.ac1.label}
-                                    navTo={equipment.ac1.navTo}
-                                    showHeight={equipment.ac1.showHeight}
-                                    onSelectionChange={this.handleSelectionChange} />
-                                <Equipment
-                                    key={`${equipment.cisco.label}-${equipment.cisco.rmu}`}
-                                    equipmentHeight={equipment.cisco.height}
-                                    equipmentWidth={equipment.cisco.width}
-                                    rmu={equipment.cisco.rmu}
-                                    style={equipment.cisco.style}
-                                    label={equipment.cisco.label}
-                                    navTo={equipment.cisco.navTo}
-                                    showHeight={equipment.cisco.showHeight}
-                                    onSelectionChange={this.handleSelectionChange} />
-                                <Equipment
-                                    key={`${equipment.corsa.label}-${equipment.corsa.rmu}`}
-                                    equipmentHeight={equipment.corsa.height}
-                                    equipmentWidth={equipment.corsa.width}
-                                    rmu={equipment.corsa.rmu}
-                                    style={equipment.corsa.style}
-                                    label={equipment.corsa.label}
-                                    navTo={equipment.corsa.navTo}
-                                    showHeight={equipment.corsa.showHeight}
-                                    onSelectionChange={this.handleSelectionChange} />
-                                <Equipment
-                                    key={`${equipment.alu.label}-${equipment.alu.rmu}`}
-                                    equipmentHeight={equipment.alu.height}
-                                    equipmentWidth={equipment.alu.width}
-                                    rmu={equipment.alu.rmu}
-                                    style={equipment.alu.style}
-                                    label={equipment.alu.label}
-                                    navTo={equipment.alu.navTo}
-                                    showHeight={equipment.alu.showHeight}
-                                    onSelectionChange={this.handleSelectionChange} />
+                                rackStyle={rackStyle}
+                                facing={"Front"}
+                                pattern={pattern}
+                                descending={this.state.descending}
+                            >
+                                {this.renderEquipment(equipment)}
                             </Rack>
                         </Resizable>
                     </div>
+                    <div className="col-md-3" style={{ textAlign: "center" }}>
+                        <b>Rack Back View</b>
+                        <Resizable>
+                            <Rack
+                                rackHeight={rackData.height}
+                                rackWidth={rackData.width}
+                                pxToInch={10}
+                                label={rackData.name}
+                                rackStyle={rackStyle}
+                                facing={"Back"}
+                                pattern={pattern}
+                                descending={this.state.descending}
+                            >
+                                {this.renderEquipment(equipment)}
+                            </Rack>
+                        </Resizable>
+                    </div>
+                    <div className="col-md-4">{this.renderInfo()}</div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12">
+                        <hr />
+                        <input
+                            type="checkbox"
+                            name="height"
+                            value={this.state.showHeight}
+                            onChange={this.handleHeightChange}
+                        />{" "}
+                        Display Height Marker
+                        <p>Select whether to render the RMU height markers</p>
+                        <br />
+                        <input
+                            type="checkbox"
+                            name="descending"
+                            value={this.state.descending}
+                            onChange={this.handleDescendingChange}
+                        />{" "}
+                        Toggle RMU descending
+                        <p>Select whether to render the RMUs ascending or descending</p>
+                    </div>
+                    <hr />
                 </div>
             </div>
         );

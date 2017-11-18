@@ -35,6 +35,7 @@ export default React.createClass({
             noNavigate: false,
             labelPosition: "top",
             classed: "equipment",
+            labelDirection: "horizontal",
             selected: false,
             muted: false
         };
@@ -113,6 +114,7 @@ export default React.createClass({
                         labelPosition={this.props.labelPosition}
                         labelStyle={this.props.style.label}
                         label={this.props.label}
+                        labelDirection={this.props.labelDirection}
                         labelOffsetX={this.props.labelOffsetX}
                         labelOffsetY={this.props.labelOffsetY}
                         showHeight={this.props.showHeight}
@@ -141,6 +143,7 @@ export default React.createClass({
                         labelPosition={this.props.labelPosition}
                         labelStyle={this.props.style.label}
                         label={this.props.label}
+                        labelDirection={this.props.labelDirection}
                         labelOffsetX={this.props.labelOffsetX}
                         labelOffsetY={this.props.labelOffsetY}
                         name={navTo}

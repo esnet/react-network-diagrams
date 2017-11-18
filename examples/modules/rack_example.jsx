@@ -136,6 +136,28 @@ const equipment = [
         showHeight: true,
         facing: "Back",
         navTo: "AC PDU 1"
+    },
+    {
+        height: 69, // Inches
+        width: 1.75, // Inches
+        rmu: 0,
+        side: "R",
+        style: stylesMap.pdu,
+        label: "AC PDU 2",
+        showHeight: true,
+        facing: "Back",
+        navTo: "AC PDU 2"
+    },
+    {
+        height: 69, // Inches
+        width: 1.75, // Inches
+        rmu: 0,
+        side: "L",
+        style: stylesMap.pdu,
+        label: "AC PDU 3",
+        showHeight: true,
+        facing: "Back",
+        navTo: "AC PDU 3"
     }
 ];
 
@@ -207,6 +229,30 @@ const rackpower = [
         id: "P004",
         navTo: "P004",
         pdus: ["AC PDU 1"]
+    },
+    {
+        style: stylesMap.endpoint2,
+        vPos: "Below",
+        hPos: "Center",
+        label: "30A 208v",
+        connector: "NEMA L6-30R",
+        type: "AC",
+        source: "House",
+        id: "P007",
+        navTo: "P007",
+        pdus: ["AC PDU 2"]
+    },
+    {
+        style: stylesMap.endpoint2,
+        vPos: "Below",
+        hPos: "Center",
+        label: "30A 208v",
+        connector: "NEMA L6-30R",
+        type: "AC",
+        source: "Generator",
+        id: "P008",
+        navTo: "P008",
+        pdus: ["AC PDU 3"]
     }
 ];
 
@@ -217,6 +263,7 @@ export default React.createClass({
         return {
             info: null,
             showHeight: false,
+            displayRmu: true,
             selected: null,
             descending: false,
             pduSelected: []
@@ -282,15 +329,30 @@ export default React.createClass({
         });
     },
 
+    handleRmuChange() {
+        this.setState({
+            displayRmu: this.state.displayRmu ? false : true
+        });
+    },
+
     renderEquipment(equipment) {
         const backStyle = { fill: "#595959" };
         const elements = equipment.map(eq => {
+            let labelPosition = "top";
+            let labelDirection = "horizontal";
+            let showHeight = this.state.showHeight;
+            if (eq.rmu === 0) {
+                labelDirection = "vertical";
+                labelPosition = "center";
+                showHeight = false;
+            }
             return (
                 <Equipment
                     key={`${eq.label}-${eq.rmu}`}
                     equipmentHeight={eq.height}
                     equipmentWidth={eq.width}
                     rmu={eq.rmu}
+                    side={eq.side}
                     style={eq.style}
                     backStyle={backStyle}
                     selected={
@@ -298,8 +360,10 @@ export default React.createClass({
                         this.state.pduSelected.includes(eq.label)
                     }
                     label={eq.label}
+                    labelDirection={labelDirection}
+                    labelPosition={labelPosition}
                     navTo={eq.navTo}
-                    showHeight={this.state.showHeight}
+                    showHeight={showHeight}
                     facing={eq.facing}
                     onSelectionChange={this.handleSelectionChange}
                 />
@@ -364,6 +428,7 @@ export default React.createClass({
                                 rackStyle={rackStyle}
                                 facing={"Front"}
                                 pattern={pattern}
+                                displayRmu={this.state.displayRmu}
                                 descending={this.state.descending}
                             >
                                 {this.renderEquipment(equipment)}
@@ -381,6 +446,7 @@ export default React.createClass({
                                 rackStyle={rackStyle}
                                 facing={"Back"}
                                 pattern={pattern}
+                                displayRmu={this.state.displayRmu}
                                 descending={this.state.descending}
                             >
                                 {this.renderEquipment(equipment)}
@@ -409,6 +475,15 @@ export default React.createClass({
                         />{" "}
                         Toggle RMU descending
                         <p>Select whether to render the RMUs ascending or descending</p>
+                        <br />
+                        <input
+                            type="checkbox"
+                            name="disable"
+                            value={this.state.descending}
+                            onChange={this.handleRmuChange}
+                        />{" "}
+                        Disable RMU markers
+                        <p>Select whether to disable the rack RMU markers</p>
                     </div>
                     <hr />
                 </div>

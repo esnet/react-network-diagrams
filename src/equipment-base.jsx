@@ -77,6 +77,12 @@ export default React.createClass({
 
         let cx;
         let cy;
+        let cr = 0;
+
+        if (this.props.labelDirection === "vertical") {
+            cr = 90;
+        }
+
         switch (this.props.labelPosition) {
             case "top":
                 cx = centerX;
@@ -103,6 +109,7 @@ export default React.createClass({
                 <Label
                     x={cx}
                     y={cy}
+                    r={cr}
                     textAnchor={this.props.textAnchor}
                     classed={labelClassed}
                     style={this.props.labelStyle[styleModifier]}

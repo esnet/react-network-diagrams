@@ -48,7 +48,7 @@ export default React.createClass({
         );
     },
 
-    drawFrontRack(rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop) {
+    drawRack(rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop) {
         const middle = this.props.width / 2;
         // get the 4 'x' coordinates of the rectangles
         const x1 = middle - rackPxWidth / 2;
@@ -66,7 +66,9 @@ export default React.createClass({
         elements.push(this.drawSide(rackPxOffset, rackPxHeight, x1, y2, "leftBar"));
         elements.push(this.drawSide(rackPxOffset, rackPxHeight, x2, y2, "rightBar"));
         elements.push(this.drawLabel(middle, y3, this.props.label, "center", true));
-        elements.push(this.drawHeightMarkers(inchToRmu, middle, x1, y3));
+        if (this.props.displayRmu) {
+            elements.push(this.drawHeightMarkers(inchToRmu, middle, x1, y3));
+        }
         return <g>{elements}</g>;
     },
 
@@ -180,20 +182,31 @@ export default React.createClass({
 
     renderChildren(childElements, rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop) {
         const newChildren = React.Children.map(this.props.children, child => {
+            let x;
+            let heightFromBottom;
             const equipmentPxHeight = child.props.equipmentHeight * this.props.pxToInch;
-            const heightFromBottom = inchToRmu * (child.props.rmu - 1) * this.props.pxToInch;
             const rackPxStart = rackPxHeight + yOffsetTop + rackPxOffset;
-            const y = rackPxStart - equipmentPxHeight - heightFromBottom;
             const middle = this.props.width / 2;
             const equipmentPxWidth = child.props.equipmentWidth * this.props.pxToInch;
-            const x = middle - equipmentPxWidth / 2;
-            const props = {
-                y,
-                x,
-                pxToInch: this.props.pxToInch,
-                rackFacing: this.props.facing,
-                usePattern: this.props.pattern ? true : false
-            };
+
+            if (child.props.rmu > 0) {
+                heightFromBottom = inchToRmu * (child.props.rmu - 1) * this.props.pxToInch;
+                x = middle - equipmentPxWidth / 2;
+            } else {
+                heightFromBottom = inchToRmu * 2 * this.props.pxToInch;
+                switch (child.props.side) {
+                    case "L":
+                        x = middle - rackPxWidth / 2 - rackPxOffset * 2 - 40;
+                        break;
+                    case "R":
+                        x = middle + rackPxWidth / 2 + 40;
+                        break;
+                    default:
+                        x = middle - equipmentPxWidth / 2;
+                        break;
+                }
+            }
+            const y = rackPxStart - equipmentPxHeight - heightFromBottom;
 
             /*
             XXX Scott: What about other props like
@@ -204,6 +217,14 @@ export default React.createClass({
                 labelOffsetY={this.state.labelOffsetY}
                 noNavigate={this.state.noNavigate}
             */
+
+            const props = {
+                y,
+                x,
+                pxToInch: this.props.pxToInch,
+                rackFacing: this.props.facing,
+                usePattern: this.props.pattern ? true : false
+            };
             const newChild = React.cloneElement(child, props);
             return newChild;
         });
@@ -267,13 +288,7 @@ export default React.createClass({
             <div>
                 <svg className={className} style={svgStyle}>
                     <defs>{this.props.pattern}</defs>
-                    {this.drawFrontRack(
-                        rackPxHeight,
-                        rackPxWidth,
-                        rackPxOffset,
-                        inchToRmu,
-                        yOffsetTop
-                    )}
+                    {this.drawRack(rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop)}
                     {childElements}
                 </svg>
             </div>

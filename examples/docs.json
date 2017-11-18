@@ -2471,6 +2471,12 @@
           "computed": false
         }
       },
+      "labelDirection": {
+        "defaultValue": {
+          "value": "\"horizontal\"",
+          "computed": false
+        }
+      },
       "selected": {
         "defaultValue": {
           "value": "false",
@@ -3510,7 +3516,7 @@
         "returns": null
       },
       {
-        "name": "drawFrontRack",
+        "name": "drawRack",
         "docblock": null,
         "modifiers": [],
         "params": [

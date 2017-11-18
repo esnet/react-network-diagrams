@@ -114,8 +114,7 @@ export default React.createClass({
         const groupCount = groups.length;
         const nodeCount = powerElements[0].length;
 
-        const totalHeight = groupCount * 10 + nodeCount * 55 + this.props.yOffset * 2;
-
+        const totalHeight = groupCount * 12 + nodeCount * 60 + this.props.yOffset * 2;
         const powerContainer = {
             normal: {
                 borderTopStyle: "solid",

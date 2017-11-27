@@ -46,7 +46,7 @@ const rackData = {
     name: "001.001"
 };
 
-const equipment = [
+const equipmentList = [
     {
         height: 24.5, // Inches
         width: 17.52, // Inches
@@ -171,7 +171,7 @@ const rackpower = [
         source: "A",
         id: "P001",
         navTo: "P001",
-        pdus: ["DC PDU 2"]
+        equipment: ["DC PDU 2"]
     },
     {
         style: stylesMap.endpoint2,
@@ -182,7 +182,7 @@ const rackpower = [
         source: "B",
         id: "P002",
         navTo: "P002",
-        pdus: ["DC PDU 2"]
+        equipment: ["DC PDU 2"]
     },
     {
         style: stylesMap.endpoint2,
@@ -193,7 +193,7 @@ const rackpower = [
         source: "A",
         id: "P005",
         navTo: "P005",
-        pdus: ["DC PDU 1"]
+        equipment: ["DC PDU 1"]
     },
     {
         style: stylesMap.endpoint2,
@@ -204,7 +204,7 @@ const rackpower = [
         source: "B",
         id: "P006",
         navTo: "P006",
-        pdus: ["DC PDU 1"]
+        equipment: ["DC PDU 1"]
     },
     {
         style: stylesMap.endpoint2,
@@ -216,7 +216,7 @@ const rackpower = [
         source: "House",
         id: "P003",
         navTo: "P003",
-        pdus: ["AC PDU 1"]
+        equipment: ["AC PDU 1"]
     },
     {
         style: stylesMap.endpoint2,
@@ -228,7 +228,7 @@ const rackpower = [
         source: "Generator",
         id: "P004",
         navTo: "P004",
-        pdus: ["AC PDU 1"]
+        equipment: ["AC PDU 1"]
     },
     {
         style: stylesMap.endpoint2,
@@ -240,7 +240,7 @@ const rackpower = [
         source: "House",
         id: "P007",
         navTo: "P007",
-        pdus: ["AC PDU 2"]
+        equipment: ["AC PDU 2"]
     },
     {
         style: stylesMap.endpoint2,
@@ -252,7 +252,19 @@ const rackpower = [
         source: "Generator",
         id: "P008",
         navTo: "P008",
-        pdus: ["AC PDU 3"]
+        equipment: ["AC PDU 3"]
+    },
+    {
+        style: stylesMap.endpoint2,
+        vPos: "Above",
+        hPos: "Right",
+        label: "30A 208v",
+        connector: "NEMA L6-30R",
+        type: "AC",
+        source: "House",
+        id: "P009",
+        navTo: "P009",
+        equipment: []
     }
 ];
 
@@ -266,15 +278,15 @@ export default React.createClass({
             displayRmu: true,
             selected: null,
             descending: false,
-            pduSelected: []
+            equipmentSelected: []
         };
     },
 
     handleSelectionChange(e, val) {
         let o;
-        let pdus = [];
+        let equipment = [];
         if (e === "equipment") {
-            o = equipment.filter(eq => {
+            o = equipmentList.filter(eq => {
                 return eq.label === val;
             });
         } else if (e === "power Node") {
@@ -304,16 +316,16 @@ export default React.createClass({
                         Type: v.type,
                         Source: v.source,
                         ID: v.id,
-                        PDUs: v.pdus.map(pdu => {
-                            return equipment.filter(eq => {
-                                return eq.label === pdu;
+                        Equipment: v.equipment.map(device => {
+                            return equipmentList.filter(eq => {
+                                return eq.label === device;
                             });
                         })
                     };
                 };
-                pdus = v.pdus;
+                equipment = v.equipment;
             }
-            this.setState({ info: v, selected: val, pduSelected: pdus });
+            this.setState({ info: v, selected: val, equipmentSelected: equipment });
         }
     },
 
@@ -357,7 +369,7 @@ export default React.createClass({
                     backStyle={backStyle}
                     selected={
                         this.state.selected === eq.label ||
-                        this.state.pduSelected.includes(eq.label)
+                        this.state.equipmentSelected.includes(eq.label)
                     }
                     label={eq.label}
                     labelDirection={labelDirection}
@@ -431,7 +443,7 @@ export default React.createClass({
                                 displayRmu={this.state.displayRmu}
                                 descending={this.state.descending}
                             >
-                                {this.renderEquipment(equipment)}
+                                {this.renderEquipment(equipmentList)}
                             </Rack>
                         </Resizable>
                     </div>
@@ -449,7 +461,7 @@ export default React.createClass({
                                 displayRmu={this.state.displayRmu}
                                 descending={this.state.descending}
                             >
-                                {this.renderEquipment(equipment)}
+                                {this.renderEquipment(equipmentList)}
                             </Rack>
                         </Resizable>
                     </div>

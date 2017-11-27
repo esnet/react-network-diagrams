@@ -60,9 +60,10 @@ export default React.createClass({
 
     render() {
         const { powerNode, key } = this.props;
-
-        //let label1 = powerNode.label;
-        //let label2 = powerNode.connector;
+        let muted = false;
+        if (powerNode.equipment.length === 0 && !this.props.selected) {
+            muted = true;
+        }
         return (
             <g
                 key={`powerNode-${key}`}
@@ -82,124 +83,10 @@ export default React.createClass({
                     labelStyle={this.props.labelStyle}
                     highlighted={this.state.highlighted}
                     selected={this.props.selected}
-                    invisible={true}
+                    muted={muted}
                 />
                 {this.drawLabel(powerNode.x, powerNode.y, `${powerNode.type}`, "center")}
             </g>
         );
     }
 });
-/*<text
-                    key={`source-${powerNode.source}`}
-                    x={powerNode.x + this.props.radius * 1.33}
-                    y={powerNode.y - this.props.radius * 0.33}
-                    textAnchor={"start"}
-                    style={this.props.labelStyle["normal"]}
-                >
-                    {powerNode.source}
-                </text>
-                <text
-                    key={`label-${label1}`}
-                    x={powerNode.x + this.props.radius * 1.33}
-                    y={powerNode.y + this.props.radius * 0.66}
-                    textAnchor={"start"}
-                    style={this.props.labelStyle["normal"]}
-                >
-                    {label1}
-                </text>
-                <text
-                    key={`label-${label2}`}
-                    x={powerNode.x}
-                    y={powerNode.y + this.props.radius * 2}
-                    textAnchor={"middle"}
-                    style={this.props.labelStyle["normal"]}
-                >
-                    {label2}
-                </text>
-switch (powerNode.hPos) {
-            case "Left":
-                return (
-                    <g key={`powerNode-${key}`}>
-                        <text
-                            key={`source-${powerNode.source}`}
-                            x={powerNode.x - this.props.radius * 1.33}
-                            y={powerNode.y - this.props.radius * 0.33}
-                            textAnchor={"end"}
-                            style={this.props.labelStyle["normal"]}
-                        >
-                            {powerNode.source}
-                        </text>
-                        <text
-                            key={`label-${label1}`}
-                            x={powerNode.x - this.props.radius * 1.33}
-                            y={powerNode.y + this.props.radius * 0.66}
-                            textAnchor={"end"}
-                            style={this.props.labelStyle["normal"]}
-                        >
-                            {label1}
-                        </text>
-                        <text
-                            key={`label-${label2}`}
-                            x={powerNode.x}
-                            y={powerNode.y + this.props.radius * 2}
-                            textAnchor={"middle"}
-                            style={this.props.labelStyle["normal"]}
-                        >
-                            {label2}
-                        </text>
-                        <Node
-                            x={powerNode.x}
-                            y={powerNode.y}
-                            key={`${powerNode.label}-${powerNode.id}`}
-                            style={powerNode.style.node}
-                            radius={this.props.radius}
-                            shape={"circle"}
-                        />
-                        {this.drawLabel(powerNode.x, powerNode.y, `${powerNode.type}`, "center")}
-                    </g>
-                );
-            default:
-                return (
-                    <g key={`powerNode-${key}`}>
-                        <text
-                            key={`source-${powerNode.source}`}
-                            x={powerNode.x + this.props.radius * 1.33}
-                            y={powerNode.y - this.props.radius * 0.33}
-                            textAnchor={"start"}
-                            style={this.props.labelStyle["normal"]}
-                        >
-                            {powerNode.source}
-                        </text>
-                        <text
-                            key={`label-${label1}`}
-                            x={powerNode.x + this.props.radius * 1.33}
-                            y={powerNode.y + this.props.radius * 0.66}
-                            textAnchor={"start"}
-                            style={this.props.labelStyle["normal"]}
-                        >
-                            {label1}
-                        </text>
-                        <text
-                            key={`label-${label2}`}
-                            x={powerNode.x}
-                            y={powerNode.y + this.props.radius * 2}
-                            textAnchor={"middle"}
-                            style={this.props.labelStyle["normal"]}
-                        >
-                            {label2}
-                        </text>
-                        <Node
-                            x={powerNode.x}
-                            y={powerNode.y}
-                            key={`${powerNode.label}-${powerNode.id}`}
-                            style={powerNode.style.node}
-                            radius={this.props.radius}
-                            shape={"circle"}
-                        />
-                        {this.drawLabel(powerNode.x, powerNode.y, `${powerNode.type}`, "center")}
-                    </g>
-                );
-        }
-    }
-});
-*/

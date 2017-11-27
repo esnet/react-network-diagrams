@@ -40,7 +40,7 @@ const endpointStyle2 = {
         selected: { fill: "none", stroke: "#A6A6A6", strokeWidth: 5 },
         muted: {
             fill: "none",
-            stroke: "#DBDBDB",
+            stroke: "#ff0000",
             strokeWidth: 4,
             opacity: 0.6,
             cursor: "pointer"
@@ -51,10 +51,9 @@ const endpointStyle2 = {
         normal: { fill: "#9D9D9D", fontSize: 10, fontFamily: "verdana, sans-serif" },
         selected: { fill: "#333", stroke: "none", fontSize: 11 },
         muted: {
-            fill: "#696969",
-            stroke: "none",
-            fontSize: 9,
-            opacity: 0.6
+            fill: "#9D9D9D",
+            fontSize: 10,
+            fontFamily: "verdana, sans-serif"
         },
         highlighted: { fill: "#9D9D9D", fontSize: 10, fontFamily: "verdana, sans-serif" }
     }

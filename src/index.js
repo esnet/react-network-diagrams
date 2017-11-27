@@ -20,4 +20,5 @@ export PatchPanel from "./circuit-diagram-patchpanel.js";
 export Resizable from "./resizable.js";
 export Rack from "./rack";
 export Equipment from "./equipment";
+export PowerNodeList from "./power-node-list";
 export MapEditor from "./map-editor.js";

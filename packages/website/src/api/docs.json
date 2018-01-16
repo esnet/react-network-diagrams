@@ -1,8 +1,20 @@
 {
-  "src/components/AngledEdge.jsx": {
+  "src/components/AngledEdge.js": {
     "description": "This component draws an angled path between a source and target. The\nsource and target are specified as props x1, y1 and x2, y2.\n\nThe angle of the path is either left aligned (vertical, then horizontal)\nor right aligned (horizontal, then vertical) as specified by curve\ndirection.  The offset and position prop are used to position the line\nin relation to the endpoints for bi-directional purposes.\n\nAn arrow may be added by passing an 'arrow' prop of true and may be\ncustomized by supplying arrowWidth and/or arrowHeight. It defaults to\nbeing the width*1.5 wide and width*2 long.\n\nStroke color and width can also be supplied.",
     "displayName": "AngledEdge",
     "methods": [
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
       {
         "name": "rotateOffset",
         "docblock": null,
@@ -22,18 +34,6 @@
           },
           {
             "name": "a",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleClick",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "e",
             "type": null
           }
         ],
@@ -131,7 +131,7 @@
       }
     }
   },
-  "src/components/ArcEdge.jsx": {
+  "src/components/ArcEdge.js": {
     "description": "This component draws a curved path between a source and target. The\nsource and target are specified as props x1, y1 and x2, y2.\n\nThe curve of the path arcs through a point offset from the mid-point\nof the line between source and target. This is specified as the prop\noffset. The offset may be \"left\" or \"right\" as specified as curveDirection.\n\nAn arrow may be added by passing an 'arrow' prop of true and may be\ncustomized by supplying arrowWidth and/or arrowHeight. It defaults to\nbeing the width*1.5 wide and width*2 long.0\n\nStroke color and width can also be supplied.",
     "displayName": "ArcEdge",
     "methods": [
@@ -239,7 +239,7 @@
       }
     }
   },
-  "src/components/BaseMap.jsx": {
+  "src/components/BaseMap.js": {
     "description": "The BaseMap forms a general network drawing component which\ndoesn't assume that the drawing is of a Network. It is used\nby the `<TrafficMap>` to produce the chart seen of the front\npage of my.es.net.",
     "displayName": "BaseMap",
     "methods": [
@@ -494,7 +494,7 @@
       }
     }
   },
-  "src/components/BasicCircuit.jsx": {
+  "src/components/BasicCircuit.js": {
     "description": "Renders a horizontal circuit by determining `x1`, `x2`, `y1`, `y2`\ncoordinates on the page and then render a basic circuit by combining the\nconnection and endpoint props. Connection shape, style, and label information,\nare passed in as props",
     "displayName": "BasicCircuit",
     "methods": [
@@ -869,7 +869,7 @@
       }
     }
   },
-  "src/components/BidirectionalEdge.jsx": {
+  "src/components/BidirectionalEdge.js": {
     "description": "",
     "displayName": "BidirectionalEdge",
     "methods": [],
@@ -953,7 +953,7 @@
       }
     }
   },
-  "src/components/ConcatenatedCircuit.jsx": {
+  "src/components/ConcatenatedCircuit.js": {
     "description": "Draw a Concatenated circuit\n\nThis component determines the (x1, y1), (x2, y2) coordinates on the page\nand then renders a group of circuits by combining the\nconnection and endpoint props. Connection shape, style, and label information,\nare passed in as props.\n\nThis is of the form:\n    [endpoint, connection, endpoint, connection, endpoint, ...]",
     "displayName": "ConcatenatedCircuit",
     "methods": [
@@ -1275,7 +1275,7 @@
       }
     }
   },
-  "src/components/Connection.jsx": {
+  "src/components/Connection.js": {
     "description": "The `x1`, `x2`, `y1`, and `y2` properties determine the position of the endpoints on the `<svg>` element.\nA path is then drawn betwween the endpoints. If the lineShape property is set to \"square\",\nthe width of the square will be the distance between x1 and x2, with the height of the square\ndetermined by the size prop.\n\nThe `labelPosition`, determines where the label will be positioned around the line. The `xOffset` and\n`yOffset` properties allow you to customize the distance the label is from the `x` and `y` properties.\n\nThe `label` property is the name that will be displayed on the line. If you want to display multiple\nlines, the label can take an array of strings, with each array element displayed on a separate line.",
     "displayName": "Connection",
     "methods": [
@@ -1690,7 +1690,7 @@
       }
     }
   },
-  "src/components/Endpoint.jsx": {
+  "src/components/Endpoint.js": {
     "description": "Endpoint drawing primative. This essentially renders the shape we use to represent\nfor an endpoint on the circuit diagrams. The result is a `<g>` element containing\nthe endpoint rendering, so this needs to be used within the context of an `<svg>` block, or\nmore likely, just use a `<Circuit>`.\n\nThe `x` and `y` props determine the position of the endpoint on the svg grid, while\n'labelPosition' determines where the label for the endpoint will be positioned around\nthe endpoint. The `offset` property allow you to customize the distance the label has\nfrom the endpoint's `x` and `y` as the initial position of the label is determined\nbased on these props. The `offset` property has no effect on the angled labels, as\nthese require pre-determined offset distances based on the rotation. The `label` prop\nis the name that will be displayed on the endpoint.",
     "displayName": "Endpoint",
     "methods": [],
@@ -1866,7 +1866,7 @@
       }
     }
   },
-  "src/components/Label.jsx": {
+  "src/components/Label.js": {
     "description": "Gets an x, y, labelPosition, textAnchor and rotation and\nrenders a label based on the position.\nThe label can be a single string, or an array of strings\nto display on multiple lines.",
     "displayName": "Label",
     "methods": [],
@@ -1906,7 +1906,7 @@
       }
     }
   },
-  "src/components/LinearEdge.jsx": {
+  "src/components/LinearEdge.js": {
     "description": "This component draws a linear bent path between a source and target. The\nsource and target are specified as props 'x1', 'y1' and 'x2', 'y2'. The\nbend is specified with the prop 'position'.\n\nAn arrow may be added by passing an 'arrow' prop of true and may be\ncustomized by supplying 'arrowWidth' and/or 'arrowHeight'. Both default to\n10px.\n\nThe color and width of the edge may also be supplied.",
     "displayName": "LinearEdge",
     "methods": [
@@ -1992,7 +1992,7 @@
       }
     }
   },
-  "src/components/MapEditor.jsx": {
+  "src/components/MapEditor.js": {
     "description": "",
     "displayName": "MapEditor",
     "methods": [
@@ -2450,7 +2450,7 @@
       }
     }
   },
-  "src/components/MapLegend.jsx": {
+  "src/components/MapLegend.js": {
     "description": "",
     "displayName": "MapLegend",
     "methods": [],
@@ -2589,7 +2589,7 @@
       }
     }
   },
-  "src/components/Navigate.jsx": {
+  "src/components/Navigate.js": {
     "description": "Draws a navigation triangle used to navigate back up to the parent. This is\nprobably overblown at this point. This is only really used now to navigate\nback up to the parent circuit, but could be expanded if we want more\ncomplicated navigation in the future.",
     "displayName": "Navigate",
     "methods": [
@@ -2696,10 +2696,20 @@
       }
     }
   },
-  "src/components/Node.jsx": {
+  "src/components/Node.js": {
     "description": "",
     "displayName": "Node",
     "methods": [
+      {
+        "name": "spec",
+        "docblock": "Provides a spec for the editor UI to render properties\nfor this node",
+        "modifiers": [
+          "static"
+        ],
+        "params": [],
+        "returns": null,
+        "description": "Provides a spec for the editor UI to render properties\nfor this node"
+      },
       {
         "name": "handMouseClick",
         "docblock": null,
@@ -2730,16 +2740,6 @@
           }
         ],
         "returns": null
-      },
-      {
-        "name": "spec",
-        "docblock": "Provides a spec for the editor UI to render properties\nfor this node",
-        "modifiers": [
-          "static"
-        ],
-        "params": [],
-        "returns": null,
-        "description": "Provides a spec for the editor UI to render properties\nfor this node"
       }
     ],
     "props": {
@@ -2858,12 +2858,12 @@
       }
     }
   },
-  "src/components/NodeLabel.jsx": {
+  "src/components/NodeLabel.js": {
     "description": "",
     "displayName": "NodeLabel",
     "methods": []
   },
-  "src/components/ParallelCircuit.jsx": {
+  "src/components/ParallelCircuit.js": {
     "description": "A component for drawing parallel sets of circuits.",
     "displayName": "ParallelCircuit",
     "methods": [
@@ -3137,7 +3137,7 @@
       }
     }
   },
-  "src/components/PatchPanel.jsx": {
+  "src/components/PatchPanel.js": {
     "description": "",
     "displayName": "PatchPanel",
     "methods": [
@@ -3548,7 +3548,7 @@
       }
     }
   },
-  "src/components/Resizable.jsx": {
+  "src/components/Resizable.js": {
     "description": "This takes a single child and inserts a prop 'width' on it that is the\ncurrent width of the this container. This is handy if you want to surround\na diagram and have this drive the width.",
     "displayName": "Resizable",
     "methods": [
@@ -3561,7 +3561,7 @@
       }
     ]
   },
-  "src/components/SimpleEdge.jsx": {
+  "src/components/SimpleEdge.js": {
     "description": "",
     "displayName": "SimpleEdge",
     "methods": [],
@@ -3656,10 +3656,22 @@
       }
     }
   },
-  "src/components/SquareEdge.jsx": {
+  "src/components/SquareEdge.js": {
     "description": "This component draws a rectangle using the source and target to determine sizing and position. The\nsource and target are specified as props 'x1', 'y1' and 'x2', 'y2'. Rounding is specified with the\nprops roundedX and roundedY.\n\n\nThe color and width of the rectangle may also be supplied.",
     "displayName": "SquareEdge",
     "methods": [
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
       {
         "name": "_rotateOffset",
         "docblock": null,
@@ -3679,18 +3691,6 @@
           },
           {
             "name": "a",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleClick",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "e",
             "type": null
           }
         ],
@@ -3788,7 +3788,7 @@
       }
     }
   },
-  "src/components/TrafficMap.jsx": {
+  "src/components/TrafficMap.js": {
     "description": "A high level component for showing network topology, including visualizing\nnetwork traffic as a heat map.",
     "displayName": "TrafficMap",
     "methods": [

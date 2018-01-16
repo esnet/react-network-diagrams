@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import _ from "underscore";
 // import createReactClass from "create-react-class";
 
-export default class MapLegend extends React.Component {
+export class MapLegend extends React.Component {
 
     render() {
         let curX = this.props.x;

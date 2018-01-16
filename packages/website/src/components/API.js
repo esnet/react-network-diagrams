@@ -90,7 +90,9 @@ export default React.createClass({
 
     render() {
         const component = this.props.match.params.component;
-        const path = `src/components/${component}.jsx`;
+        const path = `src/components/${component}.js`;
+
+        console.log("true or false", _.has(docsFile, path));
 
         if (!_.has(docsFile, path)) {
             return (

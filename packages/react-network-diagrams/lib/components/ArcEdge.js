@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.ArcEdge = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -23,8 +24,6 @@ var _victor = require("victor");
 var _victor2 = _interopRequireDefault(_victor);
 
 var _Label = require("./Label");
-
-var _Label2 = _interopRequireDefault(_Label);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62,7 +61,7 @@ var Vector = _victor2.default;
  * Stroke color and width can also be supplied.
  */
 
-var ArcEdge = function (_React$Component) {
+var ArcEdge = exports.ArcEdge = function (_React$Component) {
     _inherits(ArcEdge, _React$Component);
 
     function ArcEdge() {
@@ -218,7 +217,7 @@ var ArcEdge = function (_React$Component) {
             var labelElement = null;
 
             if (this.props.label) {
-                labelElement = _react2.default.createElement(_Label2.default, {
+                labelElement = _react2.default.createElement(_Label.Label, {
                     x: cx,
                     y: cy,
                     r: labelAngle,
@@ -278,7 +277,6 @@ var ArcEdge = function (_React$Component) {
     return ArcEdge;
 }(_react2.default.Component);
 
-exports.default = ArcEdge;
 ;
 
 ArcEdge.propTypes = {

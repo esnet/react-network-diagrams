@@ -13,14 +13,14 @@ import PropTypes from "prop-types";
 import _ from "underscore";
 import Select from "react-select";
 
-import BaseMap from "./BaseMap";
-import Node from "./Node";
-import Resizable from "./Resizable";
+import { BaseMap } from "./BaseMap";
+import { Node } from "./Node";
+import { Resizable } from "./Resizable";
 // import createReactClass from "create-react-class";
 
 let counter = 1;
 
-export default class MapEditor extends React.Component {
+export class MapEditor extends React.Component {
 
     constructor(props) {
         super(props);

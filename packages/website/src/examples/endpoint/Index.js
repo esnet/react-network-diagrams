@@ -13,6 +13,10 @@ import _ from "underscore";
 import { stylesMap } from "../../styles/styles.js";
 import { Endpoint } from "react-network-diagrams";
 
+var mocha = require("react-network-diagrams");
+console.log("react-network-diagrams is ", mocha);
+
+console.log("Endpoint is ", Endpoint);
 const labelPositionChoiceList = [
     "left",
     "right",

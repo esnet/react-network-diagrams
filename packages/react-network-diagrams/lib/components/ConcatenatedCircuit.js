@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.ConcatenatedCircuit = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20,15 +21,9 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _Connection = require("./Connection");
 
-var _Connection2 = _interopRequireDefault(_Connection);
-
 var _Endpoint = require("./Endpoint");
 
-var _Endpoint2 = _interopRequireDefault(_Endpoint);
-
 var _Navigate = require("./Navigate");
-
-var _Navigate2 = _interopRequireDefault(_Navigate);
 
 var _constants = require("./constants.js");
 
@@ -61,7 +56,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * This is of the form:
  *     [endpoint, connection, endpoint, connection, endpoint, ...]
  */
-var ConcatenatedCircuit = function (_React$Component) {
+var ConcatenatedCircuit = exports.ConcatenatedCircuit = function (_React$Component) {
     _inherits(ConcatenatedCircuit, _React$Component);
 
     function ConcatenatedCircuit() {
@@ -102,7 +97,7 @@ var ConcatenatedCircuit = function (_React$Component) {
                 return _react2.default.createElement(
                     "g",
                     null,
-                    _react2.default.createElement(_Navigate2.default, {
+                    _react2.default.createElement(_Navigate.Navigate, {
                         direction: _constants.Directions.NORTH,
                         ypos: 0,
                         width: this.props.width,
@@ -168,7 +163,7 @@ var ConcatenatedCircuit = function (_React$Component) {
             var lineWidth = (totalWidth - totalSquareWidth) / (memberCount - squareMemberCount);
 
             // Draw the first endpoint
-            elements.push(_react2.default.createElement(_Endpoint2.default, {
+            elements.push(_react2.default.createElement(_Endpoint.Endpoint, {
                 x: x1,
                 y: y1,
                 key: "endpoint-0",
@@ -187,7 +182,7 @@ var ConcatenatedCircuit = function (_React$Component) {
                 } else {
                     x2 = x1 + lineWidth;
                 }
-                elements.push(_react2.default.createElement(_Endpoint2.default, {
+                elements.push(_react2.default.createElement(_Endpoint.Endpoint, {
                     x: x2,
                     y: y2,
                     key: "endpoint-" + (memberIndex + 1),
@@ -212,7 +207,7 @@ var ConcatenatedCircuit = function (_React$Component) {
                 } else {
                     x2 = x1 + lineWidth;
                 }
-                elements.push(_react2.default.createElement(_Connection2.default, {
+                elements.push(_react2.default.createElement(_Connection.Connection, {
                     x1: x1,
                     x2: x2,
                     y1: y1,
@@ -281,7 +276,6 @@ var ConcatenatedCircuit = function (_React$Component) {
     return ConcatenatedCircuit;
 }(_react2.default.Component);
 
-exports.default = ConcatenatedCircuit;
 ;
 
 ConcatenatedCircuit.propTypes = {

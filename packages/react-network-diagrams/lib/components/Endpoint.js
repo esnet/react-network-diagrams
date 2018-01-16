@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.Endpoint = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -15,8 +16,6 @@ var _propTypes = require("prop-types");
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _Node = require("./Node");
-
-var _Node2 = _interopRequireDefault(_Node);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50,7 +49,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * these require pre-determined offset distances based on the rotation. The `label` prop
  * is the name that will be displayed on the endpoint.
  */
-var Endpoint = function (_React$Component) {
+var Endpoint = exports.Endpoint = function (_React$Component) {
     _inherits(Endpoint, _React$Component);
 
     function Endpoint() {
@@ -65,7 +64,7 @@ var Endpoint = function (_React$Component) {
             return _react2.default.createElement(
                 "g",
                 null,
-                _react2.default.createElement(_Node2.default, {
+                _react2.default.createElement(_Node.Node, {
                     x: this.props.x,
                     y: this.props.y,
                     key: this.props.label,
@@ -88,7 +87,6 @@ var Endpoint = function (_React$Component) {
     return Endpoint;
 }(_react2.default.Component);
 
-exports.default = Endpoint;
 ;
 
 Endpoint.propTypes = {

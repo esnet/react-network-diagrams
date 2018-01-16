@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.BaseMap = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -24,23 +25,13 @@ var _d3Scale = require("d3-scale");
 
 var _BidirectionalEdge = require("./BidirectionalEdge");
 
-var _BidirectionalEdge2 = _interopRequireDefault(_BidirectionalEdge);
-
 var _NodeLabel = require("./NodeLabel");
-
-var _NodeLabel2 = _interopRequireDefault(_NodeLabel);
 
 var _MapLegend = require("./MapLegend");
 
-var _MapLegend2 = _interopRequireDefault(_MapLegend);
-
 var _Node = require("./Node");
 
-var _Node2 = _interopRequireDefault(_Node);
-
 var _SimpleEdge = require("./SimpleEdge");
-
-var _SimpleEdge2 = _interopRequireDefault(_SimpleEdge);
 
 require("./map.css");
 
@@ -79,7 +70,7 @@ function getElementOffset(element) {
  * page of my.es.net.
  */
 
-var BaseMap = function (_React$Component) {
+var BaseMap = exports.BaseMap = function (_React$Component) {
     _inherits(BaseMap, _React$Component);
 
     function BaseMap(props) {
@@ -255,7 +246,7 @@ var BaseMap = function (_React$Component) {
 
                 nodeCoordinates[node.name] = { x: props.x, y: props.y };
 
-                return _react2.default.createElement(_Node2.default, _extends({ key: props.id
+                return _react2.default.createElement(_Node.Node, _extends({ key: props.id
                 }, props, {
                     onSelectionChange: function onSelectionChange(type, i) {
                         return _this2.handleSelectionChange(type, i);
@@ -363,7 +354,7 @@ var BaseMap = function (_React$Component) {
                 var muted = hasSelectedEdge && !selected || hasSelectedNode;
 
                 if (edgeDrawingMethod === "simple") {
-                    return _react2.default.createElement(_SimpleEdge2.default, {
+                    return _react2.default.createElement(_SimpleEdge.SimpleEdge, {
                         x1: nodeCoordinates[edge.source].x,
                         x2: nodeCoordinates[edge.target].x,
                         y1: nodeCoordinates[edge.source].y,
@@ -381,7 +372,7 @@ var BaseMap = function (_React$Component) {
                         muted: muted,
                         onSelectionChange: _this2.handleSelectionChange });
                 } else if (edgeDrawingMethod === "bidirectionalArrow") {
-                    return _react2.default.createElement(_BidirectionalEdge2.default, {
+                    return _react2.default.createElement(_BidirectionalEdge.BidirectionalEdge, {
                         x1: nodeCoordinates[edge.source].x,
                         x2: nodeCoordinates[edge.target].x,
                         y1: nodeCoordinates[edge.source].y,
@@ -402,7 +393,7 @@ var BaseMap = function (_React$Component) {
                         onSelectionChange: _this2.handleSelectionChange });
                 } else if (edgeDrawingMethod === "pathBidirectionalArrow") {
                     if (_underscore2.default.has(edgePathMap, edge.name)) {
-                        return _react2.default.createElement(_BidirectionalEdge2.default, {
+                        return _react2.default.createElement(_BidirectionalEdge.BidirectionalEdge, {
                             x1: nodeCoordinates[edge.source].x,
                             x2: nodeCoordinates[edge.target].x,
                             y1: nodeCoordinates[edge.source].y,
@@ -421,7 +412,7 @@ var BaseMap = function (_React$Component) {
                             muted: muted,
                             onSelectionChange: _this2.handleSelectionChange });
                     } else {
-                        return _react2.default.createElement(_SimpleEdge2.default, {
+                        return _react2.default.createElement(_SimpleEdge.SimpleEdge, {
                             x1: nodeCoordinates[edge.source].x,
                             x2: nodeCoordinates[edge.target].x,
                             y1: nodeCoordinates[edge.source].y,
@@ -498,7 +489,7 @@ var BaseMap = function (_React$Component) {
                         //
 
                         if (_this2.props.edgeDrawingMethod === "simple") {
-                            pathSegments.push(_react2.default.createElement(_SimpleEdge2.default, {
+                            pathSegments.push(_react2.default.createElement(_SimpleEdge.SimpleEdge, {
                                 x1: nodeCoordinates[source].x,
                                 y1: nodeCoordinates[source].y,
                                 x2: nodeCoordinates[destination].x,
@@ -530,7 +521,7 @@ var BaseMap = function (_React$Component) {
             var labels = _underscore2.default.map(this.props.topology.labels, function (label) {
                 var x = xScale(label.x);
                 var y = yScale(label.y);
-                return _react2.default.createElement(_NodeLabel2.default, {
+                return _react2.default.createElement(_NodeLabel.NodeLabel, {
                     x: x,
                     y: y,
                     label: label.label,
@@ -544,7 +535,7 @@ var BaseMap = function (_React$Component) {
 
             var legend = null;
             if (!_underscore2.default.isNull(this.props.legendItems)) {
-                legend = _react2.default.createElement(_MapLegend2.default, {
+                legend = _react2.default.createElement(_MapLegend.MapLegend, {
                     x: this.props.legendItems.x,
                     y: this.props.legendItems.y,
                     edgeTypes: this.props.legendItems.edgeTypes,
@@ -594,7 +585,6 @@ var BaseMap = function (_React$Component) {
     return BaseMap;
 }(_react2.default.Component);
 
-exports.default = BaseMap;
 ;
 
 BaseMap.propTypes = {

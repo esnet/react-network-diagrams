@@ -11,13 +11,13 @@
 import _ from "underscore";
 import React from "react";
 import PropTypes from "prop-types";
-import AngledEdge from "./AngledEdge";
-import ArcEdge from "./ArcEdge";
-import LinearEdge from "./LinearEdge";
-import SquareEdge from "./SquareEdge";
+import { AngledEdge } from "./AngledEdge";
+import { ArcEdge } from "./ArcEdge";
+import { LinearEdge } from "./LinearEdge";
+import { SquareEdge } from "./SquareEdge";
 // import createReactClass from "create-react-class";
 
-export default class SimpleEdge extends React.Component {
+export class SimpleEdge extends React.Component {
 
     render() {
         // Class for edge

@@ -1,9 +1,20 @@
 {
 	"scripts": {
-		"postinstall": "lerna bootstrap",
-		"test": "lerna run test"
-	},
-	"devDependencies": {
-		"lerna": "^2.0.0"
-	}
+        "start": "cd myesnet/ui && npm run start",
+        "precommit": "lint-staged",
+        "prettier": "prettier --print-width 100 --tab-width 4 --write \"packages/pond/src/**/*.ts\""
+    },
+    "lint-staged": {
+        "*.ts": [
+            "prettier --print-width 100 --tab-width 4 --write",
+            "git add"
+        ]
+    },
+    "devDependencies": {
+        "husky": "^0.13.3",
+        "lerna": "^2.0.0",
+        "lint-staged": "^3.4.0",
+        "prettier": "^1.7.0"
+    },
+    "dependencies": {}
 }

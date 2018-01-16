@@ -11,9 +11,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Endpoint from "./Endpoint";
-import Line from "./SimpleEdge";
-import createReactClass from "create-react-class";
+import { Endpoint } from "./Endpoint";
+import { SimpleEdge as Line } from "./SimpleEdge";
+// import createReactClass from "create-react-class";
 
 /**
  * The `x1`, `x2`, `y1`, and `y2` properties determine the position of the endpoints on the `<svg>` element.
@@ -27,7 +27,7 @@ import createReactClass from "create-react-class";
  * The `label` property is the name that will be displayed on the line. If you want to display multiple
  * lines, the label can take an array of strings, with each array element displayed on a separate line.
  */
-export default class Connection extends React.Component {
+export class Connection extends React.Component {
 
     constructor(props) {
         super(props);

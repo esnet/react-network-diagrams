@@ -21,7 +21,7 @@ class App extends Component {
                 <span className="icon-bar"></span>
               </button>
               <a className="navbar-brand" href="#">
-                React Network Diagrams
+                React Network Diagrams :
               </a>
             </div>
             <div id="navbar" className="navbar-collapse collapse">

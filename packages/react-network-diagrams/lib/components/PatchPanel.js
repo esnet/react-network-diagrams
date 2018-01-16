@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.PatchPanel = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20,15 +21,9 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _Connection = require("./Connection");
 
-var _Connection2 = _interopRequireDefault(_Connection);
-
 var _Endpoint = require("./Endpoint");
 
-var _Endpoint2 = _interopRequireDefault(_Endpoint);
-
 var _Label = require("./Label");
-
-var _Label2 = _interopRequireDefault(_Label);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -48,7 +43,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 // import createReactClass from "create-react-class";
 
-var PatchPanel = function (_React$Component) {
+var PatchPanel = exports.PatchPanel = function (_React$Component) {
     _inherits(PatchPanel, _React$Component);
 
     function PatchPanel(props) {
@@ -84,7 +79,7 @@ var PatchPanel = function (_React$Component) {
                 "g",
                 {
                     key: "panel-name-" + key },
-                _react2.default.createElement(_Label2.default, {
+                _react2.default.createElement(_Label.Label, {
                     x: x,
                     y: y,
                     label: label,
@@ -234,7 +229,7 @@ var PatchPanel = function (_React$Component) {
                     "g",
                     {
                         key: "endpoint-" + circuit.endpointLabelA + "-" + key },
-                    _react2.default.createElement(_Endpoint2.default, {
+                    _react2.default.createElement(_Endpoint.Endpoint, {
                         x: x1,
                         y: y,
                         style: circuit.endpointStyle,
@@ -246,7 +241,7 @@ var PatchPanel = function (_React$Component) {
                     "g",
                     {
                         key: "endpoint-" + circuit.endpointLabelZ + "-" + key },
-                    _react2.default.createElement(_Endpoint2.default, {
+                    _react2.default.createElement(_Endpoint.Endpoint, {
                         x: x2,
                         y: y,
                         style: circuit.endpointStyle })
@@ -260,7 +255,7 @@ var PatchPanel = function (_React$Component) {
                     "g",
                     {
                         key: "endpoint-" + circuit.endpointLabelA + "-" + key },
-                    _react2.default.createElement(_Endpoint2.default, {
+                    _react2.default.createElement(_Endpoint.Endpoint, {
                         x: x1,
                         y: y,
                         style: circuit.endpointStyle })
@@ -269,7 +264,7 @@ var PatchPanel = function (_React$Component) {
                     "g",
                     {
                         key: "endpoint-" + circuit.endpointLabelZ + "-" + key },
-                    _react2.default.createElement(_Endpoint2.default, {
+                    _react2.default.createElement(_Endpoint.Endpoint, {
                         x: x2,
                         y: y,
                         style: circuit.endpointStyle,
@@ -298,7 +293,7 @@ var PatchPanel = function (_React$Component) {
                     "g",
                     {
                         key: "coupler-" + circuit.circuitLabel + "-" + key },
-                    _react2.default.createElement(_Connection2.default, {
+                    _react2.default.createElement(_Connection.Connection, {
                         x1: x1,
                         x2: x2,
                         y1: y,
@@ -329,7 +324,7 @@ var PatchPanel = function (_React$Component) {
                     "g",
                     {
                         key: "frontCircuit-" + circuit.circuitLabel + "-" + key },
-                    _react2.default.createElement(_Connection2.default, {
+                    _react2.default.createElement(_Connection.Connection, {
                         x1: x1,
                         x2: x2,
                         y1: y,
@@ -351,7 +346,7 @@ var PatchPanel = function (_React$Component) {
                     "g",
                     {
                         key: "backCircuit-" + circuit.circuitLabel + "-" + key },
-                    _react2.default.createElement(_Connection2.default, {
+                    _react2.default.createElement(_Connection.Connection, {
                         x1: x1,
                         x2: x2,
                         y1: y,
@@ -429,7 +424,6 @@ var PatchPanel = function (_React$Component) {
     return PatchPanel;
 }(_react2.default.Component);
 
-exports.default = PatchPanel;
 ;
 
 PatchPanel.propTypes = {

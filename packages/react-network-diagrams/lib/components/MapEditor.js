@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.MapEditor = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -24,15 +25,9 @@ var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
 var _BaseMap = require("./BaseMap");
 
-var _BaseMap2 = _interopRequireDefault(_BaseMap);
-
 var _Node = require("./Node");
 
-var _Node2 = _interopRequireDefault(_Node);
-
 var _Resizable = require("./Resizable");
-
-var _Resizable2 = _interopRequireDefault(_Resizable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -54,7 +49,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var counter = 1;
 
-var MapEditor = function (_React$Component) {
+var MapEditor = exports.MapEditor = function (_React$Component) {
     _inherits(MapEditor, _React$Component);
 
     function MapEditor(props) {
@@ -513,7 +508,7 @@ var MapEditor = function (_React$Component) {
 
             var selected = this.state.selection;
 
-            var nodeSpec = _Node2.default.spec();
+            var nodeSpec = _Node.Node.spec();
             nodeSpec.unshift({
                 attr: "type",
                 label: "Type",
@@ -807,12 +802,12 @@ var MapEditor = function (_React$Component) {
 
             if (this.props.autoSize) {
                 return _react2.default.createElement(
-                    _Resizable2.default,
+                    _Resizable.Resizable,
                     { aspect: aspect, style: { background: "#F6F6F6",
                             borderStyle: "solid",
                             borderWidth: "thin",
                             borderColor: "#E6E6E6" } },
-                    _react2.default.createElement(_BaseMap2.default, {
+                    _react2.default.createElement(_BaseMap.BaseMap, {
                         topology: topo,
                         width: this.props.width,
                         height: this.props.height,
@@ -828,7 +823,7 @@ var MapEditor = function (_React$Component) {
                         onNodeDrag: this.handleNodeDrag })
                 );
             } else {
-                return _react2.default.createElement(_BaseMap2.default, {
+                return _react2.default.createElement(_BaseMap.BaseMap, {
                     topology: topo,
                     width: this.props.width,
                     height: this.props.height,
@@ -888,7 +883,6 @@ var MapEditor = function (_React$Component) {
     return MapEditor;
 }(_react2.default.Component);
 
-exports.default = MapEditor;
 ;
 
 MapEditor.propTypes = {

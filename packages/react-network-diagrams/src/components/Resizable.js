@@ -16,7 +16,7 @@ import React from "react";
  * current width of the this container. This is handy if you want to surround
  * a diagram and have this drive the width.
  */
-export default class Resizable extends React.Component {
+export class Resizable extends React.Component {
 
     constructor(props) {
         super(props);

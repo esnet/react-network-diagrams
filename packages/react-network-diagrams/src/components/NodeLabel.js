@@ -11,7 +11,7 @@
 import React from "react";
 // import createReactClass from "create-react-class";
 
-export default class NodeLabel extends React.Component {
+export class NodeLabel extends React.Component {
 
     render() {
         let textAnchor;

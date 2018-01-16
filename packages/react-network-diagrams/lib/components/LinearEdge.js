@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.LinearEdge = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -24,12 +25,6 @@ var _underscore2 = _interopRequireDefault(_underscore);
 
 var _Label = require("./Label");
 
-var _Label2 = _interopRequireDefault(_Label);
-
-var _createReactClass = require("create-react-class");
-
-var _createReactClass2 = _interopRequireDefault(_createReactClass);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -46,6 +41,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  LICENSE file in the root directory of this source tree.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
+// import createReactClass from "create-react-class";
+
 /**
  * This component draws a linear bent path between a source and target. The
  * source and target are specified as props 'x1', 'y1' and 'x2', 'y2'. The
@@ -57,7 +54,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  *
  * The color and width of the edge may also be supplied.
  */
-var LinearEdge = function (_React$Component) {
+var LinearEdge = exports.LinearEdge = function (_React$Component) {
     _inherits(LinearEdge, _React$Component);
 
     function LinearEdge() {
@@ -188,7 +185,7 @@ var LinearEdge = function (_React$Component) {
             var labelElement = null;
 
             if (this.props.label) {
-                labelElement = _react2.default.createElement(_Label2.default, {
+                labelElement = _react2.default.createElement(_Label.Label, {
                     x: cx,
                     y: cy,
                     r: angle,
@@ -249,7 +246,6 @@ var LinearEdge = function (_React$Component) {
     return LinearEdge;
 }(_react2.default.Component);
 
-exports.default = LinearEdge;
 ;
 
 LinearEdge.propTypes = {

@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.Label = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -13,10 +14,6 @@ var _react2 = _interopRequireDefault(_react);
 var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _createReactClass = require("create-react-class");
-
-var _createReactClass2 = _interopRequireDefault(_createReactClass);
 
 var _underscore = require("underscore");
 
@@ -38,13 +35,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  LICENSE file in the root directory of this source tree.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
+// import createReactClass from "create-react-class";
+
+
 /**
  * Gets an x, y, labelPosition, textAnchor and rotation and
  * renders a label based on the position.
  * The label can be a single string, or an array of strings
  * to display on multiple lines.
  */
-var Label = function (_React$Component) {
+var Label = exports.Label = function (_React$Component) {
     _inherits(Label, _React$Component);
 
     function Label() {
@@ -134,7 +134,6 @@ var Label = function (_React$Component) {
     return Label;
 }(_react2.default.Component);
 
-exports.default = Label;
 ;
 
 Label.propTypes = {

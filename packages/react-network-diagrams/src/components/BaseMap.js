@@ -13,11 +13,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { scaleLinear } from "d3-scale";
 
-import BidirectionalEdge from "./BidirectionalEdge";
-import Label from "./NodeLabel";
-import Legend from "./MapLegend";
-import Node from "./Node";
-import SimpleEdge from "./SimpleEdge";
+import { BidirectionalEdge } from "./BidirectionalEdge";
+import { NodeLabel as Label } from "./NodeLabel";
+import { MapLegend as Legend } from "./MapLegend";
+import { Node } from "./Node";
+import { SimpleEdge } from "./SimpleEdge";
 // import createReactClass from "create-react-class";
 
 import "./map.css";
@@ -36,7 +36,7 @@ function getElementOffset(element) {
  * by the `<TrafficMap>` to produce the chart seen of the front
  * page of my.es.net.
  */
-export default class BaseMap extends React.Component {
+export class BaseMap extends React.Component {
 
     constructor(props) {
         super(props);

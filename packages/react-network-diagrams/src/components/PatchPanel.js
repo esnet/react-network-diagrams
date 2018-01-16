@@ -12,12 +12,12 @@ import React from "react";
 import _ from "underscore";
 import PropTypes from "prop-types";
 
-import Connection from "./Connection";
-import Endpoint from "./Endpoint";
-import Label from "./Label";
+import { Connection } from "./Connection";
+import { Endpoint } from "./Endpoint";
+import { Label } from "./Label";
 // import createReactClass from "create-react-class";
 
-export default class PatchPanel extends React.Component {
+export class PatchPanel extends React.Component {
 
     constructor(props) {
         super(props);

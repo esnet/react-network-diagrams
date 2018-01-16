@@ -11,11 +11,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ArcEdge from "./ArcEdge";
-import LinearEdge from "./LinearEdge";
+import { ArcEdge } from "./ArcEdge";
+import { LinearEdge } from "./LinearEdge";
 // import createReactClass from "create-react-class";
 
-export default class BidirectionalEdge extends React.Component {
+export class BidirectionalEdge extends React.Component {
 
     render() {
         const paths = [];

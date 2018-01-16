@@ -10,7 +10,7 @@
 
 import React from "react";
 import PropTypes from "prop-types"
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 import _ from "underscore";
 
 /**
@@ -19,7 +19,7 @@ import _ from "underscore";
  * The label can be a single string, or an array of strings
  * to display on multiple lines.
  */
-export default class Label extends React.Component {
+export class Label extends React.Component {
 
     render() {
         let label = [];

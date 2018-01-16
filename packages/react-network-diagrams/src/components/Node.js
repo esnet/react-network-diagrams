@@ -10,9 +10,9 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
-export default class Node extends React.Component {
+export class Node extends React.Component {
 
     /**
      * Provides a spec for the editor UI to render properties

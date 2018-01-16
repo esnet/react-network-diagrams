@@ -12,15 +12,15 @@ import _ from "underscore";
 import React from "react";
 import PropTypes from "prop-types";
 
-import BaseMap from "./BaseMap";
-import Resizable from "./Resizable";
+import { BaseMap } from "./BaseMap";
+import { Resizable } from "./Resizable";
 // import createReactClass from "create-react-class";
 
 /**
  * A high level component for showing network topology, including visualizing
  * network traffic as a heat map.
  */
-export default class TrafficMap extends React.Component {
+export class TrafficMap extends React.Component {
 
     bounds() {
         if (this.props.bounds) {

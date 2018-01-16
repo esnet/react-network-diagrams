@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.TrafficMap = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20,11 +21,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _BaseMap = require("./BaseMap");
 
-var _BaseMap2 = _interopRequireDefault(_BaseMap);
-
 var _Resizable = require("./Resizable");
-
-var _Resizable2 = _interopRequireDefault(_Resizable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -48,7 +45,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * A high level component for showing network topology, including visualizing
  * network traffic as a heat map.
  */
-var TrafficMap = function (_React$Component) {
+var TrafficMap = exports.TrafficMap = function (_React$Component) {
     _inherits(TrafficMap, _React$Component);
 
     function TrafficMap() {
@@ -295,13 +292,13 @@ var TrafficMap = function (_React$Component) {
             var autoSize = this.props.autoSize;
             if (autoSize) {
                 return _react2.default.createElement(
-                    _Resizable2.default,
+                    _Resizable.Resizable,
                     { aspect: aspect, style: {
                             background: "#F6F6F6",
                             borderStyle: "solid",
                             borderWidth: "thin",
                             borderColor: "#E6E6E6" } },
-                    _react2.default.createElement(_BaseMap2.default, {
+                    _react2.default.createElement(_BaseMap.BaseMap, {
                         topology: topo,
                         paths: topo.paths,
                         bounds: bounds,
@@ -320,7 +317,7 @@ var TrafficMap = function (_React$Component) {
                             borderStyle: "solid",
                             borderWidth: "thin",
                             borderColor: "#E6E6E6" } },
-                    _react2.default.createElement(_BaseMap2.default, {
+                    _react2.default.createElement(_BaseMap.BaseMap, {
                         topology: topo,
                         paths: topo.paths,
                         bounds: bounds,
@@ -338,7 +335,6 @@ var TrafficMap = function (_React$Component) {
     return TrafficMap;
 }(_react2.default.Component);
 
-exports.default = TrafficMap;
 ;
 
 TrafficMap.defaultProps = {

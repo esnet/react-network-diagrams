@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.Navigate = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -40,7 +41,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * back up to the parent circuit, but could be expanded if we want more
  * complicated navigation in the future.
  */
-var Navigate = function (_React$Component) {
+var Navigate = exports.Navigate = function (_React$Component) {
     _inherits(Navigate, _React$Component);
 
     function Navigate(props) {
@@ -167,7 +168,6 @@ var Navigate = function (_React$Component) {
     return Navigate;
 }(_react2.default.Component);
 
-exports.default = Navigate;
 ;
 
 Navigate.propTypes = {

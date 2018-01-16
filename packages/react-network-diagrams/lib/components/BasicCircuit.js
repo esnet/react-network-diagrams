@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.BasicCircuit = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -16,15 +17,9 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _Connection = require("./Connection");
 
-var _Connection2 = _interopRequireDefault(_Connection);
-
 var _Endpoint = require("./Endpoint");
 
-var _Endpoint2 = _interopRequireDefault(_Endpoint);
-
 var _Navigate = require("./Navigate");
-
-var _Navigate2 = _interopRequireDefault(_Navigate);
 
 var _constants = require("./constants");
 
@@ -52,7 +47,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * connection and endpoint props. Connection shape, style, and label information,
  * are passed in as props
  */
-var BasicCircuit = function (_React$Component) {
+var BasicCircuit = exports.BasicCircuit = function (_React$Component) {
     _inherits(BasicCircuit, _React$Component);
 
     function BasicCircuit() {
@@ -93,7 +88,7 @@ var BasicCircuit = function (_React$Component) {
                 return _react2.default.createElement(
                     "g",
                     null,
-                    _react2.default.createElement(_Navigate2.default, {
+                    _react2.default.createElement(_Navigate.Navigate, {
                         direction: _constants.Directions.NORTH,
                         width: this.props.width,
                         height: this.props.height,
@@ -145,7 +140,7 @@ var BasicCircuit = function (_React$Component) {
             var labelOffset = this.props.size ? this.props.size / 2 : 0;
 
             // The two endpoints of this circuit
-            elements.push(_react2.default.createElement(_Endpoint2.default, {
+            elements.push(_react2.default.createElement(_Endpoint.Endpoint, {
                 x: x1,
                 y: y1,
                 key: "a",
@@ -154,7 +149,7 @@ var BasicCircuit = function (_React$Component) {
                 offset: labelOffset,
                 label: this.props.endpointLabelA }));
 
-            elements.push(_react2.default.createElement(_Endpoint2.default, {
+            elements.push(_react2.default.createElement(_Endpoint.Endpoint, {
                 x: x2,
                 y: y2,
                 key: "z",
@@ -164,7 +159,7 @@ var BasicCircuit = function (_React$Component) {
                 label: this.props.endpointLabelZ }));
 
             // The connection
-            elements.push(_react2.default.createElement(_Connection2.default, {
+            elements.push(_react2.default.createElement(_Connection.Connection, {
                 x1: x1,
                 x2: x2,
                 y1: y1,
@@ -231,7 +226,6 @@ var BasicCircuit = function (_React$Component) {
     return BasicCircuit;
 }(_react2.default.Component);
 
-exports.default = BasicCircuit;
 ;
 
 BasicCircuit.propTypes = {

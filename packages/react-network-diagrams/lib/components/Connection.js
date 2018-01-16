@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.Connection = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -16,15 +17,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _Endpoint = require("./Endpoint");
 
-var _Endpoint2 = _interopRequireDefault(_Endpoint);
-
 var _SimpleEdge = require("./SimpleEdge");
-
-var _SimpleEdge2 = _interopRequireDefault(_SimpleEdge);
-
-var _createReactClass = require("create-react-class");
-
-var _createReactClass2 = _interopRequireDefault(_createReactClass);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42,6 +35,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  LICENSE file in the root directory of this source tree.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
+// import createReactClass from "create-react-class";
+
 /**
  * The `x1`, `x2`, `y1`, and `y2` properties determine the position of the endpoints on the `<svg>` element.
  * A path is then drawn betwween the endpoints. If the lineShape property is set to "square",
@@ -54,7 +49,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * The `label` property is the name that will be displayed on the line. If you want to display multiple
  * lines, the label can take an array of strings, with each array element displayed on a separate line.
  */
-var Connection = function (_React$Component) {
+var Connection = exports.Connection = function (_React$Component) {
     _inherits(Connection, _React$Component);
 
     function Connection(props) {
@@ -108,7 +103,7 @@ var Connection = function (_React$Component) {
                 return _react2.default.createElement(
                     "g",
                     null,
-                    _react2.default.createElement(_Endpoint2.default, {
+                    _react2.default.createElement(_Endpoint.Endpoint, {
                         x: this.props.x1,
                         y: this.props.y1,
                         key: "line-begin",
@@ -120,7 +115,7 @@ var Connection = function (_React$Component) {
                         highlighted: this.state.highlighted,
                         muted: this.props.muted,
                         selected: this.props.selected }),
-                    _react2.default.createElement(_Endpoint2.default, {
+                    _react2.default.createElement(_Endpoint.Endpoint, {
                         x: this.props.x2,
                         y: this.props.y2,
                         key: "line-end",
@@ -188,7 +183,7 @@ var Connection = function (_React$Component) {
                 _react2.default.createElement(
                     "g",
                     null,
-                    _react2.default.createElement(_SimpleEdge2.default
+                    _react2.default.createElement(_SimpleEdge.SimpleEdge
                     // Positional Props used by all shapes
                     , {
                         x1: this.props.x1,
@@ -225,7 +220,7 @@ var Connection = function (_React$Component) {
                     "g",
                     { onMouseOver: this.handleMouseOver,
                         onMouseOut: this.handleMouseOut },
-                    _react2.default.createElement(_SimpleEdge2.default, { x1: this.props.x1,
+                    _react2.default.createElement(_SimpleEdge.SimpleEdge, { x1: this.props.x1,
                         x2: this.props.x2,
                         y1: this.props.y1,
                         y2: this.props.y2
@@ -291,7 +286,6 @@ var Connection = function (_React$Component) {
     return Connection;
 }(_react2.default.Component);
 
-exports.default = Connection;
 ;
 
 Connection.propTypes = {

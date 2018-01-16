@@ -12,9 +12,9 @@ import React from "react";
 import _ from "underscore";
 import PropTypes from "prop-types";
 
-import Connection from "./Connection";
-import Endpoint from "./Endpoint";
-import Navigate from "./Navigate";
+import { Connection } from "./Connection";
+import { Endpoint } from "./Endpoint";
+import { Navigate } from "./Navigate";
 import { Directions } from "./constants.js";
 // import createReactClass from "create-react-class";
 
@@ -29,7 +29,7 @@ import { Directions } from "./constants.js";
  * This is of the form:
  *     [endpoint, connection, endpoint, connection, endpoint, ...]
  */
-export default class ConcatenatedCircuit extends React.Component {
+export class ConcatenatedCircuit extends React.Component {
 
     renderCircuitTitle(title) {
         const titleStyle = {

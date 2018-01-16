@@ -20,7 +20,7 @@ import { Directions } from "./constants.js";
  * back up to the parent circuit, but could be expanded if we want more
  * complicated navigation in the future.
  */
-export default class Navigate extends React.Component {
+export class Navigate extends React.Component {
 
     constructor(props) {
         super(props);

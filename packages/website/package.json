@@ -1,6 +1,6 @@
 {
   "name": "examples",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "react-scripts": "^0.6.1"
@@ -15,7 +15,7 @@
     "react-docgen": "^2.9.1",
     "react-dom": "^15.3.2",
     "react-markdown": "^1.0.5",
-    "react-network-diagrams": "^0.6.0",
+    "react-network-diagrams": "1.0.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-select": "^1.0.0-rc.10",

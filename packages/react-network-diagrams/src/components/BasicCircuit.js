@@ -11,9 +11,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Connection from "./Connection";
-import Endpoint from "./Endpoint";
-import Navigate from "./Navigate";
+import { Connection } from "./Connection";
+import { Endpoint } from "./Endpoint";
+import { Navigate } from "./Navigate";
 import { Directions } from "./constants";
 // import createReactClass from "create-react-class";
 
@@ -23,7 +23,7 @@ import { Directions } from "./constants";
  * connection and endpoint props. Connection shape, style, and label information,
  * are passed in as props
  */
-export default class BasicCircuit extends React.Component {
+export class BasicCircuit extends React.Component {
 
     renderCircuitTitle(title) {
         const titleStyle = {

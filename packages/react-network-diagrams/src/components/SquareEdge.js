@@ -12,7 +12,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "underscore";
 
-import Label from "./Label";
+import { Label } from "./Label";
 // import createReactClass from "create-react-class";
 
 /**
@@ -23,7 +23,7 @@ import Label from "./Label";
  *
  * The color and width of the rectangle may also be supplied.
  */
-export default class SquareEdge extends React.Component {
+export class SquareEdge extends React.Component {
 
     handleClick(e) {
         if (this.props.onSelectionChange) {

@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.SimpleEdge = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20,19 +21,11 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _AngledEdge = require("./AngledEdge");
 
-var _AngledEdge2 = _interopRequireDefault(_AngledEdge);
-
 var _ArcEdge = require("./ArcEdge");
-
-var _ArcEdge2 = _interopRequireDefault(_ArcEdge);
 
 var _LinearEdge = require("./LinearEdge");
 
-var _LinearEdge2 = _interopRequireDefault(_LinearEdge);
-
 var _SquareEdge = require("./SquareEdge");
-
-var _SquareEdge2 = _interopRequireDefault(_SquareEdge);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52,7 +45,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 // import createReactClass from "create-react-class";
 
-var SimpleEdge = function (_React$Component) {
+var SimpleEdge = exports.SimpleEdge = function (_React$Component) {
     _inherits(SimpleEdge, _React$Component);
 
     function SimpleEdge() {
@@ -78,7 +71,7 @@ var SimpleEdge = function (_React$Component) {
 
             // Render based on shape
             if (this.props.shape === "curved") {
-                return _react2.default.createElement(_ArcEdge2.default, {
+                return _react2.default.createElement(_ArcEdge.ArcEdge, {
                     x1: this.props.x1,
                     x2: this.props.x2,
                     y1: this.props.y1,
@@ -105,7 +98,7 @@ var SimpleEdge = function (_React$Component) {
                     invisible: this.props.invisible,
                     onSelectionChange: this.props.onSelectionChange });
             } else if (this.props.shape === "square") {
-                return _react2.default.createElement(_SquareEdge2.default, {
+                return _react2.default.createElement(_SquareEdge.SquareEdge, {
                     x1: this.props.x1,
                     x2: this.props.x2,
                     y1: this.props.y1,
@@ -131,7 +124,7 @@ var SimpleEdge = function (_React$Component) {
                     invisible: this.props.invisible,
                     onSelectionChange: this.props.onSelectionChange });
             } else if (this.props.shape === "angled") {
-                return _react2.default.createElement(_AngledEdge2.default, {
+                return _react2.default.createElement(_AngledEdge.AngledEdge, {
                     x1: this.props.x1,
                     x2: this.props.x2,
                     y1: this.props.y1,
@@ -158,7 +151,7 @@ var SimpleEdge = function (_React$Component) {
                     invisible: this.props.invisible,
                     onSelectionChange: this.props.onSelectionChange });
             } else {
-                return _react2.default.createElement(_LinearEdge2.default, {
+                return _react2.default.createElement(_LinearEdge.LinearEdge, {
                     x1: this.props.x1,
                     x2: this.props.x2,
                     y1: this.props.y1,
@@ -189,7 +182,6 @@ var SimpleEdge = function (_React$Component) {
     return SimpleEdge;
 }(_react2.default.Component);
 
-exports.default = SimpleEdge;
 ;
 
 SimpleEdge.propTypes = {

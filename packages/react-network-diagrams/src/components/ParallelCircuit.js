@@ -12,16 +12,16 @@ import _ from "underscore";
 import React from "react";
 import PropTypes from "prop-types";
 
-import Connection from "./Connection";
-import Endpoint from "./Endpoint";
-import Navigate from "./Navigate";
+import { Connection } from "./Connection";
+import { Endpoint } from "./Endpoint";
+import { Navigate } from "./Navigate";
 import { Directions } from "./constants.js";
-import createReactClass from "create-react-class";
+// import createReactClass from "create-react-class";
 
 /**
  * A component for drawing parallel sets of circuits.
  */
-export default class ParallelCircuit extends React.Component {
+export class ParallelCircuit extends React.Component {
 
     renderCircuitTitle(title) {
         const titleStyle = {

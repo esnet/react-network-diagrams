@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 
 import Victor from "victor";
 
-import Label from "./Label";
+import { Label } from "./Label";
 // import createReactClass from "create-react-class";
 
 // Alias
@@ -35,7 +35,7 @@ const Vector = Victor;
  *
  * Stroke color and width can also be supplied.
  */
-export default class AngledEdge extends React.Component {
+export class AngledEdge extends React.Component {
 
     handleClick(e) {
         console.log("angledEdge handleClick e, this ",e,this);

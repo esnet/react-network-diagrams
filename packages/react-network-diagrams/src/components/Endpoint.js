@@ -11,7 +11,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Node from "./Node";
+import { Node } from "./Node";
 // import createReactClass from "create-react-class";
 
 /**
@@ -28,7 +28,7 @@ import Node from "./Node";
  * these require pre-determined offset distances based on the rotation. The `label` prop
  * is the name that will be displayed on the endpoint.
  */
-export default class Endpoint extends React.Component {
+export class Endpoint extends React.Component {
 
     render() {
         return (

@@ -8,44 +8,36 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
-import _ from "underscore";
 import React from "react";
 import PropTypes from "prop-types";
-import Victor from "victor";
+import Vector from "victor";
+import _ from "underscore";
 
-import Label from "./Label";
+import { Label } from "./Label";
 // import createReactClass from "create-react-class";
 
-// Alias
-const Vector = Victor;
-
 /**
- * This component draws a curved path between a source and target. The
- * source and target are specified as props x1, y1 and x2, y2.
- *
- * The curve of the path arcs through a point offset from the mid-point
- * of the line between source and target. This is specified as the prop
- * offset. The offset may be "left" or "right" as specified as curveDirection.
+ * This component draws a linear bent path between a source and target. The
+ * source and target are specified as props 'x1', 'y1' and 'x2', 'y2'. The
+ * bend is specified with the prop 'position'.
  *
  * An arrow may be added by passing an 'arrow' prop of true and may be
- * customized by supplying arrowWidth and/or arrowHeight. It defaults to
- * being the width*1.5 wide and width*2 long.0
+ * customized by supplying 'arrowWidth' and/or 'arrowHeight'. Both default to
+ * 10px.
  *
- * Stroke color and width can also be supplied.
+ * The color and width of the edge may also be supplied.
  */
-export default class ArcEdge extends React.Component {
+export class LinearEdge extends React.Component {
 
     handleClick(e) {
-        console.log("arcedge handleClick e, this ",e,this);
-        e.stopPropagation();
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange("edge", this.props.name);
         }
+        e.stopPropagation();
     }
-
+    
     render() {
-        // Class
-        let classed = "edge-curved";
+        let classed = "edge-linear";
         let labelClassed = "edge-label";
         let styleModifier = "normal";
 
@@ -73,30 +65,14 @@ export default class ArcEdge extends React.Component {
 
         const diff = target.clone().subtract(source);
         const norm = diff.clone().norm();
-        const len = diff.length();
-
-        //
-        // XXX(jdugan): this doesn't work for horizontal lines
-        //
-        let angle = 90;
-        if ((diff.y < 0 && this.props.curveDirection === "left") ||
-            (diff.y > 0 && this.props.curveDirection === "right")) {
-            angle = -90;
-        }
-
-        const perp = norm.clone().rotateDeg(angle);
-        const mid = new Vector(len / 2, len / 2);
-        const midpt = norm.clone().multiply(mid).add(source);
+        const perp = new Vector(-norm.y, norm.x);
 
         const offset = new Vector(this.props.offset, this.props.offset);
         offset.multiply(perp);
 
-        const control = midpt.clone().add(offset);
-
         //
-        // If the curved edge has multiple paths, with this path being at
-        // 'position' (this.props.position) then calculate those the curve
-        // to be offset from the centerline of the arced path
+        // If the edge has multiple paths, with this edge being at
+        // 'position' (this.props.position) then calculate those
         //
 
         const position = this.props.position;
@@ -105,45 +81,54 @@ export default class ArcEdge extends React.Component {
 
         // Positioned lines bend from source, to sourceBendControl, to
         // targetBendControl, and end at target.
-        const bendOffset = 15;
+        const bendOffset = this.props.position !== 0 ? 15 : 8;
         const bendScalar = new Vector(bendOffset, bendOffset);
 
-        const sourceToControl = control.clone().subtract(source);
-        const sourceToControlNormalize = sourceToControl.clone().norm();
+        const sourceToTarget = target
+            .clone()
+            .subtract(source);
+        const sourceToTargetNormalize = sourceToTarget
+            .clone()
+            .norm();
 
-        const targetToControl = control.clone().subtract(target);
-        const targetToControlNormalize = targetToControl.clone().norm();
+        const targetToSource = source
+            .clone()
+            .subtract(target);
+        const targetToSourceNormalize = targetToSource
+            .clone()
+            .norm();
 
-        const sourceBend = sourceToControlNormalize
+        const sourceBend = sourceToTargetNormalize
             .clone()
             .multiply(bendScalar)
             .add(source);
-        const targetBend = targetToControlNormalize
+
+        const targetBend = targetToSourceNormalize
             .clone()
             .multiply(bendScalar)
             .add(target);
 
-        const sourceBendPerp = new Vector(-sourceToControlNormalize.y,
-                                           sourceToControlNormalize.x);
+        const sourceBendPerp = new Vector(-sourceToTargetNormalize.y,
+                                          sourceToTargetNormalize.x);
         const sourceBendPerpScalar = new Vector(position, position);
         const sourceBendControl = sourceBendPerp
             .clone()
             .multiply(sourceBendPerpScalar)
             .add(sourceBend);
 
-        const targetBendPerp = new Vector(-targetToControlNormalize.y,
-                                           targetToControlNormalize.x);
+        const targetBendPerp = new Vector(-targetToSourceNormalize.y,
+                                          targetToSourceNormalize.x);
         const targetBendPerpScalar = new Vector(-position, -position);
         const targetBendControl = targetBendPerp
             .clone()
             .multiply(targetBendPerpScalar)
             .add(targetBend);
 
-        // Draw an arrow at the target end
+        // Arrow at the target end
         const arrowLengthScalar = new Vector(-arrowLength, -arrowLength);
         const arrowLeftScalar = new Vector(arrowWidth / 2, arrowWidth / 2);
         const arrowRightScalar = new Vector(-arrowWidth / 2, -arrowWidth / 2);
-        const arrowHead = targetToControlNormalize
+        const arrowHead = targetToSourceNormalize
             .clone()
             .multiply(arrowLengthScalar)
             .add(targetBendControl);
@@ -156,21 +141,13 @@ export default class ArcEdge extends React.Component {
             .multiply(arrowRightScalar)
             .add(targetBendControl);
 
-        // Arc options
-        const y = this.props.offset;
-        const radius = (len * len + 4 * y * y) / (8 * y);
-        const rotation = 0;
-        const largeArcFlag = 0;
-        const sweepFlag = angle === 90 ? 0 : 1;
-
         // Line and Arc SVG path
         let path = "";
         path += "M" + source.x + "," + source.y;
         path += " L " + sourceBendControl.x + " " + sourceBendControl.y;
-        path += " A " + radius + " " + radius + " " + rotation + " " +
-                largeArcFlag + " " + sweepFlag + " " +
-                targetBendControl.x + " " + targetBendControl.y;
+        path += " L " + targetBendControl.x + " " + targetBendControl.y;
 
+        // Arrow SVG path
         if (!this.props.arrow) {
             path += " L " + target.x + " " + target.y;
         }
@@ -182,26 +159,23 @@ export default class ArcEdge extends React.Component {
 
         let opacity = 1.0;
         if (this.props.invisible) {
-            opacity = 0;
+            opacity = 0.0;
         } else if (this.props.muted) {
             opacity = 0.3;
         }
 
         // Label Positioning
+
         const ry = Math.abs(targetBendControl.y - sourceBendControl.y);
         const rx = Math.abs(targetBendControl.x - sourceBendControl.x);
-        let labelAngle = Math.atan2(ry, rx) * 180 / Math.PI;
+        let angle = Math.atan2(ry, rx) * 180 / Math.PI;
 
-        const cx = control.x;
-        let cy = control.y + this.props.position;
+        const cx = (sourceBendControl.x + targetBendControl.x) / 2;
+        const cy = (sourceBendControl.y + targetBendControl.y) / 2;
 
         if ((target.y < source.y && source.x < target.x) ||
             (source.x > target.x && target.y > source.y)) {
-            labelAngle = -labelAngle;
-        }
-
-        if (source.x > target.x) {
-            cy = control.y - this.props.position;
+            angle = -angle;
         }
 
         let labelElement = null;
@@ -211,7 +185,7 @@ export default class ArcEdge extends React.Component {
                 <Label
                     x={cx}
                     y={cy}
-                    r={labelAngle}
+                    r={angle}
                     textAnchor={this.props.textAnchor}
                     classed={labelClassed}
                     style={this.props.labelStyle[styleModifier]}
@@ -221,6 +195,7 @@ export default class ArcEdge extends React.Component {
                     labelPosition={this.props.labelPosition} />
             );
         }
+
         if (this.props.arrow) {
             return (
                 <g>
@@ -229,13 +204,13 @@ export default class ArcEdge extends React.Component {
                         stroke={this.props.color}
                         opacity={opacity}>
                         <path
+                            className={classed}
                             d={path}
-                            fill="none" className={classed}
+                            fill="none"
                             onClick={this.handleClick}/>
                         <path
-                            d={arrow}
                             className={classed}
-                            stroke={this.props.color}
+                            d={arrow}
                             fill={this.props.color}
                             strokeWidth="1"/>
                     </g>
@@ -250,9 +225,9 @@ export default class ArcEdge extends React.Component {
                         stroke={this.props.color}
                         opacity={opacity}>
                         <path
+                            className={classed}
                             d={path}
                             fill="none"
-                            className={classed}
                             onClick={this.handleClick}/>
                     </g>
                     {labelElement}
@@ -260,20 +235,18 @@ export default class ArcEdge extends React.Component {
             );
         }
     }
-
 };
 
-ArcEdge.propTypes = {
-
-    /** An offset to the position of the label which can be used for fine tuning */
-    offset: PropTypes.number,
-
+LinearEdge.propTypes = {
     /** The width of the circuit diagram */
     width: PropTypes.number,
 
     color: PropTypes.string,
-    
-    curveDirection: PropTypes.string,
+
+    /**
+     * Controls the angle of the offset from the center of the line.
+     */
+    position: PropTypes.number,
 
     /**
      * Boolean value that controls if a directional arrow is drawn instead of line-caps.
@@ -283,26 +256,18 @@ ArcEdge.propTypes = {
      */
     arrow: PropTypes.bool,
 
-    /**
-     * Controls the angle of the offset from the center of the line.
-     */
-    position: PropTypes.number,
-
     /** Display the endpoint selected */
     selected: PropTypes.bool,
 
     /** Display the endpoint muted */
     muted: PropTypes.bool
-
 };
 
-ArcEdge.defaultProps = {
-    offset: 20,
+LinearEdge.defaultProps = {
     width: 1,
     color: "#ddd",
-    curveDirection: "left",
-    arrow: false,
     position: 0,
+    arrow: false,
     selected: false,
     muted: false
 };

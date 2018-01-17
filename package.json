@@ -1,8 +1,7 @@
 {
 	"scripts": {
-        "start": "cd myesnet/ui && npm run start",
-        "precommit": "lint-staged",
-        "prettier": "prettier --print-width 100 --tab-width 4 --write \"packages/pond/src/**/*.ts\""
+        "start": "cd packages/website && npm run start",
+        "precommit": "lint-staged"
     },
     "lint-staged": {
         "*.ts": [

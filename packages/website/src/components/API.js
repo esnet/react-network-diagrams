@@ -38,7 +38,7 @@ const Example = React.createClass({
         const imgName = `${name}_thumbnail`;
         const img = Examples[imgName];
         const link = (
-            <Link to={`example/${name}`}>{example.value.title}</Link>
+            <Link to={`../../example/${name}`}>{example.value.title}</Link>
         );
         return (
             <Flexbox  flexDirection="column" minWidth="220px" >
@@ -91,8 +91,6 @@ export default React.createClass({
     render() {
         const component = this.props.match.params.component;
         const path = `src/components/${component}.js`;
-
-        console.log("true or false", _.has(docsFile, path));
 
         if (!_.has(docsFile, path)) {
             return (

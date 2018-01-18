@@ -25,8 +25,9 @@ export default class extends Component{
     
     componentDidMount() {
         window.scrollTo(0, 0);
-        const guideName = this.props.match.params.doc;
-        const markdownFile = Index[guideName];        
+        const guideName = this.props.match.params.doc || "start";
+        console.log("guidename is ", guideName);
+        const markdownFile = Index[guideName];
         fetch(markdownFile)
             .then(response => {
                 return response.text();
@@ -39,7 +40,7 @@ export default class extends Component{
 
     componentWillReceiveProps(nextProps) {
         window.scrollTo(0, 0);
-        const guideName = nextProps.match.params.doc;
+        const guideName = nextProps.match.params.doc || "start";
         const markdownFile = Index[guideName];
         fetch(markdownFile)
             .then(response => {
@@ -56,10 +57,7 @@ export default class extends Component{
             return (
                 <div>
                     <div className="row">
-                        <div className="col-md-2">
-                            <img src={logo} alt="ESnet" width={120} height={120}/>
-                        </div>
-                        <div className="col-md-9">
+                        <div className="col-md-12">
                             <Markdown source={this.state.markdown}/>
                         </div>
                     </div>

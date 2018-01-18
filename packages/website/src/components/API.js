@@ -107,7 +107,6 @@ export default React.createClass({
         return (
             <div>
                 <div className="row">
-                    <div className="col-md-2"></div>
                     <div className="col-md-9">
                         <h2 style={titleStyle}>{`<${title}>`}</h2>
                         <TaggedExamples tag={component} />

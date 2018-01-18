@@ -13,6 +13,9 @@ import _ from "underscore";
 import { Connection } from "react-network-diagrams";
 import { stylesMap } from "../../styles/styles.js";
 
+import connection_docs from "./connection_docs.md";
+import connection_thumbnail from "./connection_thumbnail.png";
+
 const styleModifierList = ["normal", "selected", "muted"];
 const lineShapeList = ["linear", "curved", "square", "angled"];
 const endpointShapeList = ["circle", "square", "cloud", "arrow"];
@@ -633,6 +636,4 @@ connection.defaultProps = {
 };
 
 // Export example
-import connection_docs from "raw!./connection_docs.md";
-import connection_thumbnail from "./connection_thumbnail.png";
 export default {connection, connection_docs, connection_thumbnail};

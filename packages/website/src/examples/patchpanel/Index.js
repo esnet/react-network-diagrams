@@ -12,6 +12,9 @@ import React from "react";
 import { PatchPanel, Resizable } from "react-network-diagrams";
 import { stylesMap } from "../../styles/styles.js";
 
+import patchpanel_docs from "./patchpanel_docs.md";
+import patchpanel_thumbnail from "./patchpanel_thumbnail.png";
+
 const circuitTypeProperties = {
     optical: {
         style: stylesMap.optical,
@@ -288,6 +291,4 @@ class patchpanel extends React.Component {
 };
 
 // Export example
-import patchpanel_docs from "raw!./patchpanel_docs.md";
-import patchpanel_thumbnail from "./patchpanel_thumbnail.png";
 export default {patchpanel, patchpanel_docs, patchpanel_thumbnail};

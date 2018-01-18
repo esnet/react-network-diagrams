@@ -14,6 +14,9 @@ import { Event } from "pondjs";
 import { TrafficMap } from "react-network-diagrams";
 import * as Immutable from "immutable";
 
+import map_docs from "./map_docs.md";
+import map_thumbnail from "./map_thumbnail.png";
+
 // Test data
 import topo from "./topo.json";
 import rawTraffic from "./traffic.json";
@@ -182,6 +185,4 @@ class map extends React.Component {
 };
 
 // Export example
-import map_docs from "raw!./map_docs.md";
-import map_thumbnail from "./map_thumbnail.png";
 export default {map, map_docs, map_thumbnail};

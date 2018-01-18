@@ -13,6 +13,9 @@ import _ from "underscore";
 import { ParallelCircuit, Resizable } from "react-network-diagrams";
 import { stylesMap } from "../../styles/styles.js";
 
+import parallel_docs from "./parallel_docs.md";
+import parallel_thumbnail from "./parallel_thumbnail.png";
+
 const circuitTypeList = [
     "optical",
     "leased",
@@ -263,6 +266,4 @@ class parallel extends React.Component {
 };
 
 // Export example
-import parallel_docs from "raw!./parallel_docs.md";
-import parallel_thumbnail from "./parallel_thumbnail.png";
 export default {parallel, parallel_docs, parallel_thumbnail};

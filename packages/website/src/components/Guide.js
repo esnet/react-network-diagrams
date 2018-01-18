@@ -8,19 +8,50 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
-import React from "react";
+import React, {Component} from "react";
 import Highlighter from "../components/Highlighter";
 import Markdown from "react-markdown";
 import Index from "../guides_entry";
 import logo from "../img/diagrams.png";
 
-export default React.createClass({
+export default class extends Component{
 
-    mixins: [Highlighter],
+    constructor(props) {
+        super(props);
+        this.state = {
+            markdown: null
+        };
+    }
+    
+    componentDidMount() {
+        window.scrollTo(0, 0);
+        const guideName = this.props.match.params.doc;
+        const markdownFile = Index[guideName];        
+        fetch(markdownFile)
+            .then(response => {
+                return response.text();
+            })
+            .then(markdown => {
+                this.setState({ markdown });
+            });
+        this.setState({ markdown: null });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        window.scrollTo(0, 0);
+        const guideName = nextProps.match.params.doc;
+        const markdownFile = Index[guideName];
+        fetch(markdownFile)
+            .then(response => {
+                return response.text();
+            })
+            .then(markdown => {
+                this.setState({ markdown });
+            });
+        this.setState({ markdown: null });
+    }
 
     render() {
-        const doc = this.props.match.params.doc;
-        const text = Index[doc];
         return (
             <div>
                 <div className="row">
@@ -28,10 +59,10 @@ export default React.createClass({
                         <img src={logo} alt="ESnet" width={120} height={120}/>
                     </div>
                     <div className="col-md-9">
-                        <Markdown source={text}/>
+                        <Markdown source={this.state.markdown}/>
                     </div>
                 </div>
             </div>
         );
     }
-});
+};

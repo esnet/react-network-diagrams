@@ -8,18 +8,47 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
-import React from "react";
+import React, {Component} from "react";
 import createReactClass from "create-react-class";
 
 import Highlighter from "../components/Highlighter";
 import Markdown from "react-markdown";
 import logo from "../img/diagrams.png";
 
-import text from "raw!../guides/intro.md";
+import text from "../guides/intro.md";
 
-export default createReactClass({
+export default class extends Component{
 
-    mixins: [Highlighter],
+    constructor(props) {
+        super(props);
+        this.state = {
+            markdown: null
+        };
+    }
+    
+    componentDidMount() {
+        window.scrollTo(0, 0);
+        fetch(text)
+            .then(response => {
+                return response.text();
+            })
+            .then(markdown => {
+                this.setState({ markdown });
+            });
+        this.setState({ markdown: null });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        window.scrollTo(0, 0);
+        fetch(text)
+            .then(response => {
+                return response.text();
+            })
+            .then(markdown => {
+                this.setState({ markdown });
+            });
+        this.setState({ markdown: null });
+    }
 
     render() {
         return (
@@ -29,10 +58,10 @@ export default createReactClass({
                         <img src={logo} alt="ESnet" width={120} height={120}/>
                     </div>
                     <div className="col-md-9">
-                        <Markdown source={text}/>
+                        <Markdown source={this.state.markdown}/>
                     </div>
                 </div>
             </div>
         );
     }
-});
+};

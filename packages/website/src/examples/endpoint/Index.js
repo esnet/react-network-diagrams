@@ -13,10 +13,9 @@ import _ from "underscore";
 import { stylesMap } from "../../styles/styles.js";
 import { Endpoint } from "react-network-diagrams";
 
-var mocha = require("react-network-diagrams");
-console.log("react-network-diagrams is ", mocha);
+import endpoint_docs from "./endpoint_docs.md";
+import endpoint_thumbnail from "./endpoint_thumbnail.png";
 
-console.log("Endpoint is ", Endpoint);
 const labelPositionChoiceList = [
     "left",
     "right",
@@ -200,6 +199,4 @@ endpoint.defaultProps = {
 };
 
 // Export example
-import endpoint_docs from "raw!./endpoint_docs.md";
-import endpoint_thumbnail from "./endpoint_thumbnail.png";
 export default {endpoint, endpoint_docs, endpoint_thumbnail};

@@ -14,6 +14,9 @@ import { TrafficMap } from "react-network-diagrams";
 import * as Immutable from "immutable";
 import { Event } from "pondjs";
 
+import paths_docs from "./paths_docs.md";
+import paths_thumbnail from "./paths_thumbnail.png";
+
 // Test data
 import topo from "./topo.json";
 
@@ -266,6 +269,4 @@ class paths extends React.Component {
 };
 
 // Export example
-import paths_docs from "raw!./paths_docs.md";
-import paths_thumbnail from "./paths_thumbnail.png";
 export default {paths, paths_docs, paths_thumbnail};

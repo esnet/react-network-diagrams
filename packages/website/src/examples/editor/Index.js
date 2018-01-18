@@ -16,6 +16,9 @@ import { MapEditor } from "react-network-diagrams";
 // Test data
 import topoJSON from "./topo.json";
 
+import editor_docs from "./editor_docs.md";
+import editor_thumbnail from "./editor_thumbnail.png";
+
 /**
  * An example of putting together a topology editor
  */
@@ -250,6 +253,4 @@ class editor extends React.Component {
 };
 
 // Export example
-import editor_docs from "raw!./editor_docs.md";
-import editor_thumbnail from "./editor_thumbnail.png";
 export default {editor, editor_docs, editor_thumbnail};

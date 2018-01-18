@@ -8,7 +8,7 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
-import start from "raw!./guides/start.md";
+import start from "./guides/start.md";
 
 export default {
     start,

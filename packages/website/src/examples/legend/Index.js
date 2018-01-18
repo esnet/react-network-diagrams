@@ -11,6 +11,10 @@
 import React from "react";
 import _ from "underscore";
 import { MapLegend } from "react-network-diagrams";
+
+import legend_docs from "./legend_docs.md";
+import legend_thumbnail from "./legend_thumbnail.png";
+
 //
 // Legend example
 //
@@ -103,6 +107,4 @@ class legend extends React.Component {
 };
 
 // Export example
-import legend_docs from "raw!./legend_docs.md";
-import legend_thumbnail from "./legend_thumbnail.png";
 export default {legend, legend_docs, legend_thumbnail};

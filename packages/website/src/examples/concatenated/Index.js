@@ -14,6 +14,9 @@ import _ from "underscore";
 import { ConcatenatedCircuit, Resizable } from "react-network-diagrams";
 import { stylesMap } from "../../styles/styles.js";
 
+import concatenated_docs from "./concatenated_docs.md";
+import concatenated_thumbnail from "./concatenated_thumbnail.png";
+
 const circuitTypeList = [
     "optical",
     "leased",
@@ -295,6 +298,4 @@ class concatenated extends React.Component {
 };
 
 // Export example
-import concatenated_docs from "raw!./concatenated_docs.md";
-import concatenated_thumbnail from "./concatenated_thumbnail.png";
 export default {concatenated, concatenated_docs, concatenated_thumbnail};

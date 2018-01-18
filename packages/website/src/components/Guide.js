@@ -52,17 +52,25 @@ export default class extends Component{
     }
 
     render() {
-        return (
-            <div>
-                <div className="row">
-                    <div className="col-md-2">
-                        <img src={logo} alt="ESnet" width={120} height={120}/>
-                    </div>
-                    <div className="col-md-9">
-                        <Markdown source={this.state.markdown}/>
+        if (this.state.markdown !== null) {
+            return (
+                <div>
+                    <div className="row">
+                        <div className="col-md-2">
+                            <img src={logo} alt="ESnet" width={120} height={120}/>
+                        </div>
+                        <div className="col-md-9">
+                            <Markdown source={this.state.markdown}/>
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+            return (
+                <div className="row">
+                    <div className="col-md-12" />
+                </div>
+            );
+        }
     }
 };

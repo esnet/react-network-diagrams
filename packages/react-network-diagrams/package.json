@@ -19,13 +19,20 @@
     "url": "https://github.com/esnet/react-network-diagrams/issues"
   },
   "scripts": {
-    "docs": "echo \"*** Building API docs\n\" && react-docgen src/components/*.js -x js -o ../website/src/api/docs.json --pretty",
-    "lint": "eslint src/**/*.js",
+    "docs": "echo \"*** Building API docs\n\" && react-docgen src/components -x js -o ../website/src/api/docs.json --pretty",
+    "lint": "eslint src/components/*.js",
     "test": "npm run lint",
-    "watch": "echo \"*** Watching...\n\" && babel src/components --optional runtime --stage 0 --out-dir lib/components  --watch",
-    "build": "echo \"*** Building lib\n\" && rm -rf lib && mkdir lib && mkdir lib/components && cp src/components/*.css lib/components && babel src/components --optional runtime --stage 0 --out-dir lib/components && babel src/index.js --optional runtime --stage 0 --out-file lib/index.js",
-    "start-website": "npm run docs && webpack-dev-server --config webpack.config.js",
-    "build-website": "webpack --config webpack.config.js"
+    "build": "echo \"*** Building lib\n\" && rm -rf lib/* && babel src/components --optional runtime --stage 0 --out-dir lib/components && babel src/js --optional runtime --stage 0 --out-dir lib/js && babel src/index.js --optional runtime --stage 0 --out-file lib/index.js",
+    "start-website": "react-scripts start",
+    "build-website": "echo \"*** Building website\n\" && rm -rf docs && react-scripts build && mv build docs",
+    "precommit": "lint-staged",
+    "prettier": "prettier --print-width 100 --tab-width 4 --write \"./src/**/*.js\""
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --print-width 100 --tab-width 4 --write",
+      "git add"
+    ]
   },
   "pre-commit": [
     "lint",
@@ -33,36 +40,55 @@
   ],
   "license": "BSD-3-Clause-LBNL",
   "dependencies": {
-    "babel-runtime": "^6.26.0",
-    "d3-scale": "^0.7.2",
+    "babel-runtime": "^6.23.0",
+    "d3-scale": "^1.0.6",
     "keymirror": "^0.1.1",
-    "underscore": "^1.7.0",
+    "underscore": "^1.8.3",
     "victor": "^0.2.6"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^6.2.3",
+    "babel-cli": "^6.5.1",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "dsv-loader": "^2.0.0",
+    "eslint": "^4.1.1",
+    "eslint-config-react-app": "^1.0.5",
+    "eslint-plugin-flowtype": "^2.33.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.0.1",
+    "husky": "^0.13.3",
+    "lerna": "^2.0.0",
+    "lint-staged": "^3.4.0",
+    "prettier": "^0.22.0",
+    "raw-loader": "^0.5.1",
+    "react": "^15.6.1",
+    "react-docgen": "^2.9.1",
+    "react-dom": "^15.6.1",
+    "react-markdown": "^2.4.4",
+    "react-router": "^2.6.1",
+    "react-scripts": "^1.0.10",
+    "react-select": "^1.0.0-beta14",
+    "ringjs": "0.0.1",
+    "babel-loader": "^6.2.3",
     "bundle-loader": "^0.5.4",
     "create-react-class": "^15.6.2",
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
     "json-loader": "^0.5.4",
-    "lerna": "^2.4.0",
     "prop-types": "^15.6.0",
-    "raw-loader": "^0.5.1",
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2",
-    "react-select": "^1.0.0-rc.10",
-    "react-docgen": "^2.19.0",
-    "react-scripts": "^1.0.14",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
+  },
+  "peerDependencies": {
+    "pondjs": "^0.8.7",
+    "react": "^15.6.1"
   },
   "eslintConfig": {
     "extends": "react-app"

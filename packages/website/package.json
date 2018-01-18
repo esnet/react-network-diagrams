@@ -2,32 +2,46 @@
   "name": "examples",
   "version": "1.0.0",
   "private": true,
-  "devDependencies": {
-    "react-scripts": "^0.6.1"
-  },
   "dependencies": {
+    "bootstrap": "^3.3.7",
+    "colorbrewer": "^1.1.0",
     "flexbox-react": "^4.0.0",
     "immutable": "^4.0.0-rc.7",
+    "jest-cli": "^20.0.4",
+    "lodash.clonedeep": "^4.5.0",
+    "prismjs": "^1.8.1",
     "pondjs": "^0.9.0-alpha.4a20aeed",
     "raw-loader": "^0.5.1",
-    "react": "^15.3.1",
-    "react-bootstrap": "^0.30.3",
+    "react": "^15.4.2",
+    "react-addons-shallow-compare": "^15.6.0",
+    "react-bootstrap": "^0.31.0",
+    "react-dom": "^15.4.2",
+    "react-lowlight": "^1.1.1",
+    "react-markdown": "^2.4.6",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "react-sidebar": "^2.3.2",
     "react-docgen": "^2.9.1",
-    "react-dom": "^15.3.2",
-    "react-markdown": "^1.0.5",
     "react-network-diagrams": "1.0.0",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-select": "^1.0.0-rc.10",
-    "react-timeseries-charts": "^0.12.8"
+    "react-select": "^1.0.0-beta14",
+    "react-timeseries-charts": "^0.12.8",
+    "d3-format": "^1.2.0",
+    "d3-time-format": "^2.0.5",
+    "merge": "^1.2.0",
+    "moment": "^2.18.1",
+    "moment-duration-format": "^1.3.0",
+    "ringjs": "0.0.1",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "eslint": "^3.17.1",
+    "react-scripts": "^1.0.10",
+    "react-test-renderer": "^15.6.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rm -rf ../../docs && react-scripts build && mv build ../../docs",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   }
 }

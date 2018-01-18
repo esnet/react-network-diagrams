@@ -8,15 +8,61 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
-import React from "react";
+import React, {Component} from "react";
 import Highlighter from "../components/Highlighter";
 import Markdown from "react-markdown";
 import Examples from "../examples_entry.js";
 import Catalog from "../examples/catalog.json";
 
-export default React.createClass({
+export default class extends Component {
 
-    mixins: [Highlighter],
+    constructor(props) {
+        super(props);
+        this.state = {
+            markdown: null
+        };
+    }
+
+    fetchMarkdownForProps(props) {
+        window.scrollTo(0, 0);
+        const exampleName = this.props.match.params.example;
+        const docs = Examples[`${exampleName}_docs`];
+        fetch(docs)
+            .then(response => {
+                return response.text();
+            })
+            .then(markdown => {
+                this.setState({ markdown });
+            });
+    }
+
+    componentDidMount() {
+        this.fetchMarkdownForProps(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.fetchMarkdownForProps(nextProps);
+    }
+
+    renderMarkdown() {
+        if (this.state.markdown) {
+            return (
+                <div className="row">
+                    <div className="col-md-12">
+                        <Markdown 
+                            source={this.state.markdown}
+                        />
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <div className="row">
+                    <div className="col-md-12" />
+                </div>
+            );
+        }
+    }
 
     render() {
         const tagStyle = {
@@ -83,14 +129,10 @@ export default React.createClass({
                         <hr />
                         <Component />
                         <hr />
-                         <div className="row">
-                            <div className="col-md-12">
-                                <Markdown source={docs}/>
-                            </div>
-                        </div>
+                        {this.renderMarkdown()}
                     </div>
                 </div>
             </div>
         );
     }
-});
+};

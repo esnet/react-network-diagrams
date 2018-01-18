@@ -55,10 +55,7 @@ export default class extends Component{
             return (
                 <div>
                     <div className="row">
-                        <div className="col-md-2">
-                            <img src={logo} alt="ESnet" width={120} height={120}/>
-                        </div>
-                        <div className="col-md-9">
+                        <div className="col-md-12">
                             <Markdown source={this.state.markdown}/>
                         </div>
                     </div>

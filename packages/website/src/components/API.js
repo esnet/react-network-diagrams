@@ -10,7 +10,7 @@
 
 /* eslint max-len:0 */
 
-import React from "react";
+import React, {Component} from "react";
 import { Link } from "react-router-dom";
 import _ from "underscore";
 import Flexbox from 'flexbox-react';
@@ -84,9 +84,7 @@ const TaggedExamples = React.createClass({
     }
 });
 
-export default React.createClass({
-
-    mixins: [Highlighter],
+export default class extends Component {
 
     render() {
         const component = this.props.match.params.component;
@@ -116,4 +114,4 @@ export default React.createClass({
             </div>
         );
     }
-});
+};

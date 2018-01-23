@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import _ from "underscore";
 import Markdown from "react-markdown";
 import docsFile from "../api/docs.json";
@@ -6,7 +6,7 @@ import docsFile from "../api/docs.json";
 /**
  * Displays API data from the docs.json file
  */
-export default React.createClass({
+export default class extends Component {
 
     renderArrayOf(value) {
         if (value.name === "shape") {
@@ -16,7 +16,7 @@ export default React.createClass({
         } else {
             return `array of ${value.name}s`;
         }
-    },
+    }
 
     renderPropType(type) {
         if (!type) {
@@ -41,7 +41,7 @@ export default React.createClass({
         } else {
             return `${type.name}`;
         }
-    },
+    }
 
     renderProps(props) {
         const propNameStyle = {
@@ -83,7 +83,7 @@ export default React.createClass({
                 <hr />
             </div>
         ));
-    },
+    }
 
     render() {
         const file = this.props.file;
@@ -102,4 +102,4 @@ export default React.createClass({
             </div>
         );
     }
-});
+};

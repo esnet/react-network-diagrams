@@ -8,15 +8,12 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
-import React from "react";
+import React, {Component} from "react";
 import Highlighter from "../components/highlighter";
 import Markdown from "react-markdown";
 import Docs from "./index.js";
 
-export default React.createClass({
-
-    mixins: [Highlighter],
-
+export default class extends Component {
     render() {
         const tagStyle = {
             background: "#EEE",
@@ -39,4 +36,4 @@ export default React.createClass({
             </div>
         );
     }
-});
+};

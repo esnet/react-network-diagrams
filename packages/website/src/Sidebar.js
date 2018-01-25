@@ -68,10 +68,10 @@ export default class extends Component {
 
                 <div className="sidebar-heading" style={sidebarTitleStyle}>Network Map Examples</div>
                 <ul className="nav nav-sidebar" style={sidebarItemStyle}>
-                    <li><Link to="/api/charts/map">Traffic map</Link></li>
-                    <li><Link to="/api/charts/paths">Network paths</Link></li>
-                    <li><Link to="/api/charts/editor">Topology editor</Link></li>
-                    <li><Link to="/api/charts/legend">Legend</Link></li>
+                    <li><Link to="/example/map">Traffic map</Link></li>
+                    <li><Link to="/example/paths">Network paths</Link></li>
+                    <li><Link to="/example/editor">Topology editor</Link></li>
+                    <li><Link to="/example/legend">Legend</Link></li>
                 </ul>
 
                 <div className="sidebar-heading" style={sidebarTitleStyle}>Low level API</div>

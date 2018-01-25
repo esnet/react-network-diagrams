@@ -5,11 +5,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Resizable = undefined;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49,33 +55,53 @@ var Resizable = exports.Resizable = function (_React$Component) {
     }
 
     _createClass(Resizable, [{
-        key: "handleResize",
-        value: function handleResize() {
-            this.setState({ width: this.refs.container.offsetWidth });
-        }
-    }, {
         key: "componentDidMount",
         value: function componentDidMount() {
-            window.addEventListener("resize", this.handleResize); //eslint-disable-line
+            var _this2 = this;
+
+            window.addEventListener("resize", function () {
+                return _this2.handleResize();
+            }); //eslint-disable-line
             this.handleResize();
         }
     }, {
         key: "componentWillUnmount",
         value: function componentWillUnmount() {
-            window.removeEventListener("resize", this.handleResize); //eslint-disable-line
+            var _this3 = this;
+
+            window.removeEventListener("resize", function () {
+                return _this3.handleResize();
+            }); //eslint-disable-line
+        }
+    }, {
+        key: "handleResize",
+        value: function handleResize() {
+            console.log("this is ", this);
+            if (this.container) {
+                this.setState({
+                    width: this.container.offsetWidth
+                });
+            }
         }
     }, {
         key: "render",
         value: function render() {
+            var _this4 = this;
+
             var props = { width: this.state.width };
             if (this.props.aspect) {
                 props.height = this.state.width / this.props.aspect;
             }
+
             var child = _react2.default.Children.only(this.props.children);
             var childElement = this.state.width ? _react2.default.cloneElement(child, props) : null;
             return _react2.default.createElement(
                 "div",
-                { ref: "container", style: this.props.style },
+                _extends({
+                    ref: function ref(c) {
+                        _this4.container = c;
+                    }
+                }, this.props),
                 childElement
             );
         }
@@ -84,4 +110,7 @@ var Resizable = exports.Resizable = function (_React$Component) {
     return Resizable;
 }(_react2.default.Component);
 
-;
+Resizable.propTypes = {
+    children: _propTypes2.default.node,
+    aspect: _propTypes2.default.number
+};

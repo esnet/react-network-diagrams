@@ -20,7 +20,7 @@ import { Node } from "./Node";
 import { SimpleEdge } from "./SimpleEdge";
 // import createReactClass from "create-react-class";
 
-import "./map.css";
+// import '../map.css';
 
 function getElementOffset(element) {
     const de = document.documentElement;

@@ -33,8 +33,6 @@ var _Node = require("./Node");
 
 var _SimpleEdge = require("./SimpleEdge");
 
-require("./map.css");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -54,6 +52,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
 // import createReactClass from "create-react-class";
+
+// import '../map.css';
 
 function getElementOffset(element) {
     var de = document.documentElement;

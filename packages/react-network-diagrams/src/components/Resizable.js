@@ -9,6 +9,8 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
+
 // import createReactClass from "create-react-class";
 
 /**
@@ -25,17 +27,22 @@ export class Resizable extends React.Component {
         };
     }
 
-    handleResize() {
-        this.setState({width: this.refs.container.offsetWidth});
-    }
-
     componentDidMount() {
-        window.addEventListener("resize", this.handleResize);  //eslint-disable-line
+        window.addEventListener("resize", () => this.handleResize());  //eslint-disable-line
         this.handleResize();
     }
 
     componentWillUnmount() {
-        window.removeEventListener("resize", this.handleResize);  //eslint-disable-line
+        window.removeEventListener("resize", () => this.handleResize());  //eslint-disable-line
+    }
+
+    handleResize() {
+        console.log("this is ", this);
+        if (this.container) {
+            this.setState({
+                width: this.container.offsetWidth
+            });
+        }
     }
 
     render() {
@@ -43,13 +50,23 @@ export class Resizable extends React.Component {
         if (this.props.aspect) {
             props.height = this.state.width / this.props.aspect;
         }
+
         const child = React.Children.only(this.props.children);
         const childElement = this.state.width ?
             React.cloneElement(child, props) : null;
         return (
-            <div ref="container" style={this.props.style}>
+            <div
+                ref={c => {
+                    this.container = c;
+                }}
+                {...this.props}
+            >
                 {childElement}
             </div>
         );
     }
+}
+
+Resizable.propTypes = {
+    children: PropTypes.node
 };

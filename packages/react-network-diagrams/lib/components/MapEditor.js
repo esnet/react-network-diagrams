@@ -36,7 +36,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Copyright (c) 2015, The Regents of the University of California,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Copyright (c) 2018, The Regents of the University of California,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  through Lawrence Berkeley National Laboratory (subject to receipt
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  of any required approvals from the U.S. Dept. of Energy).
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  All rights reserved.
@@ -44,8 +44,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  This source code is licensed under the BSD-style license found in the
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  LICENSE file in the root directory of this source tree.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
-
-// import createReactClass from "create-react-class";
 
 var counter = 1;
 
@@ -64,15 +62,8 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
         };
         _this.handleAddEdge = _this.handleAddEdge.bind(_this);
         _this.handleAddNode = _this.handleAddNode.bind(_this);
-        // this.handleAddNodePosition = this.handleAddNodePosition.bind(this);
-        // this.handleAddSelection = this.handleAddSelection.bind(this);
-        // this.handleChange = this.handleChange.bind(this);
         _this.handleDeleteEdge = _this.handleDeleteEdge.bind(_this);
-        // this.handleDeleteEdgeSelection = this.handleDeleteEdgeSelection.bind(this);
         _this.handleDeleteNode = _this.handleDeleteNode.bind(_this);
-        // this.handleDeleteNodeSelection = this.handleDeleteNodeSelection.bind(this);
-        // this.handleNodeDrag = this.handleNodeDrag.bind(this);
-        // this.handleSelectionChanged = this.handleSelectionChanged.bind(this);
         return _this;
     }
 
@@ -278,7 +269,6 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleSelectionChanged",
         value: function handleSelectionChanged(selectionType, selectionId) {
-            // console.log("mapeditor handleSelectionChanged ", selectionType, selectionId);
             var selection = void 0;
             if (selectionType === "node") {
                 selection = this.findNode(selectionId);
@@ -290,8 +280,6 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleChange",
         value: function handleChange(attr, value) {
-            console.log("handleChange attr value is ", attr, value);
-            console.log("this is ", this);
             var selected = this.state.selection;
             selected[attr] = value;
 
@@ -302,7 +290,6 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleNodeDrag",
         value: function handleNodeDrag(id, posx, posy) {
-            console.log("handleNodeDrag");
             var topo = this.cloneTopo();
 
             var _constrain = this.constrain(posx, posy),
@@ -323,7 +310,6 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleAddNode",
         value: function handleAddNode() {
-            console.log("handleAddNode");
             this.setState({ pendingAction: {
                     action: "add-node",
                     instructions: "Pick a point (x,y)"
@@ -338,8 +324,6 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleAddNodePosition",
         value: function handleAddNodePosition(posx, posy) {
-            console.log("handleAddNodePosition");
-            // console.log("handleAddNodePosition posx posy is ", posx, posy);
             var topo = this.cloneTopo();
 
             var _constrain2 = this.constrain(posx, posy),
@@ -372,7 +356,6 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleAddEdge",
         value: function handleAddEdge() {
-            console.log("handleAddEdge");
             this.setState({ pendingAction: {
                     action: "add-edge",
                     instructions: "Pick source node",
@@ -382,7 +365,6 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleDeleteNode",
         value: function handleDeleteNode() {
-            console.log("handleDeleteNode");
             this.setState({ pendingAction: {
                     action: "delete-node",
                     instructions: "Pick a node to delete (will delete related edges)",
@@ -392,7 +374,6 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleDeleteEdge",
         value: function handleDeleteEdge() {
-            console.log("handleDeleteEdge");
             this.setState({ pendingAction: {
                     action: "delete-edge",
                     instructions: "Pick an edge to delete",
@@ -402,7 +383,6 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleAddSelection",
         value: function handleAddSelection(node) {
-            console.log("handleAddSelection");
             var action = this.state.pendingAction;
             if (action.action === "add-edge") {
                 action.nodes.push(node);
@@ -434,7 +414,6 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleDeleteNodeSelection",
         value: function handleDeleteNodeSelection(nodeId) {
-            console.log("handleDeleteNodeSelection");
             var action = this.state.pendingAction;
             if (action.action === "delete-node") {
                 action.nodes.push(nodeId);
@@ -461,7 +440,6 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleDeleteEdgeSelection",
         value: function handleDeleteEdgeSelection(edgeId) {
-            console.log("handleDeleteEdgeSelection");
             var action = this.state.pendingAction;
             if (action.action === "delete-edge") {
                 action.edgeId = edgeId;
@@ -516,7 +494,6 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
         value: function renderChoiceProperty(attr, options, value) {
             var _this5 = this;
 
-            // console.log("renderChoiceProperty options is ", options);
             return _react2.default.createElement(_reactSelect2.default, {
                 value: value,
                 searchable: false,
@@ -557,6 +534,8 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                             break;
                         case "choice":
                             editorElement = _this6.renderChoiceProperty(property.attr, property.options, v);
+                            break;
+                        default:
                             break;
                     }
                     return _react2.default.createElement(
@@ -619,6 +598,8 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                             break;
                         case "choice":
                             editorElement = _this7.renderChoiceProperty(property.attr, property.options, v);
+                            break;
+                        default:
                             break;
                     }
                     return _react2.default.createElement(
@@ -808,13 +789,10 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
             var edgeSelected = void 0;
 
             if (this.state.pendingAction) {
-                // console.log("pending action is ", this.state.pendingAction);
                 if (this.state.pendingAction.action === "add-node") {
-                    // console.log("here");
                     positionSelected = function positionSelected(posx, posy) {
                         return _this8.handleAddNodePosition(posx, posy);
                     };
-                    // console.log("position Selected is ", positionSelected);
                 }
                 if (this.state.pendingAction.action === "add-edge") {
                     nodeSelected = function nodeSelected(node) {

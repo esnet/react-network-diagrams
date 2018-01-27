@@ -42,7 +42,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Copyright (c) 2015, The Regents of the University of California,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Copyright (c) 2018, The Regents of the University of California,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  through Lawrence Berkeley National Laboratory (subject to receipt
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  of any required approvals from the U.S. Dept. of Energy).
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  All rights reserved.
@@ -50,8 +50,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  This source code is licensed under the BSD-style license found in the
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *  LICENSE file in the root directory of this source tree.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
-
-// import createReactClass from "create-react-class";
 
 // import '../map.css';
 
@@ -80,19 +78,13 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
 
         _this.state = {
             dragging: null
-            // this.handleClick = this.handleClick.bind(this);
-            // this.handleMouseMove = this.handleMouseMove.bind(this);
-            // this.handleMouseUp = this.handleMouseUp.bind(this);
-            // this.handleNodeMouseDown = this.handleNodeMouseDown.bind(this);
-            // this.handleSelectionChange = this.handleSelectionChange.bind(this);
-        };return _this;
+        };
+        return _this;
     }
 
     _createClass(BaseMap, [{
         key: "handleNodeMouseDown",
         value: function handleNodeMouseDown(id, e) {
-            console.log("basemap handleNodeMouseDown this ", this);
-
             var _scale = this.scale(),
                 xScale = _scale.xScale,
                 yScale = _scale.yScale;
@@ -111,7 +103,6 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
     }, {
         key: "handleSelectionChange",
         value: function handleSelectionChange(type, id) {
-            console.log("basemap handleSelectionChange this ", this);
             if (this.props.onNodeSelected) {
                 if (type === "node") {
                     this.props.onNodeSelected(id);
@@ -127,7 +118,6 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
     }, {
         key: "handleMouseMove",
         value: function handleMouseMove(e) {
-            console.log("basemap handleMouseMove this ", this);
             e.preventDefault();
             if (this.state.dragging) {
                 var id = this.state.dragging.id;
@@ -148,14 +138,12 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
     }, {
         key: "handleMouseUp",
         value: function handleMouseUp(e) {
-            console.log("basemap handleMouseUp this ", this);
             e.stopPropagation();
             this.setState({ dragging: null });
         }
     }, {
         key: "handleClick",
         value: function handleClick(e) {
-            console.log("basemap handleClick this ", this);
             if (this.props.onNodeSelected || this.props.onEdgeSelected) {
                 return;
             }

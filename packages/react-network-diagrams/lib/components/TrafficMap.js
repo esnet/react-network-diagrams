@@ -7,10 +7,6 @@ exports.TrafficMap = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _underscore = require("underscore");
-
-var _underscore2 = _interopRequireDefault(_underscore);
-
 var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
@@ -18,6 +14,10 @@ var _react2 = _interopRequireDefault(_react);
 var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _underscore = require("underscore");
+
+var _underscore2 = _interopRequireDefault(_underscore);
 
 var _BaseMap = require("./BaseMap");
 
@@ -280,12 +280,15 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
         key: "handleSelectionChanged",
         value: function handleSelectionChanged(selectionType, selection) {
             if (this.props.onSelectionChange) {
+                console.log("traffic map selectionType, selection is ", selectionType, selection);
                 this.props.onSelectionChange(selectionType, selection);
             }
         }
     }, {
         key: "render",
         value: function render() {
+            var _this4 = this;
+
             var topo = this.buildTopology();
             var bounds = this.bounds();
             var aspect = (bounds.x2 - bounds.x1) / (bounds.y2 - bounds.y1);
@@ -307,7 +310,9 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                         margin: this.props.margin,
                         selection: this.props.selection,
                         edgeDrawingMethod: this.props.edgeDrawingMethod,
-                        onSelectionChange: this.handleSelectionChanged })
+                        onSelectionChange: function onSelectionChange(selectionType, selection) {
+                            return _this4.handleSelectionChanged(selectionType, selection);
+                        } })
                 );
             } else {
                 return _react2.default.createElement(
@@ -326,7 +331,9 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                         margin: this.props.margin,
                         selection: this.props.selection,
                         edgeDrawingMethod: this.props.edgeDrawingMethod,
-                        onSelectionChange: this.handleSelectionChanged })
+                        onSelectionChange: function onSelectionChange(selectionType, selection) {
+                            return _this4.handleSelectionChanged(selectionType, selection);
+                        } })
                 );
             }
         }

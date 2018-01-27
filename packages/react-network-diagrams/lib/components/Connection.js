@@ -60,6 +60,9 @@ var Connection = exports.Connection = function (_React$Component) {
         _this.state = {
             highlighted: false
         };
+        _this.handleMouseOut = _this.handleMouseOut.bind(_this);
+        _this.handleMouseOver = _this.handleMouseOver.bind(_this);
+        _this.handleSelectionChanged = _this.handleSelectionChanged.bind(_this);
         return _this;
     }
 

@@ -74,6 +74,8 @@ var LinearEdge = exports.LinearEdge = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             var classed = "edge-linear";
             var labelClassed = "edge-label";
             var styleModifier = "normal";
@@ -212,7 +214,9 @@ var LinearEdge = exports.LinearEdge = function (_React$Component) {
                             className: classed,
                             d: path,
                             fill: "none",
-                            onClick: this.handleClick }),
+                            onClick: function onClick(e) {
+                                return _this2.handleClick(e);
+                            } }),
                         _react2.default.createElement("path", {
                             className: classed,
                             d: arrow,
@@ -235,7 +239,9 @@ var LinearEdge = exports.LinearEdge = function (_React$Component) {
                             className: classed,
                             d: path,
                             fill: "none",
-                            onClick: this.handleClick })
+                            onClick: function onClick(e) {
+                                return _this2.handleClick(e);
+                            } })
                     ),
                     labelElement
                 );

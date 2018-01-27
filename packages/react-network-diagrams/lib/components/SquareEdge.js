@@ -62,7 +62,7 @@ var SquareEdge = exports.SquareEdge = function (_React$Component) {
             if (this.props.onSelectionChange) {
                 this.props.onSelectionChange("edge", this.props.name);
             }
-            e.stopPropagation();
+            // e.stopPropagation();
         }
     }, {
         key: "_rotateOffset",
@@ -77,6 +77,8 @@ var SquareEdge = exports.SquareEdge = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             var classed = "edge-square";
             var labelClassed = "edge-label";
             var styleModifier = "normal";
@@ -220,7 +222,9 @@ var SquareEdge = exports.SquareEdge = function (_React$Component) {
                             rx: this.props.roundedX,
                             ry: this.props.roundedY,
                             fill: fill,
-                            onClick: this.handleClick })
+                            onClick: function onClick(e) {
+                                return _this2.handleClick(e);
+                            } })
                     ),
                     labelElement
                 );
@@ -234,7 +238,9 @@ var SquareEdge = exports.SquareEdge = function (_React$Component) {
                             strokeWidth: this.props.width,
                             stroke: this.props.color,
                             opacity: opacity,
-                            onClick: this.handleClick },
+                            onClick: function onClick(e) {
+                                return _this2.handleClick(e);
+                            } },
                         _react2.default.createElement("rect", {
                             className: classed,
                             width: width,

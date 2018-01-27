@@ -51,6 +51,7 @@ var Resizable = exports.Resizable = function (_React$Component) {
         _this.state = {
             width: 0
         };
+        _this.handleResize = _this.handleResize.bind(_this);
         return _this;
     }
 
@@ -76,7 +77,6 @@ var Resizable = exports.Resizable = function (_React$Component) {
     }, {
         key: "handleResize",
         value: function handleResize() {
-            console.log("this is ", this);
             if (this.container) {
                 this.setState({
                     width: this.container.offsetWidth
@@ -100,7 +100,8 @@ var Resizable = exports.Resizable = function (_React$Component) {
                 _extends({
                     ref: function ref(c) {
                         _this4.container = c;
-                    }
+                    },
+                    style: this.props.style
                 }, this.props),
                 childElement
             );
@@ -111,6 +112,5 @@ var Resizable = exports.Resizable = function (_React$Component) {
 }(_react2.default.Component);
 
 Resizable.propTypes = {
-    children: _propTypes2.default.node,
-    aspect: _propTypes2.default.number
+    children: _propTypes2.default.node
 };

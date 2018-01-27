@@ -15,7 +15,7 @@ var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _constants = require("./constants.js");
+var _constants = require("../js/constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52,6 +52,9 @@ var Navigate = exports.Navigate = function (_React$Component) {
         _this.state = {
             hover: false
         };
+        _this.handleMouseClick = _this.handleMouseClick.bind(_this);
+        _this.handleMouseOut = _this.handleMouseOut.bind(_this);
+        _this.handleMouseOver = _this.handleMouseOver.bind(_this);
         return _this;
     }
 

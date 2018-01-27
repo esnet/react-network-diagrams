@@ -62,6 +62,17 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
             selectionType: null,
             selection: null
         };
+        _this.handleAddEdge = _this.handleAddEdge.bind(_this);
+        _this.handleAddNode = _this.handleAddNode.bind(_this);
+        // this.handleAddNodePosition = this.handleAddNodePosition.bind(this);
+        // this.handleAddSelection = this.handleAddSelection.bind(this);
+        // this.handleChange = this.handleChange.bind(this);
+        _this.handleDeleteEdge = _this.handleDeleteEdge.bind(_this);
+        // this.handleDeleteEdgeSelection = this.handleDeleteEdgeSelection.bind(this);
+        _this.handleDeleteNode = _this.handleDeleteNode.bind(_this);
+        // this.handleDeleteNodeSelection = this.handleDeleteNodeSelection.bind(this);
+        // this.handleNodeDrag = this.handleNodeDrag.bind(this);
+        // this.handleSelectionChanged = this.handleSelectionChanged.bind(this);
         return _this;
     }
 
@@ -267,6 +278,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleSelectionChanged",
         value: function handleSelectionChanged(selectionType, selectionId) {
+            // console.log("mapeditor handleSelectionChanged ", selectionType, selectionId);
             var selection = void 0;
             if (selectionType === "node") {
                 selection = this.findNode(selectionId);
@@ -278,6 +290,8 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleChange",
         value: function handleChange(attr, value) {
+            console.log("handleChange attr value is ", attr, value);
+            console.log("this is ", this);
             var selected = this.state.selection;
             selected[attr] = value;
 
@@ -288,6 +302,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleNodeDrag",
         value: function handleNodeDrag(id, posx, posy) {
+            console.log("handleNodeDrag");
             var topo = this.cloneTopo();
 
             var _constrain = this.constrain(posx, posy),
@@ -308,6 +323,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleAddNode",
         value: function handleAddNode() {
+            console.log("handleAddNode");
             this.setState({ pendingAction: {
                     action: "add-node",
                     instructions: "Pick a point (x,y)"
@@ -322,6 +338,8 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleAddNodePosition",
         value: function handleAddNodePosition(posx, posy) {
+            console.log("handleAddNodePosition");
+            // console.log("handleAddNodePosition posx posy is ", posx, posy);
             var topo = this.cloneTopo();
 
             var _constrain2 = this.constrain(posx, posy),
@@ -354,6 +372,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleAddEdge",
         value: function handleAddEdge() {
+            console.log("handleAddEdge");
             this.setState({ pendingAction: {
                     action: "add-edge",
                     instructions: "Pick source node",
@@ -363,6 +382,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleDeleteNode",
         value: function handleDeleteNode() {
+            console.log("handleDeleteNode");
             this.setState({ pendingAction: {
                     action: "delete-node",
                     instructions: "Pick a node to delete (will delete related edges)",
@@ -372,6 +392,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleDeleteEdge",
         value: function handleDeleteEdge() {
+            console.log("handleDeleteEdge");
             this.setState({ pendingAction: {
                     action: "delete-edge",
                     instructions: "Pick an edge to delete",
@@ -381,6 +402,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleAddSelection",
         value: function handleAddSelection(node) {
+            console.log("handleAddSelection");
             var action = this.state.pendingAction;
             if (action.action === "add-edge") {
                 action.nodes.push(node);
@@ -412,6 +434,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleDeleteNodeSelection",
         value: function handleDeleteNodeSelection(nodeId) {
+            console.log("handleDeleteNodeSelection");
             var action = this.state.pendingAction;
             if (action.action === "delete-node") {
                 action.nodes.push(nodeId);
@@ -438,6 +461,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleDeleteEdgeSelection",
         value: function handleDeleteEdgeSelection(edgeId) {
+            console.log("handleDeleteEdgeSelection");
             var action = this.state.pendingAction;
             if (action.action === "delete-edge") {
                 action.edgeId = edgeId;
@@ -492,6 +516,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
         value: function renderChoiceProperty(attr, options, value) {
             var _this5 = this;
 
+            // console.log("renderChoiceProperty options is ", options);
             return _react2.default.createElement(_reactSelect2.default, {
                 value: value,
                 searchable: false,
@@ -772,6 +797,8 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "renderMap",
         value: function renderMap() {
+            var _this8 = this;
+
             var topo = this.buildTopology();
             var bounds = this.bounds();
             var aspect = (bounds.x2 - bounds.x1) / (bounds.y2 - bounds.y1);
@@ -781,17 +808,28 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
             var edgeSelected = void 0;
 
             if (this.state.pendingAction) {
+                // console.log("pending action is ", this.state.pendingAction);
                 if (this.state.pendingAction.action === "add-node") {
-                    positionSelected = this.handleAddNodePosition;
+                    // console.log("here");
+                    positionSelected = function positionSelected(posx, posy) {
+                        return _this8.handleAddNodePosition(posx, posy);
+                    };
+                    // console.log("position Selected is ", positionSelected);
                 }
                 if (this.state.pendingAction.action === "add-edge") {
-                    nodeSelected = this.handleAddSelection;
+                    nodeSelected = function nodeSelected(node) {
+                        return _this8.handleAddSelection(node);
+                    };
                 }
                 if (this.state.pendingAction.action === "delete-node") {
-                    nodeSelected = this.handleDeleteNodeSelection;
+                    nodeSelected = function nodeSelected(nodeId) {
+                        return _this8.handleDeleteNodeSelection(nodeId);
+                    };
                 }
                 if (this.state.pendingAction.action === "delete-edge") {
-                    edgeSelected = this.handleDeleteEdgeSelection;
+                    edgeSelected = function edgeSelected(edgeId) {
+                        return _this8.handleDeleteEdgeSelection(edgeId);
+                    };
                 }
             }
 
@@ -816,27 +854,43 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                         bounds: bounds,
                         selection: mapSelection,
                         edgeDrawingMethod: "simple",
-                        onSelectionChange: this.handleSelectionChanged,
+                        onSelectionChange: function onSelectionChange(selectionType, selectionId) {
+                            return _this8.handleSelectionChanged(selectionType, selectionId);
+                        },
                         onPositionSelected: positionSelected,
                         onNodeSelected: nodeSelected,
                         onEdgeSelected: edgeSelected,
-                        onNodeDrag: this.handleNodeDrag })
+                        onNodeDrag: function onNodeDrag(id, posx, posy) {
+                            return _this8.handleNodeDrag(id, posx, posy);
+                        } })
                 );
             } else {
-                return _react2.default.createElement(_BaseMap.BaseMap, {
-                    topology: topo,
-                    width: this.props.width,
-                    height: this.props.height,
-                    autoSize: this.props.autoSize,
-                    margin: this.props.margin,
-                    bounds: bounds,
-                    selection: mapSelection,
-                    edgeDrawingMethod: "simple",
-                    onSelectionChange: this.handleSelectionChanged,
-                    onPositionSelected: positionSelected,
-                    onNodeSelected: nodeSelected,
-                    onEdgeSelected: edgeSelected,
-                    onNodeDrag: this.handleNodeDrag });
+                return _react2.default.createElement(
+                    "div",
+                    { style: {
+                            background: "#F6F6F6",
+                            borderStyle: "solid",
+                            borderWidth: "thin",
+                            borderColor: "#E6E6E6" } },
+                    _react2.default.createElement(_BaseMap.BaseMap, {
+                        topology: topo,
+                        width: this.props.width,
+                        height: this.props.height,
+                        autoSize: this.props.autoSize,
+                        margin: this.props.margin,
+                        bounds: bounds,
+                        selection: mapSelection,
+                        edgeDrawingMethod: "simple",
+                        onSelectionChange: function onSelectionChange(selectionType, selectionId) {
+                            return _this8.handleSelectionChanged(selectionType, selectionId);
+                        },
+                        onPositionSelected: positionSelected,
+                        onNodeSelected: nodeSelected,
+                        onEdgeSelected: edgeSelected,
+                        onNodeDrag: function onNodeDrag(id, posx, posy) {
+                            return _this8.handleNodeDrag(id, posx, posy);
+                        } })
+                );
             }
         }
     }, {

@@ -21,7 +21,7 @@ var _Endpoint = require("./Endpoint");
 
 var _Navigate = require("./Navigate");
 
-var _constants = require("./constants");
+var _constants = require("../js/constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

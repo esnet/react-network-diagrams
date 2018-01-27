@@ -54,6 +54,7 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
         _this.state = {
             hover: false
         };
+        _this.handleSelectionChange = _this.handleSelectionChange.bind(_this);
         return _this;
     }
 

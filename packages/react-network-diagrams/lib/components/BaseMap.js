@@ -80,8 +80,12 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
 
         _this.state = {
             dragging: null
-        };
-        return _this;
+            // this.handleClick = this.handleClick.bind(this);
+            // this.handleMouseMove = this.handleMouseMove.bind(this);
+            // this.handleMouseUp = this.handleMouseUp.bind(this);
+            // this.handleNodeMouseDown = this.handleNodeMouseDown.bind(this);
+            // this.handleSelectionChange = this.handleSelectionChange.bind(this);
+        };return _this;
     }
 
     _createClass(BaseMap, [{
@@ -178,7 +182,7 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
     }, {
         key: "getOffsetMousePosition",
         value: function getOffsetMousePosition(e) {
-            var trackerRect = this.refs.map;
+            var trackerRect = this.map;
             var offset = getElementOffset(trackerRect);
             var x = e.pageX - offset.left;
             var y = e.pageY - offset.top;
@@ -251,7 +255,9 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                     onSelectionChange: function onSelectionChange(type, i) {
                         return _this2.handleSelectionChange(type, i);
                     },
-                    onMouseDown: _this2.handleNodeMouseDown,
+                    onMouseDown: function onMouseDown(id, e) {
+                        return _this2.handleNodeMouseDown(id, e);
+                    },
                     onMouseMove: function onMouseMove(type, i, xx, yy) {
                         return _this2.props.onNodeMouseMove(i, xx, yy);
                     },
@@ -351,7 +357,8 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                     curveDirection = edge.curveDirection;
                 }
 
-                var muted = hasSelectedEdge && !selected || hasSelectedNode;
+                var muted_val = hasSelectedEdge && !selected || hasSelectedNode;
+                var muted = muted_val === 0 ? false : true;
 
                 if (edgeDrawingMethod === "simple") {
                     return _react2.default.createElement(_SimpleEdge.SimpleEdge, {
@@ -370,7 +377,9 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                         name: edge.name,
                         selected: selected,
                         muted: muted,
-                        onSelectionChange: _this2.handleSelectionChange });
+                        onSelectionChange: function onSelectionChange(type, id) {
+                            return _this2.handleSelectionChange(type, id);
+                        } });
                 } else if (edgeDrawingMethod === "bidirectionalArrow") {
                     return _react2.default.createElement(_BidirectionalEdge.BidirectionalEdge, {
                         x1: nodeCoordinates[edge.source].x,
@@ -390,7 +399,9 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                         name: edge.name,
                         selected: selected,
                         muted: muted,
-                        onSelectionChange: _this2.handleSelectionChange });
+                        onSelectionChange: function onSelectionChange(type, id) {
+                            return _this2.handleSelectionChange(type, id);
+                        } });
                 } else if (edgeDrawingMethod === "pathBidirectionalArrow") {
                     if (_underscore2.default.has(edgePathMap, edge.name)) {
                         return _react2.default.createElement(_BidirectionalEdge.BidirectionalEdge, {
@@ -410,7 +421,9 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                             name: edge.name,
                             selected: selected,
                             muted: muted,
-                            onSelectionChange: _this2.handleSelectionChange });
+                            onSelectionChange: function onSelectionChange(type, id) {
+                                return _this2.handleSelectionChange(type, id);
+                            } });
                     } else {
                         return _react2.default.createElement(_SimpleEdge.SimpleEdge, {
                             x1: nodeCoordinates[edge.source].x,
@@ -428,7 +441,9 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                             name: edge.name,
                             selected: selected,
                             muted: muted,
-                            onSelectionChange: _this2.handleSelectionChange });
+                            onSelectionChange: function onSelectionChange(type, id) {
+                                return _this2.handleSelectionChange(type, id);
+                            } });
                     }
                 }
             });
@@ -562,13 +577,21 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                 "svg",
                 {
                     style: style,
-                    ref: "map",
+                    ref: function ref(inst) {
+                        _this2.map = inst;
+                    },
                     width: this.props.width,
                     height: this.props.height,
                     className: "noselect map-container",
-                    onClick: this.handleClick,
-                    onMouseMove: this.handleMouseMove,
-                    onMouseUp: this.handleMouseUp },
+                    onClick: function onClick(e) {
+                        return _this2.handleClick(e);
+                    },
+                    onMouseMove: function onMouseMove(e) {
+                        return _this2.handleMouseMove(e);
+                    },
+                    onMouseUp: function onMouseUp(e) {
+                        return _this2.handleMouseUp(e);
+                    } },
                 _react2.default.createElement(
                     "g",
                     null,

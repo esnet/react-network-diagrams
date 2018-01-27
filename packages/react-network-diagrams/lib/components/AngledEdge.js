@@ -93,6 +93,8 @@ var AngledEdge = exports.AngledEdge = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             // Class
             var classed = "edge-angled";
             var labelClassed = "edge-label";
@@ -286,7 +288,9 @@ var AngledEdge = exports.AngledEdge = function (_React$Component) {
                         _react2.default.createElement("path", {
                             d: path,
                             fill: "none", className: classed,
-                            onClick: this.handleClick }),
+                            onClick: function onClick(e) {
+                                return _this2.handleClick(e);
+                            } }),
                         _react2.default.createElement("path", {
                             d: arrow,
                             className: classed,
@@ -310,7 +314,9 @@ var AngledEdge = exports.AngledEdge = function (_React$Component) {
                             d: path,
                             fill: "none",
                             className: classed,
-                            onClick: this.handleClick })
+                            onClick: function onClick(e) {
+                                return _this2.handleClick(e);
+                            } })
                     ),
                     labelElement
                 );

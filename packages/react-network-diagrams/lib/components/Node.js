@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Node = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require("react");
@@ -66,6 +68,8 @@ var Node = exports.Node = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             var nodeClasses = "map-node";
             var labelClasses = "map-node-label";
             var styleModifier = "normal";
@@ -90,12 +94,20 @@ var Node = exports.Node = function (_React$Component) {
             // 0.8 * font size? ish..
             var fontOffset = 8;
 
+            console.log("here node labels ", this);
             var labelX = this.props.x;
             var labelY = this.props.y;
             var labelR = 0;
             var textAnchor = "middle";
             var rotate = "rotate(" + labelR + " " + labelX + ", " + labelY + ")";
-            switch (this.props.labelPosition) {
+            var labelPosition = void 0;
+            if (_typeof(this.props.labelPosition) === 'object') {
+                labelPosition = this.props.labelPosition.value;
+            } else {
+                labelPosition = this.props.labelPosition;
+            }
+            console.log("labelPosition is ", labelPosition);
+            switch (labelPosition) {
                 case "left":
                     labelX -= basicOffset;
                     labelY += 5;
@@ -103,6 +115,7 @@ var Node = exports.Node = function (_React$Component) {
                     break;
 
                 case "right":
+                    console.log("here right");
                     labelX += basicOffset;
                     labelY += 5;
                     textAnchor = "start";
@@ -244,9 +257,13 @@ var Node = exports.Node = function (_React$Component) {
             if (this.props.label) {
                 return _react2.default.createElement(
                     "g",
-                    { onClick: this.handMouseClick,
+                    { onClick: function onClick(e) {
+                            return _this2.handMouseClick(e);
+                        },
                         onMouseOver: this.handleMouseOver,
-                        onMouseDown: this.handleMouseDown,
+                        onMouseDown: function onMouseDown(e) {
+                            return _this2.handleMouseDown(e);
+                        },
                         onMouseMove: this.handleMouseMove },
                     nodeElement,
                     _react2.default.createElement(
@@ -263,9 +280,13 @@ var Node = exports.Node = function (_React$Component) {
             } else {
                 return _react2.default.createElement(
                     "g",
-                    { onClick: this.handMouseClick,
+                    { onClick: function onClick(e) {
+                            return _this2.handMouseClick(e);
+                        },
                         onMouseOver: this.handleMouseOver,
-                        onMouseDown: this.handleMouseDown,
+                        onMouseDown: function onMouseDown(e) {
+                            return _this2.handleMouseDown();
+                        },
                         onMouseMove: this.handleMouseMove,
                         onMouseUp: this.handleMouseUp },
                     nodeElement

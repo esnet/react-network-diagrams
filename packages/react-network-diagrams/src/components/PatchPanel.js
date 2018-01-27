@@ -24,6 +24,7 @@ export class PatchPanel extends React.Component {
         this.state = { 
             hover: false 
         };
+        this.handleSelectionChange = this.handleSelectionChange.bind(this);
     }
 
     handleSelectionChange(e, value) {

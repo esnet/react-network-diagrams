@@ -25,6 +25,7 @@ export class Resizable extends React.Component {
         this.state = {
             width: 0
         };
+        this.handleResize = this.handleResize.bind(this);
     }
 
     componentDidMount() {
@@ -37,7 +38,6 @@ export class Resizable extends React.Component {
     }
 
     handleResize() {
-        console.log("this is ", this);
         if (this.container) {
             this.setState({
                 width: this.container.offsetWidth
@@ -59,6 +59,7 @@ export class Resizable extends React.Component {
                 ref={c => {
                     this.container = c;
                 }}
+                style={this.props.style}
                 {...this.props}
             >
                 {childElement}

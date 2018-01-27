@@ -87,12 +87,20 @@ export class Node extends React.Component {
         // 0.8 * font size? ish..
         const fontOffset = 8;
 
+        console.log("here node labels ", this);
         let labelX = this.props.x;
         let labelY = this.props.y;
         let labelR = 0;
         let textAnchor = "middle";
         let rotate = `rotate(${labelR} ${labelX}, ${labelY})`;
-        switch (this.props.labelPosition) {
+        let labelPosition;
+        if (typeof this.props.labelPosition === 'object') {
+            labelPosition = this.props.labelPosition.value;
+        } else {
+            labelPosition = this.props.labelPosition;
+        }
+        console.log("labelPosition is ", labelPosition);
+        switch (labelPosition) {
             case "left":
                 labelX -= basicOffset;
                 labelY += 5;
@@ -100,6 +108,7 @@ export class Node extends React.Component {
                 break;
 
             case "right":
+                console.log("here right");
                 labelX += basicOffset;
                 labelY += 5;
                 textAnchor = "start";
@@ -247,9 +256,9 @@ export class Node extends React.Component {
 
         if (this.props.label) {
             return (
-                <g onClick={this.handMouseClick}
+                <g onClick={e => this.handMouseClick(e)}
                    onMouseOver={this.handleMouseOver}
-                   onMouseDown={this.handleMouseDown}
+                   onMouseDown={e => this.handleMouseDown(e)}
                    onMouseMove={this.handleMouseMove}>
                     {nodeElement}
                     <text x={labelX}
@@ -262,9 +271,9 @@ export class Node extends React.Component {
             );
         } else {
             return (
-                <g onClick={this.handMouseClick}
+                <g onClick={e => this.handMouseClick(e)}
                    onMouseOver={this.handleMouseOver}
-                   onMouseDown={this.handleMouseDown}
+                   onMouseDown={e => this.handleMouseDown()}
                    onMouseMove={this.handleMouseMove}
                    onMouseUp={this.handleMouseUp}>
                     {nodeElement}

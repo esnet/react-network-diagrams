@@ -44,6 +44,12 @@ export default class extends Component {
         this.fetchMarkdownForProps(nextProps);
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.match.params.example !== this.props.match.params.example) {
+            this.fetchMarkdownForProps(this.props);
+        }
+    }
+    
     renderMarkdown() {
         if (this.state.markdown) {
             return (

@@ -8,9 +8,9 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
-import _ from "underscore";
 import React from "react";
 import PropTypes from "prop-types";
+import _ from "underscore";
 
 import { BaseMap } from "./BaseMap";
 import { Resizable } from "./Resizable";
@@ -236,6 +236,7 @@ export class TrafficMap extends React.Component {
 
     handleSelectionChanged(selectionType, selection) {
         if (this.props.onSelectionChange) {
+            console.log("traffic map selectionType, selection is ", selectionType, selection);
             this.props.onSelectionChange(selectionType, selection);
         }
     }
@@ -261,7 +262,7 @@ export class TrafficMap extends React.Component {
                         margin={this.props.margin}
                         selection={this.props.selection}
                         edgeDrawingMethod={this.props.edgeDrawingMethod}
-                        onSelectionChange={this.handleSelectionChanged} />
+                        onSelectionChange={(selectionType, selection) => this.handleSelectionChanged(selectionType, selection)} />
                 </Resizable>
             );
         } else {
@@ -280,7 +281,7 @@ export class TrafficMap extends React.Component {
                         margin={this.props.margin}
                         selection={this.props.selection}
                         edgeDrawingMethod={this.props.edgeDrawingMethod}
-                        onSelectionChange={this.handleSelectionChanged} />
+                        onSelectionChange={(selectionType, selection) => this.handleSelectionChanged(selectionType, selection)} />
                 </div>
             );
         }

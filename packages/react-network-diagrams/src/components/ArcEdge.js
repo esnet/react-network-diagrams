@@ -36,7 +36,7 @@ const Vector = Victor;
 export class ArcEdge extends React.Component {
 
     handleClick(e) {
-        console.log("arcedge handleClick e, this ",e,this);
+        console.log("arcedge handleClick e, this ", e, this);
         e.stopPropagation();
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange("edge", this.props.name);
@@ -231,7 +231,7 @@ export class ArcEdge extends React.Component {
                         <path
                             d={path}
                             fill="none" className={classed}
-                            onClick={this.handleClick}/>
+                            onClick={e => this.handleClick(e)}/>
                         <path
                             d={arrow}
                             className={classed}
@@ -253,7 +253,7 @@ export class ArcEdge extends React.Component {
                             d={path}
                             fill="none"
                             className={classed}
-                            onClick={this.handleClick}/>
+                            onClick={e => this.handleClick(e)}/>
                     </g>
                     {labelElement}
                 </g>

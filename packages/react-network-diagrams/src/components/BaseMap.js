@@ -43,6 +43,11 @@ export class BaseMap extends React.Component {
         this.state = {
             dragging: null
         }
+        // this.handleClick = this.handleClick.bind(this);
+        // this.handleMouseMove = this.handleMouseMove.bind(this);
+        // this.handleMouseUp = this.handleMouseUp.bind(this);
+        // this.handleNodeMouseDown = this.handleNodeMouseDown.bind(this);
+        // this.handleSelectionChange = this.handleSelectionChange.bind(this);
     }
 
     handleNodeMouseDown(id, e) {
@@ -110,7 +115,7 @@ export class BaseMap extends React.Component {
      * Get the event mouse position relative to the event rect
      */
     getOffsetMousePosition(e) {
-        const trackerRect = this.refs.map;
+        const trackerRect = this.map;
         const offset = getElementOffset(trackerRect);
         const x = e.pageX - offset.left;
         const y = e.pageY - offset.top;
@@ -188,7 +193,7 @@ export class BaseMap extends React.Component {
                 <Node key={props.id}
                       {...props}
                       onSelectionChange={(type, i) => this.handleSelectionChange(type, i)}
-                      onMouseDown={this.handleNodeMouseDown}
+                      onMouseDown={(id, e) => this.handleNodeMouseDown(id, e)}
                       onMouseMove={(type, i, xx, yy) => this.props.onNodeMouseMove(i, xx, yy)}
                       onMouseUp={(type, i, e) => this.props.onNodeMouseUp(i, e)} />
             );
@@ -287,7 +292,8 @@ export class BaseMap extends React.Component {
                 curveDirection = edge.curveDirection;
             }
 
-            const muted = (hasSelectedEdge && !selected) || hasSelectedNode;
+            const muted_val = (hasSelectedEdge && !selected) || hasSelectedNode;
+            const muted = muted_val === 0 ? false : true;
 
             if (edgeDrawingMethod === "simple") {
                 return (
@@ -307,7 +313,7 @@ export class BaseMap extends React.Component {
                         name={edge.name}
                         selected={selected}
                         muted={muted}
-                        onSelectionChange={this.handleSelectionChange}/>
+                        onSelectionChange={(type, id) => this.handleSelectionChange(type, id)}/>
                 );
             } else if (edgeDrawingMethod === "bidirectionalArrow") {
                 return (
@@ -329,7 +335,7 @@ export class BaseMap extends React.Component {
                         name={edge.name}
                         selected={selected}
                         muted={muted}
-                        onSelectionChange={this.handleSelectionChange} />
+                        onSelectionChange={(type, id) => this.handleSelectionChange(type, id)} />
                 );
             } else if (edgeDrawingMethod === "pathBidirectionalArrow") {
                 if (_.has(edgePathMap, edge.name)) {
@@ -351,7 +357,7 @@ export class BaseMap extends React.Component {
                             name={edge.name}
                             selected={selected}
                             muted={muted}
-                            onSelectionChange={this.handleSelectionChange}/>
+                            onSelectionChange={(type, id) => this.handleSelectionChange(type, id)}/>
                     );
                 } else {
                     return (
@@ -371,7 +377,7 @@ export class BaseMap extends React.Component {
                             name={edge.name}
                             selected={selected}
                             muted={muted}
-                            onSelectionChange={this.handleSelectionChange}/>
+                            onSelectionChange={(type, id) => this.handleSelectionChange(type, id)}/>
                     );
                 }
             }
@@ -519,13 +525,15 @@ export class BaseMap extends React.Component {
         return (
             <svg
                 style={style}
-                ref="map"
+                ref={inst => {
+                    this.map = inst;
+                }}
                 width={this.props.width}
                 height={this.props.height}
                 className="noselect map-container"
-                onClick={this.handleClick}
-                onMouseMove={this.handleMouseMove}
-                onMouseUp={this.handleMouseUp} >
+                onClick={e => this.handleClick(e)}
+                onMouseMove={e => this.handleMouseMove(e)}
+                onMouseUp={e => this.handleMouseUp(e)} >
                 <g>
                     {edges}
                     {paths}

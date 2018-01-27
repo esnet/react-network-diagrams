@@ -29,6 +29,17 @@ export class MapEditor extends React.Component {
             selectionType: null,
             selection: null
         }
+        this.handleAddEdge = this.handleAddEdge.bind(this);
+        this.handleAddNode = this.handleAddNode.bind(this);
+        // this.handleAddNodePosition = this.handleAddNodePosition.bind(this);
+        // this.handleAddSelection = this.handleAddSelection.bind(this);
+        // this.handleChange = this.handleChange.bind(this);
+        this.handleDeleteEdge = this.handleDeleteEdge.bind(this);
+        // this.handleDeleteEdgeSelection = this.handleDeleteEdgeSelection.bind(this);
+        this.handleDeleteNode = this.handleDeleteNode.bind(this);
+        // this.handleDeleteNodeSelection = this.handleDeleteNodeSelection.bind(this);
+        // this.handleNodeDrag = this.handleNodeDrag.bind(this);
+        // this.handleSelectionChanged = this.handleSelectionChanged.bind(this);
     }
 
     constrain(x, y) {
@@ -200,6 +211,7 @@ export class MapEditor extends React.Component {
     }
 
     handleSelectionChanged(selectionType, selectionId) {
+        // console.log("mapeditor handleSelectionChanged ", selectionType, selectionId);
         let selection;
         if (selectionType === "node") {
             selection = this.findNode(selectionId);
@@ -210,6 +222,8 @@ export class MapEditor extends React.Component {
     }
 
     handleChange(attr, value) {
+        console.log("handleChange attr value is ", attr, value);
+        console.log("this is ", this);
         const selected = this.state.selection;
         selected[attr] = value;
 
@@ -219,6 +233,7 @@ export class MapEditor extends React.Component {
     }
 
     handleNodeDrag(id, posx, posy) {
+        console.log("handleNodeDrag");
         const topo = this.cloneTopo();
         const { x, y } = this.constrain(posx, posy);
 
@@ -235,6 +250,7 @@ export class MapEditor extends React.Component {
     }
 
     handleAddNode() {
+        console.log("handleAddNode");
         this.setState({pendingAction: {
             action: "add-node",
             instructions: "Pick a point (x,y)"
@@ -246,6 +262,8 @@ export class MapEditor extends React.Component {
      * the application level (action) rather than down here in the editor.
      */
     handleAddNodePosition(posx, posy) {
+        console.log("handleAddNodePosition");
+        // console.log("handleAddNodePosition posx posy is ", posx, posy);
         const topo = this.cloneTopo();
         const { x, y } = this.constrain(posx, posy);
         const n = {
@@ -273,6 +291,7 @@ export class MapEditor extends React.Component {
     }
 
     handleAddEdge() {
+        console.log("handleAddEdge");
         this.setState({pendingAction: {
             action: "add-edge",
             instructions: "Pick source node",
@@ -281,6 +300,7 @@ export class MapEditor extends React.Component {
     }
 
     handleDeleteNode() {
+        console.log("handleDeleteNode");
         this.setState({ pendingAction: {
             action: "delete-node",
             instructions: "Pick a node to delete (will delete related edges)",
@@ -289,6 +309,7 @@ export class MapEditor extends React.Component {
     }
 
     handleDeleteEdge() {
+        console.log("handleDeleteEdge");
         this.setState({ pendingAction: {
             action: "delete-edge",
             instructions: "Pick an edge to delete",
@@ -297,6 +318,7 @@ export class MapEditor extends React.Component {
     }
 
     handleAddSelection(node) {
+        console.log("handleAddSelection");
         const action = this.state.pendingAction;
         if (action.action === "add-edge") {
             action.nodes.push(node);
@@ -327,6 +349,7 @@ export class MapEditor extends React.Component {
     }
 
     handleDeleteNodeSelection(nodeId) {
+        console.log("handleDeleteNodeSelection");
         const action = this.state.pendingAction;
         if (action.action === "delete-node") {
             action.nodes.push(nodeId);
@@ -352,6 +375,7 @@ export class MapEditor extends React.Component {
     }
 
     handleDeleteEdgeSelection(edgeId) {
+        console.log("handleDeleteEdgeSelection");
         const action = this.state.pendingAction;
         if (action.action === "delete-edge") {
             action.edgeId = edgeId;
@@ -399,6 +423,7 @@ export class MapEditor extends React.Component {
     }
 
     renderChoiceProperty(attr, options, value) {
+        // console.log("renderChoiceProperty options is ", options);
         return (
             <Select
                 value={value}
@@ -635,17 +660,20 @@ export class MapEditor extends React.Component {
         let edgeSelected;
 
         if (this.state.pendingAction) {
+            // console.log("pending action is ", this.state.pendingAction);
             if (this.state.pendingAction.action === "add-node") {
-                positionSelected = this.handleAddNodePosition;
+                // console.log("here");
+                positionSelected = ((posx, posy) => this.handleAddNodePosition(posx, posy));
+                // console.log("position Selected is ", positionSelected);
             }
             if (this.state.pendingAction.action === "add-edge") {
-                nodeSelected = this.handleAddSelection;
+                nodeSelected = ((node) => this.handleAddSelection(node));
             }
             if (this.state.pendingAction.action === "delete-node") {
-                nodeSelected = this.handleDeleteNodeSelection;
+                nodeSelected = ((nodeId) => this.handleDeleteNodeSelection(nodeId));
             }
             if (this.state.pendingAction.action === "delete-edge") {
-                edgeSelected = this.handleDeleteEdgeSelection;
+                edgeSelected = ((edgeId) => this.handleDeleteEdgeSelection(edgeId));
             }
         }
 
@@ -671,29 +699,35 @@ export class MapEditor extends React.Component {
                         bounds={bounds}
                         selection={mapSelection}
                         edgeDrawingMethod="simple"
-                        onSelectionChange={this.handleSelectionChanged}
+                        onSelectionChange={(selectionType, selectionId) => this.handleSelectionChanged(selectionType, selectionId)}
                         onPositionSelected={positionSelected}
                         onNodeSelected={nodeSelected}
                         onEdgeSelected={edgeSelected}
-                        onNodeDrag={this.handleNodeDrag} />
+                        onNodeDrag={(id, posx, posy) => this.handleNodeDrag(id, posx, posy)} />
                 </Resizable>
             );
         } else {
             return (
-                <BaseMap
-                    topology={topo}
-                    width={this.props.width}
-                    height={this.props.height}
-                    autoSize={this.props.autoSize}
-                    margin={this.props.margin}
-                    bounds={bounds}
-                    selection={mapSelection}
-                    edgeDrawingMethod="simple"
-                    onSelectionChange={this.handleSelectionChanged}
-                    onPositionSelected={positionSelected}
-                    onNodeSelected={nodeSelected}
-                    onEdgeSelected={edgeSelected}
-                    onNodeDrag={this.handleNodeDrag} />
+                <div style={{
+                    background: "#F6F6F6",
+                    borderStyle: "solid",
+                    borderWidth: "thin",
+                    borderColor: "#E6E6E6"}}>
+                    <BaseMap
+                        topology={topo}
+                        width={this.props.width}
+                        height={this.props.height}
+                        autoSize={this.props.autoSize}
+                        margin={this.props.margin}
+                        bounds={bounds}
+                        selection={mapSelection}
+                        edgeDrawingMethod="simple"
+                        onSelectionChange={(selectionType, selectionId) => this.handleSelectionChanged(selectionType, selectionId)}
+                        onPositionSelected={positionSelected}
+                        onNodeSelected={nodeSelected}
+                        onEdgeSelected={edgeSelected}
+                        onNodeDrag={(id, posx, posy) => this.handleNodeDrag(id, posx, posy)} />
+                </div>
             );
         }
     }

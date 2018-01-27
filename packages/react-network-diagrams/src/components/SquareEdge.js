@@ -29,7 +29,7 @@ export class SquareEdge extends React.Component {
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange("edge", this.props.name);
         }
-        e.stopPropagation();
+        // e.stopPropagation();
     }
 
     _rotateOffset(cx, x, y, a) {
@@ -187,7 +187,7 @@ export class SquareEdge extends React.Component {
                             rx={this.props.roundedX}
                             ry={this.props.roundedY}
                             fill={fill}
-                            onClick={this.handleClick}/>
+                            onClick={e => this.handleClick(e)}/>
                     </g>
                     {labelElement}
                 </g>
@@ -199,7 +199,7 @@ export class SquareEdge extends React.Component {
                         strokeWidth={this.props.width}
                         stroke={this.props.color}
                         opacity={opacity}
-                        onClick={this.handleClick}>
+                        onClick={e => this.handleClick(e)}>
                         <rect
                             className={classed}
                             width={width}

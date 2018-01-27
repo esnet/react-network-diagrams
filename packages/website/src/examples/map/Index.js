@@ -10,8 +10,8 @@
 
 import React from "react";
 import _ from "underscore";
-import { Event } from "pondjs";
-import { TrafficMap } from "react-network-diagrams";
+import { Event, TimeEvent } from "pondjs";
+import { TrafficMap, Resizable } from "react-network-diagrams";
 import * as Immutable from "immutable";
 
 import map_docs from "./map_docs.md";
@@ -29,14 +29,14 @@ import rawTraffic from "./traffic.json";
 //
 
 const timestamp = rawTraffic.timestamp * 1000;
-const edgeTraffic = Immutable.Map({});
+const edgeTraffic = {};
 _.each(rawTraffic.edges, edge => {
     _.each(edge.bps, (bps, dir) => {
         edgeTraffic[dir] = bps;
     });
 });
 
-const traffic = new Event(timestamp, edgeTraffic);
+const traffic = new TimeEvent(timestamp, Immutable.Map(edgeTraffic));
 
 class map extends React.Component {
 
@@ -46,8 +46,6 @@ class map extends React.Component {
             selectionType: null,
             selection: null
         };
-
-        this.handleSelectionChanged = this.handleSelectionChanged.bind(this);
     }
 
     handleSelectionChanged(selectionType, selection) {
@@ -176,7 +174,7 @@ class map extends React.Component {
                             nodeShapeMap={nodeShapeMap}
                             stylesMap={stylesMap}
                             selection={mapSelection}
-                            onSelectionChange={this.handleSelectionChanged} />
+                            onSelectionChange={(selectionType, selection) => this.handleSelectionChanged(selectionType, selection)} />
                     </div>
                 </div>
             </div>

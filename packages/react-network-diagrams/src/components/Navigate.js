@@ -11,7 +11,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Directions } from "./constants.js";
+import { Directions } from "../js/constants";
 // import createReactClass from "create-react-class";
 
 /**
@@ -27,6 +27,9 @@ export class Navigate extends React.Component {
         this.state = {
             hover: false
         };
+        this.handleMouseClick = this.handleMouseClick.bind(this);
+        this.handleMouseOut = this.handleMouseOut.bind(this);
+        this.handleMouseOver = this.handleMouseOver.bind(this);
     }
 
     /**

@@ -30,7 +30,7 @@ export class SimpleEdge extends React.Component {
         }
         if (!_.isUndefined(this.props.classed)) {
             classed += " " + this.props.classed;
-        }
+        }   
 
         // Render based on shape
         if (this.props.shape === "curved") {

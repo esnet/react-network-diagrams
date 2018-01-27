@@ -22,7 +22,7 @@
     "docs": "echo \"*** Building API docs\n\" && react-docgen src/components -x js -o ../website/src/api/docs.json --pretty",
     "lint": "eslint src/components/*.js",
     "test": "npm run lint",
-    "build": "echo \"*** Building lib\n\" && rm -rf lib/* && babel src/components --optional runtime --stage 0 --out-dir lib/components && babel src/index.js --optional runtime --stage 0 --out-file lib/index.js",
+    "build": "echo \"*** Building lib\n\" && rm -rf lib/* && babel src/components --optional runtime --stage 0 --out-dir lib/components && babel src/js --optional runtime --stage 0 --out-dir lib/js && babel src/index.js --optional runtime --stage 0 --out-file lib/index.js",
     "start-website": "react-scripts start",
     "build-website": "echo \"*** Building website\n\" && rm -rf docs && react-scripts build && mv build docs",
     "precommit": "lint-staged",

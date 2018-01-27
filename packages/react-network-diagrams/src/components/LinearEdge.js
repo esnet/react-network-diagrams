@@ -207,7 +207,7 @@ export class LinearEdge extends React.Component {
                             className={classed}
                             d={path}
                             fill="none"
-                            onClick={this.handleClick}/>
+                            onClick={e => this.handleClick(e)}/>
                         <path
                             className={classed}
                             d={arrow}
@@ -228,7 +228,7 @@ export class LinearEdge extends React.Component {
                             className={classed}
                             d={path}
                             fill="none"
-                            onClick={this.handleClick}/>
+                            onClick={e => this.handleClick(e)}/>
                     </g>
                     {labelElement}
                 </g>

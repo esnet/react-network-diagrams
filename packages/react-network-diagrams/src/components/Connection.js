@@ -34,6 +34,9 @@ export class Connection extends React.Component {
         this.state = {
             highlighted: false
         }
+        this.handleMouseOut = this.handleMouseOut.bind(this);
+        this.handleMouseOver = this.handleMouseOver.bind(this);
+        this.handleSelectionChanged = this.handleSelectionChanged.bind(this);
     }
 
     /**

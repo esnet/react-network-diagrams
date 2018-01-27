@@ -12,7 +12,7 @@ import React from "react";
 import _ from "underscore";
 import { TrafficMap } from "react-network-diagrams";
 import * as Immutable from "immutable";
-import { Event } from "pondjs";
+import { TimeEvent } from "pondjs";
 
 import paths_docs from "./paths_docs.md";
 import paths_thumbnail from "./paths_thumbnail.png";
@@ -25,7 +25,7 @@ class OptionsView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {value: this.props.initialChoice};
-        this.handleChange = this.handleChange.bind(this);
+        // this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(e) {
@@ -49,12 +49,12 @@ class OptionsView extends React.Component {
             if (Number(i) === Number(this.props.initialChoice)) {
                 return (
                     <button type="button" className="active btn btn-default"
-                            key={i} value={i} onClick={this.handleChange}>{choice} </button>
+                            key={i} value={i} onClick={e => this.handleChange(e)}>{choice} </button>
                 );
             } else {
                 return (
                     <button type="button" className="btn btn-default"
-                            key={i} value={i} onClick={this.handleChange}>{choice}</button>
+                            key={i} value={i} onClick={e => this.handleChange(e)}>{choice}</button>
                 );
             }
         });
@@ -87,10 +87,11 @@ class paths extends React.Component {
         };
 
         this.handleMapToggle = this.handleMapToggle.bind(this);
-        this.handleSelectionChanged = this.handleSelectionChanged.bind(this);
+        // this.handleSelectionChanged = this.handleSelectionChanged.bind(this);
     }
 
     handleSelectionChanged(selectionType, selection) {
+        console.log("selectionType, selection is ", selectionType, selection);
         this.setState({selectionType, selection});
     }
 
@@ -105,7 +106,7 @@ class paths extends React.Component {
             edges: this.state.selectionType === "edge" ?
                 [this.state.selection] : []
         };
-
+        
         // Maps link capacity to line thickness
         const edgeThinknessMap = {
             "100G": 5,
@@ -225,7 +226,7 @@ class paths extends React.Component {
         //
 
         const timestamp = new Date();
-        const traffic = new Event(timestamp, Immutable.Map({
+        const traffic = new TimeEvent(timestamp, Immutable.Map({
             "NASA_south--AtoZ": 20000000000,
             "NASA_south--ZtoA": 3000000000,
             "NASA_north--AtoZ": 40000000000,
@@ -245,7 +246,7 @@ class paths extends React.Component {
                             key={this.state.mapMode}
                             initialChoice={Number(this.state.mapMode)}
                             onChange={this.handleMapToggle}/>
-                         <TrafficMap
+                          <TrafficMap
                             topology={topo}
                             traffic={traffic}
                             bounds={{x1: -5, y1: 5, x2: 240, y2: 120}}
@@ -260,7 +261,7 @@ class paths extends React.Component {
                             pathWidthMap={pathWidthMap}
                             showPaths={showPaths}
                             selection={mapSelection}
-                            onSelectionChange={this.handleSelectionChanged} /> 
+                            onSelectionChange={(selectionType, selection) => this.handleSelectionChanged(selectionType, selection)} />  
                     </div>
                 </div>
             </div>

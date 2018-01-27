@@ -15,7 +15,7 @@ import PropTypes from "prop-types";
 import { Connection } from "./Connection";
 import { Endpoint } from "./Endpoint";
 import { Navigate } from "./Navigate";
-import { Directions } from "./constants.js";
+import { Directions } from "../js/constants";
 // import createReactClass from "create-react-class";
 
 /**

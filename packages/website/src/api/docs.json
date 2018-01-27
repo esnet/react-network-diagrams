@@ -3559,7 +3559,16 @@
         "params": [],
         "returns": null
       }
-    ]
+    ],
+    "props": {
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      }
+    }
   },
   "src/components/SimpleEdge.js": {
     "description": "",

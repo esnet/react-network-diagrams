@@ -26,7 +26,6 @@ export default class extends Component{
     componentDidMount() {
         window.scrollTo(0, 0);
         const guideName = this.props.match.params.doc || "start";
-        console.log("guidename is ", guideName);
         const markdownFile = Index[guideName];
         fetch(markdownFile)
             .then(response => {

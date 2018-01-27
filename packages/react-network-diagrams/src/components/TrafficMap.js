@@ -1,5 +1,5 @@
 /**
- *  Copyright (c) 2015, The Regents of the University of California,
+ *  Copyright (c) 2018, The Regents of the University of California,
  *  through Lawrence Berkeley National Laboratory (subject to receipt
  *  of any required approvals from the U.S. Dept. of Energy).
  *  All rights reserved.
@@ -14,7 +14,6 @@ import _ from "underscore";
 
 import { BaseMap } from "./BaseMap";
 import { Resizable } from "./Resizable";
-// import createReactClass from "create-react-class";
 
 /**
  * A high level component for showing network topology, including visualizing
@@ -236,7 +235,6 @@ export class TrafficMap extends React.Component {
 
     handleSelectionChanged(selectionType, selection) {
         if (this.props.onSelectionChange) {
-            console.log("traffic map selectionType, selection is ", selectionType, selection);
             this.props.onSelectionChange(selectionType, selection);
         }
     }

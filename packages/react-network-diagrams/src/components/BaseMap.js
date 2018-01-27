@@ -1,5 +1,5 @@
 /**
- *  Copyright (c) 2015, The Regents of the University of California,
+ *  Copyright (c) 2018, The Regents of the University of California,
  *  through Lawrence Berkeley National Laboratory (subject to receipt
  *  of any required approvals from the U.S. Dept. of Energy).
  *  All rights reserved.
@@ -18,7 +18,6 @@ import { NodeLabel as Label } from "./NodeLabel";
 import { MapLegend as Legend } from "./MapLegend";
 import { Node } from "./Node";
 import { SimpleEdge } from "./SimpleEdge";
-// import createReactClass from "create-react-class";
 
 // import '../map.css';
 
@@ -43,15 +42,9 @@ export class BaseMap extends React.Component {
         this.state = {
             dragging: null
         }
-        // this.handleClick = this.handleClick.bind(this);
-        // this.handleMouseMove = this.handleMouseMove.bind(this);
-        // this.handleMouseUp = this.handleMouseUp.bind(this);
-        // this.handleNodeMouseDown = this.handleNodeMouseDown.bind(this);
-        // this.handleSelectionChange = this.handleSelectionChange.bind(this);
     }
 
     handleNodeMouseDown(id, e) {
-        console.log("basemap handleNodeMouseDown this ",this);
         const { xScale, yScale } = this.scale();
         const { x, y } = this.getOffsetMousePosition(e);
         const drag = {
@@ -63,7 +56,6 @@ export class BaseMap extends React.Component {
     }
 
     handleSelectionChange(type, id) {
-        console.log("basemap handleSelectionChange this ",this);
         if (this.props.onNodeSelected) {
             if (type === "node") {
                 this.props.onNodeSelected(id);
@@ -78,7 +70,6 @@ export class BaseMap extends React.Component {
     }
 
     handleMouseMove(e) {
-        console.log("basemap handleMouseMove this ",this);
         e.preventDefault();
         if (this.state.dragging) {
             const { id } = this.state.dragging;
@@ -91,13 +82,11 @@ export class BaseMap extends React.Component {
     }
 
     handleMouseUp(e) {
-        console.log("basemap handleMouseUp this ",this);
         e.stopPropagation();
         this.setState({dragging: null});
     }
 
     handleClick(e) {
-        console.log("basemap handleClick this ",this);
         if (this.props.onNodeSelected || this.props.onEdgeSelected) {
             return;
         }

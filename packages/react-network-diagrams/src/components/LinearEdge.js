@@ -1,5 +1,5 @@
 /**
- *  Copyright (c) 2015, The Regents of the University of California,
+ *  Copyright (c) 2018, The Regents of the University of California,
  *  through Lawrence Berkeley National Laboratory (subject to receipt
  *  of any required approvals from the U.S. Dept. of Energy).
  *  All rights reserved.
@@ -14,7 +14,6 @@ import Vector from "victor";
 import _ from "underscore";
 
 import { Label } from "./Label";
-// import createReactClass from "create-react-class";
 
 /**
  * This component draws a linear bent path between a source and target. The

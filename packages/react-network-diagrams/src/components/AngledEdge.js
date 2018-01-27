@@ -1,5 +1,5 @@
 /**
- *  Copyright (c) 2015, The Regents of the University of California,
+ *  Copyright (c) 2018, The Regents of the University of California,
  *  through Lawrence Berkeley National Laboratory (subject to receipt
  *  of any required approvals from the U.S. Dept. of Energy).
  *  All rights reserved.
@@ -15,7 +15,6 @@ import PropTypes from "prop-types";
 import Victor from "victor";
 
 import { Label } from "./Label";
-// import createReactClass from "create-react-class";
 
 // Alias
 const Vector = Victor;
@@ -38,7 +37,6 @@ const Vector = Victor;
 export class AngledEdge extends React.Component {
 
     handleClick(e) {
-        console.log("angledEdge handleClick e, this ", e, this);
         e.stopPropagation();
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange("edge", this.props.name);

@@ -1,5 +1,5 @@
 /**
- *  Copyright (c) 2015, The Regents of the University of California,
+ *  Copyright (c) 2018, The Regents of the University of California,
  *  through Lawrence Berkeley National Laboratory (subject to receipt
  *  of any required approvals from the U.S. Dept. of Energy).
  *  All rights reserved.
@@ -10,7 +10,6 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-// import createReactClass from "create-react-class";
 
 export class Node extends React.Component {
 
@@ -87,7 +86,6 @@ export class Node extends React.Component {
         // 0.8 * font size? ish..
         const fontOffset = 8;
 
-        console.log("here node labels ", this);
         let labelX = this.props.x;
         let labelY = this.props.y;
         let labelR = 0;
@@ -99,7 +97,6 @@ export class Node extends React.Component {
         } else {
             labelPosition = this.props.labelPosition;
         }
-        console.log("labelPosition is ", labelPosition);
         switch (labelPosition) {
             case "left":
                 labelX -= basicOffset;
@@ -108,7 +105,6 @@ export class Node extends React.Component {
                 break;
 
             case "right":
-                console.log("here right");
                 labelX += basicOffset;
                 labelY += 5;
                 textAnchor = "start";

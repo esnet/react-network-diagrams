@@ -1,5 +1,5 @@
 /**
- *  Copyright (c) 2015, The Regents of the University of California,
+ *  Copyright (c) 2018, The Regents of the University of California,
  *  through Lawrence Berkeley National Laboratory (subject to receipt
  *  of any required approvals from the U.S. Dept. of Energy).
  *  All rights reserved.
@@ -13,7 +13,6 @@ import PropTypes from "prop-types";
 
 import { Endpoint } from "./Endpoint";
 import { SimpleEdge as Line } from "./SimpleEdge";
-// import createReactClass from "create-react-class";
 
 /**
  * The `x1`, `x2`, `y1`, and `y2` properties determine the position of the endpoints on the `<svg>` element.

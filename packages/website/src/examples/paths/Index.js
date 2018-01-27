@@ -1,5 +1,5 @@
 /**
- *  Copyright (c) 2015, The Regents of the University of California,
+ *  Copyright (c) 2018, The Regents of the University of California,
  *  through Lawrence Berkeley National Laboratory (subject to receipt
  *  of any required approvals from the U.S. Dept. of Energy).
  *  All rights reserved.
@@ -25,7 +25,6 @@ class OptionsView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {value: this.props.initialChoice};
-        // this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(e) {
@@ -87,11 +86,9 @@ class paths extends React.Component {
         };
 
         this.handleMapToggle = this.handleMapToggle.bind(this);
-        // this.handleSelectionChanged = this.handleSelectionChanged.bind(this);
     }
 
     handleSelectionChanged(selectionType, selection) {
-        console.log("selectionType, selection is ", selectionType, selection);
         this.setState({selectionType, selection});
     }
 

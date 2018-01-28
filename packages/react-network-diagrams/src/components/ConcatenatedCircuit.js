@@ -29,7 +29,6 @@ import { Directions } from "../js/constants";
  *     [endpoint, connection, endpoint, connection, endpoint, ...]
  */
 export class ConcatenatedCircuit extends React.Component {
-
     renderCircuitTitle(title) {
         const titleStyle = {
             textAnchor: "left",
@@ -45,7 +44,8 @@ export class ConcatenatedCircuit extends React.Component {
                     key="circuit-title"
                     style={titleStyle}
                     x={this.props.titleOffsetX}
-                    y={this.props.titleOffsetY}>
+                    y={this.props.titleOffsetY}
+                >
                     {title}
                 </text>
             );
@@ -64,7 +64,8 @@ export class ConcatenatedCircuit extends React.Component {
                         width={this.props.width}
                         height={this.props.height}
                         id={this.props.parentId}
-                        onSelectionChange={this.props.onSelectionChange} />
+                        onSelectionChange={this.props.onSelectionChange}
+                    />
                 </g>
             );
         } else {
@@ -73,7 +74,7 @@ export class ConcatenatedCircuit extends React.Component {
     }
 
     renderDisabledOverlay(disabled) {
-        const style = {fill: "#FDFDFD", fillOpacity: 0.65};
+        const style = { fill: "#FDFDFD", fillOpacity: 0.65 };
         if (disabled) {
             return (
                 <rect
@@ -82,7 +83,8 @@ export class ConcatenatedCircuit extends React.Component {
                     x="0"
                     y="0"
                     width={this.props.width}
-                    height={this.props.height}/>
+                    height={this.props.height}
+                />
             );
         } else {
             return null;
@@ -131,7 +133,8 @@ export class ConcatenatedCircuit extends React.Component {
                 style={memberList[0].endpointStyle}
                 labelPosition={this.props.endpointLabelPosition}
                 offset={this.props.endpointLabelOffset}
-                label={memberList[0].endpointLabelA} />
+                label={memberList[0].endpointLabelA}
+            />
         );
 
         /* since the Z of each member is shared with the A of the next member, render only
@@ -152,7 +155,8 @@ export class ConcatenatedCircuit extends React.Component {
                     style={member.endpointStyle}
                     labelPosition={this.props.endpointLabelPosition}
                     offset={this.props.endpointLabelOffset}
-                    label={member.endpointLabelZ} />
+                    label={member.endpointLabelZ}
+                />
             );
             x1 = x2;
         });
@@ -189,15 +193,12 @@ export class ConcatenatedCircuit extends React.Component {
                     navTo={member.navTo}
                     size={member.styleProperties.size}
                     centerLine={member.styleProperties.centerLine}
-                    onSelectionChange={this.props.onSelectionChange} />
+                    onSelectionChange={this.props.onSelectionChange}
+                />
             );
             x1 = x2;
         });
-        return (
-            <g>
-                {elements}
-            </g>
-        );
+        return <g>{elements}</g>;
     }
 
     render() {
@@ -236,10 +237,9 @@ export class ConcatenatedCircuit extends React.Component {
             </svg>
         );
     }
-};
+}
 
 ConcatenatedCircuit.propTypes = {
-
     /** The width of the circuit diagram */
     width: PropTypes.number,
 
@@ -294,12 +294,12 @@ ConcatenatedCircuit.propTypes = {
      * ```
      */
     memberList: PropTypes.array.isRequired,
-    
+
     /**
      * Described the position of the connection label; accepts **"top"**, **"center"**, or **"bottom"**
      */
     connectionLabelPosition: PropTypes.oneOf(["top", "center", "bottom"]),
-    
+
     /**
      * The position of the label around the endpoint.
      */
@@ -317,19 +317,19 @@ ConcatenatedCircuit.propTypes = {
         "topleftangled",
         "toprightangled"
     ]),
-    
+
     /**
      * This is the vertical distance from the center line to offset
      * the connection label.
      */
     yOffset: PropTypes.number,
-    
+
     /**
      * This is the distance from the endpoint that the endpoint
      * label will be rendered.
      */
     endpointLabelOffset: PropTypes.number,
-    
+
     /**
      * The string to display in the top left corner of the diagram
      */
@@ -339,27 +339,24 @@ ConcatenatedCircuit.propTypes = {
      * Value that determines whether or not the upper left corner title is displayed
      */
     hideTitle: PropTypes.bool,
-            
+
     /**
      * Determines if the circuit view is muted.  Typically used in
      * conjunction with `parentID`
      */
     disabled: PropTypes.bool,
-    
+
     /**
      * Callback function used to handle clicks.
      */
     onSelectionChange: PropTypes.func,
-    
+
     /**
      * Value that if provided, will render a small nav arrow that
      * when clicked, navigates to that element. Used mainly when we want
      * to show a parent / child relationship between two circuits.
      */
-    parentId: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.Number
-    ]),
+    parentId: PropTypes.oneOfType([PropTypes.string, PropTypes.Number]),
 
     /**
      * Boolean value that determines if the element uses the onSelectionChange

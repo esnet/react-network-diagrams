@@ -197,7 +197,8 @@ var SquareEdge = exports.SquareEdge = function (_React$Component) {
                     label: this.props.label,
                     xOffset: this.props.labelOffsetX,
                     yOffset: this.props.labelOffsetY,
-                    labelPosition: this.props.labelPosition });
+                    labelPosition: this.props.labelPosition
+                });
             }
 
             if (!this.props.centerLine) {
@@ -206,10 +207,7 @@ var SquareEdge = exports.SquareEdge = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                         "g",
-                        {
-                            strokeWidth: this.props.width,
-                            stroke: this.props.color,
-                            opacity: opacity },
+                        { strokeWidth: this.props.width, stroke: this.props.color, opacity: opacity },
                         _react2.default.createElement("rect", {
                             className: classed,
                             width: width,
@@ -222,7 +220,8 @@ var SquareEdge = exports.SquareEdge = function (_React$Component) {
                             fill: fill,
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e);
-                            } })
+                            }
+                        })
                     ),
                     labelElement
                 );
@@ -238,7 +237,8 @@ var SquareEdge = exports.SquareEdge = function (_React$Component) {
                             opacity: opacity,
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e);
-                            } },
+                            }
+                        },
                         _react2.default.createElement("rect", {
                             className: classed,
                             width: width,
@@ -248,11 +248,9 @@ var SquareEdge = exports.SquareEdge = function (_React$Component) {
                             y: yCorner,
                             rx: this.props.roundedX,
                             ry: this.props.roundedY,
-                            fill: fill }),
-                        _react2.default.createElement("path", {
-                            className: classed,
-                            d: path,
-                            fill: "none" })
+                            fill: fill
+                        }),
+                        _react2.default.createElement("path", { className: classed, d: path, fill: "none" })
                     ),
                     labelElement
                 );
@@ -263,10 +261,7 @@ var SquareEdge = exports.SquareEdge = function (_React$Component) {
     return SquareEdge;
 }(_react2.default.Component);
 
-;
-
 SquareEdge.propTypes = {
-
     /** When the endpoint shape is a `square`, this controls the radius of corners */
     roundedX: _propTypes2.default.number,
 

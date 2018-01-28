@@ -11,13 +11,13 @@
 import _ from "underscore";
 import React from "react";
 import PropTypes from "prop-types";
+
 import { AngledEdge } from "./AngledEdge";
 import { ArcEdge } from "./ArcEdge";
 import { LinearEdge } from "./LinearEdge";
 import { SquareEdge } from "./SquareEdge";
 
 export class SimpleEdge extends React.Component {
-
     render() {
         // Class for edge
         let classed = "edge";
@@ -29,7 +29,7 @@ export class SimpleEdge extends React.Component {
         }
         if (!_.isUndefined(this.props.classed)) {
             classed += " " + this.props.classed;
-        }   
+        }
 
         // Render based on shape
         if (this.props.shape === "curved") {
@@ -59,7 +59,8 @@ export class SimpleEdge extends React.Component {
                     offset={this.props.offset}
                     name={this.props.name}
                     invisible={this.props.invisible}
-                    onSelectionChange={this.props.onSelectionChange} />
+                    onSelectionChange={this.props.onSelectionChange}
+                />
             );
         } else if (this.props.shape === "square") {
             return (
@@ -87,7 +88,8 @@ export class SimpleEdge extends React.Component {
                     centerLine={this.props.centerLine}
                     name={this.props.name}
                     invisible={this.props.invisible}
-                    onSelectionChange={this.props.onSelectionChange}/>
+                    onSelectionChange={this.props.onSelectionChange}
+                />
             );
         } else if (this.props.shape === "angled") {
             return (
@@ -116,7 +118,8 @@ export class SimpleEdge extends React.Component {
                     offset={this.props.offset}
                     name={this.props.name}
                     invisible={this.props.invisible}
-                    onSelectionChange={this.props.onSelectionChange} />
+                    onSelectionChange={this.props.onSelectionChange}
+                />
             );
         } else {
             return (
@@ -143,11 +146,12 @@ export class SimpleEdge extends React.Component {
                     position={this.props.position}
                     name={this.props.name}
                     invisible={this.props.invisible}
-                    onSelectionChange={this.props.onSelectionChange} />
+                    onSelectionChange={this.props.onSelectionChange}
+                />
             );
         }
     }
-};
+}
 
 SimpleEdge.propTypes = {
     color: PropTypes.string,

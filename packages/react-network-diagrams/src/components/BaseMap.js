@@ -26,7 +26,7 @@ function getElementOffset(element) {
     const box = element.getBoundingClientRect();
     const top = box.top + window.pageYOffset - de.clientTop;
     const left = box.left + window.pageXOffset - de.clientLeft;
-    return {top, left};
+    return { top, left };
 }
 
 /**
@@ -36,12 +36,11 @@ function getElementOffset(element) {
  * page of my.es.net.
  */
 export class BaseMap extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
             dragging: null
-        }
+        };
     }
 
     handleNodeMouseDown(id, e) {
@@ -52,7 +51,7 @@ export class BaseMap extends React.Component {
             x0: xScale.invert(x),
             y0: yScale.invert(y)
         };
-        this.setState({dragging: drag});
+        this.setState({ dragging: drag });
     }
 
     handleSelectionChange(type, id) {
@@ -83,7 +82,7 @@ export class BaseMap extends React.Component {
 
     handleMouseUp(e) {
         e.stopPropagation();
-        this.setState({dragging: null});
+        this.setState({ dragging: null });
     }
 
     handleClick(e) {
@@ -108,29 +107,17 @@ export class BaseMap extends React.Component {
         const offset = getElementOffset(trackerRect);
         const x = e.pageX - offset.left;
         const y = e.pageY - offset.top;
-        return {x: Math.round(x), y: Math.round(y)};
+        return { x: Math.round(x), y: Math.round(y) };
     }
 
     scale() {
         return {
             xScale: scaleLinear()
-                .domain([
-                    this.props.bounds.x1,
-                    this.props.bounds.x2
-                ])
-                .range([
-                    this.props.margin,
-                    this.props.width - this.props.margin * 2
-                ]),
+                .domain([this.props.bounds.x1, this.props.bounds.x2])
+                .range([this.props.margin, this.props.width - this.props.margin * 2]),
             yScale: scaleLinear()
-                .domain([
-                    this.props.bounds.y1,
-                    this.props.bounds.y2
-                ])
-                .range([
-                    this.props.margin,
-                    this.props.height - this.props.margin * 2
-                ])
+                .domain([this.props.bounds.y1, this.props.bounds.y2])
+                .range([this.props.margin, this.props.height - this.props.margin * 2])
         };
     }
 
@@ -144,7 +131,7 @@ export class BaseMap extends React.Component {
         //
 
         const edgeMap = {};
-        _.each(this.props.topology.edges, (edge) => {
+        _.each(this.props.topology.edges, edge => {
             edgeMap[`${edge.source}--${edge.target}`] = edge;
             edgeMap[`${edge.target}--${edge.source}`] = edge;
         });
@@ -154,7 +141,7 @@ export class BaseMap extends React.Component {
         //
 
         const secondarySelectedNodes = [];
-        _.each(this.props.selection.edges, (edgeName) => {
+        _.each(this.props.selection.edges, edgeName => {
             const edge = edgeMap[edgeName];
             if (edge) {
                 secondarySelectedNodes.push(edge.source);
@@ -173,18 +160,20 @@ export class BaseMap extends React.Component {
             const nodeSelected = _.contains(this.props.selection.nodes, props.id);
             const edgeSelected = _.contains(secondarySelectedNodes, node.name);
             props.selected = nodeSelected || edgeSelected;
-            props.muted = (hasSelectedNode && !props.selected) ||
-                          (hasSelectedEdge && !props.selected);
+            props.muted =
+                (hasSelectedNode && !props.selected) || (hasSelectedEdge && !props.selected);
 
-            nodeCoordinates[node.name] = {x: props.x, y: props.y};
+            nodeCoordinates[node.name] = { x: props.x, y: props.y };
 
             return (
-                <Node key={props.id}
-                      {...props}
-                      onSelectionChange={(type, i) => this.handleSelectionChange(type, i)}
-                      onMouseDown={(id, e) => this.handleNodeMouseDown(id, e)}
-                      onMouseMove={(type, i, xx, yy) => this.props.onNodeMouseMove(i, xx, yy)}
-                      onMouseUp={(type, i, e) => this.props.onNodeMouseUp(i, e)} />
+                <Node
+                    key={props.id}
+                    {...props}
+                    onSelectionChange={(type, i) => this.handleSelectionChange(type, i)}
+                    onMouseDown={(id, e) => this.handleNodeMouseDown(id, e)}
+                    onMouseMove={(type, i, xx, yy) => this.props.onNodeMouseMove(i, xx, yy)}
+                    onMouseUp={(type, i, e) => this.props.onNodeMouseUp(i, e)}
+                />
             );
         });
 
@@ -212,15 +201,19 @@ export class BaseMap extends React.Component {
 
                 // We store our target based on geography, west to east etc A->Z
                 if (_.has(nodeCoordinates, node) && _.has(nodeCoordinates, next)) {
-                    if (nodeCoordinates[node].x < nodeCoordinates[next].x ||
-                        nodeCoordinates[node].y < nodeCoordinates[next].y) {
-                        a = node; z = next;
+                    if (
+                        nodeCoordinates[node].x < nodeCoordinates[next].x ||
+                        nodeCoordinates[node].y < nodeCoordinates[next].y
+                    ) {
+                        a = node;
+                        z = next;
                     } else {
-                        a = next; z = node;
+                        a = next;
+                        z = node;
                     }
 
                     if (!_.has(nodePaths, a)) {
-                        nodePaths[a] = {targetMap: {}};
+                        nodePaths[a] = { targetMap: {} };
                     }
 
                     if (!_.has(nodePaths[a].targetMap, z)) {
@@ -276,8 +269,7 @@ export class BaseMap extends React.Component {
             }
 
             let curveDirection = "left";
-            if (!_.isUndefined(edge.curveDirection) &&
-                !_.isNull(edge.curveDirection)) {
+            if (!_.isUndefined(edge.curveDirection) && !_.isNull(edge.curveDirection)) {
                 curveDirection = edge.curveDirection;
             }
 
@@ -302,7 +294,8 @@ export class BaseMap extends React.Component {
                         name={edge.name}
                         selected={selected}
                         muted={muted}
-                        onSelectionChange={(type, id) => this.handleSelectionChange(type, id)}/>
+                        onSelectionChange={(type, id) => this.handleSelectionChange(type, id)}
+                    />
                 );
             } else if (edgeDrawingMethod === "bidirectionalArrow") {
                 return (
@@ -324,7 +317,8 @@ export class BaseMap extends React.Component {
                         name={edge.name}
                         selected={selected}
                         muted={muted}
-                        onSelectionChange={(type, id) => this.handleSelectionChange(type, id)} />
+                        onSelectionChange={(type, id) => this.handleSelectionChange(type, id)}
+                    />
                 );
             } else if (edgeDrawingMethod === "pathBidirectionalArrow") {
                 if (_.has(edgePathMap, edge.name)) {
@@ -346,7 +340,8 @@ export class BaseMap extends React.Component {
                             name={edge.name}
                             selected={selected}
                             muted={muted}
-                            onSelectionChange={(type, id) => this.handleSelectionChange(type, id)}/>
+                            onSelectionChange={(type, id) => this.handleSelectionChange(type, id)}
+                        />
                     );
                 } else {
                     return (
@@ -366,7 +361,8 @@ export class BaseMap extends React.Component {
                             name={edge.name}
                             selected={selected}
                             muted={muted}
-                            onSelectionChange={(type, id) => this.handleSelectionChange(type, id)}/>
+                            onSelectionChange={(type, id) => this.handleSelectionChange(type, id)}
+                        />
                     );
                 }
             }
@@ -391,21 +387,22 @@ export class BaseMap extends React.Component {
                     const destination = pathSteps[i + 1];
 
                     // Get the position of path (if multiple paths run parallel)
-                    if (nodeCoordinates[source].x <
-                            nodeCoordinates[destination].x ||
-                        nodeCoordinates[source].y <
-                            nodeCoordinates[destination].y) {
-                        a = source; z = destination;
+                    if (
+                        nodeCoordinates[source].x < nodeCoordinates[destination].x ||
+                        nodeCoordinates[source].y < nodeCoordinates[destination].y
+                    ) {
+                        a = source;
+                        z = destination;
                         dir = 1;
                     } else {
-                        a = destination; z = source;
+                        a = destination;
+                        z = source;
                         dir = -1;
                     }
 
                     const pathsToDest = nodePaths[a].targetMap[z];
                     const pathIndex = _.indexOf(pathsToDest, pathName);
-                    const pos =
-                        (pathIndex - (pathsToDest.length - 1) / 2) * dir;
+                    const pos = (pathIndex - (pathsToDest.length - 1) / 2) * dir;
 
                     // Get the edge from edgeMap
                     const edgeName = `${source}--${destination}`;
@@ -414,15 +411,17 @@ export class BaseMap extends React.Component {
                     // Get the shape of the edge (linear or curved) and if
                     // curved, get the curve direction
                     let edgeShape = "linear";
-                    if (edge && !_.isUndefined(edge.shape) &&
-                        !_.isNull(edge.shape)) {
+                    if (edge && !_.isUndefined(edge.shape) && !_.isNull(edge.shape)) {
                         edgeShape = edge.shape;
                     }
 
                     // either 'left' or 'right'
                     let curveDirection = "left";
-                    if (edge && !_.isUndefined(edge.curveDirection) &&
-                        !_.isNull(edge.curveDirection)) {
+                    if (
+                        edge &&
+                        !_.isUndefined(edge.curveDirection) &&
+                        !_.isNull(edge.curveDirection)
+                    ) {
                         curveDirection = edge.curveDirection;
                     }
 
@@ -449,23 +448,20 @@ export class BaseMap extends React.Component {
                                 width={pathWidth}
                                 classed={`path-${pathName}`}
                                 key={`${pathName}--${edgeName}`}
-                                name={`${pathName}--${edgeName}`} />
+                                name={`${pathName}--${edgeName}`}
+                            />
                         );
                     }
                 }
             }
-            return (
-                <g key={pathName}>
-                    {pathSegments}
-                </g>
-            );
+            return <g key={pathName}>{pathSegments}</g>;
         });
 
         //
         // Build the labels
         //
 
-        const labels = _.map(this.props.topology.labels, (label) => {
+        const labels = _.map(this.props.topology.labels, label => {
             const x = xScale(label.x);
             const y = yScale(label.y);
             return (
@@ -474,7 +470,8 @@ export class BaseMap extends React.Component {
                     y={y}
                     label={label.label}
                     labelPosition={label.labelPosition}
-                    key={label.label} />
+                    key={label.label}
+                />
             );
         });
 
@@ -490,7 +487,8 @@ export class BaseMap extends React.Component {
                     y={this.props.legendItems.y}
                     edgeTypes={this.props.legendItems.edgeTypes}
                     nodeTypes={this.props.legendItems.nodeTypes}
-                    colorSwatches={this.props.legendItems.colorSwatches} />
+                    colorSwatches={this.props.legendItems.colorSwatches}
+                />
             );
         }
 
@@ -499,9 +497,11 @@ export class BaseMap extends React.Component {
             style = {
                 cursor: "pointer"
             };
-        } else if (this.props.onPositionSelected
-                   || this.props.onNodeSelected
-                   || this.props.onEdgeSelected) {
+        } else if (
+            this.props.onPositionSelected ||
+            this.props.onNodeSelected ||
+            this.props.onEdgeSelected
+        ) {
             style = {
                 cursor: "crosshair"
             };
@@ -522,7 +522,8 @@ export class BaseMap extends React.Component {
                 className="noselect map-container"
                 onClick={e => this.handleClick(e)}
                 onMouseMove={e => this.handleMouseMove(e)}
-                onMouseUp={e => this.handleMouseUp(e)} >
+                onMouseUp={e => this.handleMouseUp(e)}
+            >
                 <g>
                     {edges}
                     {paths}
@@ -533,10 +534,9 @@ export class BaseMap extends React.Component {
             </svg>
         );
     }
-};
+}
 
 BaseMap.propTypes = {
-
     /**
      * The topology structure, as detailed above. This contains the
      * descriptions of nodes, edges and paths used to render the topology
@@ -573,11 +573,7 @@ BaseMap.propTypes = {
      *  * "pathBidirectionalArrow" - similar to "bidirectionalArrow", but only for
      *  edges that are used in the currently displayed path(s).
      */
-    edgeDrawingMethod: PropTypes.oneOf([
-        "simple",
-        "bidirectionalArrow",
-        "pathBidirectionalArrow"
-    ]),
+    edgeDrawingMethod: PropTypes.oneOf(["simple", "bidirectionalArrow", "pathBidirectionalArrow"]),
 
     legendItems: PropTypes.shape({
         x: PropTypes.number,
@@ -592,14 +588,13 @@ BaseMap.propTypes = {
     paths: PropTypes.array,
 
     pathWidth: PropTypes.number
-
 };
 
 BaseMap.defaultProps = {
     width: 800,
     height: 600,
     margin: 20,
-    bounds: {x1: 0, y1: 0, x2: 1, y2: 1},
+    bounds: { x1: 0, y1: 0, x2: 1, y2: 1 },
     edgeDrawingMethod: "simple",
     legendItems: null,
     selection: { nodes: {}, edges: {} },

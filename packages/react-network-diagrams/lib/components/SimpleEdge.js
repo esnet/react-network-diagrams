@@ -94,7 +94,8 @@ var SimpleEdge = exports.SimpleEdge = function (_React$Component) {
                     offset: this.props.offset,
                     name: this.props.name,
                     invisible: this.props.invisible,
-                    onSelectionChange: this.props.onSelectionChange });
+                    onSelectionChange: this.props.onSelectionChange
+                });
             } else if (this.props.shape === "square") {
                 return _react2.default.createElement(_SquareEdge.SquareEdge, {
                     x1: this.props.x1,
@@ -120,7 +121,8 @@ var SimpleEdge = exports.SimpleEdge = function (_React$Component) {
                     centerLine: this.props.centerLine,
                     name: this.props.name,
                     invisible: this.props.invisible,
-                    onSelectionChange: this.props.onSelectionChange });
+                    onSelectionChange: this.props.onSelectionChange
+                });
             } else if (this.props.shape === "angled") {
                 return _react2.default.createElement(_AngledEdge.AngledEdge, {
                     x1: this.props.x1,
@@ -147,7 +149,8 @@ var SimpleEdge = exports.SimpleEdge = function (_React$Component) {
                     offset: this.props.offset,
                     name: this.props.name,
                     invisible: this.props.invisible,
-                    onSelectionChange: this.props.onSelectionChange });
+                    onSelectionChange: this.props.onSelectionChange
+                });
             } else {
                 return _react2.default.createElement(_LinearEdge.LinearEdge, {
                     x1: this.props.x1,
@@ -172,15 +175,14 @@ var SimpleEdge = exports.SimpleEdge = function (_React$Component) {
                     position: this.props.position,
                     name: this.props.name,
                     invisible: this.props.invisible,
-                    onSelectionChange: this.props.onSelectionChange });
+                    onSelectionChange: this.props.onSelectionChange
+                });
             }
         }
     }]);
 
     return SimpleEdge;
 }(_react2.default.Component);
-
-;
 
 SimpleEdge.propTypes = {
     color: _propTypes2.default.string,

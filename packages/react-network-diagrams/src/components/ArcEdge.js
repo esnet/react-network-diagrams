@@ -33,7 +33,6 @@ const Vector = Victor;
  * Stroke color and width can also be supplied.
  */
 export class ArcEdge extends React.Component {
-
     handleClick(e) {
         e.stopPropagation();
         if (this.props.onSelectionChange) {
@@ -56,7 +55,6 @@ export class ArcEdge extends React.Component {
             classed += " muted";
             labelClassed += "muted";
             styleModifier = "muted";
-
         }
         if (this.props.invisible) {
             classed += " edge-event-region";
@@ -77,14 +75,19 @@ export class ArcEdge extends React.Component {
         // XXX(jdugan): this doesn't work for horizontal lines
         //
         let angle = 90;
-        if ((diff.y < 0 && this.props.curveDirection === "left") ||
-            (diff.y > 0 && this.props.curveDirection === "right")) {
+        if (
+            (diff.y < 0 && this.props.curveDirection === "left") ||
+            (diff.y > 0 && this.props.curveDirection === "right")
+        ) {
             angle = -90;
         }
 
         const perp = norm.clone().rotateDeg(angle);
         const mid = new Vector(len / 2, len / 2);
-        const midpt = norm.clone().multiply(mid).add(source);
+        const midpt = norm
+            .clone()
+            .multiply(mid)
+            .add(source);
 
         const offset = new Vector(this.props.offset, this.props.offset);
         offset.multiply(perp);
@@ -121,16 +124,14 @@ export class ArcEdge extends React.Component {
             .multiply(bendScalar)
             .add(target);
 
-        const sourceBendPerp = new Vector(-sourceToControlNormalize.y,
-                                           sourceToControlNormalize.x);
+        const sourceBendPerp = new Vector(-sourceToControlNormalize.y, sourceToControlNormalize.x);
         const sourceBendPerpScalar = new Vector(position, position);
         const sourceBendControl = sourceBendPerp
             .clone()
             .multiply(sourceBendPerpScalar)
             .add(sourceBend);
 
-        const targetBendPerp = new Vector(-targetToControlNormalize.y,
-                                           targetToControlNormalize.x);
+        const targetBendPerp = new Vector(-targetToControlNormalize.y, targetToControlNormalize.x);
         const targetBendPerpScalar = new Vector(-position, -position);
         const targetBendControl = targetBendPerp
             .clone()
@@ -165,9 +166,21 @@ export class ArcEdge extends React.Component {
         let path = "";
         path += "M" + source.x + "," + source.y;
         path += " L " + sourceBendControl.x + " " + sourceBendControl.y;
-        path += " A " + radius + " " + radius + " " + rotation + " " +
-                largeArcFlag + " " + sweepFlag + " " +
-                targetBendControl.x + " " + targetBendControl.y;
+        path +=
+            " A " +
+            radius +
+            " " +
+            radius +
+            " " +
+            rotation +
+            " " +
+            largeArcFlag +
+            " " +
+            sweepFlag +
+            " " +
+            targetBendControl.x +
+            " " +
+            targetBendControl.y;
 
         if (!this.props.arrow) {
             path += " L " + target.x + " " + target.y;
@@ -193,8 +206,10 @@ export class ArcEdge extends React.Component {
         const cx = control.x;
         let cy = control.y + this.props.position;
 
-        if ((target.y < source.y && source.x < target.x) ||
-            (source.x > target.x && target.y > source.y)) {
+        if (
+            (target.y < source.y && source.x < target.x) ||
+            (source.x > target.x && target.y > source.y)
+        ) {
             labelAngle = -labelAngle;
         }
 
@@ -216,26 +231,27 @@ export class ArcEdge extends React.Component {
                     label={this.props.label}
                     xOffset={this.props.labelOffsetX}
                     yOffset={this.props.labelOffsetY}
-                    labelPosition={this.props.labelPosition} />
+                    labelPosition={this.props.labelPosition}
+                />
             );
         }
         if (this.props.arrow) {
             return (
                 <g>
-                    <g
-                        strokeWidth={this.props.width}
-                        stroke={this.props.color}
-                        opacity={opacity}>
+                    <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
                         <path
                             d={path}
-                            fill="none" className={classed}
-                            onClick={e => this.handleClick(e)}/>
+                            fill="none"
+                            className={classed}
+                            onClick={e => this.handleClick(e)}
+                        />
                         <path
                             d={arrow}
                             className={classed}
                             stroke={this.props.color}
                             fill={this.props.color}
-                            strokeWidth="1"/>
+                            strokeWidth="1"
+                        />
                     </g>
                     {labelElement}
                 </g>
@@ -243,26 +259,22 @@ export class ArcEdge extends React.Component {
         } else {
             return (
                 <g>
-                    <g
-                        strokeWidth={this.props.width}
-                        stroke={this.props.color}
-                        opacity={opacity}>
+                    <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
                         <path
                             d={path}
                             fill="none"
                             className={classed}
-                            onClick={e => this.handleClick(e)}/>
+                            onClick={e => this.handleClick(e)}
+                        />
                     </g>
                     {labelElement}
                 </g>
             );
         }
     }
-
-};
+}
 
 ArcEdge.propTypes = {
-
     /** An offset to the position of the label which can be used for fine tuning */
     offset: PropTypes.number,
 
@@ -270,7 +282,7 @@ ArcEdge.propTypes = {
     width: PropTypes.number,
 
     color: PropTypes.string,
-    
+
     curveDirection: PropTypes.string,
 
     /**
@@ -291,7 +303,6 @@ ArcEdge.propTypes = {
 
     /** Display the endpoint muted */
     muted: PropTypes.bool
-
 };
 
 ArcEdge.defaultProps = {

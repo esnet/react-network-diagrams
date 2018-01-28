@@ -72,7 +72,8 @@ var BasicCircuit = exports.BasicCircuit = function (_React$Component) {
                         key: "circuit-title",
                         style: titleStyle,
                         x: this.props.titleOffsetX,
-                        y: this.props.titleOffsetY },
+                        y: this.props.titleOffsetY
+                    },
                     title
                 );
             } else {
@@ -92,7 +93,8 @@ var BasicCircuit = exports.BasicCircuit = function (_React$Component) {
                         height: this.props.height,
                         ypos: 0,
                         id: this.props.parentId,
-                        onSelectionChange: this.props.onSelectionChange })
+                        onSelectionChange: this.props.onSelectionChange
+                    })
                 );
             } else {
                 return null;
@@ -109,9 +111,11 @@ var BasicCircuit = exports.BasicCircuit = function (_React$Component) {
                 return _react2.default.createElement("rect", {
                     className: "circuit-overlay",
                     style: overlayStyle,
-                    x: "0", y: "0",
+                    x: "0",
+                    y: "0",
                     width: this.props.width,
-                    height: this.props.height });
+                    height: this.props.height
+                });
             } else {
                 return null;
             }
@@ -145,7 +149,8 @@ var BasicCircuit = exports.BasicCircuit = function (_React$Component) {
                 style: this.props.endpointStyle,
                 labelPosition: this.props.endpointLabelPosition,
                 offset: labelOffset,
-                label: this.props.endpointLabelA }));
+                label: this.props.endpointLabelA
+            }));
 
             elements.push(_react2.default.createElement(_Endpoint.Endpoint, {
                 x: x2,
@@ -154,7 +159,8 @@ var BasicCircuit = exports.BasicCircuit = function (_React$Component) {
                 style: this.props.endpointStyle,
                 labelPosition: this.props.endpointLabelPosition,
                 offset: labelOffset,
-                label: this.props.endpointLabelZ }));
+                label: this.props.endpointLabelZ
+            }));
 
             // The connection
             elements.push(_react2.default.createElement(_Connection.Connection, {
@@ -174,7 +180,8 @@ var BasicCircuit = exports.BasicCircuit = function (_React$Component) {
                 navTo: this.props.navTo,
                 size: this.props.size,
                 centerLine: this.props.centerLine,
-                onSelectionChange: this.props.onSelectionChange }));
+                onSelectionChange: this.props.onSelectionChange
+            }));
 
             return _react2.default.createElement(
                 "g",
@@ -224,10 +231,7 @@ var BasicCircuit = exports.BasicCircuit = function (_React$Component) {
     return BasicCircuit;
 }(_react2.default.Component);
 
-;
-
 BasicCircuit.propTypes = {
-
     /** The style of the line */
     lineStyle: _propTypes2.default.object.isRequired,
 

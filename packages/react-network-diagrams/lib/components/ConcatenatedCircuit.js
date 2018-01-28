@@ -81,7 +81,8 @@ var ConcatenatedCircuit = exports.ConcatenatedCircuit = function (_React$Compone
                         key: "circuit-title",
                         style: titleStyle,
                         x: this.props.titleOffsetX,
-                        y: this.props.titleOffsetY },
+                        y: this.props.titleOffsetY
+                    },
                     title
                 );
             } else {
@@ -101,7 +102,8 @@ var ConcatenatedCircuit = exports.ConcatenatedCircuit = function (_React$Compone
                         width: this.props.width,
                         height: this.props.height,
                         id: this.props.parentId,
-                        onSelectionChange: this.props.onSelectionChange })
+                        onSelectionChange: this.props.onSelectionChange
+                    })
                 );
             } else {
                 return null;
@@ -118,7 +120,8 @@ var ConcatenatedCircuit = exports.ConcatenatedCircuit = function (_React$Compone
                     x: "0",
                     y: "0",
                     width: this.props.width,
-                    height: this.props.height });
+                    height: this.props.height
+                });
             } else {
                 return null;
             }
@@ -168,7 +171,8 @@ var ConcatenatedCircuit = exports.ConcatenatedCircuit = function (_React$Compone
                 style: memberList[0].endpointStyle,
                 labelPosition: this.props.endpointLabelPosition,
                 offset: this.props.endpointLabelOffset,
-                label: memberList[0].endpointLabelA }));
+                label: memberList[0].endpointLabelA
+            }));
 
             /* since the Z of each member is shared with the A of the next member, render only
              * the Z for each member starting with the first member
@@ -187,7 +191,8 @@ var ConcatenatedCircuit = exports.ConcatenatedCircuit = function (_React$Compone
                     style: member.endpointStyle,
                     labelPosition: _this2.props.endpointLabelPosition,
                     offset: _this2.props.endpointLabelOffset,
-                    label: member.endpointLabelZ }));
+                    label: member.endpointLabelZ
+                }));
                 x1 = x2;
             });
 
@@ -222,7 +227,8 @@ var ConcatenatedCircuit = exports.ConcatenatedCircuit = function (_React$Compone
                     navTo: member.navTo,
                     size: member.styleProperties.size,
                     centerLine: member.styleProperties.centerLine,
-                    onSelectionChange: _this2.props.onSelectionChange }));
+                    onSelectionChange: _this2.props.onSelectionChange
+                }));
                 x1 = x2;
             });
             return _react2.default.createElement(
@@ -274,10 +280,7 @@ var ConcatenatedCircuit = exports.ConcatenatedCircuit = function (_React$Compone
     return ConcatenatedCircuit;
 }(_react2.default.Component);
 
-;
-
 ConcatenatedCircuit.propTypes = {
-
     /** The width of the circuit diagram */
     width: _propTypes2.default.number,
 

@@ -20,7 +20,6 @@ import { Resizable } from "./Resizable";
  * network traffic as a heat map.
  */
 export class TrafficMap extends React.Component {
-
     bounds() {
         if (this.props.bounds) {
             return this.props.bounds;
@@ -29,7 +28,7 @@ export class TrafficMap extends React.Component {
         const minY = _.min(this.props.topology.nodes, node => node.y).y;
         const maxX = _.max(this.props.topology.nodes, node => node.x).x;
         const maxY = _.max(this.props.topology.nodes, node => node.y).y;
-        return {x1: minX, x2: maxX, y1: minY, y2: maxY};
+        return { x1: minX, x2: maxX, y1: minY, y2: maxY };
     }
 
     nodeSize(name) {
@@ -101,17 +100,29 @@ export class TrafficMap extends React.Component {
 
         const genericStyle = {
             node: {
-                normal: {fill: "#B0B0B0", stroke: "#9E9E9E", cursor: "pointer"},
-                selected: {fill: "#37B6D3", stroke: "rgba(55, 182, 211, 0.22)",
-                           strokeWidth: 10, cursor: "pointer"},
-                muted: {fill: "#B0B0B0", stroke: "#9E9E9E", opacity: 0.6,
-                        cursor: "pointer"}
+                normal: { fill: "#B0B0B0", stroke: "#9E9E9E", cursor: "pointer" },
+                selected: {
+                    fill: "#37B6D3",
+                    stroke: "rgba(55, 182, 211, 0.22)",
+                    strokeWidth: 10,
+                    cursor: "pointer"
+                },
+                muted: {
+                    fill: "#B0B0B0",
+                    stroke: "#9E9E9E",
+                    opacity: 0.6,
+                    cursor: "pointer"
+                }
             },
             label: {
-                normal: {fill: "#696969", stroke: "none", fontSize: 9},
-                selected: {fill: "#333", stroke: "none", fontSize: 11},
-                muted: {fill: "#696969", stroke: "none", fontSize: 8,
-                        opacity: 0.6}
+                normal: { fill: "#696969", stroke: "none", fontSize: 9 },
+                selected: { fill: "#333", stroke: "none", fontSize: 11 },
+                muted: {
+                    fill: "#696969",
+                    stroke: "none",
+                    fontSize: 8,
+                    opacity: 0.6
+                }
             }
         };
 
@@ -125,8 +136,9 @@ export class TrafficMap extends React.Component {
             n.labelOffsetX = node.label_dx;
             n.labelOffsetY = node.label_dy;
 
-            const styleMap = _.has(this.props.stylesMap, node.type) ?
-                this.props.stylesMap[node.type] : genericStyle;
+            const styleMap = _.has(this.props.stylesMap, node.type)
+                ? this.props.stylesMap[node.type]
+                : genericStyle;
             n.style = styleMap.node;
             n.labelStyle = styleMap.label;
 
@@ -137,7 +149,7 @@ export class TrafficMap extends React.Component {
         // Create the edge list
         topology.edges = _.map(this.props.topology.edges, edge => {
             const edgeName = `${edge.source}--${edge.target}`;
-            return ({
+            return {
                 width: this.edgeThickness(edge.capacity),
                 classed: edge.capacity,
                 source: edge.source,
@@ -148,16 +160,18 @@ export class TrafficMap extends React.Component {
                 shape: this.edgeShape(edgeName),
                 curveDirection: this.edgeCurveDirection(edgeName),
                 offset: this.edgeCurveOffset(edgeName)
-            });
+            };
         });
 
         // Create the path list, filtering based on what is in showPaths
         if (this.props.showPaths) {
             topology.paths = _.map(this.filteredPaths(), path => {
-                const color = _.has(this.props.pathColorMap, path.name) ?
-                    this.props.pathColorMap[path.name] : "lightsteelblue";
-                const width = _.has(this.props.pathWidthMap, path.name) ?
-                    this.props.pathWidthMap[path.name] : 4;
+                const color = _.has(this.props.pathColorMap, path.name)
+                    ? this.props.pathColorMap[path.name]
+                    : "lightsteelblue";
+                const width = _.has(this.props.pathWidthMap, path.name)
+                    ? this.props.pathWidthMap[path.name]
+                    : 4;
                 return {
                     name: path.name,
                     steps: path.steps,
@@ -169,28 +183,20 @@ export class TrafficMap extends React.Component {
 
         // Colorize the topology
         if (this.props.traffic) {
-            if (!this.props.showPaths &&
-                 this.props.edgeDrawingMethod === "bidirectionalArrow") {
+            if (!this.props.showPaths && this.props.edgeDrawingMethod === "bidirectionalArrow") {
                 _.each(topology.edges, edge => {
                     const sourceTargetName = `${edge.source}--${edge.target}`;
                     const targetSourceName = `${edge.target}--${edge.source}`;
-                    const sourceTargetTraffic =
-                        this.props.traffic.get(sourceTargetName);
-                    const targetSourceTraffic =
-                        this.props.traffic.get(targetSourceName);
-                    edge.sourceTargetColor =
-                        this.selectEdgeColor(sourceTargetTraffic);
-                    edge.targetSourceColor =
-                        this.selectEdgeColor(targetSourceTraffic);
+                    const sourceTargetTraffic = this.props.traffic.get(sourceTargetName);
+                    const targetSourceTraffic = this.props.traffic.get(targetSourceName);
+                    edge.sourceTargetColor = this.selectEdgeColor(sourceTargetTraffic);
+                    edge.targetSourceColor = this.selectEdgeColor(targetSourceTraffic);
                 });
             } else {
                 const edgeMap = {};
                 _.each(this.filteredPaths(), path => {
-
-                    const pathAtoZTraffic =
-                        this.props.traffic.get(`${path.name}--AtoZ`);
-                    const pathZtoATraffic =
-                        this.props.traffic.get(`${path.name}--ZtoA`);
+                    const pathAtoZTraffic = this.props.traffic.get(`${path.name}--AtoZ`);
+                    const pathZtoATraffic = this.props.traffic.get(`${path.name}--ZtoA`);
 
                     let prev = null;
                     _.each(path.steps, step => {
@@ -215,13 +221,11 @@ export class TrafficMap extends React.Component {
                     const targetSourceName = `${edge.target}--${edge.source}`;
                     if (_.has(edgeMap, sourceTargetName)) {
                         const sourceTargetTraffic = edgeMap[sourceTargetName];
-                        edge.sourceTargetColor =
-                            this.selectEdgeColor(sourceTargetTraffic);
+                        edge.sourceTargetColor = this.selectEdgeColor(sourceTargetTraffic);
                     }
                     if (_.has(edgeMap, targetSourceName)) {
                         const targetSourceTraffic = edgeMap[targetSourceName];
-                        edge.targetSourceColor =
-                            this.selectEdgeColor(targetSourceTraffic);
+                        edge.targetSourceColor = this.selectEdgeColor(targetSourceTraffic);
                     }
                 });
             }
@@ -246,11 +250,15 @@ export class TrafficMap extends React.Component {
         const autoSize = this.props.autoSize;
         if (autoSize) {
             return (
-                <Resizable aspect={aspect} style={{
-                    background: "#F6F6F6",
-                    borderStyle: "solid",
-                    borderWidth: "thin",
-                    borderColor: "#E6E6E6"}}>
+                <Resizable
+                    aspect={aspect}
+                    style={{
+                        background: "#F6F6F6",
+                        borderStyle: "solid",
+                        borderWidth: "thin",
+                        borderColor: "#E6E6E6"
+                    }}
+                >
                     <BaseMap
                         topology={topo}
                         paths={topo.paths}
@@ -260,16 +268,22 @@ export class TrafficMap extends React.Component {
                         margin={this.props.margin}
                         selection={this.props.selection}
                         edgeDrawingMethod={this.props.edgeDrawingMethod}
-                        onSelectionChange={(selectionType, selection) => this.handleSelectionChanged(selectionType, selection)} />
+                        onSelectionChange={(selectionType, selection) =>
+                            this.handleSelectionChanged(selectionType, selection)
+                        }
+                    />
                 </Resizable>
             );
         } else {
             return (
-                <div style={{
-                    background: "#F6F6F6",
-                    borderStyle: "solid",
-                    borderWidth: "thin",
-                    borderColor: "#E6E6E6"}}>
+                <div
+                    style={{
+                        background: "#F6F6F6",
+                        borderStyle: "solid",
+                        borderWidth: "thin",
+                        borderColor: "#E6E6E6"
+                    }}
+                >
                     <BaseMap
                         topology={topo}
                         paths={topo.paths}
@@ -279,12 +293,15 @@ export class TrafficMap extends React.Component {
                         margin={this.props.margin}
                         selection={this.props.selection}
                         edgeDrawingMethod={this.props.edgeDrawingMethod}
-                        onSelectionChange={(selectionType, selection) => this.handleSelectionChanged(selectionType, selection)} />
+                        onSelectionChange={(selectionType, selection) =>
+                            this.handleSelectionChanged(selectionType, selection)
+                        }
+                    />
                 </div>
             );
         }
     }
-};
+}
 
 TrafficMap.defaultProps = {
     edgeThinknessMap: {
@@ -305,7 +322,6 @@ TrafficMap.defaultProps = {
 };
 
 TrafficMap.propTypes = {
-
     /** The width of the circuit diagram */
     width: PropTypes.number,
 
@@ -336,21 +352,14 @@ TrafficMap.propTypes = {
      *  * "pathBidirectionalArrow" - similar to "bidirectionalArrow", but only for
      *  edges that are used in the currently displayed path(s).
      */
-    edgeDrawingMethod: PropTypes.oneOf([
-        "simple",
-        "bidirectionalArrow",
-        "pathBidirectionalArrow"
-    ]),
+    edgeDrawingMethod: PropTypes.oneOf(["simple", "bidirectionalArrow", "pathBidirectionalArrow"]),
 
     /**
      * Either a boolean or a list of path names. If a bool, and true, then all
      * paths will be shown. If a list then only the paths in that list will be
      * shown. The default is to show no paths.
      */
-    showPaths: PropTypes.oneOfType([
-        PropTypes.bool,
-        PropTypes.arrayOf(PropTypes.string)
-    ]),
+    showPaths: PropTypes.oneOfType([PropTypes.bool, PropTypes.arrayOf(PropTypes.string)]),
 
     /**
      * A mapping of the capacity field within the tologogy edge object
@@ -416,13 +425,13 @@ TrafficMap.propTypes = {
      * ```
      */
     edgeShapeMap: PropTypes.object,
-    
+
     /** Display the endpoint selected */
     selected: PropTypes.bool,
-    
+
     /** The shape of the endpoint */
     shape: PropTypes.oneOf(["circle", "square", "cloud"]),
-    
+
     stylesMap: PropTypes.object,
 
     autoSize: PropTypes.bool

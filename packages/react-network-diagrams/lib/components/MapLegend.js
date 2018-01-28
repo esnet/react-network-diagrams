@@ -68,13 +68,11 @@ var MapLegend = exports.MapLegend = function (_React$Component) {
                             cx: curX,
                             cy: textY,
                             r: node.radius,
-                            className: classed }),
+                            className: classed
+                        }),
                         _react2.default.createElement(
                             "text",
-                            {
-                                x: textX,
-                                y: textY + 4,
-                                textAnchor: "begin" },
+                            { x: textX, y: textY + 4, textAnchor: "begin" },
                             node.text
                         )
                     ));
@@ -103,7 +101,8 @@ var MapLegend = exports.MapLegend = function (_React$Component) {
                             x2: x + _this2.props.exampleWidth,
                             y2: y,
                             stroke: _this2.props.edgeColor,
-                            strokeWidth: edge.strokeWidth }),
+                            strokeWidth: edge.strokeWidth
+                        }),
                         _react2.default.createElement(
                             "text",
                             { x: textX, y: textY, textAnchor: "begin" },
@@ -145,7 +144,8 @@ var MapLegend = exports.MapLegend = function (_React$Component) {
                             width: width,
                             height: height,
                             stroke: color.stroke,
-                            fill: color.fill }),
+                            fill: color.fill
+                        }),
                         _react2.default.createElement(
                             "text",
                             { x: textX, y: textY, textAnchor: "begin" },
@@ -173,8 +173,6 @@ var MapLegend = exports.MapLegend = function (_React$Component) {
 
     return MapLegend;
 }(_react2.default.Component);
-
-;
 
 MapLegend.propTypes = {
     x: _propTypes2.default.number,

@@ -238,7 +238,8 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
 
                 nodeCoordinates[node.name] = { x: props.x, y: props.y };
 
-                return _react2.default.createElement(_Node.Node, _extends({ key: props.id
+                return _react2.default.createElement(_Node.Node, _extends({
+                    key: props.id
                 }, props, {
                     onSelectionChange: function onSelectionChange(type, i) {
                         return _this2.handleSelectionChange(type, i);
@@ -251,7 +252,8 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                     },
                     onMouseUp: function onMouseUp(type, i, e) {
                         return _this2.props.onNodeMouseUp(i, e);
-                    } }));
+                    }
+                }));
             });
 
             //
@@ -279,9 +281,11 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                     // We store our target based on geography, west to east etc A->Z
                     if (_underscore2.default.has(nodeCoordinates, node) && _underscore2.default.has(nodeCoordinates, next)) {
                         if (nodeCoordinates[node].x < nodeCoordinates[next].x || nodeCoordinates[node].y < nodeCoordinates[next].y) {
-                            a = node;z = next;
+                            a = node;
+                            z = next;
                         } else {
-                            a = next;z = node;
+                            a = next;
+                            z = node;
                         }
 
                         if (!_underscore2.default.has(nodePaths, a)) {
@@ -367,7 +371,8 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                         muted: muted,
                         onSelectionChange: function onSelectionChange(type, id) {
                             return _this2.handleSelectionChange(type, id);
-                        } });
+                        }
+                    });
                 } else if (edgeDrawingMethod === "bidirectionalArrow") {
                     return _react2.default.createElement(_BidirectionalEdge.BidirectionalEdge, {
                         x1: nodeCoordinates[edge.source].x,
@@ -389,7 +394,8 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                         muted: muted,
                         onSelectionChange: function onSelectionChange(type, id) {
                             return _this2.handleSelectionChange(type, id);
-                        } });
+                        }
+                    });
                 } else if (edgeDrawingMethod === "pathBidirectionalArrow") {
                     if (_underscore2.default.has(edgePathMap, edge.name)) {
                         return _react2.default.createElement(_BidirectionalEdge.BidirectionalEdge, {
@@ -411,7 +417,8 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                             muted: muted,
                             onSelectionChange: function onSelectionChange(type, id) {
                                 return _this2.handleSelectionChange(type, id);
-                            } });
+                            }
+                        });
                     } else {
                         return _react2.default.createElement(_SimpleEdge.SimpleEdge, {
                             x1: nodeCoordinates[edge.source].x,
@@ -431,7 +438,8 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                             muted: muted,
                             onSelectionChange: function onSelectionChange(type, id) {
                                 return _this2.handleSelectionChange(type, id);
-                            } });
+                            }
+                        });
                     }
                 }
             });
@@ -456,10 +464,12 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
 
                         // Get the position of path (if multiple paths run parallel)
                         if (nodeCoordinates[source].x < nodeCoordinates[destination].x || nodeCoordinates[source].y < nodeCoordinates[destination].y) {
-                            a = source;z = destination;
+                            a = source;
+                            z = destination;
                             dir = 1;
                         } else {
-                            a = destination;z = source;
+                            a = destination;
+                            z = source;
                             dir = -1;
                         }
 
@@ -506,7 +516,8 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                                 width: pathWidth,
                                 classed: "path-" + pathName,
                                 key: pathName + "--" + edgeName,
-                                name: pathName + "--" + edgeName }));
+                                name: pathName + "--" + edgeName
+                            }));
                         }
                     }
                 }
@@ -529,7 +540,8 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                     y: y,
                     label: label.label,
                     labelPosition: label.labelPosition,
-                    key: label.label });
+                    key: label.label
+                });
             });
 
             //
@@ -543,7 +555,8 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                     y: this.props.legendItems.y,
                     edgeTypes: this.props.legendItems.edgeTypes,
                     nodeTypes: this.props.legendItems.nodeTypes,
-                    colorSwatches: this.props.legendItems.colorSwatches });
+                    colorSwatches: this.props.legendItems.colorSwatches
+                });
             }
 
             var style = void 0;
@@ -579,7 +592,8 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                     },
                     onMouseUp: function onMouseUp(e) {
                         return _this2.handleMouseUp(e);
-                    } },
+                    }
+                },
                 _react2.default.createElement(
                     "g",
                     null,
@@ -596,10 +610,7 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
     return BaseMap;
 }(_react2.default.Component);
 
-;
-
 BaseMap.propTypes = {
-
     /**
      * The topology structure, as detailed above. This contains the
      * descriptions of nodes, edges and paths used to render the topology
@@ -651,7 +662,6 @@ BaseMap.propTypes = {
     paths: _propTypes2.default.array,
 
     pathWidth: _propTypes2.default.number
-
 };
 
 BaseMap.defaultProps = {

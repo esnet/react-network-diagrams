@@ -9,10 +9,8 @@
  */
 
 import "./App.css";
-import _ from "lodash";
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
 import Prism from "prismjs"; // eslint-disable-line
 import "prismjs/components/prism-typescript";
@@ -26,11 +24,7 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import ScrollToTop from "./ScrollToTop";
 
-import esnetLogo from "./img/logo.png";
-import githubLogo from "./img/github.png";
-import logo from "./logo.png";
-
-import {bodyStyle, mainStyle, footerStyle, contentStyle, githubLogoStyle} from './styles';
+import {bodyStyle, mainStyle, contentStyle} from './styles';
 
 class App extends Component {
     render() {

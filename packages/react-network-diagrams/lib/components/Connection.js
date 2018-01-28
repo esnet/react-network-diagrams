@@ -115,7 +115,8 @@ var Connection = exports.Connection = function (_React$Component) {
                         roundedY: this.props.endPointRoundedY,
                         highlighted: this.state.highlighted,
                         muted: this.props.muted,
-                        selected: this.props.selected }),
+                        selected: this.props.selected
+                    }),
                     _react2.default.createElement(_Endpoint.Endpoint, {
                         x: this.props.x2,
                         y: this.props.y2,
@@ -127,7 +128,8 @@ var Connection = exports.Connection = function (_React$Component) {
                         roundedY: this.props.endPointRoundedY,
                         highlighted: this.state.highlighted,
                         muted: this.props.muted,
-                        selected: this.props.selected })
+                        selected: this.props.selected
+                    })
                 );
             }
         }
@@ -215,21 +217,19 @@ var Connection = exports.Connection = function (_React$Component) {
                         position: this.props.position,
                         offset: offset,
                         curveDirection: this.props.curveDirection,
-                        name: navTo })
+                        name: navTo
+                    })
                 ),
                 _react2.default.createElement(
                     "g",
-                    { onMouseOver: this.handleMouseOver,
-                        onMouseOut: this.handleMouseOut },
+                    { onMouseOver: this.handleMouseOver, onMouseOut: this.handleMouseOut },
                     _react2.default.createElement(_SimpleEdge.SimpleEdge, { x1: this.props.x1,
                         x2: this.props.x2,
                         y1: this.props.y1,
                         y2: this.props.y2
-
                         // Identity Props used by all shapes
                         , shape: this.props.lineShape // controls shape of the line
                         , key: "line-path-hit" // needed for react element
-
                         // Label Props used by all shapes
                         , label: this.props.label // provides label to be displayed
                         , labelPosition: this.props.labelPosition // controls where label
@@ -239,27 +239,23 @@ var Connection = exports.Connection = function (_React$Component) {
                         , labelOffsetX: xOffset // controls the +/- x offset from labelPosition
                         , labelOffsetY: yOffset // controls the +/- y offset from labelPosition
                         , textAnchor: this.props.textAnchor // controls the positioning of the text
-
                         // Style Props
                         , color: hitStyle.stroke // controls color of the line
                         , width: hitStyle.strokeWidth // controls the stroke thickness
                         , muted: this.props.muted // controls style
                         , selected: this.props.selected // controls style
                         , classed: this.props.classed // provides a psuedo css class for the line
-
                         // Square props
                         , roundedX: this.props.roundedX // controls corner rounding
                         , roundedY: this.props.roundedY // controls corner rounding
                         , fillColor: fill // controls color of the fill
                         , size: this.props.size // controls height of square
                         , centerLine: this.props.centerLine // controls display of horizontal center line
-
                         // Arrow props, not used by square
                         , arrow: this.props.arrow // determines whether to
                         // display nodes or arrows at ends of line
                         , arrowWidth: this.props.arrowWidth // controls width of arrow
                         , arrowHeight: this.props.arrowHeight // controls height of arrow
-
                         // Line offset props, used by angle and arc
                         , position: this.props.position // controls angle of offset
                         , offset: offset // controls length of offset line
@@ -287,10 +283,7 @@ var Connection = exports.Connection = function (_React$Component) {
     return Connection;
 }(_react2.default.Component);
 
-;
-
 Connection.propTypes = {
-
     /**
      * Controls shape of the line, can be "linear", "square", "angled", "arc".
      */

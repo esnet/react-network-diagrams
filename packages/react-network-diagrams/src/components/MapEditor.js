@@ -20,14 +20,13 @@ import { Resizable } from "./Resizable";
 let counter = 1;
 
 export class MapEditor extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
             pendingAction: null,
             selectionType: null,
             selection: null
-        }
+        };
         this.handleAddEdge = this.handleAddEdge.bind(this);
         this.handleAddNode = this.handleAddNode.bind(this);
         this.handleDeleteEdge = this.handleDeleteEdge.bind(this);
@@ -47,15 +46,15 @@ export class MapEditor extends React.Component {
      */
     makeId() {
         return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
-            const r = Math.random() * 16 | 0;
-            const v = c === "x" ? r : (r & 0x3 | 0x8);
+            const r = (Math.random() * 16) | 0;
+            const v = c === "x" ? r : (r & 0x3) | 0x8;
             return v.toString(16);
         });
     }
 
     findNode(id) {
         let result;
-        _.each(this.props.topology.nodes, (node) => {
+        _.each(this.props.topology.nodes, node => {
             if (node.id === id) {
                 result = node;
             }
@@ -65,7 +64,7 @@ export class MapEditor extends React.Component {
 
     findEdge(id) {
         let result;
-        _.each(this.props.topology.edges, (edge) => {
+        _.each(this.props.topology.edges, edge => {
             if (`${edge.source}--${edge.target}` === id) {
                 result = edge;
             }
@@ -121,15 +120,15 @@ export class MapEditor extends React.Component {
         const minY = _.min(this.props.topology.nodes, node => node.y).y;
         const maxX = _.max(this.props.topology.nodes, node => node.x).x;
         const maxY = _.max(this.props.topology.nodes, node => node.y).y;
-        return {x1: minX, x2: maxX, y1: minY, y2: maxY};
+        return { x1: minX, x2: maxX, y1: minY, y2: maxY };
     }
 
     cloneTopo() {
         const topo = {
             name: this.props.topology.name,
             description: this.props.topology.description,
-            nodes: _.map(this.props.topology.nodes, (n) => _.clone(n)),
-            edges: _.map(this.props.topology.edges, (e) => _.clone(e))
+            nodes: _.map(this.props.topology.nodes, n => _.clone(n)),
+            edges: _.map(this.props.topology.edges, e => _.clone(e))
         };
         return topo;
     }
@@ -156,11 +155,12 @@ export class MapEditor extends React.Component {
             n.labelOffsetY = node.label_dy;
 
             n.style = {
-                normal: {fill: "#CBCBCB",stroke: "#BEBEBE", cursor: "pointer"},
+                normal: { fill: "#CBCBCB", stroke: "#BEBEBE", cursor: "pointer" },
                 selected: {
                     fill: "#37B6D3",
                     stroke: "rgba(55, 182, 211, 0.22)",
-                    strokeWidth: 10, cursor: "pointer"
+                    strokeWidth: 10,
+                    cursor: "pointer"
                 },
                 muted: {
                     fill: "#CBCBCB",
@@ -171,9 +171,9 @@ export class MapEditor extends React.Component {
             };
 
             n.labelStyle = {
-                normal: {fill: "#696969", stroke: "none", fontSize: 9},
-                selected: {fill: "#333", stroke: "none", fontSize: 11},
-                muted: {fill: "#696969", stroke: "none", fontSize: 8, opacity: 0.6}
+                normal: { fill: "#696969", stroke: "none", fontSize: 9 },
+                selected: { fill: "#333", stroke: "none", fontSize: 11 },
+                muted: { fill: "#696969", stroke: "none", fontSize: 8, opacity: 0.6 }
             };
 
             n.shape = this.nodeShape(node.name);
@@ -184,7 +184,7 @@ export class MapEditor extends React.Component {
         // Create the tologogy list
         topology.edges = _.map(this.props.topology.edges, edge => {
             const edgeName = `${edge.source}--${edge.target}`;
-            return ({
+            return {
                 width: this.edgeThickness(edge.capacity),
                 classed: edge.capacity,
                 source: edge.source,
@@ -193,7 +193,7 @@ export class MapEditor extends React.Component {
                 shape: this.edgeShape(edgeName),
                 curveDirection: this.edgeCurveDirection(edgeName),
                 offset: this.edgeCurveOffset(edgeName)
-            });
+            };
         });
 
         topology.name = this.props.topology.name;
@@ -209,7 +209,7 @@ export class MapEditor extends React.Component {
         } else if (selectionType === "edge") {
             selection = this.findEdge(selectionId);
         }
-        this.setState({selectionType, selection});
+        this.setState({ selectionType, selection });
     }
 
     handleChange(attr, value) {
@@ -225,7 +225,7 @@ export class MapEditor extends React.Component {
         const topo = this.cloneTopo();
         const { x, y } = this.constrain(posx, posy);
 
-        _.each(topo.nodes, (node) => {
+        _.each(topo.nodes, node => {
             if (node.id === id) {
                 node.x = x;
                 node.y = y;
@@ -238,10 +238,12 @@ export class MapEditor extends React.Component {
     }
 
     handleAddNode() {
-        this.setState({pendingAction: {
-            action: "add-node",
-            instructions: "Pick a point (x,y)"
-        }});
+        this.setState({
+            pendingAction: {
+                action: "add-node",
+                instructions: "Pick a point (x,y)"
+            }
+        });
     }
 
     /**
@@ -276,27 +278,33 @@ export class MapEditor extends React.Component {
     }
 
     handleAddEdge() {
-        this.setState({pendingAction: {
-            action: "add-edge",
-            instructions: "Pick source node",
-            nodes: []
-        }});
+        this.setState({
+            pendingAction: {
+                action: "add-edge",
+                instructions: "Pick source node",
+                nodes: []
+            }
+        });
     }
 
     handleDeleteNode() {
-        this.setState({ pendingAction: {
-            action: "delete-node",
-            instructions: "Pick a node to delete (will delete related edges)",
-            nodes: []
-        }});
+        this.setState({
+            pendingAction: {
+                action: "delete-node",
+                instructions: "Pick a node to delete (will delete related edges)",
+                nodes: []
+            }
+        });
     }
 
     handleDeleteEdge() {
-        this.setState({ pendingAction: {
-            action: "delete-edge",
-            instructions: "Pick an edge to delete",
-            edge: null
-        }});
+        this.setState({
+            pendingAction: {
+                action: "delete-edge",
+                instructions: "Pick an edge to delete",
+                edge: null
+            }
+        });
     }
 
     handleAddSelection(node) {
@@ -305,11 +313,13 @@ export class MapEditor extends React.Component {
             action.nodes.push(node);
         }
         if (action.nodes.length === 1) {
-            this.setState({pendingAction: {
-                action: "add-edge",
-                instructions: "Pick target node",
-                nodes: action.nodes
-            }});
+            this.setState({
+                pendingAction: {
+                    action: "add-edge",
+                    instructions: "Pick target node",
+                    nodes: action.nodes
+                }
+            });
         }
         if (action.nodes.length === 2) {
             // Action complete
@@ -325,7 +335,7 @@ export class MapEditor extends React.Component {
                 this.props.onTopologyChange(topo);
             }
 
-            this.setState({pendingAction: null});
+            this.setState({ pendingAction: null });
         }
     }
 
@@ -338,11 +348,11 @@ export class MapEditor extends React.Component {
             const node = this.findNode(nodeId);
 
             const topo = this.cloneTopo();
-            topo.nodes = _.filter(topo.nodes, (n) => {
+            topo.nodes = _.filter(topo.nodes, n => {
                 return n.id !== nodeId;
             });
 
-            topo.edges = _.filter(topo.edges, (e) => {
+            topo.edges = _.filter(topo.edges, e => {
                 return e.source !== node.name && e.target !== node.name;
             });
 
@@ -350,7 +360,7 @@ export class MapEditor extends React.Component {
                 this.props.onTopologyChange(topo);
             }
 
-            this.setState({pendingAction: null});
+            this.setState({ pendingAction: null });
         }
     }
 
@@ -364,7 +374,7 @@ export class MapEditor extends React.Component {
             const edge = this.findEdge(edgeId);
             const topo = this.cloneTopo();
 
-            topo.edges = _.filter(topo.edges, (e) => {
+            topo.edges = _.filter(topo.edges, e => {
                 return !(e.source === edge.source && e.target === edge.target);
             });
 
@@ -372,7 +382,7 @@ export class MapEditor extends React.Component {
                 this.props.onTopologyChange(topo);
             }
 
-            this.setState({pendingAction: null});
+            this.setState({ pendingAction: null });
         }
     }
 
@@ -383,8 +393,8 @@ export class MapEditor extends React.Component {
                 width="100%"
                 type="text"
                 className="form-control input-sm"
-                onBlur={(e) =>
-                    this.handleChange(attr, e.target.value)} />
+                onBlur={e => this.handleChange(attr, e.target.value)}
+            />
         );
     }
 
@@ -396,8 +406,8 @@ export class MapEditor extends React.Component {
                 width="100%"
                 type="text"
                 className="form-control input-sm"
-                onBlur={(e) =>
-                    this.handleChange(attr, parseInt(e.target.value, 10))} />
+                onBlur={e => this.handleChange(attr, parseInt(e.target.value, 10))}
+            />
         );
     }
 
@@ -408,7 +418,8 @@ export class MapEditor extends React.Component {
                 searchable={false}
                 clearable={false}
                 options={options}
-                onChange={(val) => this.handleChange(attr, val)} />
+                onChange={val => this.handleChange(attr, val)}
+            />
         );
     }
 
@@ -421,13 +432,13 @@ export class MapEditor extends React.Component {
             label: "Type",
             type: "choice",
             options: _.map(this.props.stylesMap, (s, type) => {
-                return {value: type, label: type};
+                return { value: type, label: type };
             })
         });
 
         let propertyElements;
         if (this.state.selectionType === "node") {
-            propertyElements = _.map(nodeSpec, (property) => {
+            propertyElements = _.map(nodeSpec, property => {
                 const v = selected[property.attr];
                 let editorElement;
                 switch (property.type) {
@@ -438,14 +449,20 @@ export class MapEditor extends React.Component {
                         editorElement = this.renderIntegerProperty(property.attr, v);
                         break;
                     case "choice":
-                        editorElement = this.renderChoiceProperty(property.attr, property.options, v);
+                        editorElement = this.renderChoiceProperty(
+                            property.attr,
+                            property.options,
+                            v
+                        );
                         break;
                     default:
                         break;
                 }
                 return (
                     <tr height="35px" key={property.attr}>
-                        <td width="100px"><label width={100}>{property.label}</label></td>
+                        <td width="100px">
+                            <label width={100}>{property.label}</label>
+                        </td>
                         <td>{editorElement}</td>
                     </tr>
                 );
@@ -454,9 +471,7 @@ export class MapEditor extends React.Component {
 
         return (
             <table width="100%">
-                <tbody>
-                    {propertyElements}
-                </tbody>
+                <tbody>{propertyElements}</tbody>
             </table>
         );
     }
@@ -469,14 +484,14 @@ export class MapEditor extends React.Component {
                 label: "Capacity",
                 type: "choice",
                 options: _.map(this.props.edgeThicknessMap, (e, k) => {
-                    return {value: k, label: k};
+                    return { value: k, label: k };
                 })
             }
         ];
 
         let propertyElements;
         if (this.state.selectionType === "edge") {
-            propertyElements = _.map(edgeSpec, (property) => {
+            propertyElements = _.map(edgeSpec, property => {
                 const v = selected[property.attr];
                 let editorElement;
                 switch (property.type) {
@@ -487,14 +502,20 @@ export class MapEditor extends React.Component {
                         editorElement = this.renderIntegerProperty(property.attr, v);
                         break;
                     case "choice":
-                        editorElement = this.renderChoiceProperty(property.attr, property.options, v);
+                        editorElement = this.renderChoiceProperty(
+                            property.attr,
+                            property.options,
+                            v
+                        );
                         break;
                     default:
                         break;
                 }
                 return (
                     <tr height="35px" key={property.attr}>
-                        <td width="100px"><label width={100}>{property.label}</label></td>
+                        <td width="100px">
+                            <label width={100}>{property.label}</label>
+                        </td>
                         <td>{editorElement}</td>
                     </tr>
                 );
@@ -503,9 +524,7 @@ export class MapEditor extends React.Component {
 
         return (
             <table width="100%">
-                <tbody>
-                    {propertyElements}
-                </tbody>
+                <tbody>{propertyElements}</tbody>
             </table>
         );
     }
@@ -522,13 +541,9 @@ export class MapEditor extends React.Component {
             if (this.state.selectionType === "node") {
                 return (
                     <div>
-                        <div style={headerStyle}>
-                            {this.state.selection.name}
-                        </div>
+                        <div style={headerStyle}>{this.state.selection.name}</div>
                         <p />
-                        <div>
-                            {this.renderNodeProperties()}
-                        </div>
+                        <div>{this.renderNodeProperties()}</div>
                     </div>
                 );
             } else {
@@ -536,22 +551,14 @@ export class MapEditor extends React.Component {
                 const title = `${edge.source} to ${edge.target}`;
                 return (
                     <div>
-                        <div style={headerStyle}>
-                            {title}
-                        </div>
+                        <div style={headerStyle}>{title}</div>
                         <p />
-                        <div>
-                            {this.renderEdgeProperties()}
-                        </div>
+                        <div>{this.renderEdgeProperties()}</div>
                     </div>
                 );
             }
         } else {
-            return (
-                <span>
-                    Nothing selected
-                </span>
-            );
+            return <span>Nothing selected</span>;
         }
     }
 
@@ -564,22 +571,22 @@ export class MapEditor extends React.Component {
         };
 
         // Highlight buttons when action is in progress
-        let addNodeStyle = {color: "grey"};
-        let addEdgeStyle = {color: "grey", marginLeft: 10};
-        let deleteNodeStyle = {color: "grey", marginLeft: 10};
-        let deleteEdgeStyle = {color: "grey", marginLeft: 10};
+        let addNodeStyle = { color: "grey" };
+        let addEdgeStyle = { color: "grey", marginLeft: 10 };
+        let deleteNodeStyle = { color: "grey", marginLeft: 10 };
+        let deleteEdgeStyle = { color: "grey", marginLeft: 10 };
         if (this.state.pendingAction) {
             if (this.state.pendingAction.action === "add-node") {
-                addNodeStyle = {color: "steelblue"};
+                addNodeStyle = { color: "steelblue" };
             }
             if (this.state.pendingAction.action === "add-edge") {
-                addEdgeStyle = {color: "steelblue", marginLeft: 10};
+                addEdgeStyle = { color: "steelblue", marginLeft: 10 };
             }
             if (this.state.pendingAction.action === "delete-node") {
-                deleteNodeStyle = {color: "steelblue", marginLeft: 10};
+                deleteNodeStyle = { color: "steelblue", marginLeft: 10 };
             }
             if (this.state.pendingAction.action === "delete-edge") {
-                deleteEdgeStyle = {color: "steelblue", marginLeft: 10};
+                deleteEdgeStyle = { color: "steelblue", marginLeft: 10 };
             }
         }
 
@@ -589,43 +596,35 @@ export class MapEditor extends React.Component {
                     type="button"
                     style={addNodeStyle}
                     className="btn btn-default btn-xs"
-                    onClick={this.handleAddNode}>
-                    <span
-                        className="glyphicon glyphicon-plus"
-                        aria-hidden="true">
-                    </span> Node
+                    onClick={this.handleAddNode}
+                >
+                    <span className="glyphicon glyphicon-plus" aria-hidden="true" /> Node
                 </button>
                 <button
                     type="button"
                     style={addEdgeStyle}
                     className="btn btn-default btn-xs"
-                    onClick={this.handleAddEdge}>
-                    <span
-                        className="glyphicon glyphicon-plus"
-                        aria-hidden="true">
-                    </span> Edge
+                    onClick={this.handleAddEdge}
+                >
+                    <span className="glyphicon glyphicon-plus" aria-hidden="true" /> Edge
                 </button>
                 <button
                     type="button"
                     style={deleteNodeStyle}
                     className="btn btn-default btn-xs"
-                    onClick={this.handleDeleteNode}>
-                    <span
-                        className="glyphicon glyphicon-minus"
-                        aria-hidden="true">
-                    </span> Node
+                    onClick={this.handleDeleteNode}
+                >
+                    <span className="glyphicon glyphicon-minus" aria-hidden="true" /> Node
                 </button>
                 <button
                     type="button"
                     style={deleteEdgeStyle}
                     className="btn btn-default btn-xs"
-                    onClick={this.handleDeleteEdge}>
-                    <span
-                        className="glyphicon glyphicon-minus"
-                        aria-hidden="true">
-                    </span> Edge
+                    onClick={this.handleDeleteEdge}
+                >
+                    <span className="glyphicon glyphicon-minus" aria-hidden="true" /> Edge
                 </button>
-                <span style={{color: "steelblue", marginLeft: 10}} >
+                <span style={{ color: "steelblue", marginLeft: 10 }}>
                     {this.state.pendingAction ? this.state.pendingAction.instructions : null}
                 </span>
             </div>
@@ -643,32 +642,38 @@ export class MapEditor extends React.Component {
 
         if (this.state.pendingAction) {
             if (this.state.pendingAction.action === "add-node") {
-                positionSelected = ((posx, posy) => this.handleAddNodePosition(posx, posy));
+                positionSelected = (posx, posy) => this.handleAddNodePosition(posx, posy);
             }
             if (this.state.pendingAction.action === "add-edge") {
-                nodeSelected = ((node) => this.handleAddSelection(node));
+                nodeSelected = node => this.handleAddSelection(node);
             }
             if (this.state.pendingAction.action === "delete-node") {
-                nodeSelected = ((nodeId) => this.handleDeleteNodeSelection(nodeId));
+                nodeSelected = nodeId => this.handleDeleteNodeSelection(nodeId);
             }
             if (this.state.pendingAction.action === "delete-edge") {
-                edgeSelected = ((edgeId) => this.handleDeleteEdgeSelection(edgeId));
+                edgeSelected = edgeId => this.handleDeleteEdgeSelection(edgeId);
             }
         }
 
         const mapSelection = {
-            nodes: this.state.selectionType === "node" ?
-                [this.state.selection.id] : [],
-            edges: this.state.selectionType === "edge" ?
-                [`${this.state.selection.source}--${this.state.selection.target}`] : []
+            nodes: this.state.selectionType === "node" ? [this.state.selection.id] : [],
+            edges:
+                this.state.selectionType === "edge"
+                    ? [`${this.state.selection.source}--${this.state.selection.target}`]
+                    : []
         };
 
         if (this.props.autoSize) {
             return (
-                <Resizable aspect={aspect} style={{background: "#F6F6F6",
-                                                   borderStyle: "solid",
-                                                   borderWidth: "thin",
-                                                   borderColor: "#E6E6E6"}}>
+                <Resizable
+                    aspect={aspect}
+                    style={{
+                        background: "#F6F6F6",
+                        borderStyle: "solid",
+                        borderWidth: "thin",
+                        borderColor: "#E6E6E6"
+                    }}
+                >
                     <BaseMap
                         topology={topo}
                         width={this.props.width}
@@ -678,20 +683,26 @@ export class MapEditor extends React.Component {
                         bounds={bounds}
                         selection={mapSelection}
                         edgeDrawingMethod="simple"
-                        onSelectionChange={(selectionType, selectionId) => this.handleSelectionChanged(selectionType, selectionId)}
+                        onSelectionChange={(selectionType, selectionId) =>
+                            this.handleSelectionChanged(selectionType, selectionId)
+                        }
                         onPositionSelected={positionSelected}
                         onNodeSelected={nodeSelected}
                         onEdgeSelected={edgeSelected}
-                        onNodeDrag={(id, posx, posy) => this.handleNodeDrag(id, posx, posy)} />
+                        onNodeDrag={(id, posx, posy) => this.handleNodeDrag(id, posx, posy)}
+                    />
                 </Resizable>
             );
         } else {
             return (
-                <div style={{
-                    background: "#F6F6F6",
-                    borderStyle: "solid",
-                    borderWidth: "thin",
-                    borderColor: "#E6E6E6"}}>
+                <div
+                    style={{
+                        background: "#F6F6F6",
+                        borderStyle: "solid",
+                        borderWidth: "thin",
+                        borderColor: "#E6E6E6"
+                    }}
+                >
                     <BaseMap
                         topology={topo}
                         width={this.props.width}
@@ -701,11 +712,14 @@ export class MapEditor extends React.Component {
                         bounds={bounds}
                         selection={mapSelection}
                         edgeDrawingMethod="simple"
-                        onSelectionChange={(selectionType, selectionId) => this.handleSelectionChanged(selectionType, selectionId)}
+                        onSelectionChange={(selectionType, selectionId) =>
+                            this.handleSelectionChanged(selectionType, selectionId)
+                        }
                         onPositionSelected={positionSelected}
                         onNodeSelected={nodeSelected}
                         onEdgeSelected={edgeSelected}
-                        onNodeDrag={(id, posx, posy) => this.handleNodeDrag(id, posx, posy)} />
+                        onNodeDrag={(id, posx, posy) => this.handleNodeDrag(id, posx, posy)}
+                    />
                 </div>
             );
         }
@@ -715,29 +729,24 @@ export class MapEditor extends React.Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col-md-12" style={{marginBottom: 5, marginTop: 5}}>
+                    <div className="col-md-12" style={{ marginBottom: 5, marginTop: 5 }}>
                         {this.renderToolbar()}
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-12" style={{marginBottom: 5, marginTop: 5}}>
+                    <div className="col-md-12" style={{ marginBottom: 5, marginTop: 5 }}>
                         <div className="row">
-                            <div className="col-md-9">
-                                {this.renderMap()}
-                            </div>
-                            <div className="col-md-3">
-                                {this.renderProperties()}
-                            </div>
+                            <div className="col-md-9">{this.renderMap()}</div>
+                            <div className="col-md-3">{this.renderProperties()}</div>
                         </div>
                     </div>
                 </div>
             </div>
         );
     }
-};
+}
 
 MapEditor.propTypes = {
-
     /**
      * A mapping of the capacity field within the tologogy edge object
      * to a line thickness for rendering the edges.
@@ -772,9 +781,9 @@ MapEditor.propTypes = {
      * ```
      */
     nodeSizeMap: PropTypes.object,
-    
+
     nodeShapeMap: PropTypes.object,
-    
+
     /**
      * A mapping of the edge name (which is source + "--" + target) to a
      * dict of edge shape options:
@@ -794,7 +803,7 @@ MapEditor.propTypes = {
      * ```
      */
     edgeShapeMap: PropTypes.object,
-    
+
     stylesMap: PropTypes.object,
 
     gridSize: PropTypes.number

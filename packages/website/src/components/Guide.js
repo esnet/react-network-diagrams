@@ -9,10 +9,9 @@
  */
 
 import React, {Component} from "react";
-import Highlighter from "../components/Highlighter";
 import Markdown from "react-markdown";
+
 import Index from "../guides_entry";
-import logo from "../img/diagrams.png";
 
 export default class extends Component{
 

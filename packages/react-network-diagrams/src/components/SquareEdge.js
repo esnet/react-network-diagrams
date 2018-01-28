@@ -23,7 +23,6 @@ import { Label } from "./Label";
  * The color and width of the rectangle may also be supplied.
  */
 export class SquareEdge extends React.Component {
-
     handleClick(e) {
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange("edge", this.props.name);
@@ -32,11 +31,11 @@ export class SquareEdge extends React.Component {
     }
 
     _rotateOffset(cx, x, y, a) {
-        const r = (Math.PI / 180) * a;
+        const r = Math.PI / 180 * a;
         const cos = Math.cos(r);
         const sin = Math.sin(r);
-        const nx = x - ((x - cx) * cos);
-        const ny = y - ((x - cx) * sin);
+        const nx = x - (x - cx) * cos;
+        const ny = y - (x - cx) * sin;
         return [nx, ny];
     }
 
@@ -54,7 +53,6 @@ export class SquareEdge extends React.Component {
             classed += " muted";
             labelClassed += "muted";
             styleModifier = "muted";
-
         }
         if (this.props.invisible) {
             classed += " edge-event-region";
@@ -97,7 +95,7 @@ export class SquareEdge extends React.Component {
         } else {
             const l1 = Math.abs(this.props.y2 - this.props.y1);
             const l2 = Math.abs(this.props.x2 - this.props.x1);
-            width = Math.sqrt((l1 * l1) + (l2 * l2));
+            width = Math.sqrt(l1 * l1 + l2 * l2);
         }
 
         /* to draw a center line, find the center point, then offset
@@ -108,17 +106,18 @@ export class SquareEdge extends React.Component {
          */
 
         // find the angle to rotate
-        const angle = Math.atan2(this.props.y2 - this.props.y1,
-                                 this.props.x2 - this.props.x1) * 180 / Math.PI;
+        const angle =
+            Math.atan2(this.props.y2 - this.props.y1, this.props.x2 - this.props.x1) *
+            180 /
+            Math.PI;
         const rotate = `rotate(${angle} ${this.props.x1}, ${this.props.y1})`;
-
 
         // find the center of the square
         const centerX = (this.props.x1 + this.props.x2) / 2;
         const centerY = (this.props.y1 + this.props.y2) / 2;
 
         // find the offset position
-        const offset = centerX + (height / 2);
+        const offset = centerX + height / 2;
         // rotate the offsets
 
         const rotatedOffset1 = this._rotateOffset(offset, centerX, centerY, angle + 90);
@@ -165,17 +164,15 @@ export class SquareEdge extends React.Component {
                     label={this.props.label}
                     xOffset={this.props.labelOffsetX}
                     yOffset={this.props.labelOffsetY}
-                    labelPosition={this.props.labelPosition} />
+                    labelPosition={this.props.labelPosition}
+                />
             );
         }
 
         if (!this.props.centerLine) {
             return (
                 <g>
-                    <g
-                        strokeWidth={this.props.width}
-                        stroke={this.props.color}
-                        opacity={opacity}>
+                    <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
                         <rect
                             className={classed}
                             width={width}
@@ -186,7 +183,8 @@ export class SquareEdge extends React.Component {
                             rx={this.props.roundedX}
                             ry={this.props.roundedY}
                             fill={fill}
-                            onClick={e => this.handleClick(e)}/>
+                            onClick={e => this.handleClick(e)}
+                        />
                     </g>
                     {labelElement}
                 </g>
@@ -198,7 +196,8 @@ export class SquareEdge extends React.Component {
                         strokeWidth={this.props.width}
                         stroke={this.props.color}
                         opacity={opacity}
-                        onClick={e => this.handleClick(e)}>
+                        onClick={e => this.handleClick(e)}
+                    >
                         <rect
                             className={classed}
                             width={width}
@@ -208,21 +207,18 @@ export class SquareEdge extends React.Component {
                             y={yCorner}
                             rx={this.props.roundedX}
                             ry={this.props.roundedY}
-                            fill={fill} />
-                        <path
-                            className={classed}
-                            d={path}
-                            fill="none" />
+                            fill={fill}
+                        />
+                        <path className={classed} d={path} fill="none" />
                     </g>
                     {labelElement}
                 </g>
             );
         }
     }
-};
+}
 
 SquareEdge.propTypes = {
-
     /** When the endpoint shape is a `square`, this controls the radius of corners */
     roundedX: PropTypes.number,
 

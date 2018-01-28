@@ -23,7 +23,6 @@ import { Directions } from "../js/constants";
  * are passed in as props
  */
 export class BasicCircuit extends React.Component {
-
     renderCircuitTitle(title) {
         const titleStyle = {
             textAnchor: "left",
@@ -39,7 +38,8 @@ export class BasicCircuit extends React.Component {
                     key="circuit-title"
                     style={titleStyle}
                     x={this.props.titleOffsetX}
-                    y={this.props.titleOffsetY}>
+                    y={this.props.titleOffsetY}
+                >
                     {title}
                 </text>
             );
@@ -58,7 +58,8 @@ export class BasicCircuit extends React.Component {
                         height={this.props.height}
                         ypos={0}
                         id={this.props.parentId}
-                        onSelectionChange={this.props.onSelectionChange} />
+                        onSelectionChange={this.props.onSelectionChange}
+                    />
                 </g>
             );
         } else {
@@ -76,10 +77,11 @@ export class BasicCircuit extends React.Component {
                 <rect
                     className="circuit-overlay"
                     style={overlayStyle}
-                    x="0" y="0"
+                    x="0"
+                    y="0"
                     width={this.props.width}
-                    height={this.props.height} />
-
+                    height={this.props.height}
+                />
             );
         } else {
             return null;
@@ -94,12 +96,11 @@ export class BasicCircuit extends React.Component {
 
         // Render a square in the middle of the SVG grid by default
         if (this.props.lineShape === "square") {
-            x1 = middle - (this.props.squareWidth / 2);
-            x2 = middle + (this.props.squareWidth / 2);
+            x1 = middle - this.props.squareWidth / 2;
+            x2 = middle + this.props.squareWidth / 2;
         } else {
             x1 = this.props.margin;
             x2 = this.props.width - this.props.margin;
-
         }
 
         const y1 = this.props.height / 4;
@@ -115,7 +116,8 @@ export class BasicCircuit extends React.Component {
                 style={this.props.endpointStyle}
                 labelPosition={this.props.endpointLabelPosition}
                 offset={labelOffset}
-                label={this.props.endpointLabelA} />
+                label={this.props.endpointLabelA}
+            />
         );
 
         elements.push(
@@ -126,7 +128,8 @@ export class BasicCircuit extends React.Component {
                 style={this.props.endpointStyle}
                 labelPosition={this.props.endpointLabelPosition}
                 offset={labelOffset}
-                label={this.props.endpointLabelZ} />
+                label={this.props.endpointLabelZ}
+            />
         );
 
         // The connection
@@ -148,14 +151,11 @@ export class BasicCircuit extends React.Component {
                 navTo={this.props.navTo}
                 size={this.props.size}
                 centerLine={this.props.centerLine}
-                onSelectionChange={this.props.onSelectionChange}/>
+                onSelectionChange={this.props.onSelectionChange}
+            />
         );
 
-        return (
-            <g>
-                {elements}
-            </g>
-        );
+        return <g>{elements}</g>;
     }
 
     render() {
@@ -193,38 +193,25 @@ export class BasicCircuit extends React.Component {
             </svg>
         );
     }
-};
+}
 
 BasicCircuit.propTypes = {
-    
     /** The style of the line */
     lineStyle: PropTypes.object.isRequired,
 
     /** Text value describing the shape of the line, "linear", "curved", etc. */
-    lineShape: PropTypes.oneOf([
-        "linear",
-        "curved",
-        "square",
-        "angled"
-    ]),
+    lineShape: PropTypes.oneOf(["linear", "curved", "square", "angled"]),
 
     /**
      * Describes the position of the connection label.
      */
-    connectionLabelPosition: PropTypes.oneOf([
-        "top",
-        "center",
-        "bottom"
-    ]),
+    connectionLabelPosition: PropTypes.oneOf(["top", "center", "bottom"]),
 
     /**
      * String to be displayed for the connection. If an array of strings is
      * supplied they will be displayed in a multi-line layout.
      */
-    circuitLabel: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.string)
-    ]),
+    circuitLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
 
     /**
      * Vertical distance from the center line to offset the connection label.
@@ -276,7 +263,8 @@ BasicCircuit.propTypes = {
         "bottomleftangled",
         "bottomrightangled",
         "topleftangled",
-        "toprightangled"]),
+        "toprightangled"
+    ]),
 
     /**
      * Left side endpoint label
@@ -303,20 +291,14 @@ BasicCircuit.propTypes = {
      * Value passed down to the click handler at the lowest level primitive.
      * Will return to the onSelectionChange its value.
      */
-    navTo: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
+    navTo: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * If provided, will render a small nav arrow that when clicked,
      * navigates to that element. Used mainly when we want to show a parent / child
      * relationship between two circuits.
      */
-    parentId: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
+    parentId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /** The width of the circuit diagram */
     width: PropTypes.number,

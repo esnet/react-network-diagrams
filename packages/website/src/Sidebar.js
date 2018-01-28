@@ -9,9 +9,8 @@
  */
 
 import React, { Component } from "react";
-import _ from "lodash";
-import { NavLink, Link } from "react-router-dom";
-import {sidebarStyle, sidebarItemStyle, sidebarTitleStyle, activeStyle} from "./styles";
+import { Link } from "react-router-dom";
+import {sidebarStyle, sidebarItemStyle, sidebarTitleStyle} from "./styles";
 
 export default class extends Component {
     render() {
@@ -119,7 +118,7 @@ export default class extends Component {
                 <div className="sidebar-heading" style={sidebarTitleStyle}>Related Projects</div>
                 <ul className="nav nav-sidebar" style={sidebarItemStyle}>
                     <li>
-                        <a href="http://software.es.net/pond/">
+                        <a href="http://esnet-pondjs.appspot.com">
                             pond.js
                         </a>
                     </li>

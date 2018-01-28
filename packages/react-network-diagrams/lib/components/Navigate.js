@@ -134,30 +134,33 @@ var Navigate = exports.Navigate = function (_React$Component) {
                 hitRect = _react2.default.createElement("rect", {
                     className: "circuit-hitrect",
                     style: hitStyle,
-                    x: x - dx * 2, y: y - dy / 2,
-                    width: dx * 4, height: dy * 2,
+                    x: x - dx * 2,
+                    y: y - dy / 2,
+                    width: dx * 4,
+                    height: dy * 2,
                     onMouseOver: this.handleMouseOver,
                     onMouseOut: this.handleMouseOut,
-                    onClick: this.handleMouseClick });
+                    onClick: this.handleMouseClick
+                });
             } else if (this.props.direction === _constants.Directions.SOUTH) {
                 hitRect = _react2.default.createElement("rect", {
                     className: "circuit-hitrect",
                     style: hitStyle,
-                    x: x - dx * 2, y: y - dy / 2 * 3,
-                    width: dx * 4, height: dy * 2,
+                    x: x - dx * 2,
+                    y: y - dy / 2 * 3,
+                    width: dx * 4,
+                    height: dy * 2,
                     onMouseOver: this.handleMouseOver,
                     onMouseOut: this.handleMouseOut,
-                    onClick: this.handleMouseClick });
+                    onClick: this.handleMouseClick
+                });
             }
 
             if (this.props.id) {
                 return _react2.default.createElement(
                     "g",
                     { key: "navigation-group" },
-                    _react2.default.createElement("path", {
-                        d: path,
-                        className: "circuit-navigate",
-                        style: navStyle }),
+                    _react2.default.createElement("path", { d: path, className: "circuit-navigate", style: navStyle }),
                     hitRect
                 );
             } else {
@@ -169,14 +172,14 @@ var Navigate = exports.Navigate = function (_React$Component) {
     return Navigate;
 }(_react2.default.Component);
 
-;
-
 Navigate.propTypes = {
-    navTo: _propTypes2.default.oneOfType([// Value passed down to the click
+    navTo: _propTypes2.default.oneOfType([
+    // Value passed down to the click
     _propTypes2.default.string, // handler at the lowest level primitive.
     _propTypes2.default.number // Will return to the onSelectionChange
     ]),
-    direction: _propTypes2.default.oneOf([// Should the navigation go at the top or
+    direction: _propTypes2.default.oneOf([
+    // Should the navigation go at the top or
     _constants.Directions.NORTH, // bottom of the container
     _constants.Directions.SOUTH]),
     margin: _propTypes2.default.number, // How far to inset the navigation

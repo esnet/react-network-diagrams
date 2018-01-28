@@ -76,15 +76,15 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
             };
             return _react2.default.createElement(
                 "g",
-                {
-                    key: "panel-name-" + key },
+                { key: "panel-name-" + key },
                 _react2.default.createElement(_Label.Label, {
                     x: x,
                     y: y,
                     label: label,
                     labelPosition: "center",
                     labelClassed: "panel-name",
-                    style: labelStyle })
+                    style: labelStyle
+                })
             );
         }
     }, {
@@ -104,8 +104,7 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
             };
             return _react2.default.createElement(
                 "g",
-                {
-                    key: "panel-frontback-" + key },
+                { key: "panel-frontback-" + key },
                 _react2.default.createElement(
                     "text",
                     {
@@ -113,7 +112,8 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
                         key: "panel-front-" + key,
                         style: labelStyle,
                         x: xLeft,
-                        y: yDown },
+                        y: yDown
+                    },
                     front
                 ),
                 _react2.default.createElement(
@@ -123,7 +123,8 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
                         key: "panel-back-" + key,
                         style: labelStyle,
                         x: xRight,
-                        y: yDown },
+                        y: yDown
+                    },
                     back
                 )
             );
@@ -151,8 +152,7 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
                 // draw a panel
                 elements.push(_react2.default.createElement(
                     "g",
-                    {
-                        key: "panel-" + panelIndex },
+                    { key: "panel-" + panelIndex },
                     _react2.default.createElement("rect", {
                         className: "panel",
                         width: width,
@@ -161,7 +161,8 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
                         x: panelX,
                         y: panelY,
                         rx: _this2.props.panelRoundedX,
-                        ry: _this2.props.panelRoundedY })
+                        ry: _this2.props.panelRoundedY
+                    })
                 ));
 
                 // set the start of the module group at the spacing below the panel start +
@@ -226,24 +227,20 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
                 x2 = midpt - circuitGroup.coupler.styleProperties.squareWidth / 2 - this.props.couplerEndpointRadius;
                 elements.push(_react2.default.createElement(
                     "g",
-                    {
-                        key: "endpoint-" + circuit.endpointLabelA + "-" + key },
+                    { key: "endpoint-" + circuit.endpointLabelA + "-" + key },
                     _react2.default.createElement(_Endpoint.Endpoint, {
                         x: x1,
                         y: y,
                         style: circuit.endpointStyle,
                         labelStyle: circuit.endpointStyle.label,
                         labelPosition: "bottomleftangled",
-                        label: circuitGroup.frontLabel })
+                        label: circuitGroup.frontLabel
+                    })
                 ));
                 elements.push(_react2.default.createElement(
                     "g",
-                    {
-                        key: "endpoint-" + circuit.endpointLabelZ + "-" + key },
-                    _react2.default.createElement(_Endpoint.Endpoint, {
-                        x: x2,
-                        y: y,
-                        style: circuit.endpointStyle })
+                    { key: "endpoint-" + circuit.endpointLabelZ + "-" + key },
+                    _react2.default.createElement(_Endpoint.Endpoint, { x: x2, y: y, style: circuit.endpointStyle })
                 ));
             }
             if (circuitGroup.backCircuit) {
@@ -252,24 +249,20 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
                 x2 = this.props.width - this.props.margin;
                 elements.push(_react2.default.createElement(
                     "g",
-                    {
-                        key: "endpoint-" + circuit.endpointLabelA + "-" + key },
-                    _react2.default.createElement(_Endpoint.Endpoint, {
-                        x: x1,
-                        y: y,
-                        style: circuit.endpointStyle })
+                    { key: "endpoint-" + circuit.endpointLabelA + "-" + key },
+                    _react2.default.createElement(_Endpoint.Endpoint, { x: x1, y: y, style: circuit.endpointStyle })
                 ));
                 elements.push(_react2.default.createElement(
                     "g",
-                    {
-                        key: "endpoint-" + circuit.endpointLabelZ + "-" + key },
+                    { key: "endpoint-" + circuit.endpointLabelZ + "-" + key },
                     _react2.default.createElement(_Endpoint.Endpoint, {
                         x: x2,
                         y: y,
                         style: circuit.endpointStyle,
                         labelStyle: circuit.endpointStyle.label,
                         labelPosition: "bottomrightangled",
-                        label: circuitGroup.backLabel })
+                        label: circuitGroup.backLabel
+                    })
                 ));
             }
             return elements;
@@ -290,8 +283,7 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
                 x2 = midpt + circuit.styleProperties.squareWidth / 2;
                 elements.push(_react2.default.createElement(
                     "g",
-                    {
-                        key: "coupler-" + circuit.circuitLabel + "-" + key },
+                    { key: "coupler-" + circuit.circuitLabel + "-" + key },
                     _react2.default.createElement(_Connection.Connection, {
                         x1: x1,
                         x2: x2,
@@ -312,7 +304,8 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
                         size: circuit.styleProperties.size,
                         onSelectionChange: this.handleSelectionChange,
                         noNavigate: circuit.styleProperties.noNavigate,
-                        navTo: circuit.navTo })
+                        navTo: circuit.navTo
+                    })
                 ));
             }
             if (circuitGroup.frontCircuit) {
@@ -321,8 +314,7 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
                 x2 = midpt - circuitGroup.coupler.styleProperties.squareWidth / 2 - this.props.couplerEndpointRadius;
                 elements.push(_react2.default.createElement(
                     "g",
-                    {
-                        key: "frontCircuit-" + circuit.circuitLabel + "-" + key },
+                    { key: "frontCircuit-" + circuit.circuitLabel + "-" + key },
                     _react2.default.createElement(_Connection.Connection, {
                         x1: x1,
                         x2: x2,
@@ -334,7 +326,8 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
                         labelPosition: this.props.labelPosition,
                         onSelectionChange: this.handleSelectionChange,
                         noNavigate: circuit.styleProperties.noNavigate,
-                        navTo: circuit.navTo })
+                        navTo: circuit.navTo
+                    })
                 ));
             }
             if (circuitGroup.backCircuit) {
@@ -343,8 +336,7 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
                 x2 = this.props.width - this.props.margin;
                 elements.push(_react2.default.createElement(
                     "g",
-                    {
-                        key: "backCircuit-" + circuit.circuitLabel + "-" + key },
+                    { key: "backCircuit-" + circuit.circuitLabel + "-" + key },
                     _react2.default.createElement(_Connection.Connection, {
                         x1: x1,
                         x2: x2,
@@ -356,7 +348,8 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
                         labelPosition: this.props.labelPosition,
                         onSelectionChange: this.handleSelectionChange,
                         noNavigate: circuit.styleProperties.noNavigate,
-                        navTo: circuit.navTo })
+                        navTo: circuit.navTo
+                    })
                 ));
             }
             return elements;
@@ -408,12 +401,11 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
                     height: viewBoxHeight,
                     className: classed,
                     style: circuitContainer,
-                    onClick: this._deselect },
+                    onClick: this._deselect
+                },
                 _react2.default.createElement(
                     "svg",
-                    {
-                        key: "panel-box",
-                        preserveAspectRatio: "xMinYMin" },
+                    { key: "panel-box", preserveAspectRatio: "xMinYMin" },
                     this.renderPanels(panelMap)
                 )
             );
@@ -423,10 +415,7 @@ var PatchPanel = exports.PatchPanel = function (_React$Component) {
     return PatchPanel;
 }(_react2.default.Component);
 
-;
-
 PatchPanel.propTypes = {
-
     /** The blank margin around the diagram drawing */
     margin: _propTypes2.default.number,
 

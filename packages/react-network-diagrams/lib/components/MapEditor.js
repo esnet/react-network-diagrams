@@ -225,7 +225,8 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                     selected: {
                         fill: "#37B6D3",
                         stroke: "rgba(55, 182, 211, 0.22)",
-                        strokeWidth: 10, cursor: "pointer"
+                        strokeWidth: 10,
+                        cursor: "pointer"
                     },
                     muted: {
                         fill: "#CBCBCB",
@@ -310,10 +311,12 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleAddNode",
         value: function handleAddNode() {
-            this.setState({ pendingAction: {
+            this.setState({
+                pendingAction: {
                     action: "add-node",
                     instructions: "Pick a point (x,y)"
-                } });
+                }
+            });
         }
 
         /**
@@ -356,29 +359,35 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "handleAddEdge",
         value: function handleAddEdge() {
-            this.setState({ pendingAction: {
+            this.setState({
+                pendingAction: {
                     action: "add-edge",
                     instructions: "Pick source node",
                     nodes: []
-                } });
+                }
+            });
         }
     }, {
         key: "handleDeleteNode",
         value: function handleDeleteNode() {
-            this.setState({ pendingAction: {
+            this.setState({
+                pendingAction: {
                     action: "delete-node",
                     instructions: "Pick a node to delete (will delete related edges)",
                     nodes: []
-                } });
+                }
+            });
         }
     }, {
         key: "handleDeleteEdge",
         value: function handleDeleteEdge() {
-            this.setState({ pendingAction: {
+            this.setState({
+                pendingAction: {
                     action: "delete-edge",
                     instructions: "Pick an edge to delete",
                     edge: null
-                } });
+                }
+            });
         }
     }, {
         key: "handleAddSelection",
@@ -388,11 +397,13 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                 action.nodes.push(node);
             }
             if (action.nodes.length === 1) {
-                this.setState({ pendingAction: {
+                this.setState({
+                    pendingAction: {
                         action: "add-edge",
                         instructions: "Pick target node",
                         nodes: action.nodes
-                    } });
+                    }
+                });
             }
             if (action.nodes.length === 2) {
                 // Action complete
@@ -472,7 +483,8 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                 className: "form-control input-sm",
                 onBlur: function onBlur(e) {
                     return _this3.handleChange(attr, e.target.value);
-                } });
+                }
+            });
         }
     }, {
         key: "renderIntegerProperty",
@@ -487,7 +499,8 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                 className: "form-control input-sm",
                 onBlur: function onBlur(e) {
                     return _this4.handleChange(attr, parseInt(e.target.value, 10));
-                } });
+                }
+            });
         }
     }, {
         key: "renderChoiceProperty",
@@ -501,7 +514,8 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                 options: options,
                 onChange: function onChange(val) {
                     return _this5.handleChange(attr, val);
-                } });
+                }
+            });
         }
     }, {
         key: "renderNodeProperties",
@@ -726,10 +740,9 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                         type: "button",
                         style: addNodeStyle,
                         className: "btn btn-default btn-xs",
-                        onClick: this.handleAddNode },
-                    _react2.default.createElement("span", {
-                        className: "glyphicon glyphicon-plus",
-                        "aria-hidden": "true" }),
+                        onClick: this.handleAddNode
+                    },
+                    _react2.default.createElement("span", { className: "glyphicon glyphicon-plus", "aria-hidden": "true" }),
                     " Node"
                 ),
                 _react2.default.createElement(
@@ -738,10 +751,9 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                         type: "button",
                         style: addEdgeStyle,
                         className: "btn btn-default btn-xs",
-                        onClick: this.handleAddEdge },
-                    _react2.default.createElement("span", {
-                        className: "glyphicon glyphicon-plus",
-                        "aria-hidden": "true" }),
+                        onClick: this.handleAddEdge
+                    },
+                    _react2.default.createElement("span", { className: "glyphicon glyphicon-plus", "aria-hidden": "true" }),
                     " Edge"
                 ),
                 _react2.default.createElement(
@@ -750,10 +762,9 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                         type: "button",
                         style: deleteNodeStyle,
                         className: "btn btn-default btn-xs",
-                        onClick: this.handleDeleteNode },
-                    _react2.default.createElement("span", {
-                        className: "glyphicon glyphicon-minus",
-                        "aria-hidden": "true" }),
+                        onClick: this.handleDeleteNode
+                    },
+                    _react2.default.createElement("span", { className: "glyphicon glyphicon-minus", "aria-hidden": "true" }),
                     " Node"
                 ),
                 _react2.default.createElement(
@@ -762,10 +773,9 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                         type: "button",
                         style: deleteEdgeStyle,
                         className: "btn btn-default btn-xs",
-                        onClick: this.handleDeleteEdge },
-                    _react2.default.createElement("span", {
-                        className: "glyphicon glyphicon-minus",
-                        "aria-hidden": "true" }),
+                        onClick: this.handleDeleteEdge
+                    },
+                    _react2.default.createElement("span", { className: "glyphicon glyphicon-minus", "aria-hidden": "true" }),
                     " Edge"
                 ),
                 _react2.default.createElement(
@@ -819,10 +829,15 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
             if (this.props.autoSize) {
                 return _react2.default.createElement(
                     _Resizable.Resizable,
-                    { aspect: aspect, style: { background: "#F6F6F6",
+                    {
+                        aspect: aspect,
+                        style: {
+                            background: "#F6F6F6",
                             borderStyle: "solid",
                             borderWidth: "thin",
-                            borderColor: "#E6E6E6" } },
+                            borderColor: "#E6E6E6"
+                        }
+                    },
                     _react2.default.createElement(_BaseMap.BaseMap, {
                         topology: topo,
                         width: this.props.width,
@@ -840,16 +855,20 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                         onEdgeSelected: edgeSelected,
                         onNodeDrag: function onNodeDrag(id, posx, posy) {
                             return _this8.handleNodeDrag(id, posx, posy);
-                        } })
+                        }
+                    })
                 );
             } else {
                 return _react2.default.createElement(
                     "div",
-                    { style: {
+                    {
+                        style: {
                             background: "#F6F6F6",
                             borderStyle: "solid",
                             borderWidth: "thin",
-                            borderColor: "#E6E6E6" } },
+                            borderColor: "#E6E6E6"
+                        }
+                    },
                     _react2.default.createElement(_BaseMap.BaseMap, {
                         topology: topo,
                         width: this.props.width,
@@ -867,7 +886,8 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                         onEdgeSelected: edgeSelected,
                         onNodeDrag: function onNodeDrag(id, posx, posy) {
                             return _this8.handleNodeDrag(id, posx, posy);
-                        } })
+                        }
+                    })
                 );
             }
         }
@@ -915,10 +935,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     return MapEditor;
 }(_react2.default.Component);
 
-;
-
 MapEditor.propTypes = {
-
     /**
      * A mapping of the capacity field within the tologogy edge object
      * to a line thickness for rendering the edges.

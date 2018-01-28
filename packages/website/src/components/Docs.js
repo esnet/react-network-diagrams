@@ -9,8 +9,9 @@
  */
 
 import React, {Component} from "react";
-import Highlighter from "../components/highlighter";
 import Markdown from "react-markdown";
+
+import Highlighter from "../components/highlighter";
 import Docs from "./index.js";
 
 export default class extends Component {

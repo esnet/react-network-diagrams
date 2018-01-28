@@ -28,7 +28,6 @@ import { Node } from "./Node";
  * is the name that will be displayed on the endpoint.
  */
 export class Endpoint extends React.Component {
-
     render() {
         return (
             <g>
@@ -47,11 +46,12 @@ export class Endpoint extends React.Component {
                     shape={this.props.shape}
                     muted={this.props.muted}
                     selected={this.props.selected}
-                    highlighted={this.props.highlighted} />
+                    highlighted={this.props.highlighted}
+                />
             </g>
         );
     }
-};
+}
 
 Endpoint.propTypes = {
     /** The label for the endpoint */
@@ -73,7 +73,8 @@ Endpoint.propTypes = {
         "bottomleftangled",
         "bottomrightangled",
         "topleftangled",
-        "toprightangled"]),
+        "toprightangled"
+    ]),
 
     /** An offset to the position of the label which can be used for fine tuning */
     offset: PropTypes.number,

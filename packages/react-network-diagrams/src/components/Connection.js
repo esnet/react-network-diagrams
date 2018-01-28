@@ -27,12 +27,11 @@ import { SimpleEdge as Line } from "./SimpleEdge";
  * lines, the label can take an array of strings, with each array element displayed on a separate line.
  */
 export class Connection extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
             highlighted: false
-        }
+        };
         this.handleMouseOut = this.handleMouseOut.bind(this);
         this.handleMouseOver = this.handleMouseOver.bind(this);
         this.handleSelectionChanged = this.handleSelectionChanged.bind(this);
@@ -43,7 +42,7 @@ export class Connection extends React.Component {
      */
     handleMouseOver() {
         if (!this.props.noNavigate) {
-            this.setState({highlighted: true});
+            this.setState({ highlighted: true });
         }
     }
 
@@ -52,7 +51,7 @@ export class Connection extends React.Component {
      */
     handleMouseOut() {
         if (!this.props.noNavigate) {
-            this.setState({highlighted: false});
+            this.setState({ highlighted: false });
         }
     }
 
@@ -64,10 +63,7 @@ export class Connection extends React.Component {
 
     renderEndpoints() {
         if (this.props.arrow) {
-            return (
-                <g>
-                </g>
-            );
+            return <g />;
         } else {
             return (
                 <g>
@@ -82,7 +78,8 @@ export class Connection extends React.Component {
                         roundedY={this.props.endPointRoundedY}
                         highlighted={this.state.highlighted}
                         muted={this.props.muted}
-                        selected={this.props.selected} />
+                        selected={this.props.selected}
+                    />
                     <Endpoint
                         x={this.props.x2}
                         y={this.props.y2}
@@ -94,7 +91,8 @@ export class Connection extends React.Component {
                         roundedY={this.props.endPointRoundedY}
                         highlighted={this.state.highlighted}
                         muted={this.props.muted}
-                        selected={this.props.selected} />
+                        selected={this.props.selected}
+                    />
                 </g>
             );
         }
@@ -177,76 +175,67 @@ export class Connection extends React.Component {
                         position={this.props.position}
                         offset={offset}
                         curveDirection={this.props.curveDirection}
-                        name={navTo} />
+                        name={navTo}
+                    />
                 </g>
-                <g onMouseOver={this.handleMouseOver}
-                   onMouseOut={this.handleMouseOut}>
+                <g onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
                     <Line
                         // Positional Props used by all shapes
                         x1={this.props.x1}
                         x2={this.props.x2}
                         y1={this.props.y1}
                         y2={this.props.y2}
-
                         // Identity Props used by all shapes
                         shape={this.props.lineShape} // controls shape of the line
                         key={"line-path-hit"} // needed for react element
-
                         // Label Props used by all shapes
-                        label={this.props.label}                 // provides label to be displayed
+                        label={this.props.label} // provides label to be displayed
                         labelPosition={this.props.labelPosition} // controls where label
-                                                                 // is situated around the line
+                        // is situated around the line
                         labelStyle={this.props.style.label} // controls the
-                                                            // style of the label
-                        labelOffsetX={xOffset}              // controls the +/- x offset from labelPosition
-                        labelOffsetY={yOffset}              // controls the +/- y offset from labelPosition
-                        textAnchor={this.props.textAnchor}  // controls the positioning of the text
-
+                        // style of the label
+                        labelOffsetX={xOffset} // controls the +/- x offset from labelPosition
+                        labelOffsetY={yOffset} // controls the +/- y offset from labelPosition
+                        textAnchor={this.props.textAnchor} // controls the positioning of the text
                         // Style Props
-                        color={hitStyle.stroke}         // controls color of the line
-                        width={hitStyle.strokeWidth}    // controls the stroke thickness
-                        muted={this.props.muted}        // controls style
-                        selected={this.props.selected}  // controls style
-                        classed={this.props.classed}    // provides a psuedo css class for the line
-
+                        color={hitStyle.stroke} // controls color of the line
+                        width={hitStyle.strokeWidth} // controls the stroke thickness
+                        muted={this.props.muted} // controls style
+                        selected={this.props.selected} // controls style
+                        classed={this.props.classed} // provides a psuedo css class for the line
                         // Square props
-                        roundedX={this.props.roundedX}     // controls corner rounding
-                        roundedY={this.props.roundedY}     // controls corner rounding
-                        fillColor={fill}                   // controls color of the fill
-                        size={this.props.size}             // controls height of square
+                        roundedX={this.props.roundedX} // controls corner rounding
+                        roundedY={this.props.roundedY} // controls corner rounding
+                        fillColor={fill} // controls color of the fill
+                        size={this.props.size} // controls height of square
                         centerLine={this.props.centerLine} // controls display of horizontal center line
-
                         // Arrow props, not used by square
-                        arrow={this.props.arrow}             // determines whether to
-                                                             // display nodes or arrows at ends of line
-                        arrowWidth={this.props.arrowWidth}   // controls width of arrow
+                        arrow={this.props.arrow} // determines whether to
+                        // display nodes or arrows at ends of line
+                        arrowWidth={this.props.arrowWidth} // controls width of arrow
                         arrowHeight={this.props.arrowHeight} // controls height of arrow
-
                         // Line offset props, used by angle and arc
-                        position={this.props.position}              // controls angle of offset
-                        offset={offset}                             // controls length of offset line
-                        curveDirection={this.props.curveDirection}  // controls left / right
-                                                                    // line path with reference
-                                                                    // to line center
+                        position={this.props.position} // controls angle of offset
+                        offset={offset} // controls length of offset line
+                        curveDirection={this.props.curveDirection} // controls left / right
+                        // line path with reference
+                        // to line center
 
                         // Navigation props
                         name={navTo} // returned value for _onSelection change - all
                         onSelectionChange={this.handleSelectionChanged} // callback function to
-                                                                        // control what happens if the
-                                                                        // element is clicked
+                        // control what happens if the
+                        // element is clicked
                         invisible={true} // Internal prop for hiding this line
                     />
                 </g>
-                <g>
-                    {this.renderEndpoints()}
-                </g>
+                <g>{this.renderEndpoints()}</g>
             </g>
         );
     }
-};
+}
 
 Connection.propTypes = {
-
     /**
      * Controls shape of the line, can be "linear", "square", "angled", "arc".
      */
@@ -276,10 +265,7 @@ Connection.propTypes = {
      * Provides label to be displayed; Takes either a string, or an array of
      * strings for multi-line labels.
      */
-    label: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.string)
-    ]),
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
 
     /**
      * Controls where label is situated around the line.
@@ -295,7 +281,6 @@ Connection.propTypes = {
      * Controls the y pixel offset from labelPosition
      */
     labelOffsetY: PropTypes.number,
-
 
     /**
      * Controls the justification of the text label
@@ -449,10 +434,7 @@ Connection.propTypes = {
      * Value passed down to the click handler at the lowest level primitive.
      * Will return to the onSelectionChange its value.
      */
-    navTo: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ])
+    navTo: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 Connection.defaultProps = {

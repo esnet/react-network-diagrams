@@ -98,7 +98,7 @@ var Node = exports.Node = function (_React$Component) {
             var textAnchor = "middle";
             var rotate = "rotate(" + labelR + " " + labelX + ", " + labelY + ")";
             var labelPosition = void 0;
-            if (_typeof(this.props.labelPosition) === 'object') {
+            if (_typeof(this.props.labelPosition) === "object") {
                 labelPosition = this.props.labelPosition.value;
             } else {
                 labelPosition = this.props.labelPosition;
@@ -197,7 +197,8 @@ var Node = exports.Node = function (_React$Component) {
                 nodeElement = _react2.default.createElement("path", {
                     d: cloudPath,
                     style: this.props.style[styleModifier],
-                    className: nodeClasses });
+                    className: nodeClasses
+                });
 
                 switch (this.props.labelPosition) {
                     case "top":
@@ -220,14 +221,16 @@ var Node = exports.Node = function (_React$Component) {
                 var x = this.props.x - this.props.radius;
                 var y = this.props.y - this.props.radius;
                 var width = 2 * this.props.radius;
-                nodeElement = _react2.default.createElement("rect", { x: x,
+                nodeElement = _react2.default.createElement("rect", {
+                    x: x,
                     y: y,
                     rx: this.props.rx,
                     ry: this.props.ry,
                     width: width,
                     height: width,
                     style: this.props.style[styleModifier],
-                    className: nodeClasses });
+                    className: nodeClasses
+                });
 
                 switch (this.props.labelPosition) {
                     case "left":
@@ -242,40 +245,47 @@ var Node = exports.Node = function (_React$Component) {
             } else {
                 nodeClasses += " map-node-shape-circle";
                 labelClasses += " map-node-label-circle";
-                nodeElement = _react2.default.createElement("circle", { cx: this.props.x,
+                nodeElement = _react2.default.createElement("circle", {
+                    cx: this.props.x,
                     cy: this.props.y,
                     r: this.props.radius,
                     style: this.props.style[styleModifier],
-                    className: nodeClasses });
+                    className: nodeClasses
+                });
             }
 
             if (this.props.label) {
                 return _react2.default.createElement(
                     "g",
-                    { onClick: function onClick(e) {
+                    {
+                        onClick: function onClick(e) {
                             return _this2.handMouseClick(e);
                         },
                         onMouseOver: this.handleMouseOver,
                         onMouseDown: function onMouseDown(e) {
                             return _this2.handleMouseDown(e);
                         },
-                        onMouseMove: this.handleMouseMove },
+                        onMouseMove: this.handleMouseMove
+                    },
                     nodeElement,
                     _react2.default.createElement(
                         "text",
-                        { x: labelX,
+                        {
+                            x: labelX,
                             y: labelY,
                             textAnchor: textAnchor,
                             transform: rotate,
                             style: this.props.labelStyle[styleModifier],
-                            className: labelClasses },
+                            className: labelClasses
+                        },
                         this.props.label
                     )
                 );
             } else {
                 return _react2.default.createElement(
                     "g",
-                    { onClick: function onClick(e) {
+                    {
+                        onClick: function onClick(e) {
                             return _this2.handMouseClick(e);
                         },
                         onMouseOver: this.handleMouseOver,
@@ -283,14 +293,14 @@ var Node = exports.Node = function (_React$Component) {
                             return _this2.handleMouseDown();
                         },
                         onMouseMove: this.handleMouseMove,
-                        onMouseUp: this.handleMouseUp },
+                        onMouseUp: this.handleMouseUp
+                    },
                     nodeElement
                 );
             }
         }
     }], [{
         key: "spec",
-
 
         /**
          * Provides a spec for the editor UI to render properties
@@ -309,10 +319,7 @@ var Node = exports.Node = function (_React$Component) {
     return Node;
 }(_react2.default.Component);
 
-;
-
 Node.propTypes = {
-
     /** When the node shape is a `circle`, this controls the size of the node */
     radius: _propTypes2.default.number,
 

@@ -156,16 +156,28 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
             var genericStyle = {
                 node: {
                     normal: { fill: "#B0B0B0", stroke: "#9E9E9E", cursor: "pointer" },
-                    selected: { fill: "#37B6D3", stroke: "rgba(55, 182, 211, 0.22)",
-                        strokeWidth: 10, cursor: "pointer" },
-                    muted: { fill: "#B0B0B0", stroke: "#9E9E9E", opacity: 0.6,
-                        cursor: "pointer" }
+                    selected: {
+                        fill: "#37B6D3",
+                        stroke: "rgba(55, 182, 211, 0.22)",
+                        strokeWidth: 10,
+                        cursor: "pointer"
+                    },
+                    muted: {
+                        fill: "#B0B0B0",
+                        stroke: "#9E9E9E",
+                        opacity: 0.6,
+                        cursor: "pointer"
+                    }
                 },
                 label: {
                     normal: { fill: "#696969", stroke: "none", fontSize: 9 },
                     selected: { fill: "#333", stroke: "none", fontSize: 11 },
-                    muted: { fill: "#696969", stroke: "none", fontSize: 8,
-                        opacity: 0.6 }
+                    muted: {
+                        fill: "#696969",
+                        stroke: "none",
+                        fontSize: 8,
+                        opacity: 0.6
+                    }
                 }
             };
 
@@ -232,7 +244,6 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                 } else {
                     var edgeMap = {};
                     _underscore2.default.each(this.filteredPaths(), function (path) {
-
                         var pathAtoZTraffic = _this3.props.traffic.get(path.name + "--AtoZ");
                         var pathZtoATraffic = _this3.props.traffic.get(path.name + "--ZtoA");
 
@@ -293,11 +304,15 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
             if (autoSize) {
                 return _react2.default.createElement(
                     _Resizable.Resizable,
-                    { aspect: aspect, style: {
+                    {
+                        aspect: aspect,
+                        style: {
                             background: "#F6F6F6",
                             borderStyle: "solid",
                             borderWidth: "thin",
-                            borderColor: "#E6E6E6" } },
+                            borderColor: "#E6E6E6"
+                        }
+                    },
                     _react2.default.createElement(_BaseMap.BaseMap, {
                         topology: topo,
                         paths: topo.paths,
@@ -309,16 +324,20 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                         edgeDrawingMethod: this.props.edgeDrawingMethod,
                         onSelectionChange: function onSelectionChange(selectionType, selection) {
                             return _this4.handleSelectionChanged(selectionType, selection);
-                        } })
+                        }
+                    })
                 );
             } else {
                 return _react2.default.createElement(
                     "div",
-                    { style: {
+                    {
+                        style: {
                             background: "#F6F6F6",
                             borderStyle: "solid",
                             borderWidth: "thin",
-                            borderColor: "#E6E6E6" } },
+                            borderColor: "#E6E6E6"
+                        }
+                    },
                     _react2.default.createElement(_BaseMap.BaseMap, {
                         topology: topo,
                         paths: topo.paths,
@@ -330,7 +349,8 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                         edgeDrawingMethod: this.props.edgeDrawingMethod,
                         onSelectionChange: function onSelectionChange(selectionType, selection) {
                             return _this4.handleSelectionChanged(selectionType, selection);
-                        } })
+                        }
+                    })
                 );
             }
         }
@@ -338,8 +358,6 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
 
     return TrafficMap;
 }(_react2.default.Component);
-
-;
 
 TrafficMap.defaultProps = {
     edgeThinknessMap: {
@@ -360,7 +378,6 @@ TrafficMap.defaultProps = {
 };
 
 TrafficMap.propTypes = {
-
     /** The width of the circuit diagram */
     width: _propTypes2.default.number,
 

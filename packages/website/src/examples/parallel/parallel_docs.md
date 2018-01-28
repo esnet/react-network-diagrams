@@ -40,7 +40,7 @@ import { Endpoint } from "react-network-diagrams";
 
 The connection component and the two endpoint components of each member of the `memberList` have a style that needs to be provided just like in the connection and endpoint examples. At ESnet, to accommodate different standard types of circuits we assemble the styles into an object mapping different types to the properties of that type such as style, shape, and shape. At a minimum, each circuit needs a style and a `lineShape` so that the underlying connection primitive knows how to draw. If the shape is not "linear" (the default connection shape), or specific properties about each circuit type such as label position or disabling navigation need to be called out, these can be specified here.  Note that for the Parallel Circuit, all `lineShape`s are set to "linear".
 	
-```
+```js
 const circuitTypeProperties = {
     optical: {
         style: stylesMap.optical,
@@ -67,7 +67,7 @@ const circuitTypeProperties = {
 
 The style for each circuit type is taken from the style map which maps the individual styles for each type, as well as any endpoint style we want to define:
 
-```
+```js
 const stylesMap = {
     equipmentToEquipment: equipmentToEquipmentStyle,
     optical: opticalStyle,
@@ -83,7 +83,7 @@ const stylesMap = {
 
 Each types unique style is created as its own object.  This is used to render the connection and requires three objects to be defined `node`, `line` and `label`.  Each of these uses a normal style, and a highlighted style for when the circuit is mouseed over.
 
-```
+```js
 const equipmentToEquipmentStyle = {
     node: {
         normal: {
@@ -121,7 +121,7 @@ const equipmentToEquipmentStyle = {
 
 We also need to define an endpoint style for the endpoints, which has a node and label component to style the endpoint node, as well as the label:
 
-```
+```js
 const endpointStyle = {
     node: {
         normal: {fill: "none", stroke: "#DBDBDB", strokeWidth: 4},

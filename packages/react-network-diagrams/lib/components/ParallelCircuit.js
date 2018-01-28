@@ -68,11 +68,13 @@ var ParallelCircuit = exports.ParallelCircuit = function (_React$Component) {
             if (!this.props.hideTitle) {
                 return _react2.default.createElement(
                     "text",
-                    { className: "circuit-title",
+                    {
+                        className: "circuit-title",
                         key: "circuit-title",
                         style: titleStyle,
                         x: this.props.titleOffsetX,
-                        y: this.props.titleOffsetY },
+                        y: this.props.titleOffsetY
+                    },
                     title
                 );
             } else {
@@ -86,10 +88,12 @@ var ParallelCircuit = exports.ParallelCircuit = function (_React$Component) {
                 return _react2.default.createElement(
                     "g",
                     null,
-                    _react2.default.createElement(_Navigate.Navigate, { direction: _constants.Directions.NORTH,
+                    _react2.default.createElement(_Navigate.Navigate, {
+                        direction: _constants.Directions.NORTH,
                         ypos: 0,
                         id: this.props.parentId,
-                        onSelectionChange: this.props.onSelectionChange })
+                        onSelectionChange: this.props.onSelectionChange
+                    })
                 );
             } else {
                 return null;
@@ -103,8 +107,14 @@ var ParallelCircuit = exports.ParallelCircuit = function (_React$Component) {
                     fill: "#FDFDFD",
                     fillOpacity: "0.65"
                 };
-                return _react2.default.createElement("rect", { className: "circuit-overlay", style: overlayStyle,
-                    x: "0", y: "0", width: this.props.width, height: this.props.height });
+                return _react2.default.createElement("rect", {
+                    className: "circuit-overlay",
+                    style: overlayStyle,
+                    x: "0",
+                    y: "0",
+                    width: this.props.width,
+                    height: this.props.height
+                });
             } else {
                 return null;
             }
@@ -122,21 +132,25 @@ var ParallelCircuit = exports.ParallelCircuit = function (_React$Component) {
             var memberList = this.props.memberList;
 
             // Push the two end points for the main circuit
-            elements.push(_react2.default.createElement(_Endpoint.Endpoint, { x: x1,
+            elements.push(_react2.default.createElement(_Endpoint.Endpoint, {
+                x: x1,
                 y: y1,
                 key: "a",
                 style: this.props.endpointStyle,
                 labelPosition: this.props.endpointLabelPosition,
                 offset: this.props.endpointLabelOffset,
-                label: this.props.endpointLabelA }));
+                label: this.props.endpointLabelA
+            }));
 
-            elements.push(_react2.default.createElement(_Endpoint.Endpoint, { x: x2,
+            elements.push(_react2.default.createElement(_Endpoint.Endpoint, {
+                x: x2,
                 y: y2,
                 key: "z",
                 style: this.props.endpointStyle,
                 labelPosition: this.props.endpointLabelPosition,
                 offset: this.props.endpointLabelOffset,
-                label: this.props.endpointLabelZ }));
+                label: this.props.endpointLabelZ
+            }));
 
             var yOffset = 4;
 
@@ -149,7 +163,8 @@ var ParallelCircuit = exports.ParallelCircuit = function (_React$Component) {
             _underscore2.default.each(memberList, function (member, memberIndex) {
                 offset += 1;
                 var position = 18 * offset;
-                elements.push(_react2.default.createElement(_Connection.Connection, { x1: x1,
+                elements.push(_react2.default.createElement(_Connection.Connection, {
+                    x1: x1,
                     x2: x2,
                     y1: y1,
                     y2: y2,
@@ -162,7 +177,8 @@ var ParallelCircuit = exports.ParallelCircuit = function (_React$Component) {
                     noNavigate: member.styleProperties.noNavigate,
                     navTo: member.navTo,
                     position: position,
-                    onSelectionChange: _this2.props.onSelectionChange }));
+                    onSelectionChange: _this2.props.onSelectionChange
+                }));
             });
             return _react2.default.createElement(
                 "g",
@@ -219,8 +235,6 @@ var ParallelCircuit = exports.ParallelCircuit = function (_React$Component) {
     return ParallelCircuit;
 }(_react2.default.Component);
 
-;
-
 ParallelCircuit.defaultProps = {
     width: 851,
     height: 250,
@@ -233,7 +247,6 @@ ParallelCircuit.defaultProps = {
 };
 
 ParallelCircuit.propTypes = {
-
     /** The width of the circuit diagram */
     width: _propTypes2.default.number,
 

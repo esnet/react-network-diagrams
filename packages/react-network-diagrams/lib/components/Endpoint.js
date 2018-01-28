@@ -77,15 +77,14 @@ var Endpoint = exports.Endpoint = function (_React$Component) {
                     shape: this.props.shape,
                     muted: this.props.muted,
                     selected: this.props.selected,
-                    highlighted: this.props.highlighted })
+                    highlighted: this.props.highlighted
+                })
             );
         }
     }]);
 
     return Endpoint;
 }(_react2.default.Component);
-
-;
 
 Endpoint.propTypes = {
     /** The label for the endpoint */

@@ -2,7 +2,7 @@
 
 At a high level our topology data looks like this:
 
-```
+```js
 const topology = {
     "name": "My traffic map",
     "description": "This is an optional description",
@@ -27,7 +27,7 @@ At ESnet our nodes also contain extra information about that node that are speci
 
 Example for the ALBQ hub:
 
-```
+```js
 {
     "name": "ALBQ",
     "type": "hub",
@@ -47,7 +47,7 @@ Like nodes we often pass extra information into the edge objects for our own use
 
 Example edge, representing a connection from our ALBQ to DENV hubs:
 
-```
+```js
 {
   "capacity": "100G",
   "source": "ALBQ",
@@ -65,7 +65,7 @@ The paths list contains a list of path objects. A path object connects multiple 
 
 Example path connecting NERSC, to Starlight, to ANL.
 
-```
+```js
 {
   "name": "NorthPath",
   "steps": [
@@ -97,18 +97,19 @@ The map is able to render itself as a heat map based on current traffic levels.
 
 ### Edge traffic
 
-To specify those levels we provide a [Pond Event](http://software.es.net/pond/#/events) containing the current traffic rates (using the edge name ($sourceNode--$destNode) in each direction) at a given timestamp. This event may be part of a [Pond Event](http://software.es.net/pond/#/timeseries) or it could be a stand alone Event with the current traffic levels.
+To specify those levels we provide a [Pond Event](http://esnet-pondjs.appspot.com/#/event) containing the current traffic rates (using the edge name ($sourceNode--$destNode) in each direction) at a given timestamp. This event may be part of a [Pond Event](http://esnet-pondjs.appspot.com/#/timeseries) or it could be a stand alone Event with the current traffic levels.
 
 The simplest way to construct this traffic event would look like this:
 
-```
-import { Event } from "pondjs";
+```js
+import { TimeEvent } from "pondjs";
+import * as Immutable from "immutable";
 const timestamp = 1431649302000;
-const traffic = new Event(timestamp, {
+const traffic = new Event(timestamp, Immutable.Map({
     ALBQ--DENV: 126513360.8
     DENV--ALBQ: 323736723.4
     ...
-});
+}));
 ```
 
 The rendering of the edges uses the `edgeColorMap` to map from value ranges (bps) to a color. See below.
@@ -117,15 +118,16 @@ The rendering of the edges uses the `edgeColorMap` to map from value ranges (bps
 
 Rendering path traffic is similar to that for the edge traffic. We use a convention for the names to designate the direction of the traffic along the path: $pathname--AtoZ or $pathname--ZtoA. Here is an example:
 
-```
-import { Event } from "pondjs";
+```js
+import { TimeEvent } from "pondjs";
+import * as Immutable from "immutable";
 const timestamp = 1431649302000;
-const pathTraffic = new Event(timestamp, {
+const pathTraffic = new TimeEvent(timestamp, Immutable.Map({
     "northPath--AtoZ": 20000000000,
     "northPath--ZtoA": 3000000000,
     "southPath--AtoZ": 40000000000,
     "southPath--ZtoA": 5000000000
-});
+}));
 ```
 
 Like the edge traffic, the path traffic levels are mapped to colors with the `edgeColorMap`. See below.
@@ -140,7 +142,7 @@ A mapping from the `type` field in the node object to a size to draw the shape
 
 Example:
 
-```
+```js
 const nodeSizeMap = {
     hub: 5.5,
     esnet_site: 7
@@ -153,7 +155,7 @@ A mapping of the `capacity` field within the tologogy edge object to a line thic
 
 Example:
 
-```
+```js
 const edgeThinknessMap = {
     "100G": 5,
     "10G": 3,
@@ -172,7 +174,7 @@ A mapping of the edge name (which is source + "--" + target) to a dict of edge s
 
 Example:
 
-```
+```js
 const edgeShapeMap = {
     "ALBQ--DENV": {
     "shape": "curved",
@@ -187,7 +189,7 @@ Mapping of node `name` to shape (default is `circle`, other options are `cloud` 
 
 Example:
 
-```
+```js
 const nodeShapeMap = {
     DENV: "square"
 };
@@ -197,7 +199,7 @@ const nodeShapeMap = {
 
 In addition to the above styling you can specify CSS properties for different node types:
 
-```
+```js
 const stylesMap = {
     "hub": hubStyle,
     "esnet_site": siteStyle
@@ -206,7 +208,7 @@ const stylesMap = {
 
 Each style (e.g. hubStyle above) specifies properties for its label and the node itself, for each of three states: `normal`, `selected` and `muted`. For example:
 
-```
+```js
 const hubStyle = {
     node: {
         normal: {fill: "#CBCBCB",stroke: "#BEBEBE", cursor: "pointer"},
@@ -230,7 +232,7 @@ Note that muted will be applied to nodes which are not selected.
 
 You can use styling maps to specify the color and width of paths:
 
-```
+```js
 const pathColorMap = {
     northPath: "#ff7f0e",
     southPath: "#aec7e8",
@@ -248,7 +250,7 @@ The edge color map maps an edge rate (bits per second, specified in the traffic 
 
 The "label" isn't needed for this mapping, but the traffic `<MapLegend>` component will accept this same structure and use the label for its display.
 
-```
+```js
 const edgeColorMap = [
     {color: "#990000", label: ">=50 Gbps", range: [50, 100]},
     {color: "#bd0026", label: "20 - 50", range: [20, 50]},
@@ -264,7 +266,7 @@ const edgeColorMap = [
 
 Finally we can render the traffic map itself:
 
-```
+```js
 import { TrafficMap } from "react-network-diagrams";
 
 ...

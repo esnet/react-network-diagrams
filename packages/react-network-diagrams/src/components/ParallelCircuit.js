@@ -21,7 +21,6 @@ import { Directions } from "../js/constants";
  * A component for drawing parallel sets of circuits.
  */
 export class ParallelCircuit extends React.Component {
-
     renderCircuitTitle(title) {
         const titleStyle = {
             textAnchor: "left",
@@ -32,11 +31,13 @@ export class ParallelCircuit extends React.Component {
 
         if (!this.props.hideTitle) {
             return (
-                <text className="circuit-title"
-                      key="circuit-title"
-                      style={titleStyle}
-                      x={this.props.titleOffsetX}
-                      y={this.props.titleOffsetY}>
+                <text
+                    className="circuit-title"
+                    key="circuit-title"
+                    style={titleStyle}
+                    x={this.props.titleOffsetX}
+                    y={this.props.titleOffsetY}
+                >
                     {title}
                 </text>
             );
@@ -49,10 +50,12 @@ export class ParallelCircuit extends React.Component {
         if (parentId) {
             return (
                 <g>
-                    <Navigate direction={Directions.NORTH}
-                              ypos={0}
-                              id={this.props.parentId}
-                              onSelectionChange={this.props.onSelectionChange} />
+                    <Navigate
+                        direction={Directions.NORTH}
+                        ypos={0}
+                        id={this.props.parentId}
+                        onSelectionChange={this.props.onSelectionChange}
+                    />
                 </g>
             );
         } else {
@@ -67,8 +70,14 @@ export class ParallelCircuit extends React.Component {
                 fillOpacity: "0.65"
             };
             return (
-                <rect className="circuit-overlay" style={overlayStyle}
-                      x="0" y="0" width={this.props.width} height={this.props.height} />
+                <rect
+                    className="circuit-overlay"
+                    style={overlayStyle}
+                    x="0"
+                    y="0"
+                    width={this.props.width}
+                    height={this.props.height}
+                />
             );
         } else {
             return null;
@@ -85,58 +94,60 @@ export class ParallelCircuit extends React.Component {
 
         // Push the two end points for the main circuit
         elements.push(
-            <Endpoint x={x1}
-                      y={y1}
-                      key="a"
-                      style={this.props.endpointStyle}
-                      labelPosition={this.props.endpointLabelPosition}
-                      offset={this.props.endpointLabelOffset}
-                      label={this.props.endpointLabelA} />
+            <Endpoint
+                x={x1}
+                y={y1}
+                key="a"
+                style={this.props.endpointStyle}
+                labelPosition={this.props.endpointLabelPosition}
+                offset={this.props.endpointLabelOffset}
+                label={this.props.endpointLabelA}
+            />
         );
 
         elements.push(
-            <Endpoint x={x2}
-                      y={y2}
-                      key="z"
-                      style={this.props.endpointStyle}
-                      labelPosition={this.props.endpointLabelPosition}
-                      offset={this.props.endpointLabelOffset}
-                      label={this.props.endpointLabelZ} />
+            <Endpoint
+                x={x2}
+                y={y2}
+                key="z"
+                style={this.props.endpointStyle}
+                labelPosition={this.props.endpointLabelPosition}
+                offset={this.props.endpointLabelOffset}
+                label={this.props.endpointLabelZ}
+            />
         );
 
         const yOffset = 4;
-        
+
         let offset = 0;
 
         if (memberList.length > 0) {
             offset = -(memberList.length - 1) * 0.5 - 1;
         }
-        
+
         _.each(memberList, (member, memberIndex) => {
             offset += 1;
             const position = 18 * offset;
             elements.push(
-                <Connection x1={x1}
-                            x2={x2}
-                            y1={y1}
-                            y2={y2}
-                            key={"circuit-" + memberIndex}
-                            style={member.styleProperties.style}
-                            lineShape={member.styleProperties.lineShape}
-                            label={member.circuitLabel}
-                            labelPosition={this.props.connectionLabelPosition}
-                            labelOffsetY={yOffset}
-                            noNavigate={member.styleProperties.noNavigate}
-                            navTo={member.navTo}
-                            position={position}
-                            onSelectionChange={this.props.onSelectionChange}/>
+                <Connection
+                    x1={x1}
+                    x2={x2}
+                    y1={y1}
+                    y2={y2}
+                    key={"circuit-" + memberIndex}
+                    style={member.styleProperties.style}
+                    lineShape={member.styleProperties.lineShape}
+                    label={member.circuitLabel}
+                    labelPosition={this.props.connectionLabelPosition}
+                    labelOffsetY={yOffset}
+                    noNavigate={member.styleProperties.noNavigate}
+                    navTo={member.navTo}
+                    position={position}
+                    onSelectionChange={this.props.onSelectionChange}
+                />
             );
         });
-        return (
-            <g>
-                {elements}
-            </g>
-        );
+        return <g>{elements}</g>;
     }
 
     render() {
@@ -179,7 +190,7 @@ export class ParallelCircuit extends React.Component {
             </svg>
         );
     }
-};
+}
 
 ParallelCircuit.defaultProps = {
     width: 851,
@@ -193,7 +204,6 @@ ParallelCircuit.defaultProps = {
 };
 
 ParallelCircuit.propTypes = {
-
     /** The width of the circuit diagram */
     width: PropTypes.number,
 
@@ -248,12 +258,12 @@ ParallelCircuit.propTypes = {
      * ```
      */
     memberList: PropTypes.array.isRequired,
-    
+
     /**
      * Described the position of the connection label; accepts **"top"**, **"center"**, or **"bottom"**
      */
     connectionLabelPosition: PropTypes.oneOf(["top", "center", "bottom"]),
-    
+
     /**
      * The position of the label around the endpoint.
      */
@@ -277,7 +287,7 @@ ParallelCircuit.propTypes = {
      * label will be rendered.
      */
     endpointLabelOffset: PropTypes.number,
-    
+
     /**
      * The string to display in the top left corner of the diagram
      */
@@ -287,27 +297,24 @@ ParallelCircuit.propTypes = {
      * Value that determines whether or not the upper left corner title is displayed
      */
     hideTitle: PropTypes.bool,
-            
+
     /**
      * Determines if the circuit view is muted.  Typically used in
      * conjunction with `parentID`
      */
     disabled: PropTypes.bool,
-    
+
     /**
      * Callback function used to handle clicks.
      */
     onSelectionChange: PropTypes.func,
-    
+
     /**
      * Value that if provided, will render a small nav arrow that
      * when clicked, navigates to that element. Used mainly when we want
      * to show a parent / child relationship between two circuits.
      */
-    parentId: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.Number
-    ]),
+    parentId: PropTypes.oneOfType([PropTypes.string, PropTypes.Number]),
 
     /**
      * Boolean value that determines if the element uses the onSelectionChange

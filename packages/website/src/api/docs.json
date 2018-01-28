@@ -397,7 +397,7 @@
         "required": false,
         "description": "Specified as an object containing x1, y1 and x2, y2. This is the region\nto display on the map. If this isn't specified the bounds will be\ncalculated from the nodes in the Map.",
         "defaultValue": {
-          "value": "{x1: 0, y1: 0, x2: 1, y2: 1}",
+          "value": "{ x1: 0, y1: 0, x2: 1, y2: 1 }",
           "computed": false
         }
       },

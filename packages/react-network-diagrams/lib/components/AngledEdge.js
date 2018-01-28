@@ -269,7 +269,8 @@ var AngledEdge = exports.AngledEdge = function (_React$Component) {
                     label: this.props.label,
                     xOffset: this.props.labelOffsetX,
                     yOffset: this.props.labelOffsetY,
-                    labelPosition: this.props.labelPosition });
+                    labelPosition: this.props.labelPosition
+                });
             }
 
             if (this.props.arrow) {
@@ -278,22 +279,22 @@ var AngledEdge = exports.AngledEdge = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                         "g",
-                        {
-                            strokeWidth: this.props.width,
-                            stroke: this.props.color,
-                            opacity: opacity },
+                        { strokeWidth: this.props.width, stroke: this.props.color, opacity: opacity },
                         _react2.default.createElement("path", {
                             d: path,
-                            fill: "none", className: classed,
+                            fill: "none",
+                            className: classed,
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e);
-                            } }),
+                            }
+                        }),
                         _react2.default.createElement("path", {
                             d: arrow,
                             className: classed,
                             stroke: this.props.color,
                             fill: this.props.color,
-                            strokeWidth: "1" })
+                            strokeWidth: "1"
+                        })
                     ),
                     labelElement
                 );
@@ -303,17 +304,15 @@ var AngledEdge = exports.AngledEdge = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                         "g",
-                        {
-                            strokeWidth: this.props.width,
-                            stroke: this.props.color,
-                            opacity: opacity },
+                        { strokeWidth: this.props.width, stroke: this.props.color, opacity: opacity },
                         _react2.default.createElement("path", {
                             d: path,
                             fill: "none",
                             className: classed,
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e);
-                            } })
+                            }
+                        })
                     ),
                     labelElement
                 );
@@ -323,8 +322,6 @@ var AngledEdge = exports.AngledEdge = function (_React$Component) {
 
     return AngledEdge;
 }(_react2.default.Component);
-
-;
 
 AngledEdge.propTypes = {
     /** An offset to the position of the label which can be used for fine tuning */

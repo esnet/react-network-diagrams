@@ -20,7 +20,6 @@ import { Directions } from "../js/constants";
  * complicated navigation in the future.
  */
 export class Navigate extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -35,14 +34,14 @@ export class Navigate extends React.Component {
      * User hovers over the navigational arrow
      */
     handleMouseOver() {
-        this.setState({hover: true});
+        this.setState({ hover: true });
     }
 
     /**
      * User stops hovering over navigational arrow
      */
     handleMouseOut() {
-        this.setState({hover: false});
+        this.setState({ hover: false });
     }
 
     handleMouseClick() {
@@ -101,32 +100,35 @@ export class Navigate extends React.Component {
                 <rect
                     className="circuit-hitrect"
                     style={hitStyle}
-                    x={x - dx * 2} y={y - dy / 2}
-                    width={dx * 4} height={dy * 2}
+                    x={x - dx * 2}
+                    y={y - dy / 2}
+                    width={dx * 4}
+                    height={dy * 2}
                     onMouseOver={this.handleMouseOver}
                     onMouseOut={this.handleMouseOut}
-                    onClick={this.handleMouseClick} />
+                    onClick={this.handleMouseClick}
+                />
             );
         } else if (this.props.direction === Directions.SOUTH) {
             hitRect = (
                 <rect
                     className="circuit-hitrect"
                     style={hitStyle}
-                    x={x - dx * 2} y={y - dy / 2 * 3}
-                    width={dx * 4} height={dy * 2}
+                    x={x - dx * 2}
+                    y={y - dy / 2 * 3}
+                    width={dx * 4}
+                    height={dy * 2}
                     onMouseOver={this.handleMouseOver}
                     onMouseOut={this.handleMouseOut}
-                    onClick={this.handleMouseClick} />
+                    onClick={this.handleMouseClick}
+                />
             );
         }
 
         if (this.props.id) {
             return (
                 <g key="navigation-group">
-                    <path
-                        d={path}
-                        className="circuit-navigate"
-                        style={navStyle} />
+                    <path d={path} className="circuit-navigate" style={navStyle} />
                     {hitRect}
                 </g>
             );
@@ -134,20 +136,22 @@ export class Navigate extends React.Component {
             return null;
         }
     }
-};
+}
 
 Navigate.propTypes = {
-    navTo: PropTypes.oneOfType([      // Value passed down to the click
-        PropTypes.string,             // handler at the lowest level primitive.
-        PropTypes.number              // Will return to the onSelectionChange
+    navTo: PropTypes.oneOfType([
+        // Value passed down to the click
+        PropTypes.string, // handler at the lowest level primitive.
+        PropTypes.number // Will return to the onSelectionChange
     ]),
-    direction: PropTypes.oneOf([      // Should the navigation go at the top or
-        Directions.NORTH,                   // bottom of the container
+    direction: PropTypes.oneOf([
+        // Should the navigation go at the top or
+        Directions.NORTH, // bottom of the container
         Directions.SOUTH
     ]),
-    margin: PropTypes.number,         // How far to inset the navigation
-    width: PropTypes.number,          // Height and width of the container to
-    height: PropTypes.number,         // guide positioning of the navigation
+    margin: PropTypes.number, // How far to inset the navigation
+    width: PropTypes.number, // Height and width of the container to
+    height: PropTypes.number, // guide positioning of the navigation
     onSelectionChange: PropTypes.func // Callback for when the navigation is pressed
 };
 

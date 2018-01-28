@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import _ from "underscore";
 
 /**
@@ -19,7 +19,6 @@ import _ from "underscore";
  * to display on multiple lines.
  */
 export class Label extends React.Component {
-
     render() {
         let label = [];
         if (!_.isArray(this.props.label)) {
@@ -41,8 +40,7 @@ export class Label extends React.Component {
         const yOffset = this.props.yOffset;
         const xOffset = this.props.xOffset;
 
-        if (this.props.labelPosition === "top" ||
-            this.props.labelPosition === "center") {
+        if (this.props.labelPosition === "top" || this.props.labelPosition === "center") {
             label.reverse();
         }
 
@@ -51,22 +49,22 @@ export class Label extends React.Component {
         let centerY;
 
         if (this.props.labelPosition === "center") {
-            centerY = labelY + ((label.length / 2) * fontOffset);
+            centerY = labelY + label.length / 2 * fontOffset;
         }
 
         _.each(label, (line, lineIndex) => {
             x = labelX + xOffset;
             switch (this.props.labelPosition) {
                 case "top":
-                    y = labelY - yOffset - (lineIndex * fontOffset);
+                    y = labelY - yOffset - lineIndex * fontOffset;
                     break;
 
                 case "bottom":
-                    y = labelY + yOffset + fontOffset + (lineIndex * fontOffset);
+                    y = labelY + yOffset + fontOffset + lineIndex * fontOffset;
                     break;
 
                 case "center":
-                    y = centerY - yOffset - (lineIndex * fontOffset);
+                    y = centerY - yOffset - lineIndex * fontOffset;
                     break;
                 default:
                     break;
@@ -85,13 +83,14 @@ export class Label extends React.Component {
                     style={this.props.style}
                     key="connection-label"
                     transform={rotate}
-                    className={this.props.labelClassed}>
-                      {elements}
+                    className={this.props.labelClassed}
+                >
+                    {elements}
                 </text>
             </g>
         );
     }
-};
+}
 
 Label.propTypes = {
     r: PropTypes.number,

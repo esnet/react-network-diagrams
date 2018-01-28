@@ -226,7 +226,8 @@ var ArcEdge = exports.ArcEdge = function (_React$Component) {
                     label: this.props.label,
                     xOffset: this.props.labelOffsetX,
                     yOffset: this.props.labelOffsetY,
-                    labelPosition: this.props.labelPosition });
+                    labelPosition: this.props.labelPosition
+                });
             }
             if (this.props.arrow) {
                 return _react2.default.createElement(
@@ -234,22 +235,22 @@ var ArcEdge = exports.ArcEdge = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                         "g",
-                        {
-                            strokeWidth: this.props.width,
-                            stroke: this.props.color,
-                            opacity: opacity },
+                        { strokeWidth: this.props.width, stroke: this.props.color, opacity: opacity },
                         _react2.default.createElement("path", {
                             d: path,
-                            fill: "none", className: classed,
+                            fill: "none",
+                            className: classed,
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e);
-                            } }),
+                            }
+                        }),
                         _react2.default.createElement("path", {
                             d: arrow,
                             className: classed,
                             stroke: this.props.color,
                             fill: this.props.color,
-                            strokeWidth: "1" })
+                            strokeWidth: "1"
+                        })
                     ),
                     labelElement
                 );
@@ -259,17 +260,15 @@ var ArcEdge = exports.ArcEdge = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                         "g",
-                        {
-                            strokeWidth: this.props.width,
-                            stroke: this.props.color,
-                            opacity: opacity },
+                        { strokeWidth: this.props.width, stroke: this.props.color, opacity: opacity },
                         _react2.default.createElement("path", {
                             d: path,
                             fill: "none",
                             className: classed,
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e);
-                            } })
+                            }
+                        })
                     ),
                     labelElement
                 );
@@ -280,10 +279,7 @@ var ArcEdge = exports.ArcEdge = function (_React$Component) {
     return ArcEdge;
 }(_react2.default.Component);
 
-;
-
 ArcEdge.propTypes = {
-
     /** An offset to the position of the label which can be used for fine tuning */
     offset: _propTypes2.default.number,
 
@@ -312,7 +308,6 @@ ArcEdge.propTypes = {
 
     /** Display the endpoint muted */
     muted: _propTypes2.default.bool
-
 };
 
 ArcEdge.defaultProps = {

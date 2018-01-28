@@ -11,7 +11,6 @@
 import React from "react";
 
 export class NodeLabel extends React.Component {
-
     render() {
         let textAnchor;
         switch (this.props.labelPosition) {
@@ -32,10 +31,10 @@ export class NodeLabel extends React.Component {
                 y={this.props.y}
                 label={this.props.label}
                 textAnchor={textAnchor}
-                className={"map-label"}>
+                className={"map-label"}
+            >
                 {this.props.label}
             </text>
         );
     }
-};
-
+}

@@ -9,11 +9,7 @@
  */
 
 import React, {Component} from "react";
-import createReactClass from "create-react-class";
-
-import Highlighter from "../components/Highlighter";
 import Markdown from "react-markdown";
-import logo from "../img/diagrams.png";
 
 import text from "../guides/intro.md";
 

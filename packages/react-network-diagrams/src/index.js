@@ -1,5 +1,5 @@
 import { BaseMap } from "./components/BaseMap";
-import { Endpoint }from "./components/Endpoint";
+import { Endpoint } from "./components/Endpoint";
 import { TrafficMap } from "./components/TrafficMap";
 import { MapLegend } from "./components/MapLegend";
 import { Connection } from "./components/Connection";

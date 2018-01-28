@@ -195,7 +195,8 @@ var LinearEdge = exports.LinearEdge = function (_React$Component) {
                     label: this.props.label,
                     xOffset: this.props.labelOffsetX,
                     yOffset: this.props.labelOffsetY,
-                    labelPosition: this.props.labelPosition });
+                    labelPosition: this.props.labelPosition
+                });
             }
 
             if (this.props.arrow) {
@@ -204,22 +205,21 @@ var LinearEdge = exports.LinearEdge = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                         "g",
-                        {
-                            strokeWidth: this.props.width,
-                            stroke: this.props.color,
-                            opacity: opacity },
+                        { strokeWidth: this.props.width, stroke: this.props.color, opacity: opacity },
                         _react2.default.createElement("path", {
                             className: classed,
                             d: path,
                             fill: "none",
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e);
-                            } }),
+                            }
+                        }),
                         _react2.default.createElement("path", {
                             className: classed,
                             d: arrow,
                             fill: this.props.color,
-                            strokeWidth: "1" })
+                            strokeWidth: "1"
+                        })
                     ),
                     labelElement
                 );
@@ -229,17 +229,15 @@ var LinearEdge = exports.LinearEdge = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                         "g",
-                        {
-                            strokeWidth: this.props.width,
-                            stroke: this.props.color,
-                            opacity: opacity },
+                        { strokeWidth: this.props.width, stroke: this.props.color, opacity: opacity },
                         _react2.default.createElement("path", {
                             className: classed,
                             d: path,
                             fill: "none",
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e);
-                            } })
+                            }
+                        })
                     ),
                     labelElement
                 );
@@ -249,8 +247,6 @@ var LinearEdge = exports.LinearEdge = function (_React$Component) {
 
     return LinearEdge;
 }(_react2.default.Component);
-
-;
 
 LinearEdge.propTypes = {
     /** The width of the circuit diagram */

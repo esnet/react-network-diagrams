@@ -15,7 +15,6 @@ import { ArcEdge } from "./ArcEdge";
 import { LinearEdge } from "./LinearEdge";
 
 export class BidirectionalEdge extends React.Component {
-
     render() {
         const paths = [];
         const sourceToTargetName = `${this.props.source}--${this.props.target}`;
@@ -43,7 +42,8 @@ export class BidirectionalEdge extends React.Component {
                         offset={this.props.offset}
                         selected={this.props.selected}
                         onSelectionChange={this.props.onSelectionChange}
-                        muted={this.props.muted} />
+                        muted={this.props.muted}
+                    />
 
                     <ArcEdge
                         name={this.props.name}
@@ -61,7 +61,8 @@ export class BidirectionalEdge extends React.Component {
                         offset={this.props.offset}
                         selected={this.props.selected}
                         onSelectionChange={this.props.onSelectionChange}
-                        muted={this.props.muted} />
+                        muted={this.props.muted}
+                    />
 
                     <ArcEdge
                         name={this.props.name}
@@ -76,7 +77,8 @@ export class BidirectionalEdge extends React.Component {
                         onSelectionChange={this.props.onSelectionChange}
                         curveDirection={this.props.curveDirection}
                         offset={this.props.offset}
-                        invisible={true} />
+                        invisible={true}
+                    />
                 </g>
             );
         } else {
@@ -96,7 +98,8 @@ export class BidirectionalEdge extends React.Component {
                         key={sourceToTargetName}
                         selected={this.props.selected}
                         muted={this.props.muted}
-                        onSelectionChange={this.props.onSelectionChange} />
+                        onSelectionChange={this.props.onSelectionChange}
+                    />
 
                     <LinearEdge
                         name={this.props.name}
@@ -112,7 +115,8 @@ export class BidirectionalEdge extends React.Component {
                         key={targetToSourceName}
                         selected={this.props.selected}
                         muted={this.props.muted}
-                        onSelectionChange={this.props.onSelectionChange} />
+                        onSelectionChange={this.props.onSelectionChange}
+                    />
 
                     <LinearEdge
                         name={this.props.name}
@@ -125,18 +129,15 @@ export class BidirectionalEdge extends React.Component {
                         className={this.props.classed}
                         key={`${targetToSourceName}-event-region`}
                         onSelectionChange={this.props.onSelectionChange}
-                        invisible={true} />
+                        invisible={true}
+                    />
                 </g>
             );
         }
 
-        return (
-            <g>
-                {paths}
-            </g>
-        );
+        return <g>{paths}</g>;
     }
-};
+}
 
 BidirectionalEdge.propTypes = {
     /** The width of the circuit diagram */

@@ -17,7 +17,6 @@ import PropTypes from "prop-types";
  * a diagram and have this drive the width.
  */
 export class Resizable extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -27,12 +26,12 @@ export class Resizable extends React.Component {
     }
 
     componentDidMount() {
-        window.addEventListener("resize", () => this.handleResize());  //eslint-disable-line
+        window.addEventListener("resize", () => this.handleResize()); //eslint-disable-line
         this.handleResize();
     }
 
     componentWillUnmount() {
-        window.removeEventListener("resize", () => this.handleResize());  //eslint-disable-line
+        window.removeEventListener("resize", () => this.handleResize()); //eslint-disable-line
     }
 
     handleResize() {
@@ -44,14 +43,13 @@ export class Resizable extends React.Component {
     }
 
     render() {
-        const props = {width: this.state.width};
+        const props = { width: this.state.width };
         if (this.props.aspect) {
             props.height = this.state.width / this.props.aspect;
         }
 
         const child = React.Children.only(this.props.children);
-        const childElement = this.state.width ?
-            React.cloneElement(child, props) : null;
+        const childElement = this.state.width ? React.cloneElement(child, props) : null;
         return (
             <div
                 ref={c => {

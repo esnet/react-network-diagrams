@@ -15,13 +15,12 @@ import { Link } from "react-router-dom";
 import _ from "underscore";
 import Flexbox from 'flexbox-react';
 
-import Highlighter from "../components/Highlighter";
 import APIDoc from "./APIDoc";
 import Meta from "../examples/catalog.json";
 import Examples from "../examples_entry";
 import docsFile from "../api/docs.json";
 
-const Example = React.createClass({
+class Example extends Component {
     render() {
         const style = {
             display: "inline-block",
@@ -51,9 +50,9 @@ const Example = React.createClass({
             </Flexbox>
         );
     }
-});
+}
 
-const TaggedExamples = React.createClass({
+class TaggedExamples extends Component {
     render() {
         const exampleList = [];
         _.forEach(Meta, (value, key) => {
@@ -82,7 +81,7 @@ const TaggedExamples = React.createClass({
             );
         }
     }
-});
+}
 
 export default class extends Component {
 

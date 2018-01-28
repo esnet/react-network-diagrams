@@ -11,7 +11,6 @@
 import _ from "underscore";
 import React from "react";
 import PropTypes from "prop-types";
-
 import Victor from "victor";
 
 import { Label } from "./Label";
@@ -35,7 +34,6 @@ const Vector = Victor;
  * Stroke color and width can also be supplied.
  */
 export class AngledEdge extends React.Component {
-
     handleClick(e) {
         e.stopPropagation();
         if (this.props.onSelectionChange) {
@@ -44,11 +42,11 @@ export class AngledEdge extends React.Component {
     }
 
     rotateOffset(cx, x, y, a) {
-        const r = (Math.PI / 180) * a;
+        const r = Math.PI / 180 * a;
         const cos = Math.cos(r);
         const sin = Math.sin(r);
-        const nx = x - ((x - cx) * cos);
-        const ny = y - ((x - cx) * sin);
+        const nx = x - (x - cx) * cos;
+        const ny = y - (x - cx) * sin;
         return [nx, ny];
     }
 
@@ -67,7 +65,6 @@ export class AngledEdge extends React.Component {
             classed += " muted";
             labelClassed += "muted";
             styleModifier = "muted";
-
         }
         if (this.props.invisible) {
             classed += " edge-event-region";
@@ -158,16 +155,25 @@ export class AngledEdge extends React.Component {
 
         const diff = offset - arrowLength;
 
-        const arrowHeadLocation = this.rotateOffset(target.x - diff, target.x, target.y, targetAngle);
+        const arrowHeadLocation = this.rotateOffset(
+            target.x - diff,
+            target.x,
+            target.y,
+            targetAngle
+        );
 
-        const arrowLeftSide = this.rotateOffset(arrowBase.x - (arrowWidth / 2),
-                                                  arrowBase.x,
-                                                  arrowBase.y,
-                                                  90 + targetAngle);
-        const arrowRightSide = this.rotateOffset(arrowBase.x + (arrowWidth / 2),
-                                                  arrowBase.x,
-                                                  arrowBase.y,
-                                                  90 + targetAngle);
+        const arrowLeftSide = this.rotateOffset(
+            arrowBase.x - arrowWidth / 2,
+            arrowBase.x,
+            arrowBase.y,
+            90 + targetAngle
+        );
+        const arrowRightSide = this.rotateOffset(
+            arrowBase.x + arrowWidth / 2,
+            arrowBase.x,
+            arrowBase.y,
+            90 + targetAngle
+        );
 
         const arrowBaseLeft = new Vector(arrowLeftSide[0], arrowLeftSide[1]);
         const arrowBaseRight = new Vector(arrowRightSide[0], arrowRightSide[1]);
@@ -183,8 +189,10 @@ export class AngledEdge extends React.Component {
 
         switch (this.props.curveDirection) {
             case "left":
-                if ((source.x < target.x && source.y < target.y) ||
-                   (source.x < target.x && source.y > target.y)) {
+                if (
+                    (source.x < target.x && source.y < target.y) ||
+                    (source.x < target.x && source.y > target.y)
+                ) {
                     path += " L " + sourceOffset.x + "," + targetOffset.y;
                     cy = target.y;
                 } else {
@@ -193,8 +201,10 @@ export class AngledEdge extends React.Component {
                 }
                 break;
             case "right":
-                if ((source.x < target.x && source.y < target.y) ||
-                    (source.x < target.x && source.y > target.y)) {
+                if (
+                    (source.x < target.x && source.y < target.y) ||
+                    (source.x < target.x && source.y > target.y)
+                ) {
                     path += " L " + targetOffset.x + "," + sourceOffset.y;
                     cy = source.y;
                 } else {
@@ -240,27 +250,28 @@ export class AngledEdge extends React.Component {
                     label={this.props.label}
                     xOffset={this.props.labelOffsetX}
                     yOffset={this.props.labelOffsetY}
-                    labelPosition={this.props.labelPosition} />
+                    labelPosition={this.props.labelPosition}
+                />
             );
         }
 
         if (this.props.arrow) {
             return (
                 <g>
-                    <g
-                        strokeWidth={this.props.width}
-                        stroke={this.props.color}
-                        opacity={opacity}>
+                    <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
                         <path
                             d={path}
-                            fill="none" className={classed}
-                            onClick={e => this.handleClick(e)}/>
+                            fill="none"
+                            className={classed}
+                            onClick={e => this.handleClick(e)}
+                        />
                         <path
                             d={arrow}
                             className={classed}
                             stroke={this.props.color}
                             fill={this.props.color}
-                            strokeWidth="1"/>
+                            strokeWidth="1"
+                        />
                     </g>
                     {labelElement}
                 </g>
@@ -268,22 +279,20 @@ export class AngledEdge extends React.Component {
         } else {
             return (
                 <g>
-                    <g
-                        strokeWidth={this.props.width}
-                        stroke={this.props.color}
-                        opacity={opacity}>
+                    <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
                         <path
                             d={path}
                             fill="none"
                             className={classed}
-                            onClick={e => this.handleClick(e)}/>
+                            onClick={e => this.handleClick(e)}
+                        />
                     </g>
                     {labelElement}
                 </g>
             );
         }
     }
-};
+}
 
 AngledEdge.propTypes = {
     /** An offset to the position of the label which can be used for fine tuning */

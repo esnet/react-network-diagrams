@@ -13,7 +13,6 @@ import PropTypes from "prop-types";
 import _ from "underscore";
 
 export class MapLegend extends React.Component {
-
     render() {
         let curX = this.props.x;
         let curY = this.props.y;
@@ -25,7 +24,7 @@ export class MapLegend extends React.Component {
                 const textX = curX + this.props.exampleWidth;
                 const textY = curY + lineCenter;
                 const classed = "map-node " + node.classed;
-                const style = {stroke: node.stroke, fill: node.fill};
+                const style = { stroke: node.stroke, fill: node.fill };
                 elements.push(
                     <g key={`node-${i}`}>
                         <circle
@@ -33,11 +32,9 @@ export class MapLegend extends React.Component {
                             cx={curX}
                             cy={textY}
                             r={node.radius}
-                            className={classed} />
-                        <text
-                            x={textX}
-                            y={textY + 4}
-                            textAnchor={"begin"}>
+                            className={classed}
+                        />
+                        <text x={textX} y={textY + 4} textAnchor={"begin"}>
                             {node.text}
                         </text>
                     </g>
@@ -66,7 +63,8 @@ export class MapLegend extends React.Component {
                             x2={x + this.props.exampleWidth}
                             y2={y}
                             stroke={this.props.edgeColor}
-                            strokeWidth={edge.strokeWidth} />
+                            strokeWidth={edge.strokeWidth}
+                        />
                         <text x={textX} y={textY} textAnchor={"begin"}>
                             {edge.text}
                         </text>
@@ -106,7 +104,8 @@ export class MapLegend extends React.Component {
                             width={width}
                             height={height}
                             stroke={color.stroke}
-                            fill={color.fill} />
+                            fill={color.fill}
+                        />
                         <text x={textX} y={textY} textAnchor={"begin"}>
                             {color.text}
                         </text>
@@ -123,13 +122,9 @@ export class MapLegend extends React.Component {
             }
         }
 
-        return (
-            <g>
-                {elements}
-            </g>
-        );
+        return <g>{elements}</g>;
     }
-};
+}
 
 MapLegend.propTypes = {
     x: PropTypes.number,

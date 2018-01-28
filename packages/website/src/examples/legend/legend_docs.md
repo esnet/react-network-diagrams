@@ -1,5 +1,4 @@
-
-```
+```js
 const legend = React.createClass({
 
     render() {

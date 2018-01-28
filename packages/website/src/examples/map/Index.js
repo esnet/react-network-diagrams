@@ -10,8 +10,8 @@
 
 import React from "react";
 import _ from "underscore";
-import { Event, TimeEvent } from "pondjs";
-import { TrafficMap, Resizable } from "react-network-diagrams";
+import { TimeEvent } from "pondjs";
+import { TrafficMap } from "react-network-diagrams";
 import * as Immutable from "immutable";
 
 import map_docs from "./map_docs.md";

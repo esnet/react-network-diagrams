@@ -59,7 +59,8 @@ var NodeLabel = exports.NodeLabel = function (_React$Component) {
                     y: this.props.y,
                     label: this.props.label,
                     textAnchor: textAnchor,
-                    className: "map-label" },
+                    className: "map-label"
+                },
                 this.props.label
             );
         }
@@ -67,5 +68,3 @@ var NodeLabel = exports.NodeLabel = function (_React$Component) {
 
     return NodeLabel;
 }(_react2.default.Component);
-
-;

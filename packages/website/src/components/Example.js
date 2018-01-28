@@ -9,8 +9,8 @@
  */
 
 import React, {Component} from "react";
-import Highlighter from "../components/Highlighter";
 import Markdown from "react-markdown";
+
 import Examples from "../examples_entry.js";
 import Catalog from "../examples/catalog.json";
 

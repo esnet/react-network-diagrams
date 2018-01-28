@@ -17,11 +17,10 @@ import { Endpoint } from "./Endpoint";
 import { Label } from "./Label";
 
 export class PatchPanel extends React.Component {
-
     constructor(props) {
         super(props);
-        this.state = { 
-            hover: false 
+        this.state = {
+            hover: false
         };
         this.handleSelectionChange = this.handleSelectionChange.bind(this);
     }
@@ -33,8 +32,8 @@ export class PatchPanel extends React.Component {
     }
 
     renderPanelLabel(yStart, label, key) {
-        const y = yStart - (this.props.panelSpacing / 2);
-        const x = (this.props.width / 2);
+        const y = yStart - this.props.panelSpacing / 2;
+        const x = this.props.width / 2;
         const labelStyle = {
             fontSize: 14,
             fontFamily: "verdana, sans-serif",
@@ -42,23 +41,23 @@ export class PatchPanel extends React.Component {
             textAnchor: "middle"
         };
         return (
-            <g
-                key={`panel-name-${key}`}>
+            <g key={`panel-name-${key}`}>
                 <Label
                     x={x}
                     y={y}
                     label={label}
                     labelPosition="center"
                     labelClassed="panel-name"
-                    style={labelStyle} />
+                    style={labelStyle}
+                />
             </g>
         );
     }
 
     renderFrontBackLabel(yStart, key) {
         const x = this.props.width / 2;
-        const xLeft = x - (this.props.width / 9);
-        const xRight = x + (this.props.width / 9);
+        const xLeft = x - this.props.width / 9;
+        const xRight = x + this.props.width / 9;
         const yDown = yStart;
         const front = "FRONT";
         const back = "BACK";
@@ -69,14 +68,14 @@ export class PatchPanel extends React.Component {
             textAnchor: "middle"
         };
         return (
-            <g
-                key={`panel-frontback-${key}`}>
+            <g key={`panel-frontback-${key}`}>
                 <text
                     className="frontback-label"
                     key={`panel-front-${key}`}
                     style={labelStyle}
                     x={xLeft}
-                    y={yDown}>
+                    y={yDown}
+                >
                     {front}
                 </text>
                 <text
@@ -84,7 +83,8 @@ export class PatchPanel extends React.Component {
                     key={`panel-back-${key}`}
                     style={labelStyle}
                     x={xRight}
-                    y={yDown}>
+                    y={yDown}
+                >
                     {back}
                 </text>
             </g>
@@ -101,16 +101,15 @@ export class PatchPanel extends React.Component {
 
         // determing the x location and width for the outer panel shape from the panelWidthOffest
 
-        const panelX = midpt - (this.props.couplerStyle.squareWidth / 2) - panelWidthOffset;
-        const width = (this.props.couplerStyle.squareWidth + (panelWidthOffset * 2));
+        const panelX = midpt - this.props.couplerStyle.squareWidth / 2 - panelWidthOffset;
+        const width = this.props.couplerStyle.squareWidth + panelWidthOffset * 2;
 
         // set the start of the panel at the yOffset from the top
         let panelY = this.props.yOffset;
         _.each(this.props.panels, (panel, panelIndex) => {
             // draw a panel
             elements.push(
-                <g
-                    key={`panel-${panelIndex}`}>
+                <g key={`panel-${panelIndex}`}>
                     <rect
                         className="panel"
                         width={width}
@@ -119,40 +118,35 @@ export class PatchPanel extends React.Component {
                         x={panelX}
                         y={panelY}
                         rx={this.props.panelRoundedX}
-                        ry={this.props.panelRoundedY} />
+                        ry={this.props.panelRoundedY}
+                    />
                 </g>
             );
 
             // set the start of the module group at the spacing below the panel start +
             // 1/2 the coupler height.  This will place the y at the middle of the coupler group
 
-            let moduleY = panelY + this.props.moduleSpacing + (this.props.couplerStyle.size / 2);
+            let moduleY = panelY + this.props.moduleSpacing + this.props.couplerStyle.size / 2;
 
             _.each(panel.modules, module => {
                 // draw all the circuit groups in a module
 
-                elements.push(
-                    this.renderModule(module, moduleY)
-                );
+                elements.push(this.renderModule(module, moduleY));
                 // after each module is finished, space the next module start at the middle
                 // of the first coupler group, offset by the module spacing
-                moduleY += this.props.moduleSpacing + (module.length * this.props.couplerStyle.size) +
-                           ((module.length - 1) * this.props.couplerSpacing);
+                moduleY +=
+                    this.props.moduleSpacing +
+                    module.length * this.props.couplerStyle.size +
+                    (module.length - 1) * this.props.couplerSpacing;
             });
-            elements.push(
-                this.renderFrontBackLabel(panelY, panelIndex)
-            );
-            elements.push(
-                this.renderPanelLabel(panelY, panel.panelName, panelIndex)
-            );
+            elements.push(this.renderFrontBackLabel(panelY, panelIndex));
+            elements.push(this.renderPanelLabel(panelY, panel.panelName, panelIndex));
 
             // once all panel modules are done, start the next module at the next panel
             // using the spacing derived from the svg box height
             panelY += this.props.panelSpacing + panelMap[panel.panelName];
         });
-        return (
-            elements
-        );
+        return elements;
     }
 
     renderModule(module, moduleY) {
@@ -164,18 +158,12 @@ export class PatchPanel extends React.Component {
         // draw each circuit group in the module
         _.each(module, (circuitGroup, groupIndex) => {
             // draw the endpoints
-            elements.push(
-                this.renderEndpoints(circuitGroup, y, groupIndex)
-            );
+            elements.push(this.renderEndpoints(circuitGroup, y, groupIndex));
             // draw the lines
-            elements.push(
-                this.renderConnections(circuitGroup, y, groupIndex)
-            );
+            elements.push(this.renderConnections(circuitGroup, y, groupIndex));
             y += this.props.couplerStyle.size + this.props.couplerSpacing;
         });
-        return (
-            elements
-        );
+        return elements;
     }
 
     /**
@@ -191,60 +179,54 @@ export class PatchPanel extends React.Component {
         if (circuitGroup.frontCircuit) {
             circuit = circuitGroup.frontCircuit;
             x1 = this.props.margin;
-            x2 = midpt - (circuitGroup.coupler.styleProperties.squareWidth / 2) -
-                 this.props.couplerEndpointRadius;
+            x2 =
+                midpt -
+                circuitGroup.coupler.styleProperties.squareWidth / 2 -
+                this.props.couplerEndpointRadius;
             elements.push(
-                <g
-                    key={`endpoint-${circuit.endpointLabelA}-${key}`}>
+                <g key={`endpoint-${circuit.endpointLabelA}-${key}`}>
                     <Endpoint
                         x={x1}
                         y={y}
                         style={circuit.endpointStyle}
                         labelStyle={circuit.endpointStyle.label}
                         labelPosition="bottomleftangled"
-                        label={circuitGroup.frontLabel} />
+                        label={circuitGroup.frontLabel}
+                    />
                 </g>
             );
             elements.push(
-                <g
-                    key={`endpoint-${circuit.endpointLabelZ}-${key}`}>
-                    <Endpoint
-                        x={x2}
-                        y={y}
-                        style={circuit.endpointStyle} />
+                <g key={`endpoint-${circuit.endpointLabelZ}-${key}`}>
+                    <Endpoint x={x2} y={y} style={circuit.endpointStyle} />
                 </g>
             );
         }
         if (circuitGroup.backCircuit) {
             circuit = circuitGroup.backCircuit;
-            x1 = midpt + (circuitGroup.coupler.styleProperties.squareWidth / 2) +
-                 this.props.couplerEndpointRadius;
+            x1 =
+                midpt +
+                circuitGroup.coupler.styleProperties.squareWidth / 2 +
+                this.props.couplerEndpointRadius;
             x2 = this.props.width - this.props.margin;
             elements.push(
-                <g
-                    key={`endpoint-${circuit.endpointLabelA}-${key}`}>
-                    <Endpoint
-                        x={x1}
-                        y={y}
-                        style={circuit.endpointStyle} />
+                <g key={`endpoint-${circuit.endpointLabelA}-${key}`}>
+                    <Endpoint x={x1} y={y} style={circuit.endpointStyle} />
                 </g>
             );
             elements.push(
-                <g
-                    key={`endpoint-${circuit.endpointLabelZ}-${key}`}>
+                <g key={`endpoint-${circuit.endpointLabelZ}-${key}`}>
                     <Endpoint
                         x={x2}
                         y={y}
                         style={circuit.endpointStyle}
                         labelStyle={circuit.endpointStyle.label}
                         labelPosition="bottomrightangled"
-                        label={circuitGroup.backLabel} />
+                        label={circuitGroup.backLabel}
+                    />
                 </g>
             );
         }
-        return (
-            elements
-        );
+        return elements;
     }
 
     renderConnections(circuitGroup, y, key) {
@@ -257,12 +239,11 @@ export class PatchPanel extends React.Component {
         let x2;
         if (circuitGroup.coupler) {
             circuit = circuitGroup.coupler;
-            x1 = midpt - (circuit.styleProperties.squareWidth / 2);
-            x2 = midpt + (circuit.styleProperties.squareWidth / 2);
+            x1 = midpt - circuit.styleProperties.squareWidth / 2;
+            x2 = midpt + circuit.styleProperties.squareWidth / 2;
             elements.push(
-                <g
-                    key={`coupler-${circuit.circuitLabel}-${key}`}>
-                   <Connection
+                <g key={`coupler-${circuit.circuitLabel}-${key}`}>
+                    <Connection
                         x1={x1}
                         x2={x2}
                         y1={y}
@@ -282,19 +263,21 @@ export class PatchPanel extends React.Component {
                         size={circuit.styleProperties.size}
                         onSelectionChange={this.handleSelectionChange}
                         noNavigate={circuit.styleProperties.noNavigate}
-                        navTo={circuit.navTo}/>
+                        navTo={circuit.navTo}
+                    />
                 </g>
             );
         }
         if (circuitGroup.frontCircuit) {
             circuit = circuitGroup.frontCircuit;
             x1 = this.props.margin;
-            x2 = midpt - (circuitGroup.coupler.styleProperties.squareWidth / 2) -
-                 this.props.couplerEndpointRadius;
+            x2 =
+                midpt -
+                circuitGroup.coupler.styleProperties.squareWidth / 2 -
+                this.props.couplerEndpointRadius;
             elements.push(
-                <g
-                    key={`frontCircuit-${circuit.circuitLabel}-${key}`}>
-                   <Connection
+                <g key={`frontCircuit-${circuit.circuitLabel}-${key}`}>
+                    <Connection
                         x1={x1}
                         x2={x2}
                         y1={y}
@@ -305,19 +288,21 @@ export class PatchPanel extends React.Component {
                         labelPosition={this.props.labelPosition}
                         onSelectionChange={this.handleSelectionChange}
                         noNavigate={circuit.styleProperties.noNavigate}
-                        navTo={circuit.navTo}/>
+                        navTo={circuit.navTo}
+                    />
                 </g>
             );
         }
         if (circuitGroup.backCircuit) {
             circuit = circuitGroup.backCircuit;
-            x1 = midpt + (circuitGroup.coupler.styleProperties.squareWidth / 2) +
-                 this.props.couplerEndpointRadius;
+            x1 =
+                midpt +
+                circuitGroup.coupler.styleProperties.squareWidth / 2 +
+                this.props.couplerEndpointRadius;
             x2 = this.props.width - this.props.margin;
             elements.push(
-                <g
-                    key={`backCircuit-${circuit.circuitLabel}-${key}`}>
-                   <Connection
+                <g key={`backCircuit-${circuit.circuitLabel}-${key}`}>
+                    <Connection
                         x1={x1}
                         x2={x2}
                         y1={y}
@@ -328,13 +313,12 @@ export class PatchPanel extends React.Component {
                         labelPosition={this.props.labelPosition}
                         onSelectionChange={this.handleSelectionChange}
                         noNavigate={circuit.styleProperties.noNavigate}
-                        navTo={circuit.navTo}/>
+                        navTo={circuit.navTo}
+                    />
                 </g>
             );
         }
-        return (
-            elements
-        );
+        return elements;
     }
 
     render() {
@@ -363,15 +347,16 @@ export class PatchPanel extends React.Component {
             _.each(panel.modules, module => {
                 couplerCount += module.length; // 6
             });
-            const panelHeight = (couplerCount * this.props.couplerStyle.size) +
-                                ((couplerCount - moduleCount) * this.props.couplerSpacing) +
-                                ((moduleCount + 1) * moduleSpacing);
+            const panelHeight =
+                couplerCount * this.props.couplerStyle.size +
+                (couplerCount - moduleCount) * this.props.couplerSpacing +
+                (moduleCount + 1) * moduleSpacing;
             viewBoxHeight += panelHeight;
             panelMap[panel.panelName] = panelHeight;
         });
 
         // dynamic viewBoxHeight
-        viewBoxHeight += (yOffset * 3) + ((numPanels - 1) * panelSpacing);
+        viewBoxHeight += yOffset * 3 + (numPanels - 1) * panelSpacing;
 
         // Draw in order - Panel Rectangles, Circuit Endpoints, Circuit Connections
         return (
@@ -381,19 +366,17 @@ export class PatchPanel extends React.Component {
                 height={viewBoxHeight}
                 className={classed}
                 style={circuitContainer}
-                onClick={this._deselect}>
-                <svg
-                    key="panel-box"
-                    preserveAspectRatio="xMinYMin">
+                onClick={this._deselect}
+            >
+                <svg key="panel-box" preserveAspectRatio="xMinYMin">
                     {this.renderPanels(panelMap)}
                 </svg>
             </svg>
         );
     }
-};
+}
 
 PatchPanel.propTypes = {
-
     /** The blank margin around the diagram drawing */
     margin: PropTypes.number,
 
@@ -410,7 +393,8 @@ PatchPanel.propTypes = {
         "bottomleftangled",
         "bottomrightangled",
         "topleftangled",
-        "toprightangled"]),
+        "toprightangled"
+    ]),
 
     /** The width of the circuit diagram */
     width: PropTypes.number,

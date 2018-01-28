@@ -27,14 +27,13 @@ import { Label } from "./Label";
  * The color and width of the edge may also be supplied.
  */
 export class LinearEdge extends React.Component {
-
     handleClick(e) {
         if (this.props.onSelectionChange) {
             this.props.onSelectionChange("edge", this.props.name);
         }
         e.stopPropagation();
     }
-    
+
     render() {
         let classed = "edge-linear";
         let labelClassed = "edge-label";
@@ -49,7 +48,6 @@ export class LinearEdge extends React.Component {
             classed += " muted";
             labelClassed += "muted";
             styleModifier = "muted";
-
         }
         if (this.props.invisible) {
             classed += " edge-event-region";
@@ -83,19 +81,11 @@ export class LinearEdge extends React.Component {
         const bendOffset = this.props.position !== 0 ? 15 : 8;
         const bendScalar = new Vector(bendOffset, bendOffset);
 
-        const sourceToTarget = target
-            .clone()
-            .subtract(source);
-        const sourceToTargetNormalize = sourceToTarget
-            .clone()
-            .norm();
+        const sourceToTarget = target.clone().subtract(source);
+        const sourceToTargetNormalize = sourceToTarget.clone().norm();
 
-        const targetToSource = source
-            .clone()
-            .subtract(target);
-        const targetToSourceNormalize = targetToSource
-            .clone()
-            .norm();
+        const targetToSource = source.clone().subtract(target);
+        const targetToSourceNormalize = targetToSource.clone().norm();
 
         const sourceBend = sourceToTargetNormalize
             .clone()
@@ -107,16 +97,14 @@ export class LinearEdge extends React.Component {
             .multiply(bendScalar)
             .add(target);
 
-        const sourceBendPerp = new Vector(-sourceToTargetNormalize.y,
-                                          sourceToTargetNormalize.x);
+        const sourceBendPerp = new Vector(-sourceToTargetNormalize.y, sourceToTargetNormalize.x);
         const sourceBendPerpScalar = new Vector(position, position);
         const sourceBendControl = sourceBendPerp
             .clone()
             .multiply(sourceBendPerpScalar)
             .add(sourceBend);
 
-        const targetBendPerp = new Vector(-targetToSourceNormalize.y,
-                                          targetToSourceNormalize.x);
+        const targetBendPerp = new Vector(-targetToSourceNormalize.y, targetToSourceNormalize.x);
         const targetBendPerpScalar = new Vector(-position, -position);
         const targetBendControl = targetBendPerp
             .clone()
@@ -172,8 +160,10 @@ export class LinearEdge extends React.Component {
         const cx = (sourceBendControl.x + targetBendControl.x) / 2;
         const cy = (sourceBendControl.y + targetBendControl.y) / 2;
 
-        if ((target.y < source.y && source.x < target.x) ||
-            (source.x > target.x && target.y > source.y)) {
+        if (
+            (target.y < source.y && source.x < target.x) ||
+            (source.x > target.x && target.y > source.y)
+        ) {
             angle = -angle;
         }
 
@@ -191,27 +181,27 @@ export class LinearEdge extends React.Component {
                     label={this.props.label}
                     xOffset={this.props.labelOffsetX}
                     yOffset={this.props.labelOffsetY}
-                    labelPosition={this.props.labelPosition} />
+                    labelPosition={this.props.labelPosition}
+                />
             );
         }
 
         if (this.props.arrow) {
             return (
                 <g>
-                    <g
-                        strokeWidth={this.props.width}
-                        stroke={this.props.color}
-                        opacity={opacity}>
+                    <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
                         <path
                             className={classed}
                             d={path}
                             fill="none"
-                            onClick={e => this.handleClick(e)}/>
+                            onClick={e => this.handleClick(e)}
+                        />
                         <path
                             className={classed}
                             d={arrow}
                             fill={this.props.color}
-                            strokeWidth="1"/>
+                            strokeWidth="1"
+                        />
                     </g>
                     {labelElement}
                 </g>
@@ -219,22 +209,20 @@ export class LinearEdge extends React.Component {
         } else {
             return (
                 <g>
-                    <g
-                        strokeWidth={this.props.width}
-                        stroke={this.props.color}
-                        opacity={opacity}>
+                    <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
                         <path
                             className={classed}
                             d={path}
                             fill="none"
-                            onClick={e => this.handleClick(e)}/>
+                            onClick={e => this.handleClick(e)}
+                        />
                     </g>
                     {labelElement}
                 </g>
             );
         }
     }
-};
+}
 
 LinearEdge.propTypes = {
     /** The width of the circuit diagram */

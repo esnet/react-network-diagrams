@@ -12,31 +12,30 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export class Node extends React.Component {
-
     /**
      * Provides a spec for the editor UI to render properties
      * for this node
      */
     static spec() {
         return [
-            {attr: "name", label: "Name", type: "text"},
-            {attr: "x", label: "Position x", type: "integer"},
-            {attr: "y", label: "Position y", type: "integer"},
-            {attr: "label_dx", label: "Label offset x", type: "integer"},
-            {attr: "label_dy", label: "Label offset y", type: "integer"},
+            { attr: "name", label: "Name", type: "text" },
+            { attr: "x", label: "Position x", type: "integer" },
+            { attr: "y", label: "Position y", type: "integer" },
+            { attr: "label_dx", label: "Label offset x", type: "integer" },
+            { attr: "label_dy", label: "Label offset y", type: "integer" },
             {
                 attr: "label_position",
                 label: "Label position",
                 type: "choice",
                 options: [
-                    {value: "top", label: "Top"},
-                    {value: "bottom", label: "Bottom"},
-                    {value: "left", label: "Left"},
-                    {value: "right", label: "Right"},
-                    {value: "topleft", label: "Top left"},
-                    {value: "topright", label: "Top right"},
-                    {value: "bottomleft", label: "Bottom left"},
-                    {value: "bottomright", label: "Bottom right"}
+                    { value: "top", label: "Top" },
+                    { value: "bottom", label: "Bottom" },
+                    { value: "left", label: "Left" },
+                    { value: "right", label: "Right" },
+                    { value: "topleft", label: "Top left" },
+                    { value: "topright", label: "Top right" },
+                    { value: "bottomleft", label: "Bottom left" },
+                    { value: "bottomright", label: "Bottom right" }
                 ]
             }
         ];
@@ -50,8 +49,7 @@ export class Node extends React.Component {
         }
     }
 
-    handleMouseOver() {
-    }
+    handleMouseOver() {}
 
     handleMouseDown(e) {
         e.stopPropagation();
@@ -92,7 +90,7 @@ export class Node extends React.Component {
         let textAnchor = "middle";
         let rotate = `rotate(${labelR} ${labelX}, ${labelY})`;
         let labelPosition;
-        if (typeof this.props.labelPosition === 'object') {
+        if (typeof this.props.labelPosition === "object") {
             labelPosition = this.props.labelPosition.value;
         } else {
             labelPosition = this.props.labelPosition;
@@ -186,14 +184,14 @@ export class Node extends React.Component {
 
             let cloudPath = `M${this.props.x},${this.props.y + 5}`;
             cloudPath += "l-25,0 c-10,0 -10,-10 -5,-15";
-            cloudPath +=
-                "c5,-5 15,-5 15,0 c0,-15 25,-15 25,-5 c10,-10 25,15 10,20 Z";
+            cloudPath += "c5,-5 15,-5 15,0 c0,-15 25,-15 25,-5 c10,-10 25,15 10,20 Z";
 
             nodeElement = (
                 <path
                     d={cloudPath}
                     style={this.props.style[styleModifier]}
-                    className={nodeClasses} />
+                    className={nodeClasses}
+                />
             );
 
             switch (this.props.labelPosition) {
@@ -218,14 +216,16 @@ export class Node extends React.Component {
             const y = this.props.y - this.props.radius;
             const width = 2 * this.props.radius;
             nodeElement = (
-              <rect x={x}
+                <rect
+                    x={x}
                     y={y}
                     rx={this.props.rx}
                     ry={this.props.ry}
                     width={width}
                     height={width}
                     style={this.props.style[styleModifier]}
-                    className={nodeClasses} />
+                    className={nodeClasses}
+                />
             );
 
             switch (this.props.labelPosition) {
@@ -242,45 +242,54 @@ export class Node extends React.Component {
             nodeClasses += " map-node-shape-circle";
             labelClasses += " map-node-label-circle";
             nodeElement = (
-                <circle cx={this.props.x}
-                        cy={this.props.y}
-                        r={this.props.radius}
-                        style={this.props.style[styleModifier]}
-                        className={nodeClasses} />
+                <circle
+                    cx={this.props.x}
+                    cy={this.props.y}
+                    r={this.props.radius}
+                    style={this.props.style[styleModifier]}
+                    className={nodeClasses}
+                />
             );
         }
 
         if (this.props.label) {
             return (
-                <g onClick={e => this.handMouseClick(e)}
-                   onMouseOver={this.handleMouseOver}
-                   onMouseDown={e => this.handleMouseDown(e)}
-                   onMouseMove={this.handleMouseMove}>
+                <g
+                    onClick={e => this.handMouseClick(e)}
+                    onMouseOver={this.handleMouseOver}
+                    onMouseDown={e => this.handleMouseDown(e)}
+                    onMouseMove={this.handleMouseMove}
+                >
                     {nodeElement}
-                    <text x={labelX}
-                          y={labelY}
-                          textAnchor={textAnchor}
-                          transform={rotate}
-                          style={this.props.labelStyle[styleModifier]}
-                          className={labelClasses} >{this.props.label}</text>
+                    <text
+                        x={labelX}
+                        y={labelY}
+                        textAnchor={textAnchor}
+                        transform={rotate}
+                        style={this.props.labelStyle[styleModifier]}
+                        className={labelClasses}
+                    >
+                        {this.props.label}
+                    </text>
                 </g>
             );
         } else {
             return (
-                <g onClick={e => this.handMouseClick(e)}
-                   onMouseOver={this.handleMouseOver}
-                   onMouseDown={e => this.handleMouseDown()}
-                   onMouseMove={this.handleMouseMove}
-                   onMouseUp={this.handleMouseUp}>
+                <g
+                    onClick={e => this.handMouseClick(e)}
+                    onMouseOver={this.handleMouseOver}
+                    onMouseDown={e => this.handleMouseDown()}
+                    onMouseMove={this.handleMouseMove}
+                    onMouseUp={this.handleMouseUp}
+                >
                     {nodeElement}
                 </g>
             );
         }
     }
-};
+}
 
 Node.propTypes = {
-
     /** When the node shape is a `circle`, this controls the size of the node */
     radius: PropTypes.number,
 
@@ -318,19 +327,19 @@ Node.propTypes = {
      * ```
      */
     style: PropTypes.object,
-    
+
     isDragging: PropTypes.bool,
-    
+
     /**
      * Controls the x pixel offset from labelPosition
      */
     labelOffsetX: PropTypes.number,
-    
+
     /**
      * Controls the y pixel offset from labelPosition
      */
     labelOffsetY: PropTypes.number,
-    
+
     /** When the node shape is a `square`, this controls the radius of corners. */
     rx: PropTypes.number,
 

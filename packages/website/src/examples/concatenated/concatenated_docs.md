@@ -48,7 +48,7 @@ The connection component and the two endpoint components of each member of the `
 
 At ESnet we define the following circuit types in this object:
 
-```
+```js
 const circuitTypeProperties = {
     optical: {
         style: stylesMap.optical,
@@ -89,61 +89,67 @@ const circuitTypeProperties = {
 
 The style for each circuit type is taken from the style map which maps the individual styles for each type, as well as any endpoint style we want to define:
 
-	const stylesMap = {
-	    equipmentToEquipment: equipmentToEquipmentStyle,
-	    optical: opticalStyle,
-	    leased: leasedStyle,
-	    darkFiber: darkFiberStyle,
-	    crossConnect: crossConnectStyle,
-	    coupler: couplerStyle,
-	    endpoint: endpointStyle,
-	    panelCoupler: panelCouplerStyle,
-	    panel: panelStyle
-	};
+```js
+const stylesMap = {
+	equipmentToEquipment: equipmentToEquipmentStyle,
+	optical: opticalStyle,
+	leased: leasedStyle,
+	darkFiber: darkFiberStyle,
+	crossConnect: crossConnectStyle,
+	coupler: couplerStyle,
+	endpoint: endpointStyle,
+	panelCoupler: panelCouplerStyle,
+	panel: panelStyle
+};
+```
 
 Each types unique style is created as its own object.  This is used to render the connection and requires three objects to be defined `node`, `line` and `label`.  Each of these uses a normal style, and a highlighted style for when the circuit is mouseed over.
 
-	const equipmentToEquipmentStyle = {
-	    node: {
-	        normal: {
-	            stroke: "#737373",
-	            strokeWidth: 4,
-	            fill: "none"
-	        },
-	        highlighted: {
-	            stroke: "#b1b1b1",
-	            strokeWidth: 4,
-	            fill: "#b1b1b1"
-	        }
-	    },
-	    line: {
-	        normal: {
-	            stroke: "#ff7f0e",
-	            strokeWidth: 3,
-	            fill: "none"
-	        },
-	        highlighted: {
-	            stroke: "#4EC1E0",
-	            strokeWidth: 4,
-	            fill: "none"
-	        }
-	    },
-	    label: {
-	        normal: {
-	            fill: "#9D9D9D",
-	            fontFamily: "verdana, sans-serif",
-	            fontSize: 10
-	        }
-	    }
-	};
+```js
+const equipmentToEquipmentStyle = {
+	node: {
+		normal: {
+			stroke: "#737373",
+			strokeWidth: 4,
+			fill: "none"
+		},
+		highlighted: {
+			stroke: "#b1b1b1",
+			strokeWidth: 4,
+			fill: "#b1b1b1"
+		}
+	},
+	line: {
+		normal: {
+			stroke: "#ff7f0e",
+			strokeWidth: 3,
+			fill: "none"
+		},
+		highlighted: {
+			stroke: "#4EC1E0",
+			strokeWidth: 4,
+			fill: "none"
+		}
+	},
+	label: {
+		normal: {
+			fill: "#9D9D9D",
+			fontFamily: "verdana, sans-serif",
+			fontSize: 10
+		}
+	}
+};
+```
 
 We also need to define an endpoint style for the endpoints, which has a node and label component to style the endpoint node, as well as the label:
 
-	const endpointStyle = {
-	    node: {
-	        normal: {fill: "none", stroke: "#DBDBDB", strokeWidth: 4},
-	    },
-	    label: {
-	        normal: {fill: "#9D9D9D", fontSize: 10, fontFamily: "verdana, sans-serif"},
-	    }
-	};
+```js
+const endpointStyle = {
+	node: {
+		normal: {fill: "none", stroke: "#DBDBDB", strokeWidth: 4},
+	},
+	label: {
+		normal: {fill: "#9D9D9D", fontSize: 10, fontFamily: "verdana, sans-serif"},
+	}
+};
+```

@@ -74,7 +74,8 @@ var BidirectionalEdge = exports.BidirectionalEdge = function (_React$Component) 
                         offset: this.props.offset,
                         selected: this.props.selected,
                         onSelectionChange: this.props.onSelectionChange,
-                        muted: this.props.muted }),
+                        muted: this.props.muted
+                    }),
                     _react2.default.createElement(_ArcEdge.ArcEdge, {
                         name: this.props.name,
                         x1: this.props.x2,
@@ -91,7 +92,8 @@ var BidirectionalEdge = exports.BidirectionalEdge = function (_React$Component) 
                         offset: this.props.offset,
                         selected: this.props.selected,
                         onSelectionChange: this.props.onSelectionChange,
-                        muted: this.props.muted }),
+                        muted: this.props.muted
+                    }),
                     _react2.default.createElement(_ArcEdge.ArcEdge, {
                         name: this.props.name,
                         x1: this.props.x2,
@@ -105,7 +107,8 @@ var BidirectionalEdge = exports.BidirectionalEdge = function (_React$Component) 
                         onSelectionChange: this.props.onSelectionChange,
                         curveDirection: this.props.curveDirection,
                         offset: this.props.offset,
-                        invisible: true })
+                        invisible: true
+                    })
                 );
             } else {
                 return _react2.default.createElement(
@@ -125,7 +128,8 @@ var BidirectionalEdge = exports.BidirectionalEdge = function (_React$Component) 
                         key: sourceToTargetName,
                         selected: this.props.selected,
                         muted: this.props.muted,
-                        onSelectionChange: this.props.onSelectionChange }),
+                        onSelectionChange: this.props.onSelectionChange
+                    }),
                     _react2.default.createElement(_LinearEdge.LinearEdge, {
                         name: this.props.name,
                         x1: this.props.x2,
@@ -140,7 +144,8 @@ var BidirectionalEdge = exports.BidirectionalEdge = function (_React$Component) 
                         key: targetToSourceName,
                         selected: this.props.selected,
                         muted: this.props.muted,
-                        onSelectionChange: this.props.onSelectionChange }),
+                        onSelectionChange: this.props.onSelectionChange
+                    }),
                     _react2.default.createElement(_LinearEdge.LinearEdge, {
                         name: this.props.name,
                         x1: this.props.x2,
@@ -152,7 +157,8 @@ var BidirectionalEdge = exports.BidirectionalEdge = function (_React$Component) 
                         className: this.props.classed,
                         key: targetToSourceName + "-event-region",
                         onSelectionChange: this.props.onSelectionChange,
-                        invisible: true })
+                        invisible: true
+                    })
                 );
             }
 
@@ -166,8 +172,6 @@ var BidirectionalEdge = exports.BidirectionalEdge = function (_React$Component) 
 
     return BidirectionalEdge;
 }(_react2.default.Component);
-
-;
 
 BidirectionalEdge.propTypes = {
     /** The width of the circuit diagram */

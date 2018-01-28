@@ -121,7 +121,8 @@ var Label = exports.Label = function (_React$Component) {
                         style: this.props.style,
                         key: "connection-label",
                         transform: rotate,
-                        className: this.props.labelClassed },
+                        className: this.props.labelClassed
+                    },
                     elements
                 )
             );
@@ -130,8 +131,6 @@ var Label = exports.Label = function (_React$Component) {
 
     return Label;
 }(_react2.default.Component);
-
-;
 
 Label.propTypes = {
     r: _propTypes2.default.number,

@@ -42,4 +42,4 @@ const CircuitSegmentTypes = keyMirror({
     ENDPOINT: null
 });
 
-export { Positions, Directions, CircuitTypes, EndpointLinks, CircuitSegmentTypes};
+export { Positions, Directions, CircuitTypes, EndpointLinks, CircuitSegmentTypes };

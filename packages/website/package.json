@@ -16,7 +16,7 @@
     "react-bootstrap": "^0.31.0",
     "react-dom": "^16.2.0",
     "react-markdown": "^2.4.6",
-    "react-network-diagrams": "1.0.0",
+    "react-network-diagrams": "0.7.0",
     "react-router-dom": "^4.1.1",
     "react-scripts": "^1.0.10",
     "underscore": "^1.8.3"

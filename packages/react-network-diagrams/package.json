@@ -1,7 +1,6 @@
 {
   "name": "react-network-diagrams",
-  "version": "1.0.0",
-  "description": "Declarative timeseries charts",
+  "version": "0.7.0",
   "keywords": [
     "network",
     "circuits",

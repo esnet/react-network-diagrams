@@ -19,7 +19,7 @@ Then `render()` the traffic map in your component.
 
 **Step 1** Create the an application, in this case "simple-network-diagram" using Create React App. See the [create-react-app](https://github.com/facebookincubator/create-react-app) website for information on how to install (hint: `npm install -g create-react-app`).
 
-```
+```js
 > create-react-app simple-network-diagram
 > cd simple-network-diagram
 > npm react-network-diagrams --save
@@ -27,13 +27,13 @@ Then `render()` the traffic map in your component.
 
 **Step 2** Import the TrafficMap component from react-network-diagrams:
 
-```
+```js
 import { TrafficMap } from "react-network-diagrams";
 ```
 
 **Step 3** Define a minimal topology. Here's one copy and pasted from the Editor example in the docs:
 
-```
+```js
 const topology = {
   "description": "Simple topo",
   "name": "simple",
@@ -92,7 +92,7 @@ It defines three nodes and three edges.
 
 **Step 4** Render the network diagram:
 
-```
+```js
 class App extends Component {
   render() {
     return (
@@ -120,13 +120,13 @@ To do that:
 
 **Step 5** Install pondjs, our timeseries library
 
-```
+```js
 npm install pondjs --save
 ```
 
 **Step 6** Define an Event
 
-```
+```js
 import { Event } from "pondjs";
 
 const timestamp = (new Date()).getTime();
@@ -140,7 +140,7 @@ const traffic = new Event(timestamp, {
 
 **Step 7** Define a style map to map edge value to color
 
-```
+```js
 const edgeColorMap = [
     {color: "#990000", label: ">=50 Gbps", range: [50, 100]},  // GBps
     {color: "#bd0026", label: "20 - 50", range: [20, 50]},
@@ -154,7 +154,7 @@ const edgeColorMap = [
 
 **Step 8**  Add that `traffic` event and `edgeColorMap` to the `<TrafficMap>` as props.
 
-```
+```js
     <TrafficMap
         width={980}
         height={500}

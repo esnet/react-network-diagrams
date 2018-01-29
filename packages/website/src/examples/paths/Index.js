@@ -12,7 +12,7 @@ import React from "react";
 import _ from "underscore";
 import { TrafficMap } from "react-network-diagrams";
 import * as Immutable from "immutable";
-import { TimeEvent } from "pondjs";
+import { event, time } from "pondjs";
 
 import paths_docs from "./paths_docs.md";
 import paths_thumbnail from "./paths_thumbnail.png";
@@ -223,7 +223,7 @@ class paths extends React.Component {
         //
 
         const timestamp = new Date();
-        const traffic = new TimeEvent(timestamp, Immutable.Map({
+        const traffic = event(time(timestamp), Immutable.Map({
             "NASA_south--AtoZ": 20000000000,
             "NASA_south--ZtoA": 3000000000,
             "NASA_north--AtoZ": 40000000000,

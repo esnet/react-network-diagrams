@@ -10,7 +10,7 @@
 
 import React from "react";
 import _ from "underscore";
-import { TimeEvent } from "pondjs";
+import { event, time } from "pondjs";
 import { TrafficMap } from "react-network-diagrams";
 import * as Immutable from "immutable";
 
@@ -36,7 +36,7 @@ _.each(rawTraffic.edges, edge => {
     });
 });
 
-const traffic = new TimeEvent(timestamp, Immutable.Map(edgeTraffic));
+const traffic = event(time(timestamp), Immutable.Map(edgeTraffic));
 
 class map extends React.Component {
 

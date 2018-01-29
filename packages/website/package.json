@@ -11,7 +11,7 @@
     "eslint": "^4.1.1",
     "flexbox-react": "^4.0.0",
     "immutable": "^4.0.0-rc.7",
-    "pondjs": "^0.8.8",
+    "pondjs": "1.0.0-alpha.4",
     "react": "^16.2.0",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^16.2.0",

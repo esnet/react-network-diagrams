@@ -4,18 +4,17 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "create-react-class": "^15.6.2",
     "prismjs": "^1.8.1"
   },
   "devDependencies": {
-    "eslint": "^4.1.1",
+    "eslint": "^4.16.0",
     "flexbox-react": "^4.0.0",
     "immutable": "^4.0.0-rc.7",
-    "pondjs": "1.0.0-alpha.4",
+    "pondjs": "^0.8.8",
     "react": "^16.2.0",
-    "react-bootstrap": "^0.31.0",
+    "react-bootstrap": "^0.32.1",
     "react-dom": "^16.2.0",
-    "react-markdown": "^2.4.6",
+    "react-markdown": "^3.1.4",
     "react-network-diagrams": "0.7.0",
     "react-router-dom": "^4.1.1",
     "react-scripts": "^1.0.10",

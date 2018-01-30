@@ -20,6 +20,9 @@
     "react-scripts": "^1.0.10",
     "underscore": "^1.8.3"
   },
+  "peerDependencies": {
+    "react": "^15.3.1 || ^16.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "rm -rf ../../docs && react-scripts build && mv build ../../docs",

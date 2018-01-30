@@ -102,10 +102,10 @@ To specify those levels we provide a [Pond Event](http://esnet-pondjs.appspot.co
 The simplest way to construct this traffic event would look like this:
 
 ```js
-import { event, time } from "pondjs";
+import { TimeEvent } from "pondjs";
 import * as Immutable from "immutable";
 const timestamp = 1431649302000;
-const traffic = event(time(timestamp), Immutable.Map({
+const traffic = new TimeEvent(timestamp, Immutable.Map({
     ALBQ--DENV: 126513360.8
     DENV--ALBQ: 323736723.4
     ...
@@ -119,10 +119,10 @@ The rendering of the edges uses the `edgeColorMap` to map from value ranges (bps
 Rendering path traffic is similar to that for the edge traffic. We use a convention for the names to designate the direction of the traffic along the path: $pathname--AtoZ or $pathname--ZtoA. Here is an example:
 
 ```js
-import { event, time } from "pondjs";
+import { TimeEvent } from "pondjs";
 import * as Immutable from "immutable";
 const timestamp = 1431649302000;
-const pathTraffic = event(time(timestamp), Immutable.Map({
+const pathTraffic = new TimeEvent(timestamp, Immutable.Map({
     "northPath--AtoZ": 20000000000,
     "northPath--ZtoA": 3000000000,
     "southPath--AtoZ": 40000000000,

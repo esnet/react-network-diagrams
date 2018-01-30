@@ -1905,36 +1905,66 @@
     ],
     "props": {
       "noNavigate": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "labelPosition": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "\"top\"",
           "computed": false
         }
       },
       "classed": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "\"equipment\"",
           "computed": false
         }
       },
       "labelDirection": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "\"horizontal\"",
           "computed": false
         }
       },
       "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
       "muted": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "false",
           "computed": false
@@ -3705,6 +3735,11 @@
     ],
     "props": {
       "radius": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "15",
           "computed": false
@@ -3945,54 +3980,99 @@
     ],
     "props": {
       "yOffsetTop": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "30",
           "computed": false
         }
       },
       "yOffsetBottom": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "40",
           "computed": false
         }
       },
       "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "851",
           "computed": false
         }
       },
       "rackHeight": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Expressed in RMU",
         "defaultValue": {
           "value": "42",
           "computed": false
         }
       },
       "rackWidth": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Expressed in Inches",
         "defaultValue": {
           "value": "19",
           "computed": false
         }
       },
       "pxToInch": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "10",
           "computed": false
         }
       },
       "widthOffset": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "0.875",
           "computed": false
         }
       },
       "rackStyle": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "\"telco\"",
           "computed": false
         }
       },
       "labelStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "",
         "defaultValue": {
           "value": "{\n    normal: {\n        fill: \"#9D9D9D\",\n        fontSize: 10,\n        fontFamily: \"verdana, sans-serif\"\n    }\n}",
           "computed": false

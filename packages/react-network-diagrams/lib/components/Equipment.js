@@ -11,6 +11,10 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _EquipmentBase = require("./EquipmentBase");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -193,6 +197,20 @@ var Equipment = exports.Equipment = function (_React$Component) {
 }(_react2.default.Component);
 
 ;
+
+Equipment.propTypes = {
+    noNavigate: _propTypes2.default.bool,
+
+    labelPosition: _propTypes2.default.string,
+
+    classed: _propTypes2.default.string,
+
+    labelDirection: _propTypes2.default.string,
+
+    selected: _propTypes2.default.bool,
+
+    muted: _propTypes2.default.bool
+};
 
 Equipment.defaultProps = {
     noNavigate: false,

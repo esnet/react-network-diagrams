@@ -15,6 +15,7 @@ import { Equipment } from "react-network-diagrams";
 import { stylesMap } from "../../styles/styles";
 
 import equipment_docs from "./equipment_docs.md";
+import equipment_thumbnail from "./equipment_thumbnail.png";
 
 const pixelToInchSizeList = [5, 10, 15, 20];
 const equipmentWidthList = [17.52, 21.25];
@@ -310,4 +311,4 @@ equipment.defaultProps = {
 };
 
 // Export example
-export default {equipment, equipment_docs};
+export default {equipment, equipment_docs, equipment_thumbnail};

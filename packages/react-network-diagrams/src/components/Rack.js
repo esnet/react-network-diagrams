@@ -9,6 +9,7 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
 
 import { LinearEdge } from "./LinearEdge";
 import { Label } from "./Label";
@@ -284,6 +285,28 @@ export class Rack extends React.Component {
             </div>
         );
     }
+};
+
+Rack.propTypes = {
+    yOffsetTop: PropTypes.number,
+    
+    yOffsetBottom: PropTypes.number,
+    
+    width: PropTypes.number,
+
+    /** Expressed in RMU */
+    rackHeight: PropTypes.number,
+
+    /** Expressed in Inches */
+    rackWidth: PropTypes.number,
+
+    pxToInch: PropTypes.number,
+
+    widthOffset: PropTypes.number,
+    
+    rackStyle: PropTypes.string,
+
+    labelStyle: PropTypes.object
 };
 
 Rack.defaultProps = {

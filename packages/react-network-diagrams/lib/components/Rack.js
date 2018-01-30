@@ -11,6 +11,10 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _LinearEdge = require("./LinearEdge");
 
 var _Label = require("./Label");
@@ -318,6 +322,28 @@ var Rack = exports.Rack = function (_React$Component) {
 }(_react2.default.Component);
 
 ;
+
+Rack.propTypes = {
+    yOffsetTop: _propTypes2.default.number,
+
+    yOffsetBottom: _propTypes2.default.number,
+
+    width: _propTypes2.default.number,
+
+    /** Expressed in RMU */
+    rackHeight: _propTypes2.default.number,
+
+    /** Expressed in Inches */
+    rackWidth: _propTypes2.default.number,
+
+    pxToInch: _propTypes2.default.number,
+
+    widthOffset: _propTypes2.default.number,
+
+    rackStyle: _propTypes2.default.string,
+
+    labelStyle: _propTypes2.default.object
+};
 
 Rack.defaultProps = {
     yOffsetTop: 30,

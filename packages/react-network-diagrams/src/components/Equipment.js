@@ -9,6 +9,8 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
+
 import { EquipmentBase } from "./EquipmentBase";
 
 /**
@@ -150,6 +152,20 @@ export class Equipment extends React.Component {
             </g>
         );
     }
+};
+
+Equipment.propTypes = {
+    noNavigate: PropTypes.bool,
+
+    labelPosition: PropTypes.string,
+
+    classed: PropTypes.string,
+
+    labelDirection: PropTypes.string,
+
+    selected: PropTypes.bool,
+
+    muted: PropTypes.bool
 };
 
 Equipment.defaultProps = {

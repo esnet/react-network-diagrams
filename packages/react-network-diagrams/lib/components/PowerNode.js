@@ -11,6 +11,10 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _Node = require("./Node");
 
 var _Label = require("./Label");
@@ -141,6 +145,10 @@ var PowerNode = exports.PowerNode = function (_React$Component) {
 }(_react2.default.Component);
 
 ;
+
+PowerNode.propTypes = {
+    radius: _propTypes2.default.number
+};
 
 PowerNode.defaultProps = {
     radius: 15

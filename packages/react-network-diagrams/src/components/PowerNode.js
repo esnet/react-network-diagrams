@@ -9,6 +9,7 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
 
 import { Node } from "./Node";
 import { Label } from "./Label";
@@ -100,6 +101,10 @@ export class PowerNode extends React.Component {
             </g>
         );
     }
+};
+
+PowerNode.propTypes = {
+    radius: PropTypes.number
 };
 
 PowerNode.defaultProps = {

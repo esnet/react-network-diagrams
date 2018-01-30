@@ -14,6 +14,7 @@ import { Rack, Equipment, PowerNodeList, Resizable } from "react-network-diagram
 import { stylesMap } from "../../styles/styles";
 
 import rack_docs from "./rack_docs.md";
+import rack_thumbnail from "./rack_thumbnail.png";
 
 const rackData = {
     height: 42,
@@ -475,4 +476,4 @@ class rack extends React.Component {
     }
 };
 
-export default {rack, rack_docs};
+export default {rack, rack_docs, rack_thumbnail};

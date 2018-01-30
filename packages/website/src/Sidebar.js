@@ -93,6 +93,13 @@ export default class extends Component {
                     <li><Link to="/api/PatchPanel">PatchPanel</Link></li>
                 </ul>
 
+                <div className="sidebar-heading" style={sidebarTitleStyle}>Equipment API</div>
+                <ul className="nav nav-sidebar" style={sidebarItemStyle}>
+                    <li><Link to="/api/Rack">Rack</Link></li>
+                    <li><Link to="/api/Equipment">Equipment</Link></li>
+                    <li><Link to="/api/PowerNode">PowerNode</Link></li>
+                </ul>
+
                 <div className="sidebar-heading" style={sidebarTitleStyle}>Network Map API</div>
                 <ul className="nav nav-sidebar" style={sidebarItemStyle}>
                     <li><Link to="/api/BaseMap">BaseMap</Link></li>

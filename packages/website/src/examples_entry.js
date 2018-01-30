@@ -22,6 +22,8 @@ import map from "./examples/map/Index";
 import parallel from "./examples/parallel/Index";
 import patchpanel from "./examples/patchpanel/Index";
 import paths from "./examples/paths/Index";
+import equipment from "./examples/equipment/Index";
+import rack from "./examples/rack/Index";
 
 export default {
     ...basic,
@@ -33,5 +35,7 @@ export default {
     ...map,
     ...parallel,
     ...patchpanel,
-    ...paths
+    ...paths,
+    ...equipment,
+    ...rack
 };

@@ -48,5 +48,15 @@
         "title": "Topology editor",
         "description": "A simple network editor to bootstrap your topologies.",
         "tags": ["TrafficMap", "MapEditor"]
+    },
+    "rack": {
+        "title": "Rack example",
+        "description": "Interactive basic rack example.",
+        "tags": ["Rack"]
+    },
+    "equipment": {
+        "title": "Equipment example",
+        "description": "Interactive basic equipment example.",
+        "tags": ["Equipment"]
     }
 }

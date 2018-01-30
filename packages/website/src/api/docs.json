@@ -1866,6 +1866,100 @@
       }
     }
   },
+  "src/components/Equipment.js": {
+    "description": "An equipment is an svg rect that needs to know its width, height, and style.\nIt receives its x and y starting position from the parent rack element, or a \ndefault derived from a specified offset value.\n\nIt takes a label as well in the form of a string or list of strings if multilines are desired",
+    "displayName": "Equipment",
+    "methods": [
+      {
+        "name": "handleMouseOver",
+        "docblock": "User hovers over the equipment",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "User hovers over the equipment"
+      },
+      {
+        "name": "handleMouseOut",
+        "docblock": "Use stops hovering over equipment",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "Use stops hovering over equipment"
+      },
+      {
+        "name": "handleSelectionChanged",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          },
+          {
+            "name": "value",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "noNavigate": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "labelPosition": {
+        "defaultValue": {
+          "value": "\"top\"",
+          "computed": false
+        }
+      },
+      "classed": {
+        "defaultValue": {
+          "value": "\"equipment\"",
+          "computed": false
+        }
+      },
+      "labelDirection": {
+        "defaultValue": {
+          "value": "\"horizontal\"",
+          "computed": false
+        }
+      },
+      "selected": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "muted": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/EquipmentBase.js": {
+    "description": "An equipment is an svg rect that needs to know its width, height, and style.\nIt receives its x and y starting position from the parent rack element, or a \ndefault derived from a specified offset value.\n\nIt takes a label as well in the form of a string or list of strings if multilines are desired",
+    "displayName": "EquipmentBase",
+    "methods": [
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ]
+  },
   "src/components/Label.js": {
     "description": "Gets an x, y, labelPosition, textAnchor and rotation and\nrenders a label based on the position.\nThe label can be a single string, or an array of strings\nto display on multiple lines.",
     "displayName": "Label",
@@ -3543,6 +3637,364 @@
         "description": "Controls the +/- y offset from labelPosition",
         "defaultValue": {
           "value": "0",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/PowerNode.js": {
+    "description": "",
+    "displayName": "PowerNode",
+    "methods": [
+      {
+        "name": "handleMouseOver",
+        "docblock": "User hovers over the power node",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "User hovers over the power node"
+      },
+      {
+        "name": "handleMouseOut",
+        "docblock": "Use stops hovering over power node",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "Use stops hovering over power node"
+      },
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "drawLabel",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "x",
+            "type": null
+          },
+          {
+            "name": "y",
+            "type": null
+          },
+          {
+            "name": "label",
+            "type": null
+          },
+          {
+            "name": "position",
+            "type": null
+          },
+          {
+            "name": "offset",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "radius": {
+        "defaultValue": {
+          "value": "15",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/PowerNodeList.js": {
+    "description": "",
+    "displayName": "PowerNodeList",
+    "methods": [
+      {
+        "name": "assignPowerNodes",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "power",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderPositionLabel",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "label",
+            "type": null
+          },
+          {
+            "name": "x",
+            "type": null
+          },
+          {
+            "name": "y",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "drawPowerNode",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "powerNode",
+            "type": null
+          },
+          {
+            "name": "key",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "positionPowerNodes",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "newNodes",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "xOffset": {
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "yOffset": {
+        "defaultValue": {
+          "value": "30",
+          "computed": false
+        }
+      },
+      "positionLabelStyle": {
+        "defaultValue": {
+          "value": "{\n    fill: \"#9D9D9D\",\n    fontSize: 10,\n    fontFamily: \"verdana, sans-serif\"\n}",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/Rack.js": {
+    "description": "",
+    "displayName": "Rack",
+    "methods": [
+      {
+        "name": "drawSide",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "width",
+            "type": null
+          },
+          {
+            "name": "height",
+            "type": null
+          },
+          {
+            "name": "xCorner",
+            "type": null
+          },
+          {
+            "name": "yCorner",
+            "type": null
+          },
+          {
+            "name": "key",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "drawRack",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "rackPxHeight",
+            "type": null
+          },
+          {
+            "name": "rackPxWidth",
+            "type": null
+          },
+          {
+            "name": "rackPxOffset",
+            "type": null
+          },
+          {
+            "name": "inchToRmu",
+            "type": null
+          },
+          {
+            "name": "yOffsetTop",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "drawHeightMarkers",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "inchToRmu",
+            "type": null
+          },
+          {
+            "name": "middle",
+            "type": null
+          },
+          {
+            "name": "x",
+            "type": null
+          },
+          {
+            "name": "initialY",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "drawLabel",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "x",
+            "type": null
+          },
+          {
+            "name": "y",
+            "type": null
+          },
+          {
+            "name": "label",
+            "type": null
+          },
+          {
+            "name": "position",
+            "type": null
+          },
+          {
+            "name": "offset",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderChildren",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "childElements",
+            "type": null
+          },
+          {
+            "name": "rackPxHeight",
+            "type": null
+          },
+          {
+            "name": "rackPxWidth",
+            "type": null
+          },
+          {
+            "name": "rackPxOffset",
+            "type": null
+          },
+          {
+            "name": "inchToRmu",
+            "type": null
+          },
+          {
+            "name": "yOffsetTop",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "yOffsetTop": {
+        "defaultValue": {
+          "value": "30",
+          "computed": false
+        }
+      },
+      "yOffsetBottom": {
+        "defaultValue": {
+          "value": "40",
+          "computed": false
+        }
+      },
+      "width": {
+        "defaultValue": {
+          "value": "851",
+          "computed": false
+        }
+      },
+      "rackHeight": {
+        "defaultValue": {
+          "value": "42",
+          "computed": false
+        }
+      },
+      "rackWidth": {
+        "defaultValue": {
+          "value": "19",
+          "computed": false
+        }
+      },
+      "pxToInch": {
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "widthOffset": {
+        "defaultValue": {
+          "value": "0.875",
+          "computed": false
+        }
+      },
+      "rackStyle": {
+        "defaultValue": {
+          "value": "\"telco\"",
+          "computed": false
+        }
+      },
+      "labelStyle": {
+        "defaultValue": {
+          "value": "{\n    normal: {\n        fill: \"#9D9D9D\",\n        fontSize: 10,\n        fontFamily: \"verdana, sans-serif\"\n    }\n}",
           "computed": false
         }
       }

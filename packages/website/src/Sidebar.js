@@ -65,6 +65,12 @@ export default class extends Component {
                     </li>
                 </ul>
 
+                <div className="sidebar-heading" style={sidebarTitleStyle}>Equipment</div>
+                <ul className="nav nav-sidebar" style={sidebarItemStyle}>
+                    <li><Link to="/example/rack">Rack</Link></li>
+                    <li><Link to="/example/equipment">Equipment</Link></li>
+                </ul>
+
                 <div className="sidebar-heading" style={sidebarTitleStyle}>Network Map Examples</div>
                 <ul className="nav nav-sidebar" style={sidebarItemStyle}>
                     <li><Link to="/example/map">Traffic map</Link></li>

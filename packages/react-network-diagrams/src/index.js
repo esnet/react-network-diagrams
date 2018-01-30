@@ -9,6 +9,9 @@ import { ParallelCircuit } from "./components/ParallelCircuit";
 import { PatchPanel } from "./components/PatchPanel";
 import { Resizable } from "./components/Resizable";
 import { MapEditor } from "./components/MapEditor";
+import { Rack } from "./components/Rack";
+import { Equipment } from "./components/Equipment";
+import { PowerNodeList } from "./components/PowerNodeList";
 
 export { BaseMap };
 export { Endpoint };
@@ -21,3 +24,6 @@ export { ParallelCircuit };
 export { PatchPanel };
 export { Resizable };
 export { MapEditor };
+export { Rack };
+export { Equipment };
+export { PowerNodeList };

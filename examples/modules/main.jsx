@@ -26,6 +26,8 @@ import EndpointExample from "./endpoint_example";
 import ConnectionExample from "./connection_example";
 import EditorExample from "./editor_example";
 import PathsExample from "./paths_example";
+import RacksExample from "./rack_example";
+import EquipmentExample from "./equipment_example";
 
 render((
     <Router>
@@ -41,6 +43,8 @@ render((
             <Route path="connection" component={ConnectionExample} />
             <Route path="editor" component={EditorExample} />
             <Route path="paths" component={PathsExample} />
+            <Route path="rack" component={RacksExample} />
+            <Route path="equipment" component={EquipmentExample} />
         </Route>
     </Router>
 ), document.getElementById("content"));

@@ -1,0 +1,170 @@
+/** ESDB Circuits */
+
+.esdb-circuit-container {
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-top-color: #ffffff;
+    border-bottom-color: #efefef;
+}
+
+.esdb-circuit-container.active {
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-top-color: #efefef;
+    border-bottom-color: #efefef;
+    box-shadow: 0px 3px 3px #fcfcfc, 0px -3px 3px #fcfcfc;
+}
+
+.esdb-circuit-container.disabled {
+}
+
+.esdb-circuit-navigation {
+    fill: #4ec1e0;
+    opacity: 0.65;
+}
+
+.esdb-circuit-navigation.hover {
+    cursor: pointer;
+    fill: #4ec1e0;
+    opacity: 0.95;
+}
+
+.esdb-circuit-edge {
+    stroke: #737373;
+    stroke-width: 3;
+    fill: none;
+}
+
+.esdb-circuit-edge.equipment-equipment {
+    stroke: #ff7f0e;
+    stroke-width: 3px;
+}
+.esdb-circuit-edge.esnet-optical {
+    stroke: #1f77b4;
+    stroke-width: 3px;
+}
+.esdb-circuit-edge.leased-circuit {
+    stroke: #2ca02c;
+    stroke-width: 3px;
+}
+.esdb-circuit-edge.dark-fiber {
+    stroke: #737373;
+    stroke-width: 2px;
+}
+.esdb-circuit-edge.cross-connect {
+    stroke: #535353;
+    stroke-width: 1px;
+}
+.esdb-circuit-edge.coupler {
+    stroke: #737373;
+    stroke-width: 1px;
+    fill: #d5d5d5;
+}
+
+.esdb-circuit-edge.panel {
+    stroke: #737373;
+    stroke-width: 2px;
+}
+
+.esdb-circuit-edge.panel-delimiter {
+    stroke-dasharray: 2, 2;
+    stroke-linecap: butt;
+    stroke: #c8c8c8;
+    stroke-width: 1px;
+}
+
+.esdb-circuit-edge.backplane-mate {
+    stroke: #737373;
+    stroke-width: 1px;
+    fill: #d5d5d5;
+}
+
+.esdb-circuit-edge.hover {
+    stroke: #4ec1e0;
+    cursor: pointer;
+}
+
+.esdb-circuit-edge.placeholder {
+    stroke: #dadada;
+    stroke-dasharray: 1, 2;
+    stroke-width: 1;
+}
+
+.esdb-circuit-dot {
+    stroke: #737373;
+    stroke-width: 4;
+    fill: none;
+}
+.esdb-circuit-dot.hover {
+    stroke: #b1b1b1;
+}
+.esdb-circuit-dot.selected {
+    stroke: #4ec1e0;
+}
+.esdb-circuit-dot.placeholder {
+    stroke: #f0f0f0;
+}
+
+.esdb-circuit-endpoint {
+    stroke: #dbdbdb;
+    stroke-width: 4;
+    fill: none;
+}
+
+.esdb-circuit-label {
+    text-anchor: middle;
+    fill: #9d9d9d;
+    font-family: verdana, sans-serif;
+    font-size: 10px;
+}
+
+.esdb-endpoint-label {
+    text-anchor: end;
+    fill: #9d9d9d;
+    font-family: verdana, sans-serif;
+    font-size: 10px;
+}
+
+.esdb-circuit-title {
+    text-anchor: left;
+    fill: #9d9d9d;
+    font-family: verdana, sans-serif;
+    font-size: 14px;
+}
+
+.esdb-circuit-overlay {
+    fill: #ffffff;
+    fill-opacity: 0.65;
+}
+
+.esdb-circuit-hitrect {
+    cursor: pointer;
+    fill-opacity: 0;
+}
+
+.esdb-circuit-hitstroke {
+    cursor: pointer;
+    stroke: #fff;
+    stroke-opacity: 0;
+    stroke-width: 8;
+    fill: none;
+}
+
+.esdb-circuit-hitstroke.inactive {
+    cursor: default;
+}
+
+.esdb-circuit-icon {
+    margin-right: 5px;
+}
+
+.esdb-reference-label {
+    width: 100px;
+    background: #eaeaea;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    margin-left: 14px;
+    text-align: center;
+}

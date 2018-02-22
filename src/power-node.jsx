@@ -74,7 +74,6 @@ export default React.createClass({
                 <Node
                     x={powerNode.x}
                     y={powerNode.y}
-                    key={`${powerNode.label}-${powerNode.id}`}
                     style={powerNode.style.node}
                     radius={this.props.radius}
                     shape={"circle"}

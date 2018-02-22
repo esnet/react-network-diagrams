@@ -185,7 +185,7 @@ export default React.createClass({
 
         if (!this.props.showHeight) {
             return (
-                <g>
+                <g onClick={this.handleClick}>
                     <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
                         <rect
                             className={classed}
@@ -194,7 +194,6 @@ export default React.createClass({
                             x={posX}
                             y={posY}
                             style={eqStyle}
-                            onClick={this.handleClick}
                         />
                     </g>
                     {equipmentLabel}
@@ -202,13 +201,8 @@ export default React.createClass({
             );
         } else {
             return (
-                <g>
-                    <g
-                        strokeWidth={this.props.width}
-                        stroke={this.props.color}
-                        opacity={opacity}
-                        onClick={this.handleClick}
-                    >
+                <g onClick={this.handleClick}>
+                    <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
                         <rect
                             className={classed}
                             width={equipmentPxWidth}

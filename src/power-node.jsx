@@ -59,14 +59,14 @@ export default React.createClass({
     },
 
     render() {
-        const { powerNode, key } = this.props;
+        const { powerNode } = this.props;
         let muted = false;
         if (powerNode.equipment.length === 0 && !this.props.selected) {
             muted = true;
         }
         return (
             <g
-                key={`powerNode-${key}`}
+                key={`powerNode-${powerNode.label}`}
                 onMouseOver={this.handleMouseOver}
                 onMouseOut={this.handleMouseOut}
                 onClick={this.handleClick}

@@ -21,6 +21,10 @@ It takes a label as well in the form of a string or list of strings if multiline
 */
 
 export default React.createClass({
+    getInitialState() {
+        return { labelStyle: this.props.labelStyle };
+    },
+
     getDefaultProps() {
         return {
             yOffset: 25,
@@ -86,11 +90,11 @@ export default React.createClass({
         switch (this.props.labelPosition) {
             case "top":
                 cx = centerX;
-                cy = posY + 12;
+                cy = posY + 12 * (this.props.pxToInch / 10);
                 break;
             case "bottom":
                 cx = centerX;
-                cy = posY + equipmentPxHeight - 15;
+                cy = posY + equipmentPxHeight - 15 * (this.props.pxToInch / 10);
                 break;
             default:
                 cx = centerX;
@@ -99,7 +103,14 @@ export default React.createClass({
         }
 
         let equipmentLabel = null;
+        const newLabelStyle = this.state.labelStyle[styleModifier];
 
+        newLabelStyle.fontSize = this.props.pxToInch;
+        if (this.props.selected) {
+            newLabelStyle.fontSize = this.props.pxToInch * 1.2;
+        } else if (this.props.muted) {
+            newLabelStyle.fontSize = this.props.pxToInch * 0.8;
+        }
         if (
             this.props.label &&
             (!(this.props.facing === "Front" && this.props.rackFacing === "Back") &&
@@ -112,7 +123,7 @@ export default React.createClass({
                     r={cr}
                     textAnchor={this.props.textAnchor}
                     classed={labelClassed}
-                    style={this.props.labelStyle[styleModifier]}
+                    style={newLabelStyle}
                     label={this.props.label}
                     xOffset={labelOffsetX}
                     yOffset={labelOffsetY}
@@ -123,17 +134,18 @@ export default React.createClass({
 
         // let widthLine = null;
 
+        const factor = this.props.pxToInch / 10;
         let vPath = "";
-        vPath += "M" + (posX + 10) + "," + (posY + 5);
-        vPath += " L " + (posX + 10) + " " + (posY + equipmentPxHeight - 5);
+        vPath += "M" + (posX + 10 * factor) + "," + (posY + 5 * factor);
+        vPath += " L " + (posX + 10 * factor) + " " + (posY + equipmentPxHeight - 5 * factor);
 
         let hTopPath = "";
-        hTopPath += "M" + (posX + 7) + "," + (posY + 5);
-        hTopPath += " L " + (posX + 13) + " " + (posY + 5);
+        hTopPath += "M" + (posX + 7 * factor) + "," + (posY + 5 * factor);
+        hTopPath += " L " + (posX + 13 * factor) + " " + (posY + 5 * factor);
 
         let hBottomPath = "";
-        hBottomPath += "M" + (posX + 7) + "," + (posY + equipmentPxHeight - 5);
-        hBottomPath += " L " + (posX + 13) + " " + (posY + equipmentPxHeight - 5);
+        hBottomPath += "M" + (posX + 7 * factor) + "," + (posY + equipmentPxHeight - 5 * factor);
+        hBottomPath += " L " + (posX + 13 * factor) + " " + (posY + equipmentPxHeight - 5 * factor);
 
         const heightFill = this.props.labelStyle[styleModifier];
 
@@ -149,11 +161,11 @@ export default React.createClass({
 
         let heightLabel = (
             <Label
-                x={posX + 15}
+                x={posX + 15 * factor}
                 y={centerY}
                 textAnchor="begin"
                 classed={labelClassed}
-                style={this.props.labelStyle[styleModifier]}
+                style={newLabelStyle}
                 label={`${heightInRmu}U`}
                 labelPosition={"center"}
             />

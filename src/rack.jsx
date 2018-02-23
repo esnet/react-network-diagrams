@@ -48,7 +48,7 @@ export default React.createClass({
         );
     },
 
-    drawRack(rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop) {
+    drawRack(rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop, pxToInch) {
         const middle = this.props.width / 2;
         // get the 4 'x' coordinates of the rectangles
         const x1 = middle - rackPxWidth / 2;
@@ -67,18 +67,18 @@ export default React.createClass({
         elements.push(this.drawSide(rackPxOffset, rackPxHeight, x2, y2, "rightBar"));
         elements.push(this.drawLabel(middle, y3, this.props.label, "center", true));
         if (this.props.displayRmu) {
-            elements.push(this.drawHeightMarkers(inchToRmu, middle, x1, y3));
+            elements.push(this.drawHeightMarkers(inchToRmu, middle, x1, y3, pxToInch));
         }
         return <g>{elements}</g>;
     },
 
-    drawHeightMarkers(inchToRmu, middle, x, initialY) {
-        const x1 = x - 20;
-        const x2 = x - 2;
+    drawHeightMarkers(inchToRmu, middle, x, initialY, pxToInch) {
+        const x1 = x - 20 * pxToInch / 10;
+        const x2 = x - 2 * pxToInch / 10;
         const labelStyle = {
             normal: {
                 fill: "#9D9D9D",
-                fontSize: 10,
+                fontSize: pxToInch,
                 fontFamily: "verdana, sans-serif"
             }
         };
@@ -110,8 +110,8 @@ export default React.createClass({
                         label={label}
                         labelPosition={"bottom"}
                         labelStyle={labelStyle}
-                        labelOffsetX={6}
-                        labelOffsetY={2}
+                        labelOffsetX={6 * pxToInch / 10}
+                        labelOffsetY={2 * pxToInch / 10}
                         textAnchor={"end"}
                         color={this.props.rackStyle.stroke}
                         width={this.props.rackStyle.strokewidth}
@@ -119,7 +119,7 @@ export default React.createClass({
                         position={0}
                     />
                 );
-                y -= inchToRmu * this.props.pxToInch;
+                y -= inchToRmu * pxToInch;
             }
         } else {
             for (let i = 0; i < this.props.rackHeight + 1; i++) {
@@ -145,8 +145,8 @@ export default React.createClass({
                         label={label}
                         labelPosition={"bottom"}
                         labelStyle={labelStyle}
-                        labelOffsetX={6}
-                        labelOffsetY={2}
+                        labelOffsetX={6 * pxToInch / 10}
+                        labelOffsetY={2 * pxToInch / 10}
                         textAnchor={"end"}
                         color={this.props.rackStyle.stroke}
                         width={this.props.rackStyle.strokewidth}
@@ -154,7 +154,7 @@ export default React.createClass({
                         position={0}
                     />
                 );
-                y -= inchToRmu * this.props.pxToInch;
+                y -= inchToRmu * pxToInch;
             }
         }
         return elements;
@@ -180,29 +180,37 @@ export default React.createClass({
         return labelElement;
     },
 
-    renderChildren(childElements, rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop) {
+    renderChildren(
+        childElements,
+        rackPxHeight,
+        rackPxWidth,
+        rackPxOffset,
+        inchToRmu,
+        yOffsetTop,
+        pxToInch
+    ) {
         const newChildren = React.Children.map(this.props.children, child => {
             let x;
             let heightFromBottom;
-            const equipmentPxHeight = child.props.equipmentHeight * this.props.pxToInch;
+            const equipmentPxHeight = child.props.equipmentHeight * pxToInch;
             const rackPxStart = rackPxHeight + yOffsetTop + rackPxOffset;
             const middle = this.props.width / 2;
-            const equipmentPxWidth = child.props.equipmentWidth * this.props.pxToInch;
+            const equipmentPxWidth = child.props.equipmentWidth * pxToInch;
 
             if (child.props.rmu > 0) {
-                heightFromBottom = inchToRmu * (child.props.rmu - 1) * this.props.pxToInch;
+                heightFromBottom = inchToRmu * (child.props.rmu - 1) * pxToInch;
                 x = middle - equipmentPxWidth / 2;
             } else {
-                heightFromBottom = inchToRmu * 2 * this.props.pxToInch;
+                heightFromBottom = inchToRmu * 2 * pxToInch;
                 switch (child.props.side) {
                     case "L":
-                        x = middle - rackPxWidth / 2 - rackPxOffset * 2 - 40;
+                        x = middle - rackPxWidth / 2 - rackPxOffset * 2 - 40 * pxToInch / 10;
                         break;
                     case "R":
-                        x = middle + rackPxWidth / 2 + 40;
+                        x = middle + rackPxWidth / 2 + 40 * pxToInch / 10;
                         break;
                     default:
-                        x = middle - equipmentPxWidth / 2;
+                        x = middle - equipmentPxWidth / 2 * (pxToInch / 10);
                         break;
                 }
             }
@@ -221,7 +229,7 @@ export default React.createClass({
             const props = {
                 y,
                 x,
-                pxToInch: this.props.pxToInch,
+                pxToInch,
                 rackFacing: this.props.facing,
                 usePattern: this.props.pattern ? true : false
             };
@@ -234,17 +242,24 @@ export default React.createClass({
     render() {
         // 1 RMU is 1.75 inches
         const inchToRmu = 1.75;
-
+        // Minimum total width is 350 at px to inch of 10, so divide anything
+        // smaller than 350 by 35 to achieve the right ratio
+        let pxToInch;
+        if (this.props.width >= 350) {
+            pxToInch = this.props.pxToInch;
+        } else {
+            pxToInch = this.props.width / 35;
+        }
         // total height of a 42U rack is 73.5 inches
         // Pixel height is 730px
-        const rackPxHeight = inchToRmu * this.props.rackHeight * this.props.pxToInch;
+        const rackPxHeight = inchToRmu * this.props.rackHeight * pxToInch;
 
         // Width of the inside of a rack of actually 17.25 inches wide
         // Pixel width is 172.5
-        const rackPxWidth = this.props.rackWidth * this.props.pxToInch;
+        const rackPxWidth = this.props.rackWidth * pxToInch;
 
         // Pixel offset is 8.75
-        const rackPxOffset = this.props.widthOffset * this.props.pxToInch;
+        const rackPxOffset = this.props.widthOffset * pxToInch;
 
         const yOffsetTop = this.props.yOffsetTop;
         const yOffsetBottom = this.props.yOffsetBottom;
@@ -280,7 +295,8 @@ export default React.createClass({
                 rackPxWidth,
                 rackPxOffset,
                 inchToRmu,
-                yOffsetTop
+                yOffsetTop,
+                pxToInch
             );
         }
         return (
@@ -288,7 +304,14 @@ export default React.createClass({
             <div>
                 <svg className={className} style={svgStyle}>
                     <defs>{this.props.pattern}</defs>
-                    {this.drawRack(rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop)}
+                    {this.drawRack(
+                        rackPxHeight,
+                        rackPxWidth,
+                        rackPxOffset,
+                        inchToRmu,
+                        yOffsetTop,
+                        pxToInch
+                    )}
                     {childElements}
                 </svg>
             </div>

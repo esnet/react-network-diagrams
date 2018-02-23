@@ -3539,6 +3539,10 @@
           {
             "name": "yOffsetTop",
             "type": null
+          },
+          {
+            "name": "pxToInch",
+            "type": null
           }
         ],
         "returns": null
@@ -3562,6 +3566,10 @@
           },
           {
             "name": "initialY",
+            "type": null
+          },
+          {
+            "name": "pxToInch",
             "type": null
           }
         ],
@@ -3622,6 +3630,10 @@
           },
           {
             "name": "yOffsetTop",
+            "type": null
+          },
+          {
+            "name": "pxToInch",
             "type": null
           }
         ],

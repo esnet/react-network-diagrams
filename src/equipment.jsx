@@ -78,7 +78,7 @@ export default React.createClass({
         let stroke;
         let fill;
         const backFill = this.props.backStyle.fill;
-
+        const overlapFill = this.props.overlapStyle.fill;
         if (this.state.highlighted && !this.props.selected) {
             width = this.props.style.line.highlighted.strokeWidth;
             stroke = this.props.style.line.highlighted.stroke;
@@ -122,6 +122,8 @@ export default React.createClass({
                         facing={this.props.facing}
                         rackFacing={this.props.rackFacing}
                         usePattern={this.props.usePattern}
+                        overlapping={this.props.overlapping}
+                        overlapFill={overlapFill}
                     />
                 </g>
                 <g onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
@@ -153,6 +155,8 @@ export default React.createClass({
                         facing={this.props.facing}
                         rackFacing={this.props.rackFacing}
                         usePattern={this.props.usePattern}
+                        overlapping={this.props.overlapping}
+                        overlapFill={overlapFill}
                     />
                 </g>
             </g>

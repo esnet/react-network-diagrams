@@ -3635,6 +3635,10 @@
           {
             "name": "pxToInch",
             "type": null
+          },
+          {
+            "name": "childMap",
+            "type": null
           }
         ],
         "returns": null

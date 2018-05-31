@@ -103,7 +103,7 @@ export default React.createClass({
         }
 
         let equipmentLabel = null;
-        const newLabelStyle = _.clone(this.state.labelStyle[styleModifier]);
+        const newLabelStyle = this.state.labelStyle[styleModifier];
 
         newLabelStyle.fontSize = this.props.pxToInch;
         if (this.props.selected) {
@@ -112,26 +112,6 @@ export default React.createClass({
             newLabelStyle.fontSize = this.props.pxToInch * 0.8;
         }
         if (
-            this.props.label &&
-            (!(this.props.facing === "Front" && this.props.rackFacing === "Back") &&
-                !(this.props.facing === "Back" && this.props.rackFacing === "Front")) &&
-            this.props.overlapping
-        ) {
-            equipmentLabel = (
-                <Label
-                    x={cx}
-                    y={cy}
-                    r={cr}
-                    textAnchor={this.props.textAnchor}
-                    classed={labelClassed}
-                    style={newLabelStyle}
-                    label={`**${this.props.label}`}
-                    xOffset={labelOffsetX}
-                    yOffset={labelOffsetY}
-                    labelPosition={this.props.labelPosition}
-                />
-            );
-        } else if (
             this.props.label &&
             (!(this.props.facing === "Front" && this.props.rackFacing === "Back") &&
                 !(this.props.facing === "Back" && this.props.rackFacing === "Front"))
@@ -197,14 +177,11 @@ export default React.createClass({
         }
 
         const frontStyle = { fill: this.props.fill };
-        const overlapStyle = this.props.overlapFill ? { fill: this.props.overlapFill } : frontStyle;
+
         // default to the front view.  Only show the back view if the
         // equipment is back facing on the front of the rack,
         // or front facing on the back of the rack
         let eqStyle = frontStyle;
-        if (this.props.overlapping) {
-            eqStyle = overlapStyle;
-        }
 
         if (this.props.rackFacing === "Front" && this.props.facing === "Back") {
             eqStyle = backStyle;

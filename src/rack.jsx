@@ -12,45 +12,6 @@ import React from "react";
 import LinearEdge from "./edge-linear";
 import Label from "./edge-label";
 
-function buildRmuArray(childElements, rmuCount, inchToRmu) {
-    //initialize an array of objects the size of the rack for the front and back
-
-    const frontRmuArray = Array(rmuCount + 1).fill({});
-    const rearRmuArray = Array(rmuCount + 1).fill({});
-
-    //Lets place the equipment at the RMU position on the front and on the back
-    //and fill the other spots up to its height
-    childElements.forEach(child => {
-        const childValues = child.props;
-        const rmuHeight = childValues.equipmentHeight / inchToRmu;
-        const start = childValues.rmu;
-        const end = childValues.rmu + rmuHeight;
-        const values = { name: `${childValues.label}-${childValues.rmu}-${childValues.facing}` };
-        if (childValues.facing === "Front" && start != 0) {
-            frontRmuArray.fill(values, start, end);
-        } else if (childValues.facing === "Back" && start != 0) {
-            rearRmuArray.fill(values, start, end);
-        }
-    });
-    const frontIndexedRmuArray = frontRmuArray.map((val, index) => {
-        return {
-            name: val.name ? val.name : null,
-            position: index
-        };
-    });
-    const rearIndexedRmuArray = rearRmuArray.map((val, index) => {
-        return {
-            name: val.name ? val.name : null,
-            position: index
-        };
-    });
-
-    return {
-        front: frontIndexedRmuArray,
-        back: rearIndexedRmuArray
-    };
-}
-
 export default React.createClass({
     getDefaultProps() {
         return {
@@ -226,10 +187,9 @@ export default React.createClass({
         rackPxOffset,
         inchToRmu,
         yOffsetTop,
-        pxToInch,
-        childMap
+        pxToInch
     ) {
-        const newChildren = React.Children.map(childElements, child => {
+        const newChildren = React.Children.map(this.props.children, child => {
             let x;
             let heightFromBottom;
             const equipmentPxHeight = child.props.equipmentHeight * pxToInch;
@@ -265,42 +225,13 @@ export default React.createClass({
                 labelOffsetY={this.state.labelOffsetY}
                 noNavigate={this.state.noNavigate}
             */
-            // We get the position from the childMap where this child should sit in the rack
-            // returning an array of U positions for front and back eg. [1,2]
-            const currentRmuFrontPositions = childMap.front
-                .filter(
-                    c => c.name === `${child.props.label}-${child.props.rmu}-${child.props.facing}`
-                )
-                .map(v => v.position);
-            const currentRmuBackPositions = childMap.back
-                .filter(
-                    c => c.name === `${child.props.label}-${child.props.rmu}-${child.props.facing}`
-                )
-                .map(v => v.position);
-
-            // if the child was a front facing element, look in the back to see if there is a value
-            // in the back facing rmu array at any position
-            //console.log(currentRmuFrontPositions, currentRmuBackPositions);
-            let overlappingBack,
-                overlappingFront = false;
-            if (child.props.facing === "Front") {
-                overlappingFront = currentRmuFrontPositions.some(v => {
-                    return childMap.back[v].name !== null;
-                });
-            } else if (child.props.facing === "Back") {
-                overlappingBack = currentRmuBackPositions.some(v => {
-                    return childMap.front[v].name !== null;
-                });
-            }
-            const overlapping = overlappingFront || overlappingBack;
 
             const props = {
                 y,
                 x,
                 pxToInch,
                 rackFacing: this.props.facing,
-                usePattern: this.props.pattern ? true : false,
-                overlapping
+                usePattern: this.props.pattern ? true : false
             };
             const newChild = React.cloneElement(child, props);
             return newChild;
@@ -355,47 +286,17 @@ export default React.createClass({
         in the rack.  It then injects an x, y and pixel to inch ratio prop to each child.
         Other style based props for the equipment are also injected.
         */
+        let childElements;
 
-        // We render the child elements in a layering fashion to display back and front elements
-        // If the rack facing is front, the bottom elements are back facing and top elements are front facing and vice versa
-        let childElementsBottom;
-        let childElementsTop;
-
-        const bottomChildren = [];
-        const topChildren = [];
-
-        this.props.children.forEach(child => {
-            if (this.props.facing === "Front" && child.props.facing === "Front") {
-                topChildren.push(child);
-            } else if (this.props.facing === "Front" && child.props.facing == "Back") {
-                bottomChildren.push(child);
-            } else if (this.props.facing === "Back" && child.props.facing === "Back") {
-                topChildren.push(child);
-            } else if (this.props.facing === "Back" && child.props.facing == "Front") {
-                bottomChildren.push(child);
-            }
-        });
         if (React.Children.count(this.props.children) >= 1) {
-            const childMap = buildRmuArray(this.props.children, this.props.rackHeight, inchToRmu);
-            childElementsBottom = this.renderChildren(
-                bottomChildren, //this.props.children,
+            childElements = this.renderChildren(
+                this.props.children,
                 rackPxHeight,
                 rackPxWidth,
                 rackPxOffset,
                 inchToRmu,
                 yOffsetTop,
-                pxToInch,
-                childMap
-            );
-            childElementsTop = this.renderChildren(
-                topChildren, //this.props.children,
-                rackPxHeight,
-                rackPxWidth,
-                rackPxOffset,
-                inchToRmu,
-                yOffsetTop,
-                pxToInch,
-                childMap
+                pxToInch
             );
         }
         return (
@@ -411,8 +312,7 @@ export default React.createClass({
                         yOffsetTop,
                         pxToInch
                     )}
-                    {childElementsBottom}
-                    {childElementsTop}
+                    {childElements}
                 </svg>
             </div>
         );

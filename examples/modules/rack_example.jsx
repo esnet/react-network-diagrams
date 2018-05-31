@@ -80,10 +80,10 @@ const equipmentList = [
     {
         height: 3.5, // Inches
         width: 17.52, // Inches
-        rmu: 40,
+        rmu: 38,
         style: stylesMap.pdu,
         label: "DC PDU 2",
-        facing: "Front",
+        facing: "Back",
         showHeight: true,
         navTo: "DC PDU 2"
     },
@@ -367,7 +367,6 @@ export default React.createClass({
                     side={eq.side}
                     style={eq.style}
                     backStyle={backStyle}
-                    overlapStyle={{ fill: "#ff6666" }}
                     selected={
                         this.state.selected === eq.label ||
                         this.state.equipmentSelected.includes(eq.label)

@@ -40,9 +40,9 @@
   "license": "BSD-3-Clause-LBNL",
   "dependencies": {
     "babel-runtime": "^6.23.0",
-    "prop-types": "^15.5.10",
     "d3-scale": "^2.0.0",
     "keymirror": "^0.1.1",
+    "prop-types": "^15.5.10",
     "underscore": "^1.8.3",
     "victor": "^1.1.0"
   },
@@ -59,8 +59,8 @@
     "eslint-config-react-app": "^2.1.0",
     "eslint-plugin-flowtype": "^2.42.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-react": "^7.6.1",
     "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.6.1",
     "lint-staged": "^6.1.0",
     "prettier": "^1.9.2",
     "react": "^16.2.0",

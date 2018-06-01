@@ -1,0 +1,62 @@
+{
+    "basic": {
+        "title": "Basic Circuit example",
+        "description": "Interactive example showing a single basic circuit.",
+        "tags": ["BasicCircuit"]
+    },
+    "concatenated": {
+        "title": "Concatenated Circuit example",
+        "description": "Interactive example showing a concatenated circuit.",
+        "tags": ["ConcatenatedCircuit"]
+    },
+    "parallel": {
+        "title": "Parallel Circuit example",
+        "description": "Interactive example showing a parallel circuit.",
+        "tags": ["ParallelCircuit"]
+    },
+    "endpoint": {
+        "title": "Endpoint example",
+        "description": "Interactive example showing the low level Endpoint primative.",
+        "tags": ["Endpoint"]
+    },
+    "connection": {
+        "title": "Connection example",
+        "description": "Interactive example showing the low level Connection primative.",
+        "tags": ["Connection"]
+    },
+    "patchpanel": {
+        "title": "Patch panel example",
+        "description": "Interactive example showing a patch panel.",
+        "tags": ["PatchPanel"]
+    },
+    "legend": {
+        "title": "Legend example",
+        "description": "Simple legend rendering.",
+        "tags": ["MapLegend"]
+    },
+    "map": {
+        "title": "A full network map",
+        "description": "How to render the ESnet network map.",
+        "tags": ["TrafficMap"]
+    },
+    "paths": {
+        "title": "Network map with paths",
+        "description": "How to render paths across a network map.",
+        "tags": ["TrafficMap"]
+    },
+    "editor": {
+        "title": "Topology editor",
+        "description": "A simple network editor to bootstrap your topologies.",
+        "tags": ["TrafficMap", "MapEditor"]
+    },
+    "rack": {
+        "title": "Rack example",
+        "description": "Interactive basic rack example.",
+        "tags": ["Rack"]
+    },
+    "equipment": {
+        "title": "Equipment example",
+        "description": "Interactive basic equipment example.",
+        "tags": ["Equipment"]
+    }
+}

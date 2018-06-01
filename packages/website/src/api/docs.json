@@ -1969,6 +1969,17 @@
           "value": "false",
           "computed": false
         }
+      },
+      "overlapStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "In case two equipment ovelap, this is the style that will be used for them.",
+        "defaultValue": {
+          "value": "{\n    fill: \"#FD9D9D\"\n}",
+          "computed": false
+        }
       }
     }
   },
@@ -4058,12 +4069,12 @@
       },
       "rackStyle": {
         "type": {
-          "name": "string"
+          "name": "object"
         },
         "required": false,
-        "description": "",
+        "description": "The general styling of the rack.",
         "defaultValue": {
-          "value": "\"telco\"",
+          "value": "{\n    fill: \"#D5D5D5\",\n    strokeWidth: 1,\n    stroke: \"#737373\"\n}",
           "computed": false
         }
       },

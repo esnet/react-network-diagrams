@@ -94,14 +94,14 @@ const equipmentList = [
         navTo: "Corsa Switch"
     },
     {
-        height: 12.5, // Inches
+        height: 3.5, // Inches
         width: 17.52, // Inches
-        rmu: 17,
-        style: stylesMap.switch,
-        label: "Corsa Switch2",
+        rmu: 32,
+        style: stylesMap.router,
+        label: "Overlapping router",
         showHeight: true,
         facing: "Back",
-        navTo: "Corsa Switch2"
+        navTo: "Overlapping router"
     },
     {
         height: 1.75, // Inches

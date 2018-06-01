@@ -146,9 +146,7 @@ var EquipmentBase = exports.EquipmentBase = function (_React$Component) {
                 newLabelStyle.fontSize = this.props.pxToInch * 0.8;
             }
 
-            console.log('hello nworld');
             if (this.props.label && !(this.props.facing === "Front" && this.props.rackFacing === "Back") && !(this.props.facing === "Back" && this.props.rackFacing === "Front") && this.props.overlapping) {
-                console.log('overlapping', 'this.props.facing', this.props.facing, 'this.props.rackFacing', this.props.rackFacing, this.props.label, 'this.props.overlapping', this.props.overlapping);
                 equipmentLabel = _react2.default.createElement(_Label.Label, {
                     x: cx,
                     y: cy,

@@ -30,7 +30,48 @@ export class Rack extends React.Component {
         );
     }
 
-    drawRack(rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop) {
+
+    buildRmuArray(childElements, rmuCount, inchToRmu) {
+        //initialize an array of objects the size of the rack for the front and back
+    
+        const frontRmuArray = Array(rmuCount + 1).fill({});
+        const rearRmuArray = Array(rmuCount + 1).fill({});
+    
+        //Lets place the equipment at the RMU position on the front and on the back
+        //and fill the other spots up to its height
+        childElements.forEach(child => {
+            const childValues = child.props;
+            const rmuHeight = childValues.equipmentHeight / inchToRmu;
+            const start = Number(childValues.rmu);
+            const end = start + rmuHeight;
+
+            const values = { name: `${childValues.label}-${childValues.rmu}-${childValues.facing}` };
+            if (childValues.facing === "Front" && start !== 0) {
+                frontRmuArray.fill(values, start, end);
+            } else if (childValues.facing === "Back" && start !== 0) {
+                rearRmuArray.fill(values, start, end);
+            }
+        });
+        const frontIndexedRmuArray = frontRmuArray.map((val, index) => {
+            return {
+                name: val.name ? val.name : null,
+                position: index
+            };
+        });
+        const rearIndexedRmuArray = rearRmuArray.map((val, index) => {
+            return {
+                name: val.name ? val.name : null,
+                position: index
+            };
+        });
+    
+        return {
+            front: frontIndexedRmuArray,
+            back: rearIndexedRmuArray
+        };
+    }
+
+    drawRack(rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop, pxToInch) {
         const middle = this.props.width / 2;
 
         // get the 4 'x' coordinates of the rectangles
@@ -50,7 +91,7 @@ export class Rack extends React.Component {
         elements.push(this.drawLabel(middle, y3, this.props.label, "center", true));
 
         if (this.props.displayRmu) {
-            elements.push(this.drawHeightMarkers(inchToRmu, middle, x1, y3));
+            elements.push(this.drawHeightMarkers(inchToRmu, middle, x1, y3, pxToInch));
         }
 
         return (
@@ -60,13 +101,13 @@ export class Rack extends React.Component {
         );
     }
 
-    drawHeightMarkers(inchToRmu, middle, x, initialY) {
-        const x1 = x - 20;
-        const x2 = x - 2;
+    drawHeightMarkers(inchToRmu, middle, x, initialY, pxToInch) {
+        const x1 = x - 20 * pxToInch / 10;;
+        const x2 = x - 2 * pxToInch / 10;;
         const labelStyle = {
             normal: {
                 fill: "#9D9D9D",
-                fontSize: 10,
+                fontSize: pxToInch,
                 fontFamily: "verdana, sans-serif"
             }
         };
@@ -98,8 +139,8 @@ export class Rack extends React.Component {
                         label={label}
                         labelPosition={"bottom"}
                         labelStyle={labelStyle}
-                        labelOffsetX={6}
-                        labelOffsetY={2}
+                        labelOffsetX={6 * pxToInch / 10}
+                        labelOffsetY={2 * pxToInch / 10}
                         textAnchor={"end"}
                         color={this.props.rackStyle.stroke}
                         width={this.props.rackStyle.strokewidth}
@@ -107,7 +148,7 @@ export class Rack extends React.Component {
                         position={0}
                     />
                 );
-                y -= inchToRmu * this.props.pxToInch;
+                y -= inchToRmu * pxToInch;
             }
         } else {
             for (let i = 0; i < this.props.rackHeight + 1; i++) {
@@ -133,8 +174,8 @@ export class Rack extends React.Component {
                         label={label}
                         labelPosition={"bottom"}
                         labelStyle={labelStyle}
-                        labelOffsetX={6}
-                        labelOffsetY={2}
+                        labelOffsetX={6 * pxToInch / 10}
+                        labelOffsetY={2 * pxToInch / 10}
                         textAnchor={"end"}
                         color={this.props.rackStyle.stroke}
                         width={this.props.rackStyle.strokewidth}
@@ -142,7 +183,7 @@ export class Rack extends React.Component {
                         position={0}
                     />
                 );
-                y -= inchToRmu * this.props.pxToInch;
+                y -= inchToRmu * pxToInch;
             }
         }
         return elements;
@@ -168,33 +209,64 @@ export class Rack extends React.Component {
         return labelElement;
     }
 
-    renderChildren(childElements, rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop) {
-        const newChildren = React.Children.map(this.props.children, child => {
+    renderChildren(childElements, rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop, pxToInch, childMap) {
+        const newChildren = React.Children.map(childElements, child => {
             let x;
             let heightFromBottom;
-            const equipmentPxHeight = child.props.equipmentHeight * this.props.pxToInch;
+            const equipmentPxHeight = child.props.equipmentHeight * pxToInch;
             const rackPxStart = rackPxHeight + yOffsetTop + rackPxOffset;
             const middle = this.props.width / 2;
-            const equipmentPxWidth = child.props.equipmentWidth * this.props.pxToInch;
+            const equipmentPxWidth = child.props.equipmentWidth * pxToInch;
 
             if (child.props.rmu > 0) {
-                heightFromBottom = inchToRmu * (child.props.rmu - 1) * this.props.pxToInch;
+                heightFromBottom = inchToRmu * (child.props.rmu - 1) * pxToInch;
                 x = middle - equipmentPxWidth / 2;
             } else {
-                heightFromBottom = inchToRmu * 2 * this.props.pxToInch;
+                heightFromBottom = inchToRmu * 2 * pxToInch;
                 switch (child.props.side) {
                     case "L":
-                        x = middle - rackPxWidth / 2 - rackPxOffset * 2 - 40;
+                        x = middle - rackPxWidth / 2 - rackPxOffset * 2 - 40 * pxToInch / 10;
                         break;
                     case "R":
-                        x = middle + rackPxWidth / 2 + 40;
+                        x = middle + rackPxWidth / 2 + 40 * pxToInch / 10;
                         break;
                     default:
-                        x = middle - equipmentPxWidth / 2;
+                        x = middle - equipmentPxWidth / 2 * pxToInch / 10;
                         break;
                 }
             }
             const y = rackPxStart - equipmentPxHeight - heightFromBottom;
+
+
+            // We get the position from the childMap where this child should sit in the rack
+            // returning an array of U positions for front and back eg. [1,2]
+            const currentRmuFrontPositions = childMap.front
+                .filter(
+                    c => c.name === `${child.props.label}-${child.props.rmu}-${child.props.facing}`
+                )
+                .map(v => v.position);
+            const currentRmuBackPositions = childMap.back
+                .filter(
+                    c => c.name === `${child.props.label}-${child.props.rmu}-${child.props.facing}`
+                )
+                .map(v => v.position);
+
+            // if the child was a front facing element, look in the back to see if there is a value
+            // in the back facing rmu array at any position
+
+            let overlappingBack,
+                overlappingFront = false;
+            if (child.props.facing === "Front") {
+                overlappingFront = currentRmuFrontPositions.some(v => {
+                    return childMap.back[v].name !== null;
+                });
+            } else if (child.props.facing === "Back") {
+                overlappingBack = currentRmuBackPositions.some(v => {
+                    return childMap.front[v].name !== null;
+                });
+            }
+            const overlapping = overlappingFront || overlappingBack;
+
 
             /*
             XXX Scott: What about other props like
@@ -209,9 +281,10 @@ export class Rack extends React.Component {
             const props = {
                 y,
                 x,
-                pxToInch: this.props.pxToInch,
+                pxToInch,
                 rackFacing: this.props.facing,
-                usePattern: this.props.pattern ? true : false
+                usePattern: this.props.pattern ? true : false,
+                overlapping
             };
             const newChild = React.cloneElement(child, props);
             return newChild;
@@ -224,16 +297,25 @@ export class Rack extends React.Component {
         // 1 RMU is 1.75 inches
         const inchToRmu = 1.75;
 
+         // Minimum total width is 350 at px to inch of 10, so divide anything
+         // smaller than 350 by 35 to achieve the right ratio
+         let pxToInch;
+         if (this.props.width >= 350) {
+             pxToInch = this.props.pxToInch;
+         } else {
+             pxToInch = this.props.width / 35;
+         }
+
         // total height of a 42U rack is 73.5 inches
         // Pixel height is 730px
-        const rackPxHeight = inchToRmu * this.props.rackHeight * this.props.pxToInch;
+        const rackPxHeight = inchToRmu * this.props.rackHeight * pxToInch;
 
         // Width of the inside of a rack of actually 17.25 inches wide
         // Pixel width is 172.5
-        const rackPxWidth = this.props.rackWidth * this.props.pxToInch;
+        const rackPxWidth = this.props.rackWidth * pxToInch;
 
         // Pixel offset is 8.75
-        const rackPxOffset = this.props.widthOffset * this.props.pxToInch;
+        const rackPxOffset = this.props.widthOffset * pxToInch;
 
         const yOffsetTop = this.props.yOffsetTop;
         const yOffsetBottom = this.props.yOffsetBottom;
@@ -262,16 +344,47 @@ export class Rack extends React.Component {
          * Other style based props for the equipment are also injected.
          */ 
         
-         let childElements;
+        // We render the child elements in a layering fashion to display back and front elements
+        // If the rack facing is front, the bottom elements are back facing and top elements are front facing and vice versa
+        let childElementsBottom;
+        let childElementsTop;
+
+        const bottomChildren = [];
+        const topChildren = [];
+
+        this.props.children.forEach(child => {
+            if (this.props.facing === "Front" && child.props.facing === "Front") {
+                topChildren.push(child);
+            } else if (this.props.facing === "Front" && child.props.facing == "Back") {
+                bottomChildren.push(child);
+            } else if (this.props.facing === "Back" && child.props.facing === "Back") {
+                topChildren.push(child);
+            } else if (this.props.facing === "Back" && child.props.facing == "Front") {
+                bottomChildren.push(child);
+            }
+        });
 
         if (React.Children.count(this.props.children) >= 1) {
-            childElements = this.renderChildren(
+            const childMap = this.buildRmuArray(this.props.children, this.props.rackHeight, inchToRmu);
+            childElementsBottom = this.renderChildren(
                 this.props.children,
                 rackPxHeight,
                 rackPxWidth,
                 rackPxOffset,
                 inchToRmu,
-                yOffsetTop
+                yOffsetTop,
+                pxToInch,
+                childMap
+            );
+            childElementsTop = this.renderChildren(
+                this.props.children,
+                rackPxHeight,
+                rackPxWidth,
+                rackPxOffset,
+                inchToRmu,
+                yOffsetTop,
+                pxToInch,
+                childMap
             );
         }
         return (
@@ -279,8 +392,9 @@ export class Rack extends React.Component {
             <div>
                 <svg className={className} style={svgStyle}>
                     <defs>{this.props.pattern}</defs>
-                    {this.drawRack(rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop)}
-                    {childElements}
+                    {this.drawRack(rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop, pxToInch)}
+                    {childElementsBottom}
+                    {childElementsTop}
                 </svg>
             </div>
         );
@@ -304,7 +418,7 @@ Rack.propTypes = {
 
     widthOffset: PropTypes.number,
     
-    rackStyle: PropTypes.string,
+    rackStyle: PropTypes.object,
 
     labelStyle: PropTypes.object
 };
@@ -317,7 +431,11 @@ Rack.defaultProps = {
     rackWidth: 19, // Expressed in Inches
     pxToInch: 10,
     widthOffset: 0.875,
-    rackStyle: "telco",
+    rackStyle: {
+        stroke: "#737373",
+        strokeWidth: 1,
+        fill: "#D5D5D5"
+    },
     labelStyle: {
         normal: {
             fill: "#9D9D9D",

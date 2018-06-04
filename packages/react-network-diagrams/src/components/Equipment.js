@@ -72,6 +72,7 @@ export class Equipment extends React.Component {
         let stroke;
         let fill;
         const backFill = this.props.backStyle.fill;
+        const overlapFill = this.props.overlapStyle.fill;
 
         if (this.state.highlighted && !this.props.selected) {
             width = this.props.style.line.highlighted.strokeWidth;
@@ -116,6 +117,8 @@ export class Equipment extends React.Component {
                         facing={this.props.facing}
                         rackFacing={this.props.rackFacing}
                         usePattern={this.props.usePattern}
+                        overlapping={this.props.overlapping}
+                        overlapFill={overlapFill}
                     />
                 </g>
                 <g onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
@@ -147,6 +150,8 @@ export class Equipment extends React.Component {
                         facing={this.props.facing}
                         rackFacing={this.props.rackFacing}
                         usePattern={this.props.usePattern}
+                        overlapping={this.props.overlapping}
+                        overlapFill={overlapFill}
                     />
                 </g>
             </g>

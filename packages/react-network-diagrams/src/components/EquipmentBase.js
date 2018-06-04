@@ -27,7 +27,8 @@ export class EquipmentBase extends React.Component {
         this.state = {
             yOffset: 25,
             xOffset: 25,
-            pxToInch: 10
+            pxToInch: 10,
+            labelStyle: this.props.labelStyle
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -92,11 +93,11 @@ export class EquipmentBase extends React.Component {
         switch (this.props.labelPosition) {
             case "top":
                 cx = centerX;
-                cy = posY + 12;
+                cy = posY + 12 * (this.props.pxToInch / 10);
                 break;
             case "bottom":
                 cx = centerX;
-                cy = posY + equipmentPxHeight - 15;
+                cy = posY + equipmentPxHeight - 15 * (this.props.pxToInch / 10);
                 break;
             default:
                 cx = centerX;
@@ -105,8 +106,35 @@ export class EquipmentBase extends React.Component {
         }
 
         let equipmentLabel = null;
+        const newLabelStyle = _.clone(this.state.labelStyle[styleModifier]);
 
-        if (
+        newLabelStyle.fontSize = this.props.pxToInch;
+        if (this.props.selected) {
+            newLabelStyle.fontSize = this.props.pxToInch * 1.2;
+        } else if (this.props.muted) {
+            newLabelStyle.fontSize = this.props.pxToInch * 0.8;
+        }
+
+        if ( this.props.label &&
+            (!(this.props.facing === "Front" && this.props.rackFacing === "Back") &&
+                !(this.props.facing === "Back" && this.props.rackFacing === "Front")) &&
+            this.props.overlapping
+        ) {
+            equipmentLabel = (
+                <Label
+                    x={cx}
+                    y={cy}
+                    r={cr}
+                    textAnchor={this.props.textAnchor}
+                    classed={labelClassed}
+                    style={newLabelStyle}
+                    label={`**${this.props.label}`}
+                    xOffset={labelOffsetX}
+                    yOffset={labelOffsetY}
+                    labelPosition={this.props.labelPosition}
+                />
+            );
+        } else if (
             this.props.label &&
             (!(this.props.facing === "Front" && this.props.rackFacing === "Back") &&
                 !(this.props.facing === "Back" && this.props.rackFacing === "Front"))
@@ -118,7 +146,7 @@ export class EquipmentBase extends React.Component {
                     r={cr}
                     textAnchor={this.props.textAnchor}
                     classed={labelClassed}
-                    style={this.props.labelStyle[styleModifier]}
+                    style={newLabelStyle}
                     label={this.props.label}
                     xOffset={labelOffsetX}
                     yOffset={labelOffsetY}
@@ -129,17 +157,18 @@ export class EquipmentBase extends React.Component {
 
         // let widthLine = null;
 
+        const factor = this.props.pxToInch / 10;
         let vPath = "";
-        vPath += "M" + (posX + 10) + "," + (posY + 5);
-        vPath += " L " + (posX + 10) + " " + (posY + equipmentPxHeight - 5);
+        vPath += "M" + (posX + 10 * factor) + "," + (posY + 5 * factor);
+        vPath += " L " + (posX + 10 * factor) + " " + (posY + equipmentPxHeight - 5 * factor);
 
         let hTopPath = "";
-        hTopPath += "M" + (posX + 7) + "," + (posY + 5);
-        hTopPath += " L " + (posX + 13) + " " + (posY + 5);
+        hTopPath += "M" + (posX + 7 * factor) + "," + (posY + 5 * factor);
+        hTopPath += " L " + (posX + 13 * factor) + " " + (posY + 5 * factor);
 
         let hBottomPath = "";
-        hBottomPath += "M" + (posX + 7) + "," + (posY + equipmentPxHeight - 5);
-        hBottomPath += " L " + (posX + 13) + " " + (posY + equipmentPxHeight - 5);
+        hBottomPath += "M" + (posX + 7 * factor) + "," + (posY + equipmentPxHeight - 5 * factor);
+        hBottomPath += " L " + (posX + 13 * factor) + " " + (posY + equipmentPxHeight - 5 * factor);
 
         const heightFill = this.props.labelStyle[styleModifier];
 
@@ -155,11 +184,11 @@ export class EquipmentBase extends React.Component {
 
         let heightLabel = (
             <Label
-                x={posX + 15}
+                x={posX + 15 * factor}
                 y={centerY}
                 textAnchor="begin"
                 classed={labelClassed}
-                style={this.props.labelStyle[styleModifier]}
+                style={newLabelStyle}
                 label={`${heightInRmu}U`}
                 labelPosition={"center"}
             />
@@ -171,6 +200,7 @@ export class EquipmentBase extends React.Component {
         }
 
         const frontStyle = { fill: this.props.fill };
+        const overlapStyle = this.props.overlapFill ? { fill: this.props.overlapFill } : frontStyle;
 
         /**
          * Default to the front view. Only show the back view if the
@@ -179,6 +209,9 @@ export class EquipmentBase extends React.Component {
          */ 
         
         let eqStyle = frontStyle;
+        if (this.props.overlapping) {
+            eqStyle = overlapStyle;
+        }
 
         if (this.props.rackFacing === "Front" && this.props.facing === "Back") {
             eqStyle = backStyle;
@@ -194,7 +227,7 @@ export class EquipmentBase extends React.Component {
 
         if (!this.props.showHeight) {
             return (
-                <g>
+                <g onClick={this.handleClick}>
                     <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
                         <rect
                             className={classed}
@@ -203,7 +236,6 @@ export class EquipmentBase extends React.Component {
                             x={posX}
                             y={posY}
                             style={eqStyle}
-                            onClick={this.handleClick}
                         />
                     </g>
                     {equipmentLabel}
@@ -211,13 +243,8 @@ export class EquipmentBase extends React.Component {
             );
         } else {
             return (
-                <g>
-                    <g
-                        strokeWidth={this.props.width}
-                        stroke={this.props.color}
-                        opacity={opacity}
-                        onClick={this.handleClick}
-                    >
+                <g onClick={this.handleClick}>
+                    <g strokeWidth={this.props.width} stroke={this.props.color} opacity={opacity}>
                         <rect
                             className={classed}
                             width={equipmentPxWidth}

@@ -94,6 +94,16 @@ const equipmentList = [
         navTo: "Corsa Switch"
     },
     {
+        height: 3.5, // Inches
+        width: 17.52, // Inches
+        rmu: 32,
+        style: stylesMap.router,
+        label: "Overlapping router",
+        showHeight: true,
+        facing: "Back",
+        navTo: "Overlapping router"
+    },
+    {
         height: 1.75, // Inches
         width: 17.52, // Inches
         rmu: 28,
@@ -345,6 +355,7 @@ class rack extends React.Component {
                     side={eq.side}
                     style={eq.style}
                     backStyle={backStyle}
+                    overlapStyle={{ fill: "#ff6666" }}
                     selected={
                         this.state.selected === eq.label ||
                         this.state.equipmentSelected.includes(eq.label)

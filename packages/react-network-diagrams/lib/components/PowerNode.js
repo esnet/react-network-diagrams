@@ -106,9 +106,7 @@ var PowerNode = exports.PowerNode = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
-            var _props = this.props,
-                powerNode = _props.powerNode,
-                key = _props.key;
+            var powerNode = this.props.powerNode;
 
             var muted = false;
             if (powerNode.equipment.length === 0 && !this.props.selected) {
@@ -117,7 +115,7 @@ var PowerNode = exports.PowerNode = function (_React$Component) {
             return _react2.default.createElement(
                 "g",
                 {
-                    key: "powerNode-" + key,
+                    key: "powerNode-" + powerNode.label,
                     onMouseOver: this.handleMouseOver,
                     onMouseOut: this.handleMouseOut,
                     onClick: this.handleClick
@@ -125,7 +123,6 @@ var PowerNode = exports.PowerNode = function (_React$Component) {
                 _react2.default.createElement(_Node.Node, {
                     x: powerNode.x,
                     y: powerNode.y,
-                    key: powerNode.label + "-" + powerNode.id,
                     style: powerNode.style.node,
                     radius: this.props.radius,
                     shape: "circle",

@@ -71,14 +71,14 @@ export class PowerNode extends React.Component {
     }
 
     render() {
-        const { powerNode, key } = this.props;
+        const { powerNode } = this.props;
         let muted = false;
         if (powerNode.equipment.length === 0 && !this.props.selected) {
             muted = true;
         }
         return (
             <g
-                key={`powerNode-${key}`}
+                key={`powerNode-${powerNode.label}`}
                 onMouseOver={this.handleMouseOver}
                 onMouseOut={this.handleMouseOut}
                 onClick={this.handleClick}
@@ -86,7 +86,6 @@ export class PowerNode extends React.Component {
                 <Node
                     x={powerNode.x}
                     y={powerNode.y}
-                    key={`${powerNode.label}-${powerNode.id}`}
                     style={powerNode.style.node}
                     radius={this.props.radius}
                     shape={"circle"}

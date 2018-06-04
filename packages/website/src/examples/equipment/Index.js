@@ -23,6 +23,7 @@ const equipmentHeightList = [1.75, 3.5, 7, 14, 24.5];
 const labelPositionChoiceList = ["top", "bottom", "center"];
 const textAnchorList = ["middle", "begin", "end"];
 const noNavigateList = ["Yes", "No"];
+const showOverlapList = ["Yes", "No"];
 const styleModifierList = ["normal", "selected", "muted"];
 const positionList = [-90, -45, -30, -20, -15, -10, -3, -1, 0, 1, 3, 10, 15, 20, 30, 45, 90];
 const styleList = ["Style 1", "Style 2", "Style 3"];
@@ -66,6 +67,7 @@ class equipment extends React.Component {
             selectedStyle: false,
             mutedStyle: false,
             noNavigate: false,
+            showOverlap: false,
             showHeight: false,
             style: stylesMap.line1,
             styleType: styleList[0],
@@ -73,13 +75,31 @@ class equipment extends React.Component {
             textAnchor: textAnchorList[0],
             labelPosition: labelPositionChoiceList[0],
             noNavigateChoice: noNavigateList[1],
-            showHeightChoice: noNavigateList[1]
+            showHeightChoice: noNavigateList[1],
+            showOverlapChoice: showOverlapList[1]
         };
 
+        this.handleShowOverlapChange = this.handleShowOverlapChange.bind(this);
         this.handleNoNavigateChange = this.handleNoNavigateChange.bind(this);
         this.handleShowHeightChange = this.handleShowHeightChange.bind(this);
         this.handleStyleModChange = this.handleStyleModChange.bind(this);
         this.handleStyleTypeChange = this.handleStyleTypeChange.bind(this);
+    }
+
+    handleShowOverlapChange(val) {
+        switch (val) {
+            case "Yes":
+                this.setState({ showOverlap: true });
+                break;
+
+            case "No":
+                this.setState({ showOverlap: false });
+                break;
+
+            default:
+                break;
+        }
+        this.setState({ showOverlapChoice: val });
     }
 
     handleNoNavigateChange(val) {
@@ -248,6 +268,14 @@ class equipment extends React.Component {
                     />
                     <p>Select whether to show height bar</p>
                 </div>
+                <div>
+                    <Selector
+                        selected={this.state.showOverlapChoice}
+                        selectionList={showOverlapList}
+                        handleChange={this.handleShowOverlapChange}
+                    />
+                    <p>Select whether to show if equipment is overlapping an other in the same rack</p>
+                </div>
             </div>
         );
     }
@@ -280,6 +308,8 @@ class equipment extends React.Component {
                         showHeight={this.state.showHeight}
                         noNavigate={this.state.noNavigate}
                         onSelectionChange={(e, val) => this.handleSelectionChange(e, val)}
+                        overlapStyle={{ fill: "#ff6666" }}
+                        overlapping={this.state.showOverlap}
                     />
                 </g>
             </svg>

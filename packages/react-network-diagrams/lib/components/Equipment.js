@@ -105,6 +105,7 @@ var Equipment = exports.Equipment = function (_React$Component) {
             var stroke = void 0;
             var fill = void 0;
             var backFill = this.props.backStyle.fill;
+            var overlapFill = this.props.overlapStyle.fill;
 
             if (this.state.highlighted && !this.props.selected) {
                 width = this.props.style.line.highlighted.strokeWidth;
@@ -151,7 +152,9 @@ var Equipment = exports.Equipment = function (_React$Component) {
                         name: navTo,
                         facing: this.props.facing,
                         rackFacing: this.props.rackFacing,
-                        usePattern: this.props.usePattern
+                        usePattern: this.props.usePattern,
+                        overlapping: this.props.overlapping,
+                        overlapFill: overlapFill
                     })
                 ),
                 _react2.default.createElement(
@@ -186,7 +189,9 @@ var Equipment = exports.Equipment = function (_React$Component) {
                         invisible: true,
                         facing: this.props.facing,
                         rackFacing: this.props.rackFacing,
-                        usePattern: this.props.usePattern
+                        usePattern: this.props.usePattern,
+                        overlapping: this.props.overlapping,
+                        overlapFill: overlapFill
                     })
                 )
             );

@@ -186,9 +186,7 @@ var Connection = exports.Connection = function (_React$Component) {
                 _react2.default.createElement(
                     "g",
                     null,
-                    _react2.default.createElement(_SimpleEdge.SimpleEdge
-                    // Positional Props used by all shapes
-                    , {
+                    _react2.default.createElement(_SimpleEdge.SimpleEdge, {
                         x1: this.props.x1,
                         x2: this.props.x2,
                         y1: this.props.y1,
@@ -223,7 +221,9 @@ var Connection = exports.Connection = function (_React$Component) {
                 _react2.default.createElement(
                     "g",
                     { onMouseOver: this.handleMouseOver, onMouseOut: this.handleMouseOut },
-                    _react2.default.createElement(_SimpleEdge.SimpleEdge, { x1: this.props.x1,
+                    _react2.default.createElement(_SimpleEdge.SimpleEdge
+                    // Positional Props used by all shapes
+                    , { x1: this.props.x1,
                         x2: this.props.x2,
                         y1: this.props.y1,
                         y2: this.props.y2

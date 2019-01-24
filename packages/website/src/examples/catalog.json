@@ -58,5 +58,10 @@
         "title": "Equipment example",
         "description": "Interactive basic equipment example.",
         "tags": ["Equipment"]
+    },
+    "combined": {
+        "title": "Combined circuit example",
+        "description": "Interactive combined circuit example.",
+        "tags": ["Combined"]
     }
 }

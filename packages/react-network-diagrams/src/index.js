@@ -12,6 +12,8 @@ import { MapEditor } from "./components/MapEditor";
 import { Rack } from "./components/Rack";
 import { Equipment } from "./components/Equipment";
 import { PowerNodeList } from "./components/PowerNodeList";
+import { MultipointCircuit } from "./components/MultipointCircuit";
+import { CircuitContainer } from "./components/CircuitContainer";
 
 export { BaseMap };
 export { Endpoint };
@@ -27,3 +29,5 @@ export { MapEditor };
 export { Rack };
 export { Equipment };
 export { PowerNodeList };
+export { MultipointCircuit };
+export { CircuitContainer };

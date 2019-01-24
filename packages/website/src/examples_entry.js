@@ -24,6 +24,7 @@ import patchpanel from "./examples/patchpanel/Index";
 import paths from "./examples/paths/Index";
 import equipment from "./examples/equipment/Index";
 import rack from "./examples/rack/Index";
+import combined from "./examples/combined/Index";
 
 export default {
     ...basic,
@@ -37,5 +38,6 @@ export default {
     ...patchpanel,
     ...paths,
     ...equipment,
-    ...rack
+    ...rack,
+    ...combined,
 };

@@ -86,8 +86,10 @@ export class ParallelCircuit extends React.Component {
 
     renderCircuitElements() {
         const elements = [];
-        const x1 = this.props.margin;
-        const x2 = this.props.width - this.props.margin;
+        const start = this.props.start ? this.props.start : this.props.margin;
+        const end = this.props.end ? this.props.end : this.props.width - this.props.margin;
+        const x1 = start;
+        const x2 = end;
         const y1 = this.props.height / 4;
         const y2 = y1;
         const memberList = this.props.memberList;
@@ -177,7 +179,9 @@ export class ParallelCircuit extends React.Component {
             svgStyle = circuitContainer.normal;
         }
 
-        const viewBox = `0 0 ${this.props.width} ${this.props.height}`;
+        const viewBox = this.props.viewBox
+            ? this.props.viewBox
+            : `0 0 ${this.props.width} ${this.props.height}`;
 
         return (
             <svg className={className} style={svgStyle} onClick={this._deselect}>

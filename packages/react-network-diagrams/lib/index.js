@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.PowerNodeList = exports.Equipment = exports.Rack = exports.MapEditor = exports.Resizable = exports.PatchPanel = exports.ParallelCircuit = exports.ConcatenatedCircuit = exports.BasicCircuit = exports.Connection = exports.MapLegend = exports.TrafficMap = exports.Endpoint = exports.BaseMap = undefined;
+exports.CircuitContainer = exports.MultipointCircuit = exports.PowerNodeList = exports.Equipment = exports.Rack = exports.MapEditor = exports.Resizable = exports.PatchPanel = exports.ParallelCircuit = exports.ConcatenatedCircuit = exports.BasicCircuit = exports.Connection = exports.MapLegend = exports.TrafficMap = exports.Endpoint = exports.BaseMap = undefined;
 
 var _BaseMap = require("./components/BaseMap");
 
@@ -33,6 +33,10 @@ var _Equipment = require("./components/Equipment");
 
 var _PowerNodeList = require("./components/PowerNodeList");
 
+var _MultipointCircuit = require("./components/MultipointCircuit");
+
+var _CircuitContainer = require("./components/CircuitContainer");
+
 exports.BaseMap = _BaseMap.BaseMap;
 exports.Endpoint = _Endpoint.Endpoint;
 exports.TrafficMap = _TrafficMap.TrafficMap;
@@ -47,3 +51,5 @@ exports.MapEditor = _MapEditor.MapEditor;
 exports.Rack = _Rack.Rack;
 exports.Equipment = _Equipment.Equipment;
 exports.PowerNodeList = _PowerNodeList.PowerNodeList;
+exports.MultipointCircuit = _MultipointCircuit.MultipointCircuit;
+exports.CircuitContainer = _CircuitContainer.CircuitContainer;

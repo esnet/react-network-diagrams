@@ -63,6 +63,11 @@ export default class extends Component {
                             Patch panels
                         </Link> 
                     </li>
+                    <li>
+                        <Link to="/example/combined">
+                            Combined circuit
+                        </Link> 
+                    </li>
                 </ul>
 
                 <div className="sidebar-heading" style={sidebarTitleStyle}>Equipment</div>

@@ -125,8 +125,10 @@ var ParallelCircuit = exports.ParallelCircuit = function (_React$Component) {
             var _this2 = this;
 
             var elements = [];
-            var x1 = this.props.margin;
-            var x2 = this.props.width - this.props.margin;
+            var start = this.props.start ? this.props.start : this.props.margin;
+            var end = this.props.end ? this.props.end : this.props.width - this.props.margin;
+            var x1 = start;
+            var x2 = end;
             var y1 = this.props.height / 4;
             var y2 = y1;
             var memberList = this.props.memberList;
@@ -215,7 +217,7 @@ var ParallelCircuit = exports.ParallelCircuit = function (_React$Component) {
                 svgStyle = circuitContainer.normal;
             }
 
-            var viewBox = "0 0 " + this.props.width + " " + this.props.height;
+            var viewBox = this.props.viewBox ? this.props.viewBox : "0 0 " + this.props.width + " " + this.props.height;
 
             return _react2.default.createElement(
                 "svg",

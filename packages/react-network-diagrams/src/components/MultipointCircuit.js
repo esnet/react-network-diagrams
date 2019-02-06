@@ -149,6 +149,9 @@ export class MultipointCircuit extends React.Component {
                 y1={y1}
                 y2={y2}
                 key={"circuit-1"}
+                curveDirection={"left"}
+                bendOffset={memberList[0].styleProperties.bendOffset}
+                position={memberList[0].styleProperties.position}
                 style={memberList[0].styleProperties.style}
                 lineShape={memberList[0].styleProperties.lineShape}
                 label={memberList[0].circuitLabel}
@@ -184,6 +187,9 @@ export class MultipointCircuit extends React.Component {
                         y1={y1}
                         y2={y2}
                         key={"circuit-1" + (memberIndex + 1)}
+                        curveDirection={"left"}
+                        bendOffset={member.styleProperties.bendOffset}
+                        position={member.styleProperties.position}
                         style={member.styleProperties.style}
                         lineShape={member.styleProperties.lineShape}
                         label={member.circuitLabel}

@@ -121,6 +121,7 @@ export class CircuitContainer extends React.Component {
                             titleOffsetX={start}
                             titleOffsetY={50}
                             start={start}
+                            spread={this.props.spread}
                             height={this.props.height}
                             end={start + increment}
                             viewBox={`0 0 ${this.props.width} ${this.props.height}`}
@@ -186,6 +187,7 @@ CircuitContainer.defaultProps = {
     titleOffsetX: 10,
     titleOffsetY: 15,
     margin: 100,
+    spread: 40,
     noNavigate: false,
     lineShape: "linear"
 };

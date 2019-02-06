@@ -15,6 +15,9 @@ import { stylesMap } from "../../styles/styles.js";
 
 import combined_docs from "./combined_docs.md";
 
+const bendOffset = 20
+const position = -40
+
 const concatList = [
     {
         styleProperties: {
@@ -80,7 +83,10 @@ const multipointList = [
     {
         styleProperties: {
             style: stylesMap.crossConnect,
-            lineShape: "linear"
+            lineShape: "angled",
+            position: position,
+            bendOffset: bendOffset -10
+
         },
         endpointStyle: stylesMap.endpoint,
         endpointLabelA: `Endpoint 2`,
@@ -91,7 +97,9 @@ const multipointList = [
     {
         styleProperties: {
             style: stylesMap.crossConnect,
-            lineShape: "linear"
+            lineShape: "angled",
+            position: position - 15,
+            bendOffset: bendOffset
         },
         endpointStyle: stylesMap.endpoint,
         endpointLabelA: `Endpoint 2`,
@@ -102,7 +110,9 @@ const multipointList = [
     {
         styleProperties: {
             style: stylesMap.crossConnect,
-            lineShape: "linear"
+            lineShape: "angled",
+            position: position - 15,
+            bendOffset: bendOffset
         },
         endpointStyle: stylesMap.endpoint,
         endpointLabelA: `Endpoint 2`,
@@ -113,7 +123,9 @@ const multipointList = [
     {
         styleProperties: {
             style: stylesMap.crossConnect,
-            lineShape: "linear"
+            lineShape: "angled",
+            position: position,
+            bendOffset: bendOffset -10
         },
         endpointStyle: stylesMap.endpoint,
         endpointLabelA: `Endpoint 2`,
@@ -225,7 +237,8 @@ class combined extends React.Component {
                             <CircuitContainer
                                 title="Example Circuit Container"
                                 combinedList={combinedList}
-                                height={600}
+                                spread={60}
+                                height={1000}
                             />
                         </Resizable>
                     </div>

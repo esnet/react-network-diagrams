@@ -16,5 +16,5 @@
         "prettier": "^1.7.0"
     },
     "dependencies": {},
-    "main": "packages/react-network-diagrams/lib/index"
+    "main": "./packages/react-network-diagrams/lib/index.js"
 }

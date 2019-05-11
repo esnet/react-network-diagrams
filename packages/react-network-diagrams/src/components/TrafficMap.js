@@ -187,8 +187,8 @@ export class TrafficMap extends React.Component {
                 _.each(topology.edges, edge => {
                     const sourceTargetName = `${edge.source}--${edge.target}`;
                     const targetSourceName = `${edge.target}--${edge.source}`;
-                    const sourceTargetTraffic = this.props.traffic.get(sourceTargetName);
-                    const targetSourceTraffic = this.props.traffic.get(targetSourceName);
+                    const sourceTargetTraffic = this.props.traffic.get([sourceTargetName]);
+                    const targetSourceTraffic = this.props.traffic.get([targetSourceName]);
                     edge.sourceTargetColor = this.selectEdgeColor(sourceTargetTraffic);
                     edge.targetSourceColor = this.selectEdgeColor(targetSourceTraffic);
                 });

@@ -236,8 +236,8 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                     _underscore2.default.each(topology.edges, function (edge) {
                         var sourceTargetName = edge.source + "--" + edge.target;
                         var targetSourceName = edge.target + "--" + edge.source;
-                        var sourceTargetTraffic = _this3.props.traffic.get(sourceTargetName);
-                        var targetSourceTraffic = _this3.props.traffic.get(targetSourceName);
+                        var sourceTargetTraffic = _this3.props.traffic.get([sourceTargetName]);
+                        var targetSourceTraffic = _this3.props.traffic.get([targetSourceName]);
                         edge.sourceTargetColor = _this3.selectEdgeColor(sourceTargetTraffic);
                         edge.targetSourceColor = _this3.selectEdgeColor(targetSourceTraffic);
                     });

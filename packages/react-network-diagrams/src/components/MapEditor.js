@@ -418,7 +418,7 @@ export class MapEditor extends React.Component {
                 searchable={false}
                 clearable={false}
                 options={options}
-                onChange={val => this.handleChange(attr, val)}
+                onChange={val => this.handleChange(attr, val.value)}
             />
         );
     }

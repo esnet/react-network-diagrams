@@ -513,7 +513,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                 clearable: false,
                 options: options,
                 onChange: function onChange(val) {
-                    return _this5.handleChange(attr, val);
+                    return _this5.handleChange(attr, val.value);
                 }
             });
         }

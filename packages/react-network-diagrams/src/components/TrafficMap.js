@@ -82,6 +82,34 @@ export class TrafficMap extends React.Component {
         return "#C9CACC";
     }
 
+    selectEdgeColorPercent(bps, capacity) {
+        let cbps = 0;
+        if(capacity.match(/^[0-9]+$/)) {
+            cbps = capacity;
+        }
+        else {
+            const found = capacity.match(/^([0-9]+)(K|M|G)$/);
+            if(found) {
+                switch(found[1]) {
+                    case 'K':
+                        cbps = found[0]*1000;
+                    case 'M':
+                        cbps = found[0]*1.0e6;
+                    case 'G':
+                        cpbs = found[0]*1.0e9;
+                }
+            }
+        }
+        const percent = Math.round((bps/cbps)*100);
+        for (let i = 0; i < this.props.edgeColorMap.length; i++) {
+            const row = this.props.edgeColorMap[i];
+            if (percent >= row.range[0]) {
+                return row.color;
+            }
+        }
+        return "#C9CACC";
+    }
+
     filteredPaths() {
         return _.filter(this.props.topology.paths, path => {
             if (_.isArray(this.props.showPaths)) {
@@ -189,8 +217,14 @@ export class TrafficMap extends React.Component {
                     const targetSourceName = `${edge.target}--${edge.source}`;
                     const sourceTargetTraffic = this.props.traffic.get([sourceTargetName]);
                     const targetSourceTraffic = this.props.traffic.get([targetSourceName]);
-                    edge.sourceTargetColor = this.selectEdgeColor(sourceTargetTraffic);
-                    edge.targetSourceColor = this.selectEdgeColor(targetSourceTraffic);
+                    if(this.props.edgeColorMode === "percent") {
+                        edge.sourceTargetColor = this.selectEdgeColorPercent(sourceTargetTraffic, edge.capacity);
+                        edge.targetSourceColor = this.selectEdgeColorPercent(targetSourceTraffic, edge.capacity);
+                    }
+                    else {
+                        edge.sourceTargetColor = this.selectEdgeColor(sourceTargetTraffic);
+                        edge.targetSourceColor = this.selectEdgeColor(targetSourceTraffic);
+                    }
                 });
             } else {
                 const edgeMap = {};
@@ -221,11 +255,21 @@ export class TrafficMap extends React.Component {
                     const targetSourceName = `${edge.target}--${edge.source}`;
                     if (_.has(edgeMap, sourceTargetName)) {
                         const sourceTargetTraffic = edgeMap[sourceTargetName];
-                        edge.sourceTargetColor = this.selectEdgeColor(sourceTargetTraffic);
+                        if(this.props.edgeColorMode === "percent") {
+                            edge.sourceTargetColor = this.selectEdgeColorPercent(sourceTargetTraffic, edge.capacity);
+                        }
+                        else {
+                            edge.sourceTargetColor = this.selectEdgeColor(sourceTargetTraffic);
+                        }
                     }
                     if (_.has(edgeMap, targetSourceName)) {
                         const targetSourceTraffic = edgeMap[targetSourceName];
-                        edge.targetSourceColor = this.selectEdgeColor(targetSourceTraffic);
+                        if(this.props.edgeColorMode === "percent") {
+                            edge.targetSourceColor = this.selectEdgeColorPercent(targetSourceTraffic, edge.capacity);
+                        }
+                        else {
+                            edge.targetSourceColor = this.selectEdgeColor(targetSourceTraffic);
+                        }
                     }
                 });
             }
@@ -311,6 +355,7 @@ TrafficMap.defaultProps = {
         subG: 1
     },
     edgeColorMap: [],
+    edgeColorMode: "bps",
     nodeSizeMap: {},
     nodeShapeMap: {},
     edgeShapeMap: {},
@@ -379,6 +424,7 @@ TrafficMap.propTypes = {
     edgeThinknessMap: PropTypes.object,
 
     edgeColorMap: PropTypes.array,
+    edgeColorMode: PropTypes.oneOf(["bps", "percent"]),
 
     /**
      * A mapping from the type field in the node object to a size to draw the shape

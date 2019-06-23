@@ -131,6 +131,34 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
             return "#C9CACC";
         }
     }, {
+        key: "selectEdgeColorPercent",
+        value: function selectEdgeColorPercent(bps, capacity) {
+            var cbps = 0;
+            if (capacity.match(/^[0-9]+$/)) {
+                cbps = capacity;
+            } else {
+                var found = capacity.match(/^([0-9]+)(K|M|G)$/);
+                if (found) {
+                    switch (found[1]) {
+                        case 'K':
+                            cbps = found[0] * 1000;
+                        case 'M':
+                            cbps = found[0] * 1.0e6;
+                        case 'G':
+                            cpbs = found[0] * 1.0e9;
+                    }
+                }
+            }
+            var percent = Math.round(bps / cbps * 100);
+            for (var i = 0; i < this.props.edgeColorMap.length; i++) {
+                var row = this.props.edgeColorMap[i];
+                if (percent >= row.range[0]) {
+                    return row.color;
+                }
+            }
+            return "#C9CACC";
+        }
+    }, {
         key: "filteredPaths",
         value: function filteredPaths() {
             var _this2 = this;
@@ -238,8 +266,13 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                         var targetSourceName = edge.target + "--" + edge.source;
                         var sourceTargetTraffic = _this3.props.traffic.get([sourceTargetName]);
                         var targetSourceTraffic = _this3.props.traffic.get([targetSourceName]);
-                        edge.sourceTargetColor = _this3.selectEdgeColor(sourceTargetTraffic);
-                        edge.targetSourceColor = _this3.selectEdgeColor(targetSourceTraffic);
+                        if (_this3.props.edgeColorMode === "percent") {
+                            edge.sourceTargetColor = _this3.selectEdgeColorPercent(sourceTargetTraffic, edge.capacity);
+                            edge.targetSourceColor = _this3.selectEdgeColorPercent(targetSourceTraffic, edge.capacity);
+                        } else {
+                            edge.sourceTargetColor = _this3.selectEdgeColor(sourceTargetTraffic);
+                            edge.targetSourceColor = _this3.selectEdgeColor(targetSourceTraffic);
+                        }
                     });
                 } else {
                     var edgeMap = {};
@@ -270,11 +303,19 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                         var targetSourceName = edge.target + "--" + edge.source;
                         if (_underscore2.default.has(edgeMap, sourceTargetName)) {
                             var sourceTargetTraffic = edgeMap[sourceTargetName];
-                            edge.sourceTargetColor = _this3.selectEdgeColor(sourceTargetTraffic);
+                            if (_this3.props.edgeColorMode === "percent") {
+                                edge.sourceTargetColor = _this3.selectEdgeColorPercent(sourceTargetTraffic, edge.capacity);
+                            } else {
+                                edge.sourceTargetColor = _this3.selectEdgeColor(sourceTargetTraffic);
+                            }
                         }
                         if (_underscore2.default.has(edgeMap, targetSourceName)) {
                             var targetSourceTraffic = edgeMap[targetSourceName];
-                            edge.targetSourceColor = _this3.selectEdgeColor(targetSourceTraffic);
+                            if (_this3.props.edgeColorMode === "percent") {
+                                edge.targetSourceColor = _this3.selectEdgeColorPercent(targetSourceTraffic, edge.capacity);
+                            } else {
+                                edge.targetSourceColor = _this3.selectEdgeColor(targetSourceTraffic);
+                            }
                         }
                     });
                 }
@@ -367,6 +408,7 @@ TrafficMap.defaultProps = {
         subG: 1
     },
     edgeColorMap: [],
+    edgeColorMode: "bps",
     nodeSizeMap: {},
     nodeShapeMap: {},
     edgeShapeMap: {},
@@ -435,6 +477,7 @@ TrafficMap.propTypes = {
     edgeThinknessMap: _propTypes2.default.object,
 
     edgeColorMap: _propTypes2.default.array,
+    edgeColorMode: _propTypes2.default.oneOf(["bps", "percent"]),
 
     /**
      * A mapping from the type field in the node object to a size to draw the shape

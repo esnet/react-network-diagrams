@@ -90,13 +90,13 @@ export class TrafficMap extends React.Component {
         else {
             const found = capacity.match(/^([0-9]+)(K|M|G)$/);
             if(found) {
-                switch(found[1]) {
+                switch(found[2]) {
                     case 'K':
-                        cbps = found[0]*1000;
+                        cbps = found[1]*1000;
                     case 'M':
-                        cbps = found[0]*1.0e6;
+                        cbps = found[1]*1.0e6;
                     case 'G':
-                        cpbs = found[0]*1.0e9;
+                        cbps = found[1]*1.0e9;
                 }
             }
         }
@@ -218,8 +218,8 @@ export class TrafficMap extends React.Component {
                     const sourceTargetTraffic = this.props.traffic.get([sourceTargetName]);
                     const targetSourceTraffic = this.props.traffic.get([targetSourceName]);
                     if(this.props.edgeColorMode === "percent") {
-                        edge.sourceTargetColor = this.selectEdgeColorPercent(sourceTargetTraffic, edge.capacity);
-                        edge.targetSourceColor = this.selectEdgeColorPercent(targetSourceTraffic, edge.capacity);
+                        edge.sourceTargetColor = this.selectEdgeColorPercent(sourceTargetTraffic, edge.classed);
+                        edge.targetSourceColor = this.selectEdgeColorPercent(targetSourceTraffic, edge.classed);
                     }
                     else {
                         edge.sourceTargetColor = this.selectEdgeColor(sourceTargetTraffic);
@@ -256,7 +256,7 @@ export class TrafficMap extends React.Component {
                     if (_.has(edgeMap, sourceTargetName)) {
                         const sourceTargetTraffic = edgeMap[sourceTargetName];
                         if(this.props.edgeColorMode === "percent") {
-                            edge.sourceTargetColor = this.selectEdgeColorPercent(sourceTargetTraffic, edge.capacity);
+                            edge.sourceTargetColor = this.selectEdgeColorPercent(sourceTargetTraffic, edge.classed);
                         }
                         else {
                             edge.sourceTargetColor = this.selectEdgeColor(sourceTargetTraffic);
@@ -265,7 +265,7 @@ export class TrafficMap extends React.Component {
                     if (_.has(edgeMap, targetSourceName)) {
                         const targetSourceTraffic = edgeMap[targetSourceName];
                         if(this.props.edgeColorMode === "percent") {
-                            edge.targetSourceColor = this.selectEdgeColorPercent(targetSourceTraffic, edge.capacity);
+                            edge.targetSourceColor = this.selectEdgeColorPercent(targetSourceTraffic, edge.classed);
                         }
                         else {
                             edge.targetSourceColor = this.selectEdgeColor(targetSourceTraffic);

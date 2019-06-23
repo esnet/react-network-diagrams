@@ -139,13 +139,13 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
             } else {
                 var found = capacity.match(/^([0-9]+)(K|M|G)$/);
                 if (found) {
-                    switch (found[1]) {
+                    switch (found[2]) {
                         case 'K':
-                            cbps = found[0] * 1000;
+                            cbps = found[1] * 1000;
                         case 'M':
-                            cbps = found[0] * 1.0e6;
+                            cbps = found[1] * 1.0e6;
                         case 'G':
-                            cpbs = found[0] * 1.0e9;
+                            cbps = found[1] * 1.0e9;
                     }
                 }
             }
@@ -267,8 +267,8 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                         var sourceTargetTraffic = _this3.props.traffic.get([sourceTargetName]);
                         var targetSourceTraffic = _this3.props.traffic.get([targetSourceName]);
                         if (_this3.props.edgeColorMode === "percent") {
-                            edge.sourceTargetColor = _this3.selectEdgeColorPercent(sourceTargetTraffic, edge.capacity);
-                            edge.targetSourceColor = _this3.selectEdgeColorPercent(targetSourceTraffic, edge.capacity);
+                            edge.sourceTargetColor = _this3.selectEdgeColorPercent(sourceTargetTraffic, edge.classed);
+                            edge.targetSourceColor = _this3.selectEdgeColorPercent(targetSourceTraffic, edge.classed);
                         } else {
                             edge.sourceTargetColor = _this3.selectEdgeColor(sourceTargetTraffic);
                             edge.targetSourceColor = _this3.selectEdgeColor(targetSourceTraffic);
@@ -304,7 +304,7 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                         if (_underscore2.default.has(edgeMap, sourceTargetName)) {
                             var sourceTargetTraffic = edgeMap[sourceTargetName];
                             if (_this3.props.edgeColorMode === "percent") {
-                                edge.sourceTargetColor = _this3.selectEdgeColorPercent(sourceTargetTraffic, edge.capacity);
+                                edge.sourceTargetColor = _this3.selectEdgeColorPercent(sourceTargetTraffic, edge.classed);
                             } else {
                                 edge.sourceTargetColor = _this3.selectEdgeColor(sourceTargetTraffic);
                             }
@@ -312,7 +312,7 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                         if (_underscore2.default.has(edgeMap, targetSourceName)) {
                             var targetSourceTraffic = edgeMap[targetSourceName];
                             if (_this3.props.edgeColorMode === "percent") {
-                                edge.targetSourceColor = _this3.selectEdgeColorPercent(targetSourceTraffic, edge.capacity);
+                                edge.targetSourceColor = _this3.selectEdgeColorPercent(targetSourceTraffic, edge.classed);
                             } else {
                                 edge.targetSourceColor = _this3.selectEdgeColor(targetSourceTraffic);
                             }

@@ -596,6 +596,10 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                 options: _underscore2.default.map(this.props.edgeThicknessMap, function (e, k) {
                     return { value: k, label: k };
                 })
+            }, {
+                attr: "source_int",
+                label: "Source Interface",
+                type: "text"
             }];
 
             var propertyElements = void 0;
@@ -742,7 +746,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                         className: "btn btn-default btn-xs",
                         onClick: this.handleAddNode
                     },
-                    _react2.default.createElement("span", { className: "glyphicon glyphicon-plus", "aria-hidden": "true" }),
+                    _react2.default.createElement("span", { className: "icon-plus", "aria-hidden": "true" }),
                     " Node"
                 ),
                 _react2.default.createElement(
@@ -753,7 +757,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                         className: "btn btn-default btn-xs",
                         onClick: this.handleAddEdge
                     },
-                    _react2.default.createElement("span", { className: "glyphicon glyphicon-plus", "aria-hidden": "true" }),
+                    _react2.default.createElement("span", { className: "icon-plus", "aria-hidden": "true" }),
                     " Edge"
                 ),
                 _react2.default.createElement(
@@ -764,7 +768,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                         className: "btn btn-default btn-xs",
                         onClick: this.handleDeleteNode
                     },
-                    _react2.default.createElement("span", { className: "glyphicon glyphicon-minus", "aria-hidden": "true" }),
+                    _react2.default.createElement("span", { className: "icon-minus", "aria-hidden": "true" }),
                     " Node"
                 ),
                 _react2.default.createElement(
@@ -775,7 +779,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                         className: "btn btn-default btn-xs",
                         onClick: this.handleDeleteEdge
                     },
-                    _react2.default.createElement("span", { className: "glyphicon glyphicon-minus", "aria-hidden": "true" }),
+                    _react2.default.createElement("span", { className: "icon-minus", "aria-hidden": "true" }),
                     " Edge"
                 ),
                 _react2.default.createElement(

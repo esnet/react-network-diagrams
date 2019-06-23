@@ -486,6 +486,11 @@ export class MapEditor extends React.Component {
                 options: _.map(this.props.edgeThicknessMap, (e, k) => {
                     return { value: k, label: k };
                 })
+            },
+            {
+                attr: "source_int",
+                label: "Source Interface",
+                type: "text"
             }
         ];
 
@@ -598,7 +603,7 @@ export class MapEditor extends React.Component {
                     className="btn btn-default btn-xs"
                     onClick={this.handleAddNode}
                 >
-                    <span className="glyphicon glyphicon-plus" aria-hidden="true" /> Node
+                    <span className="icon-plus" aria-hidden="true" /> Node
                 </button>
                 <button
                     type="button"
@@ -606,7 +611,7 @@ export class MapEditor extends React.Component {
                     className="btn btn-default btn-xs"
                     onClick={this.handleAddEdge}
                 >
-                    <span className="glyphicon glyphicon-plus" aria-hidden="true" /> Edge
+                    <span className="icon-plus" aria-hidden="true" /> Edge
                 </button>
                 <button
                     type="button"
@@ -614,7 +619,7 @@ export class MapEditor extends React.Component {
                     className="btn btn-default btn-xs"
                     onClick={this.handleDeleteNode}
                 >
-                    <span className="glyphicon glyphicon-minus" aria-hidden="true" /> Node
+                    <span className="icon-minus" aria-hidden="true" /> Node
                 </button>
                 <button
                     type="button"
@@ -622,7 +627,7 @@ export class MapEditor extends React.Component {
                     className="btn btn-default btn-xs"
                     onClick={this.handleDeleteEdge}
                 >
-                    <span className="glyphicon glyphicon-minus" aria-hidden="true" /> Edge
+                    <span className="icon-minus" aria-hidden="true" /> Edge
                 </button>
                 <span style={{ color: "steelblue", marginLeft: 10 }}>
                     {this.state.pendingAction ? this.state.pendingAction.instructions : null}

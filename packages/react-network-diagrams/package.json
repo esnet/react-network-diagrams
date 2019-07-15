@@ -1,6 +1,6 @@
 {
   "name": "react-network-diagrams",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "keywords": [
     "network",
     "circuits",
@@ -27,16 +27,6 @@
     "precommit": "lint-staged",
     "prettier": "prettier --print-width 100 --tab-width 4 --write \"./src/**/*.js\""
   },
-  "lint-staged": {
-    "*.js": [
-      "prettier --print-width 100 --tab-width 4 --write",
-      "git add"
-    ]
-  },
-  "pre-commit": [
-    "lint",
-    "build"
-  ],
   "license": "BSD-3-Clause-LBNL",
   "dependencies": {
     "babel-runtime": "^6.23.0",
@@ -44,7 +34,8 @@
     "keymirror": "^0.1.1",
     "prop-types": "^15.5.10",
     "underscore": "^1.8.3",
-    "victor": "^1.1.0"
+    "victor": "^1.1.0",
+    "react-select": "^1.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -66,8 +57,7 @@
     "react": "^16.2.0",
     "react-docgen": "^2.20.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "^1.1.0",
-    "react-select": "^1.2.1"
+    "react-scripts": "^1.1.0"
   },
   "peerDependencies": {
     "react": "^15.3.1 || ^16.0"

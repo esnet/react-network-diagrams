@@ -414,7 +414,6 @@ export class MapEditor extends React.Component {
     renderChoiceProperty(attr, options, cvalue) {
         return (
             <Select
-                value={value}
                 value={options.filter(({value}) => value === cvalue)}
                 searchable={false}
                 clearable={false}

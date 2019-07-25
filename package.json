@@ -1,5 +1,5 @@
 {
-	"scripts": {
+    "scripts": {
         "start": "cd packages/website && npm run start",
         "precommit": "lint-staged"
     },
@@ -15,5 +15,7 @@
         "lint-staged": "^3.4.0",
         "prettier": "^1.7.0"
     },
-    "dependencies": {}
+    "dependencies": {
+        "react-select": "^3.0.4"
+    }
 }

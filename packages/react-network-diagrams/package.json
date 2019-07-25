@@ -67,7 +67,7 @@
     "react-docgen": "^2.20.0",
     "react-dom": "^16.2.0",
     "react-scripts": "^1.1.0",
-    "react-select": "^1.2.1"
+    "react-select": "^3.0.4"
   },
   "peerDependencies": {
     "react": "^15.3.1 || ^16.0"

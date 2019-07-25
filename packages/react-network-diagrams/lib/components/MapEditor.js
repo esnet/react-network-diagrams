@@ -31,6 +31,8 @@ var _Resizable = require("./Resizable");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -504,18 +506,18 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
         }
     }, {
         key: "renderChoiceProperty",
-        value: function renderChoiceProperty(attr, options, value) {
-            var _this5 = this;
+        value: function renderChoiceProperty(attr, options, cvalue) {
+            var _this5 = this,
+                _React$createElement;
 
-            return _react2.default.createElement(_reactSelect2.default, {
-                value: value,
-                searchable: false,
-                clearable: false,
-                options: options,
-                onChange: function onChange(val) {
-                    return _this5.handleChange(attr, val.value);
-                }
-            });
+            return _react2.default.createElement(_reactSelect2.default, (_React$createElement = {
+                value: value
+            }, _defineProperty(_React$createElement, "value", options.filter(function (_ref) {
+                var value = _ref.value;
+                return value === cvalue;
+            })), _defineProperty(_React$createElement, "searchable", false), _defineProperty(_React$createElement, "clearable", false), _defineProperty(_React$createElement, "options", options), _defineProperty(_React$createElement, "onChange", function onChange(val) {
+                return _this5.handleChange(attr, val.value);
+            }), _React$createElement));
         }
     }, {
         key: "renderNodeProperties",

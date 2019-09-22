@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "prismjs": "^1.8.1"
+    "prismjs": "^1.8.1",
+    "react-select": "^1.2.1"
   },
   "devDependencies": {
     "eslint": "^4.16.0",

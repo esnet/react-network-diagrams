@@ -19,7 +19,7 @@ To render a concatenated circuit, we pass in the list of member circuits as the 
 
 ```js
 
-import { ConcatenatedCircuit } from "react-network-diagrams";
+import { ConcatenatedCircuit } from "react-network-diagrams-hso";
 
 ...
 

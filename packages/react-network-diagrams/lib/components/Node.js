@@ -307,7 +307,7 @@ var Node = exports.Node = function (_React$Component) {
          * for this node
          */
         value: function spec() {
-            return [{ attr: "name", label: "Name", type: "text" }, { attr: "x", label: "Position x", type: "integer" }, { attr: "y", label: "Position y", type: "integer" }, { attr: "label_dx", label: "Label offset x", type: "integer" }, { attr: "label_dy", label: "Label offset y", type: "integer" }, {
+            return [{ attr: "name", label: "Name", type: "text" }, { attr: "id", label: "ID", type: "text" }, { attr: "x", label: "Position x", type: "integer" }, { attr: "y", label: "Position y", type: "integer" }, { attr: "label_dx", label: "Label offset x", type: "integer" }, { attr: "label_dy", label: "Label offset y", type: "integer" }, {
                 attr: "label_position",
                 label: "Label position",
                 type: "choice",

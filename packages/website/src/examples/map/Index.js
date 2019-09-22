@@ -11,7 +11,7 @@
 import React from "react";
 import _ from "underscore";
 import { TimeEvent } from "pondjs";
-import { TrafficMap } from "react-network-diagrams";
+import { TrafficMap } from "react-network-diagrams-hso";
 import * as Immutable from "immutable";
 
 import map_docs from "./map_docs.md";

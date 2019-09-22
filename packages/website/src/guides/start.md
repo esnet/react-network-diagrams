@@ -9,7 +9,7 @@ The charts library is intended to be used with npm and the built into your proje
 
 Once installed, you can import the necessary components from the library, for example:
 
-    import { TrafficMap } from "react-network-diagrams";
+    import { TrafficMap } from "react-network-diagrams-hso";
 
 Then `render()` the traffic map in your component.
 
@@ -28,7 +28,7 @@ Then `render()` the traffic map in your component.
 **Step 2** Import the TrafficMap component from react-network-diagrams:
 
 ```js
-import { TrafficMap } from "react-network-diagrams";
+import { TrafficMap } from "react-network-diagrams-hso";
 ```
 
 **Step 3** Define a minimal topology. Here's one copy and pasted from the Editor example in the docs:

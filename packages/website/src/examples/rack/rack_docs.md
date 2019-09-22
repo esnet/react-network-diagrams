@@ -2,7 +2,7 @@ Here is a simple example of using an `<Rack>` directly:
 
 ```jsx
 
-import { Rack } from "react-network-diagrams";
+import { Rack } from "react-network-diagrams-hso";
 
 ...
 

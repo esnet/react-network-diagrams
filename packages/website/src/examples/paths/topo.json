@@ -9,8 +9,7 @@
       "site": null,
       "type": "hub",
       "x": 75,
-      "y": 85,
-      "id": "29fb2630-0afb-4885-bb6f-81383456a277"
+      "y": 85
     },
     {
       "capacity": "100G",
@@ -21,8 +20,7 @@
       "site": null,
       "type": "hub",
       "x": 230,
-      "y": 50,
-      "id": "9cc9f5dc-1398-4ac7-b604-61ac5201809d"
+      "y": 50
     },
     {
       "capacity": "100G",
@@ -33,8 +31,7 @@
       "site": null,
       "type": "hub",
       "x": 168,
-      "y": 67,
-      "id": "14a84016-c06b-45c6-866a-2da50c4e66b9"
+      "y": 67
     },
     {
       "capacity": "100G",
@@ -45,8 +42,7 @@
       "site": null,
       "type": "hub",
       "x": 135,
-      "y": 100,
-      "id": "0ea09083-3ec7-449b-9066-4926a18f6364"
+      "y": 100
     },
     {
       "capacity": "",
@@ -59,8 +55,7 @@
       "site_type": "SC Lab",
       "type": "esnet-site",
       "x": 182,
-      "y": 53,
-      "id": "593d1a4b-b019-45f7-9190-fb9e81a14b08"
+      "y": 53
     },
     {
       "capacity": "10G",
@@ -71,8 +66,7 @@
       "site": null,
       "type": "hub",
       "x": 37.5,
-      "y": 41,
-      "id": "66cb4d3f-67aa-42a5-bd98-465483a99493"
+      "y": 41
     },
     {
       "capacity": "10G",
@@ -83,8 +77,7 @@
       "site": null,
       "type": "hub",
       "x": 175,
-      "y": 40,
-      "id": "99d19e0b-e903-449f-afcc-b19fc236fc88"
+      "y": 40
     },
     {
       "capacity": "100G",
@@ -95,8 +88,7 @@
       "site": "CERN",
       "type": "esnet-site",
       "x": 230,
-      "y": 70,
-      "id": "3844f377-719b-4acd-9db1-3589b52ca744"
+      "y": 70
     },
     {
       "capacity": "100G",
@@ -107,8 +99,7 @@
       "site": null,
       "type": "hub",
       "x": 120,
-      "y": 60,
-      "id": "154385f2-3397-49a8-bcb9-74e4c9c1b404"
+      "y": 60
     },
     {
       "capacity": "100G",
@@ -119,8 +110,7 @@
       "site": null,
       "type": "hub",
       "x": 75,
-      "y": 60,
-      "id": "a362114e-6e36-4293-a444-fff6916ebd9e"
+      "y": 60
     },
     {
       "capacity": "100G",
@@ -131,8 +121,7 @@
       "site": null,
       "type": "hub",
       "x": 75,
-      "y": 105,
-      "id": "d9f608bc-3453-41bc-a6cf-b7b353978447"
+      "y": 105
     },
     {
       "capacity": "",
@@ -145,8 +134,7 @@
       "site_type": "SC Lab",
       "type": "esnet-site",
       "x": 120,
-      "y": 40,
-      "id": "921a2830-ceda-4bc9-9b3f-e793a465873a"
+      "y": 40
     },
     {
       "capacity": "100G",
@@ -158,8 +146,7 @@
       "site": null,
       "type": "cloud",
       "x": 0,
-      "y": 77,
-      "id": "724b54dd-7ced-42ca-ae0b-176db8dad065"
+      "y": 77
     },
     {
       "capacity": "100G",
@@ -171,8 +158,7 @@
       "site": null,
       "type": "cloud",
       "x": 96,
-      "y": 41,
-      "id": "d9b82ddc-16d5-4264-a00f-b862c2678356"
+      "y": 41
     },
     {
       "capacity": "100G",
@@ -183,8 +169,7 @@
       "site": null,
       "type": "hub",
       "x": 100,
-      "y": 105,
-      "id": "b7a64a66-91ad-4909-9feb-448b39d998a2"
+      "y": 105
     },
     {
       "capacity": "100G",
@@ -195,8 +180,7 @@
       "site": null,
       "type": "hub",
       "x": 100,
-      "y": 60,
-      "id": "332c14bf-484f-4013-8f33-a6236c780ffe"
+      "y": 60
     },
     {
       "capacity": "",
@@ -209,8 +193,7 @@
       "site_type": "Multi-purpose Lab",
       "type": "esnet-site",
       "x": 30,
-      "y": 77,
-      "id": "a3dfd4d6-da2c-45c4-bc95-2fac2165309f"
+      "y": 77
     },
     {
       "capacity": "100G",
@@ -221,8 +204,7 @@
       "site": null,
       "type": "hub",
       "x": 220,
-      "y": 60,
-      "id": "67f1bfd6-f9f8-40e7-87f7-fee356f10525"
+      "y": 60
     },
     {
       "capacity": "100G",
@@ -233,8 +215,7 @@
       "site": null,
       "type": "exchange",
       "x": 165,
-      "y": 82,
-      "id": "5dceadc0-820a-4274-937a-08273e7bdc1f"
+      "y": 82
     },
     {
       "capacity": "100G",
@@ -245,8 +226,7 @@
       "site": null,
       "type": "cloud",
       "x": 175,
-      "y": 82,
-      "id": "6619fc2d-cbfb-40be-b0d9-889bb26bf540"
+      "y": 82
     },
     {
       "capacity": "100G",
@@ -257,8 +237,7 @@
       "site": null,
       "type": "hub",
       "x": 120,
-      "y": 85,
-      "id": "35bb18ff-a99a-46eb-889e-9047664d84e9"
+      "y": 85
     },
     {
       "capacity": "100G",
@@ -271,8 +250,7 @@
       "site_type": "SC Facility",
       "type": "esnet-site",
       "x": 10,
-      "y": 85,
-      "id": "7b9f09fc-ea49-40bc-bae8-bab9ddee84c2"
+      "y": 85
     },
     {
       "capacity": "100G",
@@ -283,8 +261,7 @@
       "site": null,
       "type": "hub",
       "x": 10,
-      "y": 75,
-      "id": "2322b450-8d4c-47de-98c7-fff39b053b6a"
+      "y": 75
     },
     {
       "capacity": "100G",
@@ -296,8 +273,7 @@
       "site": null,
       "type": "cloud",
       "x": 10,
-      "y": 67,
-      "id": "47271d67-8b07-4942-9acc-c460a08d61d5"
+      "y": 67
     },
     {
       "capacity": "100G",
@@ -308,8 +284,7 @@
       "site": null,
       "type": "hub",
       "x": 175,
-      "y": 60,
-      "id": "e0ce56e2-d881-440d-a310-1ecf4dc74441"
+      "y": 60
     },
     {
       "capacity": "100G",
@@ -320,8 +295,7 @@
       "site": null,
       "type": "cloud",
       "x": 165,
-      "y": 92,
-      "id": "a89c576a-12a3-4a38-9dc2-bdb30873ec8c"
+      "y": 92
     },
     {
       "capacity": "100G",
@@ -332,8 +306,7 @@
       "site": null,
       "type": "hub",
       "x": 20,
-      "y": 20,
-      "id": "ed4edf1d-02e2-4da0-91b7-2fc707ee5356"
+      "y": 20
     },
     {
       "capacity": "100G",
@@ -344,8 +317,7 @@
       "site": null,
       "type": "hub",
       "x": 20,
-      "y": 60,
-      "id": "7b9ad5ce-e872-4948-a0d8-b06f420c03d7"
+      "y": 60
     },
     {
       "capacity": "10G",
@@ -356,8 +328,7 @@
       "site": null,
       "type": "hub",
       "x": 20,
-      "y": 105,
-      "id": "69c3b6ac-115c-42ab-a087-d6025bc3c19f"
+      "y": 105
     },
     {
       "capacity": "100G",
@@ -368,8 +339,7 @@
       "site": null,
       "type": "sc15",
       "x": 102,
-      "y": 113,
-      "id": "dfc50239-d747-4f87-9474-ef07abef9d10"
+      "y": 113
     },
     {
       "capacity": "100G",
@@ -380,8 +350,7 @@
       "site": null,
       "type": "hub",
       "x": 120,
-      "y": 50,
-      "id": "936e20ff-5f59-43ba-a25c-7b12d7647f0d"
+      "y": 50
     },
     {
       "capacity": "100G",
@@ -393,8 +362,7 @@
       "site": null,
       "type": "exchange",
       "x": 105,
-      "y": 50,
-      "id": "a3a4dd4f-9eef-4a01-a107-c0c73261a785"
+      "y": 50
     },
     {
       "capacity": "100G",
@@ -405,8 +373,7 @@
       "site": null,
       "type": "hub",
       "x": 105,
-      "y": 44,
-      "id": "0b05445b-8773-4cae-9a70-7abf523e75f6"
+      "y": 44
     },
     {
       "capacity": "100G",
@@ -418,8 +385,7 @@
       "site": null,
       "type": "cloud",
       "x": 105,
-      "y": 35,
-      "id": "ce99ce4b-7add-4d04-881b-5214a2041ac2"
+      "y": 35
     },
     {
       "capacity": "100G",
@@ -430,8 +396,7 @@
       "site": null,
       "type": "hub",
       "x": 20,
-      "y": 85,
-      "id": "115d25f4-e64a-4037-9282-828dac87a3f2"
+      "y": 85
     },
     {
       "capacity": "100G",
@@ -442,8 +407,7 @@
       "site": null,
       "type": "cloud",
       "x": 111,
-      "y": 57,
-      "id": "f9064048-36de-4c5c-9a58-c5687ece74df"
+      "y": 57
     },
     {
       "capacity": "100G",
@@ -454,8 +418,7 @@
       "site": null,
       "type": "hub",
       "x": 158,
-      "y": 77,
-      "id": "e8682b5e-e7cc-4184-8863-8e044527932d"
+      "y": 77
     },
     {
       "id": "32331551-c8d3-4d51-a377-7cfea9467401",
@@ -479,8 +442,7 @@
       "site": null,
       "type": "hub",
       "x": 75,
-      "y": 85,
-      "id": "29fb2630-0afb-4885-bb6f-81383456a277"
+      "y": 85
     },
     {
       "capacity": "100G",
@@ -491,8 +453,7 @@
       "site": null,
       "type": "hub",
       "x": 230,
-      "y": 50,
-      "id": "9cc9f5dc-1398-4ac7-b604-61ac5201809d"
+      "y": 50
     },
     {
       "capacity": "100G",
@@ -503,8 +464,7 @@
       "site": null,
       "type": "hub",
       "x": 168,
-      "y": 67,
-      "id": "14a84016-c06b-45c6-866a-2da50c4e66b9"
+      "y": 67
     },
     {
       "capacity": "100G",
@@ -515,8 +475,7 @@
       "site": null,
       "type": "hub",
       "x": 135,
-      "y": 100,
-      "id": "0ea09083-3ec7-449b-9066-4926a18f6364"
+      "y": 100
     },
     {
       "capacity": "",
@@ -529,8 +488,7 @@
       "site_type": "SC Lab",
       "type": "esnet-site",
       "x": 182,
-      "y": 53,
-      "id": "593d1a4b-b019-45f7-9190-fb9e81a14b08"
+      "y": 53
     },
     {
       "capacity": "10G",
@@ -541,8 +499,7 @@
       "site": null,
       "type": "hub",
       "x": 37.5,
-      "y": 41,
-      "id": "66cb4d3f-67aa-42a5-bd98-465483a99493"
+      "y": 41
     },
     {
       "capacity": "10G",
@@ -553,8 +510,7 @@
       "site": null,
       "type": "hub",
       "x": 175,
-      "y": 40,
-      "id": "99d19e0b-e903-449f-afcc-b19fc236fc88"
+      "y": 40
     },
     {
       "capacity": "100G",
@@ -565,8 +521,7 @@
       "site": "CERN",
       "type": "esnet-site",
       "x": 230,
-      "y": 70,
-      "id": "3844f377-719b-4acd-9db1-3589b52ca744"
+      "y": 70
     },
     {
       "capacity": "100G",
@@ -577,8 +532,7 @@
       "site": null,
       "type": "hub",
       "x": 120,
-      "y": 60,
-      "id": "154385f2-3397-49a8-bcb9-74e4c9c1b404"
+      "y": 60
     },
     {
       "capacity": "100G",
@@ -589,8 +543,7 @@
       "site": null,
       "type": "hub",
       "x": 75,
-      "y": 60,
-      "id": "a362114e-6e36-4293-a444-fff6916ebd9e"
+      "y": 60
     },
     {
       "capacity": "100G",
@@ -601,8 +554,7 @@
       "site": null,
       "type": "hub",
       "x": 75,
-      "y": 105,
-      "id": "d9f608bc-3453-41bc-a6cf-b7b353978447"
+      "y": 105
     },
     {
       "capacity": "",
@@ -615,8 +567,7 @@
       "site_type": "SC Lab",
       "type": "esnet-site",
       "x": 120,
-      "y": 40,
-      "id": "921a2830-ceda-4bc9-9b3f-e793a465873a"
+      "y": 40
     },
     {
       "capacity": "100G",
@@ -628,8 +579,7 @@
       "site": null,
       "type": "cloud",
       "x": 0,
-      "y": 77,
-      "id": "724b54dd-7ced-42ca-ae0b-176db8dad065"
+      "y": 77
     },
     {
       "capacity": "100G",
@@ -641,8 +591,7 @@
       "site": null,
       "type": "cloud",
       "x": 96,
-      "y": 41,
-      "id": "d9b82ddc-16d5-4264-a00f-b862c2678356"
+      "y": 41
     },
     {
       "capacity": "100G",
@@ -653,8 +602,7 @@
       "site": null,
       "type": "hub",
       "x": 100,
-      "y": 105,
-      "id": "b7a64a66-91ad-4909-9feb-448b39d998a2"
+      "y": 105
     },
     {
       "capacity": "100G",
@@ -665,8 +613,7 @@
       "site": null,
       "type": "hub",
       "x": 100,
-      "y": 60,
-      "id": "332c14bf-484f-4013-8f33-a6236c780ffe"
+      "y": 60
     },
     {
       "capacity": "",
@@ -679,8 +626,7 @@
       "site_type": "Multi-purpose Lab",
       "type": "esnet-site",
       "x": 30,
-      "y": 77,
-      "id": "a3dfd4d6-da2c-45c4-bc95-2fac2165309f"
+      "y": 77
     },
     {
       "capacity": "100G",
@@ -691,8 +637,7 @@
       "site": null,
       "type": "hub",
       "x": 220,
-      "y": 60,
-      "id": "67f1bfd6-f9f8-40e7-87f7-fee356f10525"
+      "y": 60
     },
     {
       "capacity": "100G",
@@ -703,8 +648,7 @@
       "site": null,
       "type": "exchange",
       "x": 165,
-      "y": 82,
-      "id": "5dceadc0-820a-4274-937a-08273e7bdc1f"
+      "y": 82
     },
     {
       "capacity": "100G",
@@ -715,8 +659,7 @@
       "site": null,
       "type": "cloud",
       "x": 175,
-      "y": 82,
-      "id": "6619fc2d-cbfb-40be-b0d9-889bb26bf540"
+      "y": 82
     },
     {
       "capacity": "100G",
@@ -727,8 +670,7 @@
       "site": null,
       "type": "hub",
       "x": 120,
-      "y": 85,
-      "id": "35bb18ff-a99a-46eb-889e-9047664d84e9"
+      "y": 85
     },
     {
       "capacity": "100G",
@@ -741,8 +683,7 @@
       "site_type": "SC Facility",
       "type": "esnet-site",
       "x": 10,
-      "y": 85,
-      "id": "7b9f09fc-ea49-40bc-bae8-bab9ddee84c2"
+      "y": 85
     },
     {
       "capacity": "100G",
@@ -753,8 +694,7 @@
       "site": null,
       "type": "hub",
       "x": 10,
-      "y": 75,
-      "id": "2322b450-8d4c-47de-98c7-fff39b053b6a"
+      "y": 75
     },
     {
       "capacity": "100G",
@@ -766,8 +706,7 @@
       "site": null,
       "type": "cloud",
       "x": 10,
-      "y": 67,
-      "id": "47271d67-8b07-4942-9acc-c460a08d61d5"
+      "y": 67
     },
     {
       "capacity": "100G",
@@ -778,8 +717,7 @@
       "site": null,
       "type": "hub",
       "x": 175,
-      "y": 60,
-      "id": "e0ce56e2-d881-440d-a310-1ecf4dc74441"
+      "y": 60
     },
     {
       "capacity": "100G",
@@ -790,8 +728,7 @@
       "site": null,
       "type": "cloud",
       "x": 165,
-      "y": 92,
-      "id": "a89c576a-12a3-4a38-9dc2-bdb30873ec8c"
+      "y": 92
     },
     {
       "capacity": "100G",
@@ -802,8 +739,7 @@
       "site": null,
       "type": "hub",
       "x": 20,
-      "y": 20,
-      "id": "ed4edf1d-02e2-4da0-91b7-2fc707ee5356"
+      "y": 20
     },
     {
       "capacity": "100G",
@@ -814,8 +750,7 @@
       "site": null,
       "type": "hub",
       "x": 20,
-      "y": 60,
-      "id": "7b9ad5ce-e872-4948-a0d8-b06f420c03d7"
+      "y": 60
     },
     {
       "capacity": "10G",
@@ -826,8 +761,7 @@
       "site": null,
       "type": "hub",
       "x": 20,
-      "y": 105,
-      "id": "69c3b6ac-115c-42ab-a087-d6025bc3c19f"
+      "y": 105
     },
     {
       "capacity": "100G",
@@ -838,8 +772,7 @@
       "site": null,
       "type": "sc15",
       "x": 102,
-      "y": 113,
-      "id": "dfc50239-d747-4f87-9474-ef07abef9d10"
+      "y": 113
     },
     {
       "capacity": "100G",
@@ -850,8 +783,7 @@
       "site": null,
       "type": "hub",
       "x": 120,
-      "y": 50,
-      "id": "936e20ff-5f59-43ba-a25c-7b12d7647f0d"
+      "y": 50
     },
     {
       "capacity": "100G",
@@ -863,8 +795,7 @@
       "site": null,
       "type": "exchange",
       "x": 105,
-      "y": 50,
-      "id": "a3a4dd4f-9eef-4a01-a107-c0c73261a785"
+      "y": 50
     },
     {
       "capacity": "100G",
@@ -875,8 +806,7 @@
       "site": null,
       "type": "hub",
       "x": 105,
-      "y": 44,
-      "id": "0b05445b-8773-4cae-9a70-7abf523e75f6"
+      "y": 44
     },
     {
       "capacity": "100G",
@@ -888,8 +818,7 @@
       "site": null,
       "type": "cloud",
       "x": 105,
-      "y": 35,
-      "id": "ce99ce4b-7add-4d04-881b-5214a2041ac2"
+      "y": 35
     },
     {
       "capacity": "100G",
@@ -900,8 +829,7 @@
       "site": null,
       "type": "hub",
       "x": 20,
-      "y": 85,
-      "id": "115d25f4-e64a-4037-9282-828dac87a3f2"
+      "y": 85
     },
     {
       "capacity": "100G",
@@ -912,8 +840,7 @@
       "site": null,
       "type": "cloud",
       "x": 111,
-      "y": 57,
-      "id": "f9064048-36de-4c5c-9a58-c5687ece74df"
+      "y": 57
     },
     {
       "capacity": "100G",
@@ -924,8 +851,7 @@
       "site": null,
       "type": "hub",
       "x": 158,
-      "y": 77,
-      "id": "e8682b5e-e7cc-4184-8863-8e044527932d"
+      "y": 77
     },
     {
       "id": "32331551-c8d3-4d51-a377-7cfea9467401",

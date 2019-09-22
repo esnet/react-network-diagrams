@@ -236,7 +236,7 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                 props.selected = nodeSelected || edgeSelected;
                 props.muted = hasSelectedNode && !props.selected || hasSelectedEdge && !props.selected;
 
-                nodeCoordinates[node.name] = { x: props.x, y: props.y };
+                nodeCoordinates[props.id] = { x: props.x, y: props.y };
 
                 return _react2.default.createElement(_Node.Node, _extends({
                     key: props.id

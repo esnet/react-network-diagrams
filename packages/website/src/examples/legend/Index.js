@@ -10,7 +10,7 @@
 
 import React from "react";
 import _ from "underscore";
-import { MapLegend } from "react-network-diagrams";
+import { MapLegend } from "react-network-diagrams-hso";
 
 import legend_docs from "./legend_docs.md";
 import legend_thumbnail from "./legend_thumbnail.png";

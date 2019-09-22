@@ -19,6 +19,7 @@ export class Node extends React.Component {
     static spec() {
         return [
             { attr: "name", label: "Name", type: "text" },
+            { attr: "id", label: "ID", type: "text" },
             { attr: "x", label: "Position x", type: "integer" },
             { attr: "y", label: "Position y", type: "integer" },
             { attr: "label_dx", label: "Label offset x", type: "integer" },

@@ -11,7 +11,7 @@
 import React from "react";
 import { Nav, NavItem } from "react-bootstrap";
 import _ from "underscore";
-import { MapEditor } from "react-network-diagrams";
+import { MapEditor } from "react-network-diagrams-hso";
 
 // Test data
 import topoJSON from "./topo.json";

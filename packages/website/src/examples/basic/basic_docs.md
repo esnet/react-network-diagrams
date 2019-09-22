@@ -4,7 +4,7 @@ To render a basic circuit, we pass in the props defined in the style map, explai
 
 ```js
 
-import { BasicCircuit } from "react-network-diagrams";
+import { BasicCircuit } from "react-network-diagrams-hso";
 
 ...
 

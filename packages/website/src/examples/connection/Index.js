@@ -10,7 +10,7 @@
 
 import React from "react";
 import _ from "underscore";
-import { Connection } from "react-network-diagrams";
+import { Connection } from "react-network-diagrams-hso";
 import { stylesMap } from "../../styles/styles.js";
 
 import connection_docs from "./connection_docs.md";

@@ -163,7 +163,7 @@ export class BaseMap extends React.Component {
             props.muted =
                 (hasSelectedNode && !props.selected) || (hasSelectedEdge && !props.selected);
 
-            nodeCoordinates[node.name] = { x: props.x, y: props.y };
+            nodeCoordinates[props.id] = { x: props.x, y: props.y };
 
             return (
                 <Node

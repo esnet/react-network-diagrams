@@ -10,7 +10,7 @@
 
 import React from "react";
 import _ from "underscore";
-import { Equipment } from "react-network-diagrams";
+import { Equipment } from "react-network-diagrams-hso";
 
 import { stylesMap } from "../../styles/styles";
 

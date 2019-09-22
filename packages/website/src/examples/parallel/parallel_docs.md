@@ -13,7 +13,7 @@ Here is a simple example of a ParallelCircuit:
 
 ```jsx
 
-import { Endpoint } from "react-network-diagrams";
+import { Endpoint } from "react-network-diagrams-hso";
 
 ...
 

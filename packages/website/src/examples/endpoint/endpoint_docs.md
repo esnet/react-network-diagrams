@@ -3,7 +3,7 @@ An `<Endpoint>` is typically not used directly. Rather, it is used with a Circui
 
 ```jsx
 
-import { Endpoint } from "react-network-diagrams";
+import { Endpoint } from "react-network-diagrams-hso";
 
 ...
 

@@ -267,7 +267,7 @@ const edgeColorMap = [
 Finally we can render the traffic map itself:
 
 ```js
-import { TrafficMap } from "react-network-diagrams";
+import { TrafficMap } from "react-network-diagrams-hso";
 
 ...
 

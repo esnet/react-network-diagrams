@@ -10,7 +10,7 @@ To render a Patch Panel, we pass in the list of patch panels as the `panels` pro
 
 ```js
 
-import { PatchPanel } from "react-network-diagrams";
+import { PatchPanel } from "react-network-diagrams-hso";
 
 ...
 

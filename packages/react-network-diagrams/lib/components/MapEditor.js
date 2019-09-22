@@ -409,8 +409,8 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                 // Action complete
                 var topo = this.cloneTopo();
                 var e = {
-                    source: this.findNode(action.nodes[0]).name,
-                    target: this.findNode(action.nodes[1]).name,
+                    source: this.findNode(action.nodes[0]).id,
+                    target: this.findNode(action.nodes[1]).id,
                     capacity: ""
                 };
                 topo.edges.push(e);
@@ -515,6 +515,14 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                 searchable: false,
                 clearable: false,
                 options: options,
+                getOptionLabel: function getOptionLabel(_ref2) {
+                    var label = _ref2.label;
+                    return label;
+                },
+                getOptionValue: function getOptionValue(_ref3) {
+                    var value = _ref3.value;
+                    return value;
+                },
                 onChange: function onChange(val) {
                     return _this5.handleChange(attr, val.value);
                 }
@@ -528,6 +536,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
             var selected = this.state.selection;
 
             var nodeSpec = _Node.Node.spec();
+
             nodeSpec.unshift({
                 attr: "type",
                 label: "Type",
@@ -749,7 +758,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                         className: "btn btn-default btn-xs",
                         onClick: this.handleAddNode
                     },
-                    _react2.default.createElement("span", { className: "icon-plus", "aria-hidden": "true" }),
+                    _react2.default.createElement("span", { className: "glyphicon glyphicon-plus", "aria-hidden": "true" }),
                     " Node"
                 ),
                 _react2.default.createElement(
@@ -760,7 +769,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                         className: "btn btn-default btn-xs",
                         onClick: this.handleAddEdge
                     },
-                    _react2.default.createElement("span", { className: "icon-plus", "aria-hidden": "true" }),
+                    _react2.default.createElement("span", { className: "glyphicon glyphicon-plus", "aria-hidden": "true" }),
                     " Edge"
                 ),
                 _react2.default.createElement(
@@ -771,7 +780,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                         className: "btn btn-default btn-xs",
                         onClick: this.handleDeleteNode
                     },
-                    _react2.default.createElement("span", { className: "icon-minus", "aria-hidden": "true" }),
+                    _react2.default.createElement("span", { className: "glyphicon glyphicon-minus", "aria-hidden": "true" }),
                     " Node"
                 ),
                 _react2.default.createElement(
@@ -782,7 +791,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                         className: "btn btn-default btn-xs",
                         onClick: this.handleDeleteEdge
                     },
-                    _react2.default.createElement("span", { className: "icon-minus", "aria-hidden": "true" }),
+                    _react2.default.createElement("span", { className: "glyphicon glyphicon-minus", "aria-hidden": "true" }),
                     " Edge"
                 ),
                 _react2.default.createElement(

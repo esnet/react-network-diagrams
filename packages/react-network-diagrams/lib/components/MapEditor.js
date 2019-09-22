@@ -504,11 +504,14 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
         }
     }, {
         key: "renderChoiceProperty",
-        value: function renderChoiceProperty(attr, options, value) {
+        value: function renderChoiceProperty(attr, options, cvalue) {
             var _this5 = this;
 
             return _react2.default.createElement(_reactSelect2.default, {
-                value: value,
+                value: options.filter(function (_ref) {
+                    var value = _ref.value;
+                    return value === cvalue;
+                }),
                 searchable: false,
                 clearable: false,
                 options: options,

@@ -346,13 +346,7 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                 return _react2.default.createElement(
                     _Resizable.Resizable,
                     {
-                        aspect: aspect,
-                        style: {
-                            background: "#F6F6F6",
-                            borderStyle: "solid",
-                            borderWidth: "thin",
-                            borderColor: "#E6E6E6"
-                        }
+                        aspect: aspect
                     },
                     _react2.default.createElement(_BaseMap.BaseMap, {
                         topology: topo,
@@ -371,14 +365,7 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
             } else {
                 return _react2.default.createElement(
                     "div",
-                    {
-                        style: {
-                            background: "#F6F6F6",
-                            borderStyle: "solid",
-                            borderWidth: "thin",
-                            borderColor: "#E6E6E6"
-                        }
-                    },
+                    null,
                     _react2.default.createElement(_BaseMap.BaseMap, {
                         topology: topo,
                         paths: topo.paths,

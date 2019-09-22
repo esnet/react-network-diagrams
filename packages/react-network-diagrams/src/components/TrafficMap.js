@@ -296,12 +296,6 @@ export class TrafficMap extends React.Component {
             return (
                 <Resizable
                     aspect={aspect}
-                    style={{
-                        background: "#F6F6F6",
-                        borderStyle: "solid",
-                        borderWidth: "thin",
-                        borderColor: "#E6E6E6"
-                    }}
                 >
                     <BaseMap
                         topology={topo}
@@ -321,12 +315,6 @@ export class TrafficMap extends React.Component {
         } else {
             return (
                 <div
-                    style={{
-                        background: "#F6F6F6",
-                        borderStyle: "solid",
-                        borderWidth: "thin",
-                        borderColor: "#E6E6E6"
-                    }}
                 >
                     <BaseMap
                         topology={topo}

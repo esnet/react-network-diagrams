@@ -494,6 +494,15 @@ export class MapEditor extends React.Component {
                 attr: "source_int",
                 label: "Source Interface",
                 type: "text"
+            },
+            {
+                attr: "data_source",
+                label: "Data Source",
+                type: "choice",
+                options: [
+                    {value: 'influx', label: 'Influx'},
+                    {value: 'jti', label: 'JTI'}
+                ]
             }
         ];
 

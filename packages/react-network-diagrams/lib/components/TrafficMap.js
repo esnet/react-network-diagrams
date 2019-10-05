@@ -328,12 +328,18 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                     var targetSourceName = edge.target + "--" + edge.source;
                     if (_this3.props.edgeModeMap[sourceTargetName] === 'maintenance' || _this3.props.edgeModeMap[targetSourceName] === 'maintenance') {
                         edge.maintenance = true;
+                        edge.dashed = true;
                     }
                     if (_this3.props.edgeModeMap[sourceTargetName] === 'dashed' || _this3.props.edgeModeMap[targetSourceName] === 'dashed') {
                         edge.dashed = true;
                     }
                     if (_this3.props.edgeModeMap[sourceTargetName] === 'down' || _this3.props.edgeModeMap[targetSourceName] === 'down') {
                         edge.down = true;
+                        edge.sourceTargetColor = undefined;
+                        edge.targetSourceColor = undefined;
+                    }
+                    if (_this3.props.edgeModeMap[sourceTargetName] === 'nodata' || _this3.props.edgeModeMap[targetSourceName] === 'nodata') {
+                        edge.nodata = true;
                         edge.sourceTargetColor = undefined;
                         edge.targetSourceColor = undefined;
                     }

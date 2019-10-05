@@ -397,7 +397,8 @@ var BaseMap = exports.BaseMap = function (_React$Component) {
                         },
                         dashed: edge.dashed,
                         maintenance: edge.maintenance,
-                        down: edge.down
+                        down: edge.down,
+                        nodata: edge.nodata
                     });
                 } else if (edgeDrawingMethod === "pathBidirectionalArrow") {
                     if (_underscore2.default.has(edgePathMap, edge.name)) {

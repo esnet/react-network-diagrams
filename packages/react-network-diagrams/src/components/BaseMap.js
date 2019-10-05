@@ -321,6 +321,7 @@ export class BaseMap extends React.Component {
                         dashed={edge.dashed}
                         maintenance={edge.maintenance}
                         down={edge.down}
+                        nodata={edge.nodata}
                     />
                 );
             } else if (edgeDrawingMethod === "pathBidirectionalArrow") {

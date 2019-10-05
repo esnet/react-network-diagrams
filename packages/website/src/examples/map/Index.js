@@ -72,7 +72,9 @@ class map extends React.Component {
         const edgeModeMap = {
             'ELPA--SUNN': 'maintenance',
             'ELPA--HOUS': 'dashed',
-            'HOUS--NASH': 'down'
+            'HOUS--NASH': 'down',
+            'HOUS--KANS': 'nodata',
+            'KANS--CHIC': 'nodata'
         };
 
         // Maps edge name to edge shape. Current options are linear (default)

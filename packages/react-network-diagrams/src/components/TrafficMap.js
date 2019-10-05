@@ -282,12 +282,18 @@ export class TrafficMap extends React.Component {
                 const targetSourceName = `${edge.target}--${edge.source}`;
                 if(this.props.edgeModeMap[sourceTargetName] === 'maintenance' || this.props.edgeModeMap[targetSourceName] === 'maintenance') {
                     edge.maintenance = true;
+                    edge.dashed = true;
                 }
                 if(this.props.edgeModeMap[sourceTargetName] === 'dashed' || this.props.edgeModeMap[targetSourceName] === 'dashed') {
                     edge.dashed = true;
                 }
                 if(this.props.edgeModeMap[sourceTargetName] === 'down' || this.props.edgeModeMap[targetSourceName] === 'down') {
                     edge.down = true;
+                    edge.sourceTargetColor = undefined;
+                    edge.targetSourceColor = undefined;
+                }
+                if(this.props.edgeModeMap[sourceTargetName] === 'nodata' || this.props.edgeModeMap[targetSourceName] === 'nodata') {
+                    edge.nodata = true;
                     edge.sourceTargetColor = undefined;
                     edge.targetSourceColor = undefined;
                 }

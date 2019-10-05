@@ -69,6 +69,12 @@ class map extends React.Component {
             subG: 1
         };
 
+        const edgeModeMap = {
+            'ELPA--SUNN': 'maintenance',
+            'ELPA--HOUS': 'dashed',
+            'HOUS--NASH': 'down'
+        };
+
         // Maps edge name to edge shape. Current options are linear (default)
         // or curved. If curved you can specify the direction and offset
         // to control the curve.
@@ -167,6 +173,7 @@ class map extends React.Component {
                             topology={topo}
                             traffic={traffic}
                             edgeColorMap={edgeColorMap}
+                            edgeModeMap={edgeModeMap}
                             edgeDrawingMethod="bidirectionalArrow"
                             edgeThinknessMap={edgeThinknessMap}
                             edgeShapeMap={edgeShapeMap}

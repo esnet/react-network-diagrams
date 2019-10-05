@@ -20,6 +20,9 @@ export class BidirectionalEdge extends React.Component {
         const sourceToTargetName = `${this.props.source}--${this.props.target}`;
         const targetToSourceName = `${this.props.target}--${this.props.source}`;
 
+        const cx = ((this.props.x1 + this.props.x2) / 2);
+        const cy = ((this.props.y1 + this.props.y2) / 2);
+
         // Position of the bidirectional lines relative to the center line
         const position = this.props.width * 0.75;
 
@@ -135,6 +138,20 @@ export class BidirectionalEdge extends React.Component {
                         onSelectionChange={this.props.onSelectionChange}
                         invisible={true}
                     />
+                    {this.props.maintenance &&
+                        <path
+                            d={"M" + (cx-8) + "," + (cy-12) + "l3.771 3.771c.409 1.889-2.33 4.66-4.242 4.242l-3.771-3.77c-.172.584-.258 1.188-.258 1.792 0 1.602.607 3.202 1.83 4.426 1.351 1.351 3.164 1.958 4.931 1.821.933-.072 1.852.269 2.514.931l9.662 9.662c.578.578 1.337.868 2.097.868 1.661 0 3.001-1.364 2.966-3.03-.016-.737-.306-1.47-.868-2.033l-9.662-9.663c-.662-.661-1.002-1.581-.931-2.514.137-1.767-.471-3.58-1.82-4.93-1.225-1.224-2.825-1.83-4.428-1.83-.603 0-1.207.086-1.791.257zm17.5 20.743c0 .553-.447 1-1 1-.553 0-1-.448-1-1s.447-1 1-1 1 .447 1 1z"}
+                            fill={"#39444e"}
+                            style={{stroke: '#ffffff'}}
+                        />
+                    }
+                    {this.props.down &&
+                        <path
+                            d={"M " + (cx + 10) + "," + (cy + 4) + "l-7.062,-11.828c-0.536,-0.899,-1.477,-1.438,-2.524,-1.438c-1.047,0,-1.988,0.539,-2.523,1.438l-7.059,11.828c-0.547,0.918,-0.559,2.02,-0.031,2.945c0.531,0.93,1.484,1.485,2.551,1.485l14.125,0c1.066,0,2.019,-0.555,2.55,-1.485c0.528,-0.925,0.516,-2.027,-0.027,-2.945zm-9.586,-9.648c0.649,0,1.172,0.523,1.172,1.171l0,4.696c0,0.644,-0.523,1.172,-1.172,1.172c-0.648,0,-1.172,-0.528,-1.172,-1.172l0,-4.696c0,-0.648,0.524,-1.171,1.172,-1.171zm0,11.73c-0.969,0,-1.758,-0.789,-1.758,-1.757c0,-0.973,0.789,-1.762,1.758,-1.762c0.969,0,1.758,0.789,1.758,1.762c0,0.968,-0.789,1.757,-1.758,1.757zm0,0"}
+                            fill={"#ff0001"}
+                            style={{stroke: '#ffffff'}}
+                        />
+                    }
 
                 </g>
             );
@@ -165,7 +182,12 @@ BidirectionalEdge.propTypes = {
     /** Display the endpoint muted */
     muted: PropTypes.bool,
 
-    dashed: PropTypes.bool
+    dashed: PropTypes.bool,
+
+    maintenance: PropTypes.bool,
+
+    down: PropTypes.bool
+
 };
 
 BidirectionalEdge.defaultProps = {
@@ -176,5 +198,7 @@ BidirectionalEdge.defaultProps = {
     targetSourceColor: "#C9CACC",
     selected: false,
     muted: false,
-    dashed: false
+    dashed: false,
+    maintenance: false,
+    down: false
 };

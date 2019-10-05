@@ -275,6 +275,25 @@ export class TrafficMap extends React.Component {
             }
         }
 
+        // extra link "modes"
+        if (this.props.edgeModeMap) {
+            _.each(topology.edges, edge => {
+                const sourceTargetName = `${edge.source}--${edge.target}`;
+                const targetSourceName = `${edge.target}--${edge.source}`;
+                if(this.props.edgeModeMap[sourceTargetName] === 'maintenance' || this.props.edgeModeMap[targetSourceName] === 'maintenance') {
+                    edge.maintenance = true;
+                }
+                if(this.props.edgeModeMap[sourceTargetName] === 'dashed' || this.props.edgeModeMap[targetSourceName] === 'dashed') {
+                    edge.dashed = true;
+                }
+                if(this.props.edgeModeMap[sourceTargetName] === 'down' || this.props.edgeModeMap[targetSourceName] === 'down') {
+                    edge.down = true;
+                    edge.sourceTargetColor = undefined;
+                    edge.targetSourceColor = undefined;
+                }
+            });
+        }
+
         topology.name = this.props.topology.name;
         topology.description = this.props.topology.description;
 
@@ -343,6 +362,7 @@ TrafficMap.defaultProps = {
         subG: 1
     },
     edgeColorMap: [],
+    edgeModeMap: [],
     edgeColorMode: "bps",
     nodeSizeMap: {},
     nodeShapeMap: {},
@@ -412,6 +432,7 @@ TrafficMap.propTypes = {
     edgeThinknessMap: PropTypes.object,
 
     edgeColorMap: PropTypes.array,
+    edgeModeMap: PropTypes.array,
     edgeColorMode: PropTypes.oneOf(["bps", "percent"]),
 
     /**

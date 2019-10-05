@@ -321,6 +321,25 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                 }
             }
 
+            // extra link "modes"
+            if (this.props.edgeModeMap) {
+                _underscore2.default.each(topology.edges, function (edge) {
+                    var sourceTargetName = edge.source + "--" + edge.target;
+                    var targetSourceName = edge.target + "--" + edge.source;
+                    if (_this3.props.edgeModeMap[sourceTargetName] === 'maintenance' || _this3.props.edgeModeMap[targetSourceName] === 'maintenance') {
+                        edge.maintenance = true;
+                    }
+                    if (_this3.props.edgeModeMap[sourceTargetName] === 'dashed' || _this3.props.edgeModeMap[targetSourceName] === 'dashed') {
+                        edge.dashed = true;
+                    }
+                    if (_this3.props.edgeModeMap[sourceTargetName] === 'down' || _this3.props.edgeModeMap[targetSourceName] === 'down') {
+                        edge.down = true;
+                        edge.sourceTargetColor = undefined;
+                        edge.targetSourceColor = undefined;
+                    }
+                });
+            }
+
             topology.name = this.props.topology.name;
             topology.description = this.props.topology.description;
 
@@ -395,6 +414,7 @@ TrafficMap.defaultProps = {
         subG: 1
     },
     edgeColorMap: [],
+    edgeModeMap: [],
     edgeColorMode: "bps",
     nodeSizeMap: {},
     nodeShapeMap: {},
@@ -464,6 +484,7 @@ TrafficMap.propTypes = {
     edgeThinknessMap: _propTypes2.default.object,
 
     edgeColorMap: _propTypes2.default.array,
+    edgeModeMap: _propTypes2.default.array,
     edgeColorMode: _propTypes2.default.oneOf(["bps", "percent"]),
 
     /**

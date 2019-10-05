@@ -244,6 +244,7 @@ export class ArcEdge extends React.Component {
                             fill="none"
                             className={classed}
                             onClick={e => this.handleClick(e)}
+                            strokeDasharray={this.props.dashed ? '5,5' : false}
                         />
                         <path
                             d={arrow}
@@ -265,6 +266,7 @@ export class ArcEdge extends React.Component {
                             fill="none"
                             className={classed}
                             onClick={e => this.handleClick(e)}
+                            strokeDasharray={this.props.dashed ? '5,5' : false}
                         />
                     </g>
                     {labelElement}
@@ -282,6 +284,8 @@ ArcEdge.propTypes = {
     width: PropTypes.number,
 
     color: PropTypes.string,
+
+    dashed: PropTypes.bool,
 
     curveDirection: PropTypes.string,
 
@@ -309,6 +313,7 @@ ArcEdge.defaultProps = {
     offset: 20,
     width: 1,
     color: "#ddd",
+    dashed: false,
     curveDirection: "left",
     arrow: false,
     position: 0,

@@ -242,7 +242,8 @@ var ArcEdge = exports.ArcEdge = function (_React$Component) {
                             className: classed,
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e);
-                            }
+                            },
+                            strokeDasharray: this.props.dashed ? '5,5' : false
                         }),
                         _react2.default.createElement("path", {
                             d: arrow,
@@ -267,7 +268,8 @@ var ArcEdge = exports.ArcEdge = function (_React$Component) {
                             className: classed,
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e);
-                            }
+                            },
+                            strokeDasharray: this.props.dashed ? '5,5' : false
                         })
                     ),
                     labelElement
@@ -287,6 +289,8 @@ ArcEdge.propTypes = {
     width: _propTypes2.default.number,
 
     color: _propTypes2.default.string,
+
+    dashed: _propTypes2.default.bool,
 
     curveDirection: _propTypes2.default.string,
 
@@ -314,6 +318,7 @@ ArcEdge.defaultProps = {
     offset: 20,
     width: 1,
     color: "#ddd",
+    dashed: false,
     curveDirection: "left",
     arrow: false,
     position: 0,

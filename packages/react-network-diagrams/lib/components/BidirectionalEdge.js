@@ -74,7 +74,8 @@ var BidirectionalEdge = exports.BidirectionalEdge = function (_React$Component) 
                         offset: this.props.offset,
                         selected: this.props.selected,
                         onSelectionChange: this.props.onSelectionChange,
-                        muted: this.props.muted
+                        muted: this.props.muted,
+                        dashed: this.props.dashed
                     }),
                     _react2.default.createElement(_ArcEdge.ArcEdge, {
                         name: this.props.name,
@@ -92,7 +93,8 @@ var BidirectionalEdge = exports.BidirectionalEdge = function (_React$Component) 
                         offset: this.props.offset,
                         selected: this.props.selected,
                         onSelectionChange: this.props.onSelectionChange,
-                        muted: this.props.muted
+                        muted: this.props.muted,
+                        dashed: this.props.dashed
                     }),
                     _react2.default.createElement(_ArcEdge.ArcEdge, {
                         name: this.props.name,
@@ -128,7 +130,8 @@ var BidirectionalEdge = exports.BidirectionalEdge = function (_React$Component) 
                         key: sourceToTargetName,
                         selected: this.props.selected,
                         muted: this.props.muted,
-                        onSelectionChange: this.props.onSelectionChange
+                        onSelectionChange: this.props.onSelectionChange,
+                        dashed: this.props.dashed
                     }),
                     _react2.default.createElement(_LinearEdge.LinearEdge, {
                         name: this.props.name,
@@ -144,7 +147,8 @@ var BidirectionalEdge = exports.BidirectionalEdge = function (_React$Component) 
                         key: targetToSourceName,
                         selected: this.props.selected,
                         muted: this.props.muted,
-                        onSelectionChange: this.props.onSelectionChange
+                        onSelectionChange: this.props.onSelectionChange,
+                        dashed: this.props.dashed
                     }),
                     _react2.default.createElement(_LinearEdge.LinearEdge, {
                         name: this.props.name,
@@ -192,7 +196,9 @@ BidirectionalEdge.propTypes = {
     selected: _propTypes2.default.bool,
 
     /** Display the endpoint muted */
-    muted: _propTypes2.default.bool
+    muted: _propTypes2.default.bool,
+
+    dashed: _propTypes2.default.bool
 };
 
 BidirectionalEdge.defaultProps = {
@@ -202,5 +208,6 @@ BidirectionalEdge.defaultProps = {
     sourceTargetColor: "#C9CACC",
     targetSourceColor: "#C9CACC",
     selected: false,
-    muted: false
+    muted: false,
+    dashed: false
 };

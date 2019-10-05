@@ -318,6 +318,7 @@ export class BaseMap extends React.Component {
                         selected={selected}
                         muted={muted}
                         onSelectionChange={(type, id) => this.handleSelectionChange(type, id)}
+                        dashed={edge.dashed}
                     />
                 );
             } else if (edgeDrawingMethod === "pathBidirectionalArrow") {

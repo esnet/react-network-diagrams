@@ -43,6 +43,7 @@ export class BidirectionalEdge extends React.Component {
                         selected={this.props.selected}
                         onSelectionChange={this.props.onSelectionChange}
                         muted={this.props.muted}
+                        dashed={this.props.dashed}
                     />
 
                     <ArcEdge
@@ -62,6 +63,7 @@ export class BidirectionalEdge extends React.Component {
                         selected={this.props.selected}
                         onSelectionChange={this.props.onSelectionChange}
                         muted={this.props.muted}
+                        dashed={this.props.dashed}
                     />
 
                     <ArcEdge
@@ -99,6 +101,7 @@ export class BidirectionalEdge extends React.Component {
                         selected={this.props.selected}
                         muted={this.props.muted}
                         onSelectionChange={this.props.onSelectionChange}
+                        dashed={this.props.dashed}
                     />
 
                     <LinearEdge
@@ -116,6 +119,7 @@ export class BidirectionalEdge extends React.Component {
                         selected={this.props.selected}
                         muted={this.props.muted}
                         onSelectionChange={this.props.onSelectionChange}
+                        dashed={this.props.dashed}
                     />
 
                     <LinearEdge
@@ -131,6 +135,7 @@ export class BidirectionalEdge extends React.Component {
                         onSelectionChange={this.props.onSelectionChange}
                         invisible={true}
                     />
+
                 </g>
             );
         }
@@ -158,7 +163,9 @@ BidirectionalEdge.propTypes = {
     selected: PropTypes.bool,
 
     /** Display the endpoint muted */
-    muted: PropTypes.bool
+    muted: PropTypes.bool,
+
+    dashed: PropTypes.bool
 };
 
 BidirectionalEdge.defaultProps = {
@@ -168,5 +175,6 @@ BidirectionalEdge.defaultProps = {
     sourceTargetColor: "#C9CACC",
     targetSourceColor: "#C9CACC",
     selected: false,
-    muted: false
+    muted: false,
+    dashed: false
 };

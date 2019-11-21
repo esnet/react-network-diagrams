@@ -83,7 +83,7 @@ var ConcatenatedCircuit = exports.ConcatenatedCircuit = function (_React$Compone
                         x: this.props.titleOffsetX,
                         y: this.props.titleOffsetY
                     },
-                    title
+                    title + " whatevs"
                 );
             } else {
                 return null;

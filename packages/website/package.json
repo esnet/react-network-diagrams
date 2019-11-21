@@ -5,6 +5,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "prismjs": "^1.8.1",
+    "react-network-diagrams-hso": "^0.13.0",
     "react-select": "^3.0.5"
   },
   "devDependencies": {

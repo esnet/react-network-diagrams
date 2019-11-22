@@ -14,6 +14,7 @@ import PropTypes from "prop-types";
 
 import { Connection } from "./Connection";
 import { Endpoint } from "./Endpoint";
+import { Node } from "./Node";
 import { Navigate } from "./Navigate";
 import { Directions } from "../js/constants";
 import {hierarchy, tree} from "d3-hierarchy";
@@ -132,15 +133,37 @@ export class ConcatenatedCircuit2 extends React.Component {
         const lineWidth = (totalWidth - totalSquareWidth) / (memberCount - squareMemberCount);
 
         _.each(nodes.descendants(), (member, idx) => {
+            let x = member.y + this.props.margin;
+            let y = member.x + this.props.margin;
+
+            if(member.data.styleProperties.lineShape !== "linear") {
+                let midX = ((member.y - member.parent.y)/2)+member.parent.y;
+                if(member.parent.parent === null) {
+                    midX = 0;
+                }
+                x = (midX + (member.data.styleProperties.squareWidth / 2)) + this.props.margin;
+            }
+            else {
+                if (member.parent === null) {
+                    x = this.props.margin;
+                } else {
+                    _.each(member.children, child => {
+                        if (child.data.styleProperties.lineShape !== "linear") {
+                            let midX = ((child.y - member.y) / 2) + member.y;
+                            x = (midX - (child.data.styleProperties.squareWidth / 2)) + this.props.margin;
+                        }
+                    });
+                }
+            }
             elements.push(
                 <Endpoint
-                    x={member.y+this.props.margin}
-                    y={member.x+this.props.margin}
-                    key={"endpoint-"+idx}
+                    x={x}
+                    y={member.x + this.props.margin}
+                    key={"endpoint-" + idx}
                     style={member.data.endpointStyle}
                     labelPosition={this.props.endpointLabelPosition}
                     offset={this.props.endpointLabelOffset}
-                    label={member.data.endpointLabelA}
+                    label={member.data.endpointLabelZ}
                 />
             );
         });
@@ -148,27 +171,107 @@ export class ConcatenatedCircuit2 extends React.Component {
         _.each(nodes.descendants().slice(1), (member, idx) => {
             const roundedX = member.data.styleProperties.roundedX || this.props.roundedX;
             const roundedY = member.data.styleProperties.roundedY || this.props.roundedY;
-            elements.push(
-                <Connection
-                    x1={member.parent.y+this.props.margin}
-                    x2={member.y+this.props.margin}
-                    y1={member.parent.x+this.props.margin}
-                    y2={member.x+this.props.margin}
-                    key={"circuit-" + idx}
-                    roundedX={roundedX}
-                    roundedY={roundedY}
-                    style={member.data.styleProperties.style}
-                    lineShape={member.data.styleProperties.lineShape}
-                    label={member.data.circuitLabel}
-                    labelPosition={this.props.connectionLabelPosition}
-                    labelOffsetY={this.props.yOffset}
-                    noNavigate={member.data.styleProperties.noNavigate}
-                    navTo={member.data.navTo}
-                    size={member.data.styleProperties.size}
-                    centerLine={member.data.styleProperties.centerLine}
-                    onSelectionChange={this.props.onSelectionChange}
-                />
-            );
+            if(member.data.styleProperties.lineShape !== "linear") {
+                let midX = ((member.y - member.parent.y)/2)+member.parent.y;
+                if(member.parent.parent === null) {
+                    midX = 0;
+                }
+                if(member.data.styleProperties.lineShape === "cloud") {
+                    elements.push(
+                        <Node
+                            shape={"cloud"}
+                            x={(midX - (member.data.styleProperties.squareWidth / 2)) + this.props.margin}
+                            y={member.parent.x + this.props.margin}
+                            style={member.data.styleProperties.style.node}
+                            lineShape={member.data.styleProperties.lineShape}
+                            labelStyle={member.data.styleProperties.style.label}
+                            key={"circuit-" + idx}
+                            roundedX={roundedX}
+                            roundedY={roundedY}
+                            label={member.data.circuitLabel}
+                            labelPosition={this.props.connectionLabelPosition}
+                            labelOffsetY={this.props.yOffset}
+                        />
+                    );
+                }
+                else {
+                    elements.push(
+                        <Connection
+                            x1={(midX - (member.data.styleProperties.squareWidth / 2)) + this.props.margin}
+                            x2={(midX + (member.data.styleProperties.squareWidth / 2)) + this.props.margin}
+                            y1={member.parent.x + this.props.margin}
+                            y2={member.x + this.props.margin}
+                            key={"circuit-" + idx}
+                            roundedX={roundedX}
+                            roundedY={roundedY}
+                            style={member.data.styleProperties.style}
+                            lineShape={member.data.styleProperties.lineShape}
+                            label={member.data.circuitLabel}
+                            labelPosition={this.props.connectionLabelPosition}
+                            labelOffsetY={this.props.yOffset}
+                            noNavigate={member.data.styleProperties.noNavigate}
+                            navTo={member.data.navTo}
+                            size={member.data.styleProperties.size}
+                            centerLine={member.data.styleProperties.centerLine}
+                            onSelectionChange={this.props.onSelectionChange}
+                        />
+                    );
+                }
+            }
+            else {
+                console.log(this.props.margin);
+                console.log(member);
+                let x1 = member.parent.y + this.props.margin;
+                let x2 = member.y + this.props.margin;
+                let y1 = member.parent.x + this.props.margin;
+                let y2 = member.x + this.props.margin;
+                if(member.parent.data.styleProperties.lineShape !== "linear") {
+                    let midX = ((member.parent.y - member.parent.parent.y)/2)+member.parent.parent.y;
+                    if(member.parent.parent.parent === null) {
+                        midX = 0;
+                    }
+                    x1 = (midX + (member.parent.data.styleProperties.squareWidth/2)) + this.props.margin;
+                }
+                _.each(member.children, child => {
+                    if(child.data.styleProperties.lineShape !== "linear") {
+                        let midX = ((child.y - member.y)/2)+member.y;
+                        x2 = (midX + (child.data.styleProperties.squareWidth/2)) + this.props.margin;
+                    }
+                });
+                if(member.data.styleProperties.lineShape === "cloud") {
+                    elements.push(
+                        <Node
+                            shape={"cloud"}
+                            x={x1}
+                            y={y1}
+                            style={member.data.styleProperties.style}
+                        />
+                    );
+                }
+                else {
+                    elements.push(
+                        <Connection
+                            x1={x1}
+                            x2={x2}
+                            y1={y1}
+                            y2={y2}
+                            key={"circuit-" + idx}
+                            roundedX={roundedX}
+                            roundedY={roundedY}
+                            style={member.data.styleProperties.style}
+                            lineShape={member.data.styleProperties.lineShape}
+                            label={member.data.circuitLabel}
+                            labelPosition={this.props.connectionLabelPosition}
+                            labelOffsetY={this.props.yOffset}
+                            noNavigate={member.data.styleProperties.noNavigate}
+                            navTo={member.data.navTo}
+                            size={member.data.styleProperties.size}
+                            centerLine={member.data.styleProperties.centerLine}
+                            onSelectionChange={this.props.onSelectionChange}
+                        />
+                    );
+                }
+            }
         });
 
         // Draw the first endpoint

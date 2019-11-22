@@ -42,6 +42,7 @@
   "license": "BSD-3-Clause-LBNL",
   "dependencies": {
     "babel-runtime": "^6.23.0",
+    "d3-hierarchy": "^1.1.9",
     "d3-scale": "^2.0.0",
     "keymirror": "^0.1.1",
     "prop-types": "^15.5.10",

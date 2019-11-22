@@ -48,7 +48,44 @@ let styleProps = {
         },
         line: {
             normal: {
-                stroke: "#b46011",
+                stroke: "#7d2680",
+                strokeWidth: 3,
+                fill: "none"
+            },
+            highlighted: {
+                stroke: "#4EC1E0",
+                strokeWidth: 4,
+                fill: "none"
+            }
+        },
+        label: {
+            normal: {
+                fill: "#9D9D9D",
+                fontFamily: "verdana, sans-serif",
+                fontSize: 10
+            }
+        }
+    },
+    lineShape: "linear"
+};
+
+let vllStyleProps = {
+    style: {
+        node: {
+            normal: {
+                stroke: "#737373",
+                strokeWidth: 4,
+                fill: "none"
+            },
+            highlighted: {
+                stroke: "#b1b1b1",
+                strokeWidth: 4,
+                fill: "#b1b1b1"
+            }
+        },
+        line: {
+            normal: {
+                stroke: "#00b419",
                 strokeWidth: 3,
                 fill: "none"
             },
@@ -71,9 +108,9 @@ let styleProps = {
 
 let styleProps2 = {
     lineShape: "square",
-    size: 36,
-    squareWidth: 25,
-    noNavigate: true,
+    size: 25,
+    squareWidth: 30,
+    noNavigate: false,
     style: {
         node: {
             normal: {
@@ -109,46 +146,86 @@ let styleProps2 = {
     }
 };
 
-export const standard = () => {
+let styleCloud = {
+    lineShape: "cloud",
+    size: 25,
+    squareWidth: 30,
+    noNavigate: false,
+    style: {
+        node: {
+            normal: {
+                stroke: "#737373",
+                strokeWidth: 4,
+                fill: "none"
+            },
+            highlighted: {
+                stroke: "#b1b1b1",
+                strokeWidth: 4,
+                fill: "#b1b1b1"
+            }
+        },
+        line: {
+            normal: {
+                stroke: "#737373",
+                strokeWidth: 1,
+                fill: "#D5D5D5"
+            },
+            highlighted: {
+                stroke: "#4EC1E0",
+                strokeWidth: 2,
+                fill: "#D5D5D5"
+            }
+        },
+        label: {
+            normal: {
+                fill: "#9D9D9D",
+                fontFamily: "verdana, sans-serif",
+                fontSize: 10
+            }
+        }
+    }
+};
+
+export const complex = () => {
     let memberList = {
         styleProperties: styleProps,
         endpointStyle: endpointStyle,
         endpointLabelA: '',
-        endpointLabelZ: `Endpoint 2`,
+        endpointLabelZ: ``,
         circuitLabel: `Root`,
         navTo: `Segment 1`,
         children: [
             {
                 styleProperties: styleProps2,
                 endpointStyle: endpointStyle,
-                endpointLabelA: '',
-                endpointLabelZ: `Endpoint 2`,
+                endpointLabelA: 'THN A',
+                endpointLabelZ: `THN B`,
                 circuitLabel: `pe-r-00.thn.uk`,
                 navTo: `Segment 1`,
                 children: [
                     {
-                        styleProperties: styleProps,
+                        styleProperties: vllStyleProps,
                         endpointStyle: endpointStyle,
-                        endpointLabelA: `Endpoint 3`,
-                        endpointLabelZ: `Endpoint 4`,
-                        circuitLabel: `Strand A`,
+                        endpointLabelA: `VLL A`,
+                        endpointLabelZ: `VLL B`,
+                        circuitLabel: `VLL to AWS`,
                         navTo: `Segment 2`,
                         children: [
                             {
                                 size: 36,
                                 styleProperties: styleProps2,
                                 endpointStyle: endpointStyle,
-                                endpointLabelA: `Endpoint 5`,
-                                endpointLabelZ: `Endpoint 6`,
-                                circuitLabel: `Equipment Example`,
+                                endpointLabelA: `pe-r-00.sov A`,
+                                endpointLabelZ: `pe-r-00.sov B`,
+                                circuitLabel: `pe-r-00.sov.uk`,
                                 navTo: `Segment 3`,
                                 children: [
                                     {
                                         styleProperties: styleProps,
                                         endpointStyle: endpointStyle,
-                                        endpointLabelA: `Endpoint F`,
-                                        endpointLabelZ: `Endpoint G`,
-                                        circuitLabel: `Segment test dsds`,
+                                        endpointLabelA: `X Con A`,
+                                        endpointLabelZ: `X Con B`,
+                                        circuitLabel: `X-Connect::1-24343894372`,
                                         navTo: `Segment 1`,
                                     }
                                 ]
@@ -158,10 +235,20 @@ export const standard = () => {
                     {
                         styleProperties: styleProps,
                         endpointStyle: endpointStyle,
-                        endpointLabelA: `Endpoint A`,
-                        endpointLabelZ: ``,
-                        circuitLabel: `Strand B`,
-                        navTo: `Segment X`
+                        endpointLabelA: `L3VPN A`,
+                        endpointLabelZ: `L3VPN B`,
+                        circuitLabel: `MGMT L3VPN`,
+                        navTo: `Segment X`,
+                        children: [
+                            {
+                                styleProperties: styleProps,
+                                endpointStyle: endpointStyle,
+                                endpointLabelA: `Test A`,
+                                endpointLabelZ: `Test B`,
+                                circuitLabel: `Test L3VPN`,
+                                navTo: `Segment Xxtra`
+                            }
+                        ]
                     }
                 ]
             }
@@ -169,7 +256,189 @@ export const standard = () => {
     };
     return(
         <Resizable>
-            <ConcatenatedCircuit2 memberList={memberList} height={350} hideTitle={true}/>
+            <ConcatenatedCircuit2
+                memberList={memberList}
+                height={350}
+                hideTitle={true}
+                endpointLabelPosition="bottomleftangled"
+            />
+        </Resizable>
+    );
+};
+
+export const standardVLL = () => {
+    let memberList = {
+        styleProperties: styleProps,
+        endpointStyle: endpointStyle,
+        endpointLabelA: '',
+        endpointLabelZ: `Customer Shit`,
+        circuitLabel: `Root`,
+        navTo: `Segment 1`,
+        children: [
+            {
+                styleProperties: styleProps,
+                endpointStyle: endpointStyle,
+                endpointLabelA: 'THN A',
+                endpointLabelZ: `ge-1/2/3`,
+                circuitLabel: `X-Connect: TIC-12345`,
+                navTo: `Segment 1`,
+                children: [
+                    {
+                        styleProperties: styleProps2,
+                        endpointStyle: endpointStyle,
+                        endpointLabelA: ``,
+                        endpointLabelZ: ``,
+                        circuitLabel: `pe-r-00.thn.uk`,
+                        navTo: `Segment 2`,
+                        children: [
+                            {
+                                styleProperties: vllStyleProps,
+                                endpointStyle: endpointStyle,
+                                endpointLabelA: ``,
+                                endpointLabelZ: ``,
+                                circuitLabel: `L2 Circuit ID: 123`,
+                                navTo: `Segment 3`,
+                                children: [
+                                    {
+                                        styleProperties: styleProps2,
+                                        endpointStyle: endpointStyle,
+                                        endpointLabelA: ``,
+                                        endpointLabelZ: `ge-4/3/2`,
+                                        circuitLabel: `pe-r-00.sov.uk`,
+                                        navTo: `Segment 1`,
+                                        children: [
+                                            {
+                                                styleProperties: styleProps,
+                                                endpointStyle: endpointStyle,
+                                                endpointLabelA: `X Con A`,
+                                                endpointLabelZ: `Other Customer Shit`,
+                                                circuitLabel: `X-Connect: 1-24343894372`,
+                                                navTo: `Segment 1`,
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    };
+    return(
+        <Resizable>
+            <ConcatenatedCircuit2
+                memberList={memberList}
+                height={350}
+                hideTitle={true}
+                endpointLabelPosition="bottomleftangled"
+            />
+        </Resizable>
+    );
+};
+
+
+
+export const transitService = () => {
+    let memberList = {
+        styleProperties: styleProps,
+        endpointStyle: endpointStyle,
+        endpointLabelA: '',
+        endpointLabelZ: ``,
+        circuitLabel: `Root`,
+        navTo: `Segment 1`,
+        children: [
+            {
+                styleProperties: styleProps2,
+                endpointStyle: endpointStyle,
+                endpointLabelA: '',
+                endpointLabelZ: `ge-1/2/3`,
+                circuitLabel: `pe-r-00.cod.uk`,
+                navTo: `Segment 1`,
+                children: [
+                    {
+                        styleProperties: styleProps,
+                        endpointStyle: endpointStyle,
+                        endpointLabelA: ``,
+                        endpointLabelZ: ``,
+                        circuitLabel: `Port Config Innit`,
+                        navTo: `Segment 2`,
+                        children: [
+                            {
+                                styleProperties: styleProps,
+                                endpointStyle: endpointStyle,
+                                endpointLabelA: ``,
+                                endpointLabelZ: ``,
+                                circuitLabel: `TIC-123456`,
+                                navTo: `Segment 2`,
+
+                            }
+                        ]
+                    }
+                ]
+            },
+        ]
+    };
+    return(
+        <Resizable>
+            <ConcatenatedCircuit2
+                memberList={memberList}
+                height={350}
+                hideTitle={true}
+                endpointLabelPosition="bottomleftangled"
+            />
+        </Resizable>
+    );
+};
+
+export const L3VPN = () => {
+    let memberList = {
+        styleProperties: styleProps,
+        endpointStyle: endpointStyle,
+        endpointLabelA: '',
+        endpointLabelZ: ``,
+        circuitLabel: `Root`,
+        navTo: `Segment 1`,
+        children: [
+            {
+                styleProperties: styleProps2,
+                endpointStyle: endpointStyle,
+                endpointLabelA: '',
+                endpointLabelZ: `ge-1/2/3`,
+                circuitLabel: `pe-r-00.cod.uk`,
+                navTo: `Segment 1`,
+                children: [
+                    {
+                        styleProperties: styleProps,
+                        endpointStyle: endpointStyle,
+                        endpointLabelA: ``,
+                        endpointLabelZ: ``,
+                        circuitLabel: `Port Config Innit`,
+                        navTo: `Segment 2`,
+                        children: [
+                            {
+                                styleProperties: styleProps,
+                                endpointStyle: endpointStyle,
+                                endpointLabelA: ``,
+                                endpointLabelZ: ``,
+                                circuitLabel: `TIC-123456`,
+                                navTo: `Segment 2`,
+
+                            }
+                        ]
+                    }
+                ]
+            },
+        ]
+    };
+    return(
+        <Resizable>
+            <ConcatenatedCircuit2
+                memberList={memberList}
+                height={350}
+                hideTitle={true}
+                endpointLabelPosition="bottomleftangled"
+            />
         </Resizable>
     );
 };

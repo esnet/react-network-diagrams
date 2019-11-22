@@ -146,7 +146,7 @@ export const standard = () => {
     ];
     return(
         <Resizable>
-            <ConcatenatedCircuit memberList={memberList} height={350} hideTitle={true}/>
+            <ConcatenatedCircuit memberList={memberList} height={350} hideTitle={true} endpointLabelPosition="bottomleftangled"/>
         </Resizable>
     );
 };

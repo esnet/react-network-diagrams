@@ -300,6 +300,22 @@ export class TrafficMap extends React.Component {
             });
         }
 
+        // labels
+        if (this.props.labels) {
+            _.each(topology.edges, edge => {
+                const sourceTargetName = `${edge.source}--${edge.target}`;
+                const targetSourceName = `${edge.target}--${edge.source}`;
+                if(this.props.labels[sourceTargetName] !== undefined) {
+                    edge.sourceTargetLabel = this.props.labels[sourceTargetName];
+                    edge.labelStyle = genericStyle.label;
+                }
+                if(this.props.labels[targetSourceName] !== undefined) {
+                    edge.targetSourceLabel = this.props.labels[targetSourceName];
+                    edge.labelStyle = genericStyle.label;
+                }
+            });
+        }
+
         topology.name = this.props.topology.name;
         topology.description = this.props.topology.description;
 

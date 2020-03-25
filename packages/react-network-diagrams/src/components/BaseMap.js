@@ -322,6 +322,9 @@ export class BaseMap extends React.Component {
                         maintenance={edge.maintenance}
                         down={edge.down}
                         nodata={edge.nodata}
+                        sourceTargetLabel={edge.sourceTargetLabel}
+                        targetSourceLabel={edge.targetSourceLabel}
+                        labelStyle={edge.labelStyle}
                     />
                 );
             } else if (edgeDrawingMethod === "pathBidirectionalArrow") {

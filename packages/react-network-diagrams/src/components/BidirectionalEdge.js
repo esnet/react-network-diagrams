@@ -105,6 +105,10 @@ export class BidirectionalEdge extends React.Component {
                         muted={this.props.muted}
                         onSelectionChange={this.props.onSelectionChange}
                         dashed={this.props.dashed}
+                        label={this.props.sourceTargetLabel}
+                        labelStyle={this.props.labelStyle}
+                        labelPosition={"center"}
+                        labelOffsetY={10}
                     />
 
                     <LinearEdge
@@ -123,6 +127,10 @@ export class BidirectionalEdge extends React.Component {
                         muted={this.props.muted}
                         onSelectionChange={this.props.onSelectionChange}
                         dashed={this.props.dashed}
+                        label={this.props.targetSourceLabel}
+                        labelStyle={this.props.labelStyle}
+                        labelPosition={"center"}
+                        labelOffsetY={-10}
                     />
 
                     <LinearEdge

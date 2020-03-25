@@ -346,6 +346,22 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                 });
             }
 
+            // labels
+            if (this.props.labels) {
+                _underscore2.default.each(topology.edges, function (edge) {
+                    var sourceTargetName = edge.source + "--" + edge.target;
+                    var targetSourceName = edge.target + "--" + edge.source;
+                    if (_this3.props.labels[sourceTargetName] !== undefined) {
+                        edge.sourceTargetLabel = _this3.props.labels[sourceTargetName];
+                        edge.labelStyle = genericStyle.label;
+                    }
+                    if (_this3.props.labels[targetSourceName] !== undefined) {
+                        edge.targetSourceLabel = _this3.props.labels[targetSourceName];
+                        edge.labelStyle = genericStyle.label;
+                    }
+                });
+            }
+
             topology.name = this.props.topology.name;
             topology.description = this.props.topology.description;
 

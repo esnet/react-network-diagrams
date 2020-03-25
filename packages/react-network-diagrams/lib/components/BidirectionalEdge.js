@@ -134,7 +134,11 @@ var BidirectionalEdge = exports.BidirectionalEdge = function (_React$Component) 
                         selected: this.props.selected,
                         muted: this.props.muted,
                         onSelectionChange: this.props.onSelectionChange,
-                        dashed: this.props.dashed
+                        dashed: this.props.dashed,
+                        label: this.props.sourceTargetLabel,
+                        labelStyle: this.props.labelStyle,
+                        labelPosition: "center",
+                        labelOffsetY: 10
                     }),
                     _react2.default.createElement(_LinearEdge.LinearEdge, {
                         name: this.props.name,
@@ -151,7 +155,11 @@ var BidirectionalEdge = exports.BidirectionalEdge = function (_React$Component) 
                         selected: this.props.selected,
                         muted: this.props.muted,
                         onSelectionChange: this.props.onSelectionChange,
-                        dashed: this.props.dashed
+                        dashed: this.props.dashed,
+                        label: this.props.targetSourceLabel,
+                        labelStyle: this.props.labelStyle,
+                        labelPosition: "center",
+                        labelOffsetY: -10
                     }),
                     _react2.default.createElement(_LinearEdge.LinearEdge, {
                         name: this.props.name,

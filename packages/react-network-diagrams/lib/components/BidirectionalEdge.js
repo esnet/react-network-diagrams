@@ -138,7 +138,7 @@ var BidirectionalEdge = exports.BidirectionalEdge = function (_React$Component) 
                         label: this.props.sourceTargetLabel,
                         labelStyle: this.props.labelStyle,
                         labelPosition: "center",
-                        labelOffsetY: 10
+                        labelOffsetY: this.props.x1 - this.props.x2 > 0 ? this.props.width + 6 : -(this.props.width + 4)
                     }),
                     _react2.default.createElement(_LinearEdge.LinearEdge, {
                         name: this.props.name,
@@ -159,7 +159,7 @@ var BidirectionalEdge = exports.BidirectionalEdge = function (_React$Component) 
                         label: this.props.targetSourceLabel,
                         labelStyle: this.props.labelStyle,
                         labelPosition: "center",
-                        labelOffsetY: -10
+                        labelOffsetY: this.props.x1 - this.props.x2 > 0 ? -(this.props.width + 2) : this.props.width + 6
                     }),
                     _react2.default.createElement(_LinearEdge.LinearEdge, {
                         name: this.props.name,

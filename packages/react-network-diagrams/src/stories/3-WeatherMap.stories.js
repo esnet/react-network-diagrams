@@ -18,113 +18,225 @@ export const weathermap = () => {
 
     const topo = {
         "_id": {
-            "$oid": "5d88919f712eff0920aad6f9"
-        },
-        "name": "HMRC",
-        "description": "HMRC MIPP core links",
+        "$oid": "5d88d25c712eff0920aad702"
+    },
+        "name": "West London Network",
+        "description": "Sites to the West of London",
         "nodes": [
-            {
-                "id": "6042043d-3387-41c5-b5c0-f911b624ea50",
-                "label_dx": null,
-                "label_dy": null,
-                "label_position": "right",
-                "name": "edge0.321967.ld5.uk",
-                "type": "esnet_site",
-                "x": 109,
-                "y": 21
-            },
-            {
-                "id": "227a48e1-96f4-4168-a086-8f59646b93ff",
-                "label_dx": null,
-                "label_dy": null,
-                "label_position": "left",
-                "name": "edge0.321967.thw.uk",
-                "type": "esnet_site",
-                "x": 59,
-                "y": 72
-            },
-            {
-                "id": "11cf6b7c-c7fd-440c-a8b7-b376257d5d59",
-                "label_dx": null,
-                "label_dy": null,
-                "label_position": "right",
-                "name": "edge0.321967.hex.uk",
-                "type": "esnet_site",
-                "x": 164,
-                "y": 72
-            },
-            {
-                "id": "aebeb065-6b2b-4110-8655-788e81bacb7e",
-                "label_dx": null,
-                "label_dy": null,
-                "label_position": "bottom",
-                "name": "hSo THW",
-                "type": "hub",
-                "x": 59,
-                "y": 88
-            },
-            {
-                "id": "c6d9cfdd-51d3-490c-bd2c-818957518b72",
-                "label_dx": null,
-                "label_dy": null,
-                "label_position": "bottom",
-                "name": "hSo LD8",
-                "type": "hub",
-                "x": 164,
-                "y": 88
-            },
-            {
-                "id": "a0dc61a0-2e20-4d55-91c7-b49c58fc24c2",
-                "label_dx": null,
-                "label_dy": null,
-                "label_position": "top",
-                "name": "hSo LD5",
-                "type": "esnet_site",
-                "x": 109,
-                "y": 4
-            }
-        ],
+        {
+            "id": "185.75.28.21",
+            "label_dx": null,
+            "label_dy": null,
+            "label_position": "left",
+            "name": "to.THW",
+            "type": "esnet_site",
+            "x": 36,
+            "y": 78
+        },
+        {
+            "id": "185.75.28.18",
+            "label_dx": null,
+            "label_dy": null,
+            "label_position": "top",
+            "name": "pe-r-00.wok.uk",
+            "type": "mx104",
+            "x": 36,
+            "y": 54
+        },
+        {
+            "id": "185.75.28.13",
+            "label_dx": null,
+            "label_dy": null,
+            "label_position": "topleft",
+            "name": "pe-r-01.cod.uk",
+            "type": "mx204",
+            "x": 68,
+            "y": 54
+        },
+        {
+            "id": "185.75.28.12",
+            "label_dx": null,
+            "label_dy": null,
+            "label_position": "top",
+            "name": "pe-r-00.cod.uk",
+            "type": "mx204",
+            "x": 99,
+            "y": 54
+        },
+        {
+            "id": "185.75.28.1",
+            "label_dx": null,
+            "label_dy": null,
+            "label_position": "bottomleft",
+            "name": "pe-r-00.ld5.uk",
+            "type": "mx480",
+            "x": 128,
+            "y": 54
+        },
+        {
+            "id": "185.75.28.3",
+            "label_dx": null,
+            "label_dy": null,
+            "label_position": "right",
+            "name": "to.LD8",
+            "type": "esnet_site",
+            "x": 215,
+            "y": 89
+        },
+        {
+            "id": "185.75.28.15",
+            "label_dx": null,
+            "label_dy": null,
+            "label_position": "top",
+            "name": "pe-r-01.spr.uk",
+            "type": "mx204",
+            "x": 68,
+            "y": 14
+        },
+        {
+            "id": "185.75.28.14",
+            "label_dx": null,
+            "label_dy": null,
+            "label_position": "top",
+            "name": "pe-r-00.spr.uk",
+            "type": "mx204",
+            "x": 99,
+            "y": 14
+        },
+        {
+            "id": "185.75.28.9",
+            "label_dx": null,
+            "label_dy": null,
+            "label_position": "right",
+            "name": "to.TH2.FR",
+            "type": "esnet_site",
+            "x": 215,
+            "y": 54
+        },
+        {
+            "id": "185.75.28.26",
+            "label_dx": null,
+            "label_dy": null,
+            "label_position": "top",
+            "name": "pe-r-00.bsm.uk",
+            "type": "mx104",
+            "x": 169,
+            "y": 19
+        },
+        {
+            "id": "185.75.28.27",
+            "label_dx": null,
+            "label_dy": null,
+            "label_position": "top",
+            "name": "to.MA3",
+            "type": "esnet_site",
+            "x": 128,
+            "y": 4
+        },
+        {
+            "id": "185.75.28.17",
+            "label_dx": null,
+            "label_dy": null,
+            "label_position": "right",
+            "name": "to.THE",
+            "type": "esnet_site",
+            "x": 215,
+            "y": 19
+        }
+    ],
         "edges": [
-            {
-                "source": "227a48e1-96f4-4168-a086-8f59646b93ff",
-                "target": "6042043d-3387-41c5-b5c0-f911b624ea50",
-                "capacity": "10G",
-                "source_int": "xe-2/0/3"
-            },
-            {
-                "source": "11cf6b7c-c7fd-440c-a8b7-b376257d5d59",
-                "target": "6042043d-3387-41c5-b5c0-f911b624ea50",
-                "capacity": "10G",
-                "source_int": "xe-2/0/3"
-            },
-            {
-                "source": "11cf6b7c-c7fd-440c-a8b7-b376257d5d59",
-                "target": "227a48e1-96f4-4168-a086-8f59646b93ff",
-                "capacity": "10G",
-                "source_int": "xe-2/0/0"
-            },
-            {
-                "source": "227a48e1-96f4-4168-a086-8f59646b93ff",
-                "target": "aebeb065-6b2b-4110-8655-788e81bacb7e",
-                "capacity": "10G",
-                "source_int": "xe-2/0/2",
-                "data_source": "influx"
-            },
-            {
-                "source": "11cf6b7c-c7fd-440c-a8b7-b376257d5d59",
-                "target": "c6d9cfdd-51d3-490c-bd2c-818957518b72",
-                "capacity": "10G",
-                "source_int": "xe-2/0/2",
-                "data_source": "influx"
-            },
-            {
-                "source": "6042043d-3387-41c5-b5c0-f911b624ea50",
-                "target": "a0dc61a0-2e20-4d55-91c7-b49c58fc24c2",
-                "capacity": "10G",
-                "source_int": "xe-0/3/0",
-                "data_source": "influx"
-            }
-        ]
+        {
+            "source": "185.75.28.18",
+            "target": "185.75.28.21",
+            "capacity": "10G",
+            "source_int": "xe-2/0/3",
+            "data_source": "jti"
+        },
+        {
+            "source": "185.75.28.18",
+            "target": "185.75.28.13",
+            "capacity": "10G",
+            "source_int": "xe-2/0/0",
+            "data_source": "jti"
+        },
+        {
+            "source": "185.75.28.12",
+            "target": "185.75.28.13",
+            "capacity": "20G",
+            "source_int": "ae0,xe-0/1/1,xe-0/0/0:0",
+            "data_source": "jti"
+        },
+        {
+            "source": "185.75.28.12",
+            "target": "185.75.28.1",
+            "capacity": "20G",
+            "source_int": "ae1,xe-0/1/0,xe-0/1/3",
+            "data_source": "jti"
+        },
+        {
+            "source": "185.75.28.15",
+            "target": "185.75.28.13",
+            "capacity": "10G",
+            "source_int": "xe-0/0/0:0",
+            "data_source": "jti"
+        },
+        {
+            "source": "185.75.28.15",
+            "target": "185.75.28.14",
+            "capacity": "10G",
+            "source_int": "xe-0/1/0",
+            "data_source": "jti"
+        },
+        {
+            "source": "185.75.28.1",
+            "target": "185.75.28.14",
+            "capacity": "10G",
+            "source_int": "xe-0/0/8",
+            "data_source": "jti"
+        },
+        {
+            "source": "185.75.28.1",
+            "target": "185.75.28.27",
+            "capacity": "10G",
+            "source_int": "xe-0/0/0",
+            "data_source": "jti"
+        },
+        {
+            "source": "185.75.28.1",
+            "target": "185.75.28.9",
+            "capacity": "10G",
+            "source_int": "xe-0/2/0",
+            "data_source": "jti"
+        },
+        {
+            "source": "185.75.28.1",
+            "target": "185.75.28.26",
+            "capacity": "1G",
+            "source_int": "ge-1/2/9",
+            "data_source": "jti"
+        },
+        {
+            "source": "185.75.28.26",
+            "target": "185.75.28.17",
+            "capacity": "10G",
+            "source_int": "xe-2/0/0",
+            "data_source": "jti"
+        },
+        {
+            "source": "185.75.28.1",
+            "target": "185.75.28.3",
+            "capacity": "20G",
+            "source_int": "ae2,xe-0/0/4,xe-0/2/4",
+            "data_source": "jti"
+        },
+        {
+            "source": "185.75.28.13",
+            "target": "185.75.28.21",
+            "capacity": "10G",
+            "data_source": "jti",
+            "source_int": "xe-0/1/5"
+        }
+    ]
     };
 
     const edgeColorMap = [
@@ -191,26 +303,22 @@ export const weathermap = () => {
      const edgeTraffic = {
          "timestamp": "2020-03-25T14:55:00+00:00",
          "traffic": {
-             "227a48e1-96f4-4168-a086-8f59646b93ff--6042043d-3387-41c5-b5c0-f911b624ea50": 889769039.7866666,
-             "6042043d-3387-41c5-b5c0-f911b624ea50--227a48e1-96f4-4168-a086-8f59646b93ff": 3584448711.4666667,
-             "11cf6b7c-c7fd-440c-a8b7-b376257d5d59--6042043d-3387-41c5-b5c0-f911b624ea50": 3557271510.2933335,
-             "6042043d-3387-41c5-b5c0-f911b624ea50--11cf6b7c-c7fd-440c-a8b7-b376257d5d59": 2508929033.386667,
-             "11cf6b7c-c7fd-440c-a8b7-b376257d5d59--227a48e1-96f4-4168-a086-8f59646b93ff": 3882.6133333333332,
-             "227a48e1-96f4-4168-a086-8f59646b93ff--11cf6b7c-c7fd-440c-a8b7-b376257d5d59": 4537.786666666667,
-             "227a48e1-96f4-4168-a086-8f59646b93ff--aebeb065-6b2b-4110-8655-788e81bacb7e": 115344361.22666667,
-             "aebeb065-6b2b-4110-8655-788e81bacb7e--227a48e1-96f4-4168-a086-8f59646b93ff": 253075604.16,
-             "11cf6b7c-c7fd-440c-a8b7-b376257d5d59--c6d9cfdd-51d3-490c-bd2c-818957518b72": 85704238.32,
-             "c6d9cfdd-51d3-490c-bd2c-818957518b72--11cf6b7c-c7fd-440c-a8b7-b376257d5d59": 586073350.3466667,
-             "6042043d-3387-41c5-b5c0-f911b624ea50--a0dc61a0-2e20-4d55-91c7-b49c58fc24c2": 390599463.44,
-             "a0dc61a0-2e20-4d55-91c7-b49c58fc24c2--6042043d-3387-41c5-b5c0-f911b624ea50": 307070513.28
+             "185.75.28.3--185.75.28.1": 889769039.7866666,
+             "185.75.28.1--185.75.28.3": 3584448711.4666667
          }
      };
 
     const traffic = new TimeEvent(edgeTraffic.timestamp, Immutable.Map(edgeTraffic.traffic));
 
     const labels = {
-        "6042043d-3387-41c5-b5c0-f911b624ea50--a0dc61a0-2e20-4d55-91c7-b49c58fc24c2": 44,
-        "a0dc61a0-2e20-4d55-91c7-b49c58fc24c2--6042043d-3387-41c5-b5c0-f911b624ea50": 28
+        "185.75.28.3--185.75.28.1": "ld8 to ld5",
+        "185.75.28.1--185.75.28.3": "ld5 to ld8",
+        "185.75.28.12--185.75.28.1": "cod to ld5",
+        "185.75.28.1--185.75.28.12": "ld5 to cod",
+        "185.75.28.13--185.75.28.12": "cod1 to cod0",
+        "185.75.28.12--185.75.28.13": "cod0 to cod1",
+        "185.75.28.13--185.75.28.21": "cod to thw",
+        "185.75.28.21--185.75.28.13": "thw to cod",
     };
 
     return(

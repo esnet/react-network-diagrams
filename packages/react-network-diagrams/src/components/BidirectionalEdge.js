@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import PropTypes from "prop-types";
+import PropTypes, {bool} from "prop-types";
 
 import { ArcEdge } from "./ArcEdge";
 import { LinearEdge } from "./LinearEdge";
@@ -108,7 +108,7 @@ export class BidirectionalEdge extends React.Component {
                         label={this.props.sourceTargetLabel}
                         labelStyle={this.props.labelStyle}
                         labelPosition={"center"}
-                        labelOffsetY={10}
+                        labelOffsetY={this.props.x1 - this.props.x2 > 0 ? this.props.width+6 : -(this.props.width+4)}
                     />
 
                     <LinearEdge
@@ -130,7 +130,7 @@ export class BidirectionalEdge extends React.Component {
                         label={this.props.targetSourceLabel}
                         labelStyle={this.props.labelStyle}
                         labelPosition={"center"}
-                        labelOffsetY={-10}
+                        labelOffsetY={this.props.x1 - this.props.x2 > 0 ? -(this.props.width+2) : (this.props.width+6)}
                     />
 
                     <LinearEdge

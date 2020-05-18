@@ -220,7 +220,17 @@ export class Rack extends React.Component {
 
             if (child.props.rmu > 0) {
                 heightFromBottom = inchToRmu * (child.props.rmu - 1) * pxToInch;
-                x = middle - equipmentPxWidth / 2;
+                switch (child.props.side) {
+                    case "L":
+                        x = middle - equipmentPxWidth;
+                        break;
+                    case "R":
+                        x = middle;
+                        break;
+                    default:
+                        x = middle - equipmentPxWidth / 2;
+                        break;
+                }
             } else {
                 heightFromBottom = inchToRmu * 2 * pxToInch;
                 switch (child.props.side) {

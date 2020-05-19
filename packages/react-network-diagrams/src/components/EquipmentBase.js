@@ -217,10 +217,12 @@ export class EquipmentBase extends React.Component {
             eqStyle = backStyle;
             heightLabel = <g />;
             heightPath = <g />;
+            return(<g/>)
         } else if (this.props.rackFacing === "Back" && this.props.facing === "Front") {
             eqStyle = backStyle;
             heightLabel = <g />;
             heightPath = <g />;
+            return(<g/>)
         }
 
         // const eqStyle = this.props.facing === "Front" && ? frontStyle : backStyle;);

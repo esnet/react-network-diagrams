@@ -234,10 +234,12 @@ var EquipmentBase = exports.EquipmentBase = function (_React$Component) {
                 eqStyle = backStyle;
                 heightLabel = _react2.default.createElement("g", null);
                 heightPath = _react2.default.createElement("g", null);
+                return _react2.default.createElement("g", null);
             } else if (this.props.rackFacing === "Back" && this.props.facing === "Front") {
                 eqStyle = backStyle;
                 heightLabel = _react2.default.createElement("g", null);
                 heightPath = _react2.default.createElement("g", null);
+                return _react2.default.createElement("g", null);
             }
 
             // const eqStyle = this.props.facing === "Front" && ? frontStyle : backStyle;);

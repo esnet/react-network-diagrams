@@ -299,7 +299,6 @@ export class Rack extends React.Component {
             const newChild = React.cloneElement(child, props);
             return newChild;
         });
-        
         return newChildren;
     }
 
@@ -377,7 +376,7 @@ export class Rack extends React.Component {
         if (React.Children.count(this.props.children) >= 1) {
             const childMap = this.buildRmuArray(this.props.children, this.props.rackHeight, inchToRmu);
             childElementsBottom = this.renderChildren(
-                this.props.children,
+                bottomChildren,
                 rackPxHeight,
                 rackPxWidth,
                 rackPxOffset,
@@ -387,7 +386,7 @@ export class Rack extends React.Component {
                 childMap
             );
             childElementsTop = this.renderChildren(
-                this.props.children,
+                topChildren,
                 rackPxHeight,
                 rackPxWidth,
                 rackPxOffset,

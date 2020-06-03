@@ -111,6 +111,7 @@ export class ConcatenatedCircuit extends React.Component {
 
         const memberCount = memberList.length;
         let squareMemberCount = 0;
+        let somethingSelected = false;
 
         const totalWidth = this.props.width - this.props.margin * 2;
         let totalSquareWidth = 0;
@@ -120,22 +121,27 @@ export class ConcatenatedCircuit extends React.Component {
                 totalSquareWidth += member.styleProperties.squareWidth;
                 squareMemberCount += 1;
             }
+            if(member.selected === true) {
+                somethingSelected = true;
+            }
         });
 
         const lineWidth = (totalWidth - totalSquareWidth) / (memberCount - squareMemberCount);
 
         // Draw the first endpoint
-        elements.push(
-            <Endpoint
-                x={x1}
-                y={y1}
-                key={"endpoint-0"}
-                style={memberList[0].endpointStyle}
-                labelPosition={this.props.endpointLabelPosition}
-                offset={this.props.endpointLabelOffset}
-                label={memberList[0].endpointLabelA}
-            />
-        );
+        if(memberList[0].endpointLabelA !== undefined) {
+            elements.push(
+                <Endpoint
+                    x={x1}
+                    y={y1}
+                    key={"endpoint-0"}
+                    style={memberList[0].endpointStyle}
+                    labelPosition={this.props.endpointLabelPosition}
+                    offset={this.props.endpointLabelOffset}
+                    label={memberList[0].endpointLabelA}
+                />
+            );
+        }
 
         /* since the Z of each member is shared with the A of the next member, render only
          * the Z for each member starting with the first member
@@ -147,17 +153,28 @@ export class ConcatenatedCircuit extends React.Component {
             } else {
                 x2 = x1 + lineWidth;
             }
-            elements.push(
-                <Endpoint
-                    x={x2}
-                    y={y2}
-                    key={"endpoint-" + (memberIndex + 1)}
-                    style={member.endpointStyle}
-                    labelPosition={this.props.endpointLabelPosition}
-                    offset={this.props.endpointLabelOffset}
-                    label={member.endpointLabelZ}
-                />
-            );
+            let label = undefined;
+            if(member.endpointLabelZ !== undefined) {
+                label = member.endpointLabelZ;
+            }
+            else {
+                if(memberList[memberIndex+1] !== undefined && memberList[memberIndex+1].endpointLabelA !== undefined) {
+                    label = memberList[memberIndex+1].endpointLabelA;
+                }
+            }
+            if(label) {
+                elements.push(
+                    <Endpoint
+                        x={x2}
+                        y={y2}
+                        key={"endpoint-" + (memberIndex + 1)}
+                        style={member.endpointStyle}
+                        labelPosition={this.props.endpointLabelPosition}
+                        offset={this.props.endpointLabelOffset}
+                        label={label}
+                    />
+                );
+            }
             x1 = x2;
         });
 
@@ -174,6 +191,16 @@ export class ConcatenatedCircuit extends React.Component {
                 x2 = x1 + member.styleProperties.squareWidth;
             } else {
                 x2 = x1 + lineWidth;
+            }
+            let muted = false;
+            let selected = false;
+            if(member.selected === true) {
+                selected = true;
+            }
+            else {
+                if(somethingSelected === true) {
+                    muted = true;
+                }
             }
             elements.push(
                 <Connection
@@ -194,6 +221,9 @@ export class ConcatenatedCircuit extends React.Component {
                     size={member.styleProperties.size}
                     centerLine={member.styleProperties.centerLine}
                     onSelectionChange={this.props.onSelectionChange}
+                    radius={member.endpointRadius}
+                    muted={muted}
+                    selected={selected}
                 />
             );
             x1 = x2;
@@ -229,7 +259,7 @@ export class ConcatenatedCircuit extends React.Component {
         }
 
         return (
-            <svg className={className} style={svgStyle} onClick={this._deselect}>
+            <svg className={className} style={svgStyle} onClick={this.props.deselect}>
                 {this.renderCircuitTitle(this.props.title)}
                 {this.renderCircuitElements()}
                 {this.renderParentNavigation(this.props.parentId)}

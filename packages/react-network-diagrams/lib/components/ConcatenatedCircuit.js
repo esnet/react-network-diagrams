@@ -150,6 +150,7 @@ var ConcatenatedCircuit = exports.ConcatenatedCircuit = function (_React$Compone
 
             var memberCount = memberList.length;
             var squareMemberCount = 0;
+            var somethingSelected = false;
 
             var totalWidth = this.props.width - this.props.margin * 2;
             var totalSquareWidth = 0;
@@ -159,20 +160,25 @@ var ConcatenatedCircuit = exports.ConcatenatedCircuit = function (_React$Compone
                     totalSquareWidth += member.styleProperties.squareWidth;
                     squareMemberCount += 1;
                 }
+                if (member.selected === true) {
+                    somethingSelected = true;
+                }
             });
 
             var lineWidth = (totalWidth - totalSquareWidth) / (memberCount - squareMemberCount);
 
             // Draw the first endpoint
-            elements.push(_react2.default.createElement(_Endpoint.Endpoint, {
-                x: x1,
-                y: y1,
-                key: "endpoint-0",
-                style: memberList[0].endpointStyle,
-                labelPosition: this.props.endpointLabelPosition,
-                offset: this.props.endpointLabelOffset,
-                label: memberList[0].endpointLabelA
-            }));
+            if (memberList[0].endpointLabelA !== undefined) {
+                elements.push(_react2.default.createElement(_Endpoint.Endpoint, {
+                    x: x1,
+                    y: y1,
+                    key: "endpoint-0",
+                    style: memberList[0].endpointStyle,
+                    labelPosition: this.props.endpointLabelPosition,
+                    offset: this.props.endpointLabelOffset,
+                    label: memberList[0].endpointLabelA
+                }));
+            }
 
             /* since the Z of each member is shared with the A of the next member, render only
              * the Z for each member starting with the first member
@@ -184,15 +190,25 @@ var ConcatenatedCircuit = exports.ConcatenatedCircuit = function (_React$Compone
                 } else {
                     x2 = x1 + lineWidth;
                 }
-                elements.push(_react2.default.createElement(_Endpoint.Endpoint, {
-                    x: x2,
-                    y: y2,
-                    key: "endpoint-" + (memberIndex + 1),
-                    style: member.endpointStyle,
-                    labelPosition: _this2.props.endpointLabelPosition,
-                    offset: _this2.props.endpointLabelOffset,
-                    label: member.endpointLabelZ
-                }));
+                var label = undefined;
+                if (member.endpointLabelZ !== undefined) {
+                    label = member.endpointLabelZ;
+                } else {
+                    if (memberList[memberIndex + 1] !== undefined && memberList[memberIndex + 1].endpointLabelA !== undefined) {
+                        label = memberList[memberIndex + 1].endpointLabelA;
+                    }
+                }
+                if (label) {
+                    elements.push(_react2.default.createElement(_Endpoint.Endpoint, {
+                        x: x2,
+                        y: y2,
+                        key: "endpoint-" + (memberIndex + 1),
+                        style: member.endpointStyle,
+                        labelPosition: _this2.props.endpointLabelPosition,
+                        offset: _this2.props.endpointLabelOffset,
+                        label: label
+                    }));
+                }
                 x1 = x2;
             });
 
@@ -209,6 +225,15 @@ var ConcatenatedCircuit = exports.ConcatenatedCircuit = function (_React$Compone
                     x2 = x1 + member.styleProperties.squareWidth;
                 } else {
                     x2 = x1 + lineWidth;
+                }
+                var muted = false;
+                var selected = false;
+                if (member.selected === true) {
+                    selected = true;
+                } else {
+                    if (somethingSelected === true) {
+                        muted = true;
+                    }
                 }
                 elements.push(_react2.default.createElement(_Connection.Connection, {
                     x1: x1,
@@ -227,7 +252,10 @@ var ConcatenatedCircuit = exports.ConcatenatedCircuit = function (_React$Compone
                     navTo: member.navTo,
                     size: member.styleProperties.size,
                     centerLine: member.styleProperties.centerLine,
-                    onSelectionChange: _this2.props.onSelectionChange
+                    onSelectionChange: _this2.props.onSelectionChange,
+                    radius: member.endpointRadius,
+                    muted: muted,
+                    selected: selected
                 }));
                 x1 = x2;
             });
@@ -268,7 +296,7 @@ var ConcatenatedCircuit = exports.ConcatenatedCircuit = function (_React$Compone
 
             return _react2.default.createElement(
                 "svg",
-                { className: className, style: svgStyle, onClick: this._deselect },
+                { className: className, style: svgStyle, onClick: this.props.deselect },
                 this.renderCircuitTitle(this.props.title),
                 this.renderCircuitElements(),
                 this.renderParentNavigation(this.props.parentId),

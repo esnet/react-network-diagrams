@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.PowerNodeList = exports.Equipment = exports.Rack = exports.MapEditor = exports.Resizable = exports.PatchPanel = exports.ParallelCircuit = exports.ConcatenatedCircuit = exports.BasicCircuit = exports.Connection = exports.MapLegend = exports.TrafficMap = exports.Endpoint = exports.BaseMap = undefined;
+exports.PowerNodeList = exports.Equipment = exports.Rack = exports.MapEditor = exports.Resizable = exports.PatchPanel = exports.ParallelCircuit = exports.ConcatenatedCircuit2 = exports.ConcatenatedCircuit = exports.BasicCircuit = exports.Connection = exports.MapLegend = exports.TrafficMap = exports.Endpoint = exports.BaseMap = undefined;
 
 var _BaseMap = require("./components/BaseMap");
 
@@ -18,6 +18,8 @@ var _Connection = require("./components/Connection");
 var _BasicCircuit = require("./components/BasicCircuit");
 
 var _ConcatenatedCircuit = require("./components/ConcatenatedCircuit");
+
+var _ConcatenatedCircuit2 = require("./components/ConcatenatedCircuit2");
 
 var _ParallelCircuit = require("./components/ParallelCircuit");
 
@@ -40,6 +42,7 @@ exports.MapLegend = _MapLegend.MapLegend;
 exports.Connection = _Connection.Connection;
 exports.BasicCircuit = _BasicCircuit.BasicCircuit;
 exports.ConcatenatedCircuit = _ConcatenatedCircuit.ConcatenatedCircuit;
+exports.ConcatenatedCircuit2 = _ConcatenatedCircuit2.ConcatenatedCircuit2;
 exports.ParallelCircuit = _ParallelCircuit.ParallelCircuit;
 exports.PatchPanel = _PatchPanel.PatchPanel;
 exports.Resizable = _Resizable.Resizable;

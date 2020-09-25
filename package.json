@@ -1,19 +1,27 @@
 {
-	"scripts": {
-        "start": "cd packages/website && npm run start",
-        "precommit": "lint-staged"
-    },
-    "lint-staged": {
-        "*.ts": [
-            "prettier --print-width 100 --tab-width 4 --write",
-            "git add"
-        ]
-    },
-    "devDependencies": {
-        "husky": "^0.13.3",
-        "lerna": "^2.0.0",
-        "lint-staged": "^3.4.0",
-        "prettier": "^1.7.0"
-    },
-    "dependencies": {}
+  "scripts": {
+    "start": "cd packages/website && npm run start"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --print-width 100 --tab-width 4 --write",
+      "git add"
+    ],
+    "*.{js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "husky": ">=1",
+    "lerna": "^2.0.0",
+    "lint-staged": ">=8",
+    "prettier": "^1.18.2"
+  },
+  "dependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
 }

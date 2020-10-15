@@ -290,7 +290,7 @@ var Node = exports.Node = function (_React$Component) {
                         },
                         onMouseOver: this.handleMouseOver,
                         onMouseDown: function onMouseDown(e) {
-                            return _this2.handleMouseDown();
+                            return _this2.handleMouseDown(e);
                         },
                         onMouseMove: this.handleMouseMove,
                         onMouseUp: this.handleMouseUp

@@ -356,7 +356,7 @@ ConcatenatedCircuit.propTypes = {
      * when clicked, navigates to that element. Used mainly when we want
      * to show a parent / child relationship between two circuits.
      */
-    parentId: PropTypes.oneOfType([PropTypes.string, PropTypes.Number]),
+    parentId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * Boolean value that determines if the element uses the onSelectionChange

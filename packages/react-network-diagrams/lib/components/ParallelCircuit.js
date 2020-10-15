@@ -344,7 +344,7 @@ ParallelCircuit.propTypes = {
      * when clicked, navigates to that element. Used mainly when we want
      * to show a parent / child relationship between two circuits.
      */
-    parentId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.Number]),
+    parentId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
 
     /**
      * Boolean value that determines if the element uses the onSelectionChange

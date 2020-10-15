@@ -278,7 +278,7 @@ export class Node extends React.Component {
                 <g
                     onClick={e => this.handMouseClick(e)}
                     onMouseOver={this.handleMouseOver}
-                    onMouseDown={e => this.handleMouseDown()}
+                    onMouseDown={e => this.handleMouseDown(e)}
                     onMouseMove={this.handleMouseMove}
                     onMouseUp={this.handleMouseUp}
                 >

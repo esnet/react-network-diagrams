@@ -47,8 +47,18 @@ export class Graph<M extends MetaType, N extends PropertyType, E extends Propert
         return this._nodes.get(id);
     }
 
-    public getNodes(): Node<N, E>[] {
+    public getAllNodes(): Node<N, E>[] {
         return [...this._nodes.values()];
+    }
+
+    public getAllEdges(): Edge<N, E>[] {
+        const edgeSet = new Set<Edge<N, E>>();
+        this.getAllNodes().forEach((node) => {
+            node.adjacencyList().forEach((edge) => {
+                edgeSet.add(edge);
+            });
+        });
+        return [...edgeSet];
     }
 
     public hasNode(id: string): boolean {

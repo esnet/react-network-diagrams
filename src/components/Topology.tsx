@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement } from "react";
 import { Graph, MetaType, PropertyType } from "../graph/Graph";
 import { Node } from "../graph/Node";
 
@@ -6,15 +6,17 @@ import { Box, Coord } from "./types";
 import { ScaleLinear, scaleLinear } from "d3-scale";
 import _ from "lodash";
 import { Shape, ShapeProps, ShapeType } from "./Shape";
-import { Label, LabelPosition } from "./Label";
+import { LabelPosition, VerticalAlign } from "./Label";
+import { Path, PathShape } from "./Path";
+import { Edge } from "../graph/Edge";
 
-const getElementOffset = (element: Element): Coord => {
-    const de = document.documentElement;
-    const box = element.getBoundingClientRect();
-    const top = box.top + window.pageYOffset - de.clientTop;
-    const left = box.left + window.pageXOffset - de.clientLeft;
-    return { x: top, y: left };
-};
+// const getElementOffset = (element: Element): Coord => {
+//     const de = document.documentElement;
+//     const box = element.getBoundingClientRect();
+//     const top = box.top + window.pageYOffset - de.clientTop;
+//     const left = box.left + window.pageXOffset - de.clientLeft;
+//     return { x: top, y: left };
+// };
 
 export type Layout<N extends PropertyType, E extends PropertyType> = (n: Node<N, E>) => Coord;
 
@@ -84,22 +86,48 @@ export interface TopologyProps<M extends MetaType, N extends PropertyType, E ext
     bounds?: Box;
 
     /**
-     * Function to return the label of the node.
+     * Function to return the label of a node.
      *
      * Example:
      * ```
-     * (n) => n.property("label") as string
+     * (n) => n.property("label")
      * ```
      */
     label?: (n: Node<N, E>) => string;
 
     labelLayout: LabelLayout<N, E>;
+
+    /**
+     * Function to return the label of an edge.
+     *
+     * Example:
+     * ```
+     * (e) => n.property("capacity")
+     * ```
+     */
+    edgeLabel?: (e: Edge<N, E>) => string;
+
+    /**
+     * Function to return the thickness of an edge
+     *
+     * Example:
+     * ```
+     * const thicknessMap = {
+     *     "100G": 10,
+     *     "40G": 4,
+     *     "10G": 1
+     * }
+     *
+     *
+     * ```
+     */
+    edgeThickness?: (e: Edge<N, E>) => number;
 }
 
-interface DragItem {
-    id: string;
-    coord: Coord;
-}
+// interface DragItem {
+//     id: string;
+//     coord: Coord;
+// }
 
 interface Scale {
     xScale: ScaleLinear<number, number>;
@@ -143,14 +171,17 @@ export function Topology<M extends MetaType, N extends PropertyType, E extends P
         layout,
         labelLayout,
         label,
+        edgeLabel,
+        edgeThickness,
         bounds = { x1: 0, y1: 0, x2: 1, y2: 1 },
     } = props;
     // const [dragging, setDragging] = useState<DragItem | null>(null);
     const { xScale, yScale } = scale(width, height, margin, bounds);
 
     const nodeCoordinates = {};
+    const nodeNames = {};
 
-    const nodes = graph.getNodes().map((node) => {
+    const shapes = graph.getAllNodes().map((node) => {
         const id = node.id();
 
         // Position of the node
@@ -159,6 +190,7 @@ export function Topology<M extends MetaType, N extends PropertyType, E extends P
 
         // The label of the node
         const nodeLabel = label?.(node) || "";
+        nodeNames[node.id()] = nodeLabel;
 
         // Label layout
         const { position: labelPosition = LabelPosition.Top, dx: labelOffsetX = 0, dy: labelOffsetY = 0 } = labelLayout(
@@ -170,7 +202,7 @@ export function Topology<M extends MetaType, N extends PropertyType, E extends P
             label: nodeLabel,
             x: xScale(x) || 0,
             y: yScale(y) || 0,
-            shape: ShapeType.Square,
+            shape: ShapeType.Circle,
             labelPosition,
             labelOffsetX,
             labelOffsetY,
@@ -178,6 +210,8 @@ export function Topology<M extends MetaType, N extends PropertyType, E extends P
             // muted: (hasSelectedNode && !selected) || (hasSelectedEdge && !selected),
         };
 
+        // Example shape config:
+        //
         // id: "1234",
         // label: "CHIC-CR5",
         // labelPosition: LabelPosition.Top,
@@ -200,10 +234,46 @@ export function Topology<M extends MetaType, N extends PropertyType, E extends P
         );
     });
 
+    console.log(graph.getAllEdges());
+
+    const connections = graph.getAllEdges().map((edge) => {
+        // Shape of the path
+        const shape = PathShape.Linear;
+
+        // Id of the path
+        const id = `${edge.source().id()}-->${edge.target().id()}`;
+
+        // Coords
+        const { x: x1, y: y1 } = nodeCoordinates[edge.source().id()];
+        const { x: x2, y: y2 } = nodeCoordinates[edge.target().id()];
+
+        return (
+            <Path
+                shape={shape}
+                id={id}
+                x1={x1}
+                y1={y1}
+                x2={x2}
+                y2={y2}
+                size={0}
+                label={edgeLabel?.(edge) || ""}
+                width={edgeThickness?.(edge) || 1}
+                offset={20}
+                labelVerticalAlign={VerticalAlign.Bottom}
+                position={5}
+                arrow={true}
+                color="steelblue"
+                roundedX={0}
+                roundedY={0}
+            />
+        );
+    });
+
     return (
         <svg width={width} height={height}>
             <rect x1={0} y1={0} width={width} height={height} style={{ fill: "#FEFEFE", stroke: "slategray" }} />
-            {nodes}
+            {shapes}
+            {connections}
         </svg>
     );
 }

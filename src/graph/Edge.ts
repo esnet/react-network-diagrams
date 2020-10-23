@@ -22,6 +22,10 @@ export class Edge<N extends PropertyType, E extends PropertyType> {
         return this._id;
     }
 
+    public property<K extends keyof E>(key: K) {
+        return this._properties[key];
+    }
+
     public source(): Node<N, E> {
         return this._source;
     }

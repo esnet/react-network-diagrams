@@ -588,10 +588,10 @@ export class MapEditor extends React.Component {
         };
 
         // Highlight buttons when action is in progress
-        let addNodeStyle = { color: "grey" };
-        let addEdgeStyle = { color: "grey", marginLeft: 10 };
-        let deleteNodeStyle = { color: "grey", marginLeft: 10 };
-        let deleteEdgeStyle = { color: "grey", marginLeft: 10 };
+        let addNodeStyle = {  };
+        let addEdgeStyle = { marginLeft: 10 };
+        let deleteNodeStyle = { marginLeft: 10 };
+        let deleteEdgeStyle = { marginLeft: 10 };
         if (this.state.pendingAction) {
             if (this.state.pendingAction.action === "add-node") {
                 addNodeStyle = { color: "steelblue" };
@@ -612,34 +612,34 @@ export class MapEditor extends React.Component {
                 <button
                     type="button"
                     style={addNodeStyle}
-                    className="btn btn-default btn-xs"
+                    className="btn btn-primary btn-sm"
                     onClick={this.handleAddNode}
                 >
-                    <span className="glyphicon glyphicon-plus" aria-hidden="true" /> Node
+                    <i className="fa fa-plus" /> Node
                 </button>
                 <button
                     type="button"
                     style={addEdgeStyle}
-                    className="btn btn-default btn-xs"
+                    className="btn btn-primary btn-sm"
                     onClick={this.handleAddEdge}
                 >
-                    <span className="glyphicon glyphicon-plus" aria-hidden="true" /> Edge
+                    <i className="fa fa-plus" /> Edge
                 </button>
                 <button
                     type="button"
                     style={deleteNodeStyle}
-                    className="btn btn-default btn-xs"
+                    className="btn btn-danger btn-sm"
                     onClick={this.handleDeleteNode}
                 >
-                    <span className="glyphicon glyphicon-minus" aria-hidden="true" /> Node
+                    <i className="fa fa-minus" /> Node
                 </button>
                 <button
                     type="button"
                     style={deleteEdgeStyle}
-                    className="btn btn-default btn-xs"
+                    className="btn btn-danger btn-sm"
                     onClick={this.handleDeleteEdge}
                 >
-                    <span className="glyphicon glyphicon-minus" aria-hidden="true" /> Edge
+                    <i className="fa fa-minus" /> Edge
                 </button>
                 <span style={{ color: "steelblue", marginLeft: 10 }}>
                     {this.state.pendingAction ? this.state.pendingAction.instructions : null}

@@ -11,7 +11,7 @@
 import React from "react";
 import _ from "underscore";
 import { stylesMap } from "../../styles/styles";
-import { Endpoint } from "react-network-diagrams";
+import { Endpoint } from "react-network-diagrams-hso";
 
 import endpoint_docs from "./endpoint_docs.md";
 import endpoint_thumbnail from "./endpoint_thumbnail.png";

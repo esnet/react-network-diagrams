@@ -82,6 +82,34 @@ export class TrafficMap extends React.Component {
         return "#C9CACC";
     }
 
+    selectEdgeColorPercent(bps, capacity) {
+        let cbps = 0;
+        if(capacity.match(/^[0-9]+$/)) {
+            cbps = capacity;
+        }
+        else {
+            const found = capacity.match(/^([0-9]+)(K|M|G)$/);
+            if(found) {
+                switch(found[2]) {
+                    case 'K':
+                        cbps = found[1]*1000;
+                    case 'M':
+                        cbps = found[1]*1.0e6;
+                    case 'G':
+                        cbps = found[1]*1.0e9;
+                }
+            }
+        }
+        const percent = Math.round((bps/cbps)*100);
+        for (let i = 0; i < this.props.edgeColorMap.length; i++) {
+            const row = this.props.edgeColorMap[i];
+            if (percent >= row.range[0]) {
+                return row.color;
+            }
+        }
+        return "#C9CACC";
+    }
+
     filteredPaths() {
         return _.filter(this.props.topology.paths, path => {
             if (_.isArray(this.props.showPaths)) {
@@ -187,10 +215,16 @@ export class TrafficMap extends React.Component {
                 _.each(topology.edges, edge => {
                     const sourceTargetName = `${edge.source}--${edge.target}`;
                     const targetSourceName = `${edge.target}--${edge.source}`;
-                    const sourceTargetTraffic = this.props.traffic.get(sourceTargetName);
-                    const targetSourceTraffic = this.props.traffic.get(targetSourceName);
-                    edge.sourceTargetColor = this.selectEdgeColor(sourceTargetTraffic);
-                    edge.targetSourceColor = this.selectEdgeColor(targetSourceTraffic);
+                    const sourceTargetTraffic = this.props.traffic.get([sourceTargetName]);
+                    const targetSourceTraffic = this.props.traffic.get([targetSourceName]);
+                    if(this.props.edgeColorMode === "percent") {
+                        edge.sourceTargetColor = this.selectEdgeColorPercent(sourceTargetTraffic, edge.classed);
+                        edge.targetSourceColor = this.selectEdgeColorPercent(targetSourceTraffic, edge.classed);
+                    }
+                    else {
+                        edge.sourceTargetColor = this.selectEdgeColor(sourceTargetTraffic);
+                        edge.targetSourceColor = this.selectEdgeColor(targetSourceTraffic);
+                    }
                 });
             } else {
                 const edgeMap = {};
@@ -221,14 +255,65 @@ export class TrafficMap extends React.Component {
                     const targetSourceName = `${edge.target}--${edge.source}`;
                     if (_.has(edgeMap, sourceTargetName)) {
                         const sourceTargetTraffic = edgeMap[sourceTargetName];
-                        edge.sourceTargetColor = this.selectEdgeColor(sourceTargetTraffic);
+                        if(this.props.edgeColorMode === "percent") {
+                            edge.sourceTargetColor = this.selectEdgeColorPercent(sourceTargetTraffic, edge.classed);
+                        }
+                        else {
+                            edge.sourceTargetColor = this.selectEdgeColor(sourceTargetTraffic);
+                        }
                     }
                     if (_.has(edgeMap, targetSourceName)) {
                         const targetSourceTraffic = edgeMap[targetSourceName];
-                        edge.targetSourceColor = this.selectEdgeColor(targetSourceTraffic);
+                        if(this.props.edgeColorMode === "percent") {
+                            edge.targetSourceColor = this.selectEdgeColorPercent(targetSourceTraffic, edge.classed);
+                        }
+                        else {
+                            edge.targetSourceColor = this.selectEdgeColor(targetSourceTraffic);
+                        }
                     }
                 });
             }
+        }
+
+        // extra link "modes"
+        if (this.props.edgeModeMap) {
+            _.each(topology.edges, edge => {
+                const sourceTargetName = `${edge.source}--${edge.target}`;
+                const targetSourceName = `${edge.target}--${edge.source}`;
+                if(this.props.edgeModeMap[sourceTargetName] === 'maintenance' || this.props.edgeModeMap[targetSourceName] === 'maintenance') {
+                    edge.maintenance = true;
+                    edge.dashed = true;
+                }
+                if(this.props.edgeModeMap[sourceTargetName] === 'dashed' || this.props.edgeModeMap[targetSourceName] === 'dashed') {
+                    edge.dashed = true;
+                }
+                if(this.props.edgeModeMap[sourceTargetName] === 'down' || this.props.edgeModeMap[targetSourceName] === 'down') {
+                    edge.down = true;
+                    edge.sourceTargetColor = undefined;
+                    edge.targetSourceColor = undefined;
+                }
+                if(this.props.edgeModeMap[sourceTargetName] === 'nodata' || this.props.edgeModeMap[targetSourceName] === 'nodata') {
+                    edge.nodata = true;
+                    edge.sourceTargetColor = undefined;
+                    edge.targetSourceColor = undefined;
+                }
+            });
+        }
+
+        // labels
+        if (this.props.labels) {
+            _.each(topology.edges, edge => {
+                const sourceTargetName = `${edge.source}--${edge.target}`;
+                const targetSourceName = `${edge.target}--${edge.source}`;
+                if(this.props.labels[sourceTargetName] !== undefined) {
+                    edge.sourceTargetLabel = this.props.labels[sourceTargetName];
+                    edge.labelStyle = genericStyle.label;
+                }
+                if(this.props.labels[targetSourceName] !== undefined) {
+                    edge.targetSourceLabel = this.props.labels[targetSourceName];
+                    edge.labelStyle = genericStyle.label;
+                }
+            });
         }
 
         topology.name = this.props.topology.name;
@@ -252,12 +337,6 @@ export class TrafficMap extends React.Component {
             return (
                 <Resizable
                     aspect={aspect}
-                    style={{
-                        background: "#F6F6F6",
-                        borderStyle: "solid",
-                        borderWidth: "thin",
-                        borderColor: "#E6E6E6"
-                    }}
                 >
                     <BaseMap
                         topology={topo}
@@ -277,12 +356,6 @@ export class TrafficMap extends React.Component {
         } else {
             return (
                 <div
-                    style={{
-                        background: "#F6F6F6",
-                        borderStyle: "solid",
-                        borderWidth: "thin",
-                        borderColor: "#E6E6E6"
-                    }}
                 >
                     <BaseMap
                         topology={topo}
@@ -311,6 +384,8 @@ TrafficMap.defaultProps = {
         subG: 1
     },
     edgeColorMap: [],
+    edgeModeMap: [],
+    edgeColorMode: "bps",
     nodeSizeMap: {},
     nodeShapeMap: {},
     edgeShapeMap: {},
@@ -379,6 +454,8 @@ TrafficMap.propTypes = {
     edgeThinknessMap: PropTypes.object,
 
     edgeColorMap: PropTypes.array,
+    edgeModeMap: PropTypes.array,
+    edgeColorMode: PropTypes.oneOf(["bps", "percent"]),
 
     /**
      * A mapping from the type field in the node object to a size to draw the shape

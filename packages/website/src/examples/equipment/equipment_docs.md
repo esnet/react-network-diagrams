@@ -7,7 +7,7 @@ Here is a simple example of using an `<Endpoint>` directly:
 
 ```jsx
 
-import { Equipment } from "react-network-diagrams";
+import { Equipment } from "react-network-diagrams-hso";
 
 ...
 

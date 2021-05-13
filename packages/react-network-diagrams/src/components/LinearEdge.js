@@ -195,6 +195,7 @@ export class LinearEdge extends React.Component {
                             d={path}
                             fill="none"
                             onClick={e => this.handleClick(e)}
+                            strokeDasharray={this.props.dashed ? '5,5' : false}
                         />
                         <path
                             className={classed}
@@ -215,6 +216,7 @@ export class LinearEdge extends React.Component {
                             d={path}
                             fill="none"
                             onClick={e => this.handleClick(e)}
+                            strokeDasharray={this.props.dashed ? '5,5' : false}
                         />
                     </g>
                     {labelElement}
@@ -229,6 +231,8 @@ LinearEdge.propTypes = {
     width: PropTypes.number,
 
     color: PropTypes.string,
+
+    dashed: PropTypes.bool,
 
     /**
      * Controls the angle of the offset from the center of the line.
@@ -253,6 +257,7 @@ LinearEdge.propTypes = {
 LinearEdge.defaultProps = {
     width: 1,
     color: "#ddd",
+    dashed: false,
     position: 0,
     arrow: false,
     selected: false,

@@ -163,7 +163,7 @@ export class BaseMap extends React.Component {
             props.muted =
                 (hasSelectedNode && !props.selected) || (hasSelectedEdge && !props.selected);
 
-            nodeCoordinates[node.name] = { x: props.x, y: props.y };
+            nodeCoordinates[props.id] = { x: props.x, y: props.y };
 
             return (
                 <Node
@@ -318,6 +318,13 @@ export class BaseMap extends React.Component {
                         selected={selected}
                         muted={muted}
                         onSelectionChange={(type, id) => this.handleSelectionChange(type, id)}
+                        dashed={edge.dashed}
+                        maintenance={edge.maintenance}
+                        down={edge.down}
+                        nodata={edge.nodata}
+                        sourceTargetLabel={edge.sourceTargetLabel}
+                        targetSourceLabel={edge.targetSourceLabel}
+                        labelStyle={edge.labelStyle}
                     />
                 );
             } else if (edgeDrawingMethod === "pathBidirectionalArrow") {

@@ -11,7 +11,7 @@
 import React from "react";
 import _ from "underscore";
 
-import { ConcatenatedCircuit, Resizable } from "react-network-diagrams";
+import { ConcatenatedCircuit, Resizable } from "react-network-diagrams-hso";
 import { stylesMap } from "../../styles/styles.js";
 
 import concatenated_docs from "./concatenated_docs.md";

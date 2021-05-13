@@ -212,7 +212,8 @@ var LinearEdge = exports.LinearEdge = function (_React$Component) {
                             fill: "none",
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e);
-                            }
+                            },
+                            strokeDasharray: this.props.dashed ? '5,5' : false
                         }),
                         _react2.default.createElement("path", {
                             className: classed,
@@ -236,7 +237,8 @@ var LinearEdge = exports.LinearEdge = function (_React$Component) {
                             fill: "none",
                             onClick: function onClick(e) {
                                 return _this2.handleClick(e);
-                            }
+                            },
+                            strokeDasharray: this.props.dashed ? '5,5' : false
                         })
                     ),
                     labelElement
@@ -253,6 +255,8 @@ LinearEdge.propTypes = {
     width: _propTypes2.default.number,
 
     color: _propTypes2.default.string,
+
+    dashed: _propTypes2.default.bool,
 
     /**
      * Controls the angle of the offset from the center of the line.
@@ -277,6 +281,7 @@ LinearEdge.propTypes = {
 LinearEdge.defaultProps = {
     width: 1,
     color: "#ddd",
+    dashed: false,
     position: 0,
     arrow: false,
     selected: false,

@@ -131,6 +131,34 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
             return "#C9CACC";
         }
     }, {
+        key: "selectEdgeColorPercent",
+        value: function selectEdgeColorPercent(bps, capacity) {
+            var cbps = 0;
+            if (capacity.match(/^[0-9]+$/)) {
+                cbps = capacity;
+            } else {
+                var found = capacity.match(/^([0-9]+)(K|M|G)$/);
+                if (found) {
+                    switch (found[2]) {
+                        case 'K':
+                            cbps = found[1] * 1000;
+                        case 'M':
+                            cbps = found[1] * 1.0e6;
+                        case 'G':
+                            cbps = found[1] * 1.0e9;
+                    }
+                }
+            }
+            var percent = Math.round(bps / cbps * 100);
+            for (var i = 0; i < this.props.edgeColorMap.length; i++) {
+                var row = this.props.edgeColorMap[i];
+                if (percent >= row.range[0]) {
+                    return row.color;
+                }
+            }
+            return "#C9CACC";
+        }
+    }, {
         key: "filteredPaths",
         value: function filteredPaths() {
             var _this2 = this;
@@ -236,10 +264,15 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                     _underscore2.default.each(topology.edges, function (edge) {
                         var sourceTargetName = edge.source + "--" + edge.target;
                         var targetSourceName = edge.target + "--" + edge.source;
-                        var sourceTargetTraffic = _this3.props.traffic.get(sourceTargetName);
-                        var targetSourceTraffic = _this3.props.traffic.get(targetSourceName);
-                        edge.sourceTargetColor = _this3.selectEdgeColor(sourceTargetTraffic);
-                        edge.targetSourceColor = _this3.selectEdgeColor(targetSourceTraffic);
+                        var sourceTargetTraffic = _this3.props.traffic.get([sourceTargetName]);
+                        var targetSourceTraffic = _this3.props.traffic.get([targetSourceName]);
+                        if (_this3.props.edgeColorMode === "percent") {
+                            edge.sourceTargetColor = _this3.selectEdgeColorPercent(sourceTargetTraffic, edge.classed);
+                            edge.targetSourceColor = _this3.selectEdgeColorPercent(targetSourceTraffic, edge.classed);
+                        } else {
+                            edge.sourceTargetColor = _this3.selectEdgeColor(sourceTargetTraffic);
+                            edge.targetSourceColor = _this3.selectEdgeColor(targetSourceTraffic);
+                        }
                     });
                 } else {
                     var edgeMap = {};
@@ -270,14 +303,63 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                         var targetSourceName = edge.target + "--" + edge.source;
                         if (_underscore2.default.has(edgeMap, sourceTargetName)) {
                             var sourceTargetTraffic = edgeMap[sourceTargetName];
-                            edge.sourceTargetColor = _this3.selectEdgeColor(sourceTargetTraffic);
+                            if (_this3.props.edgeColorMode === "percent") {
+                                edge.sourceTargetColor = _this3.selectEdgeColorPercent(sourceTargetTraffic, edge.classed);
+                            } else {
+                                edge.sourceTargetColor = _this3.selectEdgeColor(sourceTargetTraffic);
+                            }
                         }
                         if (_underscore2.default.has(edgeMap, targetSourceName)) {
                             var targetSourceTraffic = edgeMap[targetSourceName];
-                            edge.targetSourceColor = _this3.selectEdgeColor(targetSourceTraffic);
+                            if (_this3.props.edgeColorMode === "percent") {
+                                edge.targetSourceColor = _this3.selectEdgeColorPercent(targetSourceTraffic, edge.classed);
+                            } else {
+                                edge.targetSourceColor = _this3.selectEdgeColor(targetSourceTraffic);
+                            }
                         }
                     });
                 }
+            }
+
+            // extra link "modes"
+            if (this.props.edgeModeMap) {
+                _underscore2.default.each(topology.edges, function (edge) {
+                    var sourceTargetName = edge.source + "--" + edge.target;
+                    var targetSourceName = edge.target + "--" + edge.source;
+                    if (_this3.props.edgeModeMap[sourceTargetName] === 'maintenance' || _this3.props.edgeModeMap[targetSourceName] === 'maintenance') {
+                        edge.maintenance = true;
+                        edge.dashed = true;
+                    }
+                    if (_this3.props.edgeModeMap[sourceTargetName] === 'dashed' || _this3.props.edgeModeMap[targetSourceName] === 'dashed') {
+                        edge.dashed = true;
+                    }
+                    if (_this3.props.edgeModeMap[sourceTargetName] === 'down' || _this3.props.edgeModeMap[targetSourceName] === 'down') {
+                        edge.down = true;
+                        edge.sourceTargetColor = undefined;
+                        edge.targetSourceColor = undefined;
+                    }
+                    if (_this3.props.edgeModeMap[sourceTargetName] === 'nodata' || _this3.props.edgeModeMap[targetSourceName] === 'nodata') {
+                        edge.nodata = true;
+                        edge.sourceTargetColor = undefined;
+                        edge.targetSourceColor = undefined;
+                    }
+                });
+            }
+
+            // labels
+            if (this.props.labels) {
+                _underscore2.default.each(topology.edges, function (edge) {
+                    var sourceTargetName = edge.source + "--" + edge.target;
+                    var targetSourceName = edge.target + "--" + edge.source;
+                    if (_this3.props.labels[sourceTargetName] !== undefined) {
+                        edge.sourceTargetLabel = _this3.props.labels[sourceTargetName];
+                        edge.labelStyle = genericStyle.label;
+                    }
+                    if (_this3.props.labels[targetSourceName] !== undefined) {
+                        edge.targetSourceLabel = _this3.props.labels[targetSourceName];
+                        edge.labelStyle = genericStyle.label;
+                    }
+                });
             }
 
             topology.name = this.props.topology.name;
@@ -305,13 +387,7 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                 return _react2.default.createElement(
                     _Resizable.Resizable,
                     {
-                        aspect: aspect,
-                        style: {
-                            background: "#F6F6F6",
-                            borderStyle: "solid",
-                            borderWidth: "thin",
-                            borderColor: "#E6E6E6"
-                        }
+                        aspect: aspect
                     },
                     _react2.default.createElement(_BaseMap.BaseMap, {
                         topology: topo,
@@ -330,14 +406,7 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
             } else {
                 return _react2.default.createElement(
                     "div",
-                    {
-                        style: {
-                            background: "#F6F6F6",
-                            borderStyle: "solid",
-                            borderWidth: "thin",
-                            borderColor: "#E6E6E6"
-                        }
-                    },
+                    null,
                     _react2.default.createElement(_BaseMap.BaseMap, {
                         topology: topo,
                         paths: topo.paths,
@@ -367,6 +436,8 @@ TrafficMap.defaultProps = {
         subG: 1
     },
     edgeColorMap: [],
+    edgeModeMap: [],
+    edgeColorMode: "bps",
     nodeSizeMap: {},
     nodeShapeMap: {},
     edgeShapeMap: {},
@@ -435,6 +506,8 @@ TrafficMap.propTypes = {
     edgeThinknessMap: _propTypes2.default.object,
 
     edgeColorMap: _propTypes2.default.array,
+    edgeModeMap: _propTypes2.default.array,
+    edgeColorMode: _propTypes2.default.oneOf(["bps", "percent"]),
 
     /**
      * A mapping from the type field in the node object to a size to draw the shape

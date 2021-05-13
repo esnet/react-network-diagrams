@@ -229,7 +229,6 @@ var EquipmentBase = exports.EquipmentBase = function (_React$Component) {
             if (this.props.overlapping) {
                 eqStyle = overlapStyle;
             }
-
             if (this.props.rackFacing === "Front" && this.props.facing === "Back") {
                 eqStyle = backStyle;
                 heightLabel = _react2.default.createElement("g", null);
@@ -239,8 +238,6 @@ var EquipmentBase = exports.EquipmentBase = function (_React$Component) {
                 heightLabel = _react2.default.createElement("g", null);
                 heightPath = _react2.default.createElement("g", null);
             }
-
-            // const eqStyle = this.props.facing === "Front" && ? frontStyle : backStyle;);
 
             if (!this.props.showHeight) {
                 return _react2.default.createElement(

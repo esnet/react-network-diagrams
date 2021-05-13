@@ -105,7 +105,7 @@ var Equipment = exports.Equipment = function (_React$Component) {
             var stroke = void 0;
             var fill = void 0;
             var backFill = this.props.backStyle.fill;
-            var overlapFill = this.props.overlapStyle.fill;
+            var overlapFill = this.props.overlapStyle ? this.props.overlapStyle.fill : null;
 
             if (this.state.highlighted && !this.props.selected) {
                 width = this.props.style.line.highlighted.strokeWidth;

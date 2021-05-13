@@ -10,7 +10,7 @@
 
 import React from "react";
 import _ from "underscore";
-import { ParallelCircuit, Resizable } from "react-network-diagrams";
+import { ParallelCircuit, Resizable } from "react-network-diagrams-hso";
 import { stylesMap } from "../../styles/styles.js";
 
 import parallel_docs from "./parallel_docs.md";

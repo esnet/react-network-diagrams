@@ -220,7 +220,17 @@ export class Rack extends React.Component {
 
             if (child.props.rmu > 0) {
                 heightFromBottom = inchToRmu * (child.props.rmu - 1) * pxToInch;
-                x = middle - equipmentPxWidth / 2;
+                switch (child.props.side) {
+                    case "L":
+                        x = middle - equipmentPxWidth;
+                        break;
+                    case "R":
+                        x = middle;
+                        break;
+                    default:
+                        x = middle - equipmentPxWidth / 2;
+                        break;
+                }
             } else {
                 heightFromBottom = inchToRmu * 2 * pxToInch;
                 switch (child.props.side) {
@@ -289,7 +299,6 @@ export class Rack extends React.Component {
             const newChild = React.cloneElement(child, props);
             return newChild;
         });
-        
         return newChildren;
     }
 
@@ -367,7 +376,7 @@ export class Rack extends React.Component {
         if (React.Children.count(this.props.children) >= 1) {
             const childMap = this.buildRmuArray(this.props.children, this.props.rackHeight, inchToRmu);
             childElementsBottom = this.renderChildren(
-                this.props.children,
+                bottomChildren,
                 rackPxHeight,
                 rackPxWidth,
                 rackPxOffset,
@@ -377,7 +386,7 @@ export class Rack extends React.Component {
                 childMap
             );
             childElementsTop = this.renderChildren(
-                this.props.children,
+                topChildren,
                 rackPxHeight,
                 rackPxWidth,
                 rackPxOffset,

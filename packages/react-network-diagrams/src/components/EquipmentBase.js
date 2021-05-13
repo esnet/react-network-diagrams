@@ -212,7 +212,6 @@ export class EquipmentBase extends React.Component {
         if (this.props.overlapping) {
             eqStyle = overlapStyle;
         }
-
         if (this.props.rackFacing === "Front" && this.props.facing === "Back") {
             eqStyle = backStyle;
             heightLabel = <g />;
@@ -222,8 +221,6 @@ export class EquipmentBase extends React.Component {
             heightLabel = <g />;
             heightPath = <g />;
         }
-
-        // const eqStyle = this.props.facing === "Front" && ? frontStyle : backStyle;);
 
         if (!this.props.showHeight) {
             return (

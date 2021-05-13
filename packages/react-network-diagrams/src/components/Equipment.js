@@ -72,7 +72,7 @@ export class Equipment extends React.Component {
         let stroke;
         let fill;
         const backFill = this.props.backStyle.fill;
-        const overlapFill = this.props.overlapStyle.fill;
+        const overlapFill = this.props.overlapStyle ? this.props.overlapStyle.fill : null;
 
         if (this.state.highlighted && !this.props.selected) {
             width = this.props.style.line.highlighted.strokeWidth;

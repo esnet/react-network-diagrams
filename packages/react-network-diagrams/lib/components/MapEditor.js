@@ -409,8 +409,8 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                 // Action complete
                 var topo = this.cloneTopo();
                 var e = {
-                    source: this.findNode(action.nodes[0]).name,
-                    target: this.findNode(action.nodes[1]).name,
+                    source: this.findNode(action.nodes[0]).id,
+                    target: this.findNode(action.nodes[1]).id,
                     capacity: ""
                 };
                 topo.edges.push(e);
@@ -504,16 +504,27 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
         }
     }, {
         key: "renderChoiceProperty",
-        value: function renderChoiceProperty(attr, options, value) {
+        value: function renderChoiceProperty(attr, options, cvalue) {
             var _this5 = this;
 
             return _react2.default.createElement(_reactSelect2.default, {
-                value: value,
+                value: options.filter(function (_ref) {
+                    var value = _ref.value;
+                    return value === cvalue;
+                }),
                 searchable: false,
                 clearable: false,
                 options: options,
+                getOptionLabel: function getOptionLabel(_ref2) {
+                    var label = _ref2.label;
+                    return label;
+                },
+                getOptionValue: function getOptionValue(_ref3) {
+                    var value = _ref3.value;
+                    return value;
+                },
                 onChange: function onChange(val) {
-                    return _this5.handleChange(attr, val);
+                    return _this5.handleChange(attr, val.value);
                 }
             });
         }
@@ -525,6 +536,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
             var selected = this.state.selection;
 
             var nodeSpec = _Node.Node.spec();
+
             nodeSpec.unshift({
                 attr: "type",
                 label: "Type",
@@ -596,6 +608,15 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
                 options: _underscore2.default.map(this.props.edgeThicknessMap, function (e, k) {
                     return { value: k, label: k };
                 })
+            }, {
+                attr: "source_int",
+                label: "Source Interface",
+                type: "text"
+            }, {
+                attr: "data_source",
+                label: "Data Source",
+                type: "choice",
+                options: [{ value: 'influx', label: 'Influx' }, { value: 'jti', label: 'JTI' }]
             }];
 
             var propertyElements = void 0;

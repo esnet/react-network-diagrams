@@ -10,7 +10,7 @@
 
 import React from "react";
 import _ from "underscore";
-import { TrafficMap } from "react-network-diagrams";
+import { TrafficMap } from "react-network-diagrams-hso";
 import * as Immutable from "immutable";
 import { TimeEvent } from "pondjs";
 

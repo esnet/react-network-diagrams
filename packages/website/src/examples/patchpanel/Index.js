@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import { PatchPanel, Resizable } from "react-network-diagrams";
+import { PatchPanel, Resizable } from "react-network-diagrams-hso";
 import { stylesMap } from "../../styles/styles.js";
 
 import patchpanel_docs from "./patchpanel_docs.md";

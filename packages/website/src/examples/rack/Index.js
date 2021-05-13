@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import { Rack, Equipment, PowerNodeList, Resizable } from "react-network-diagrams";
+import { Rack, Equipment, PowerNodeList, Resizable } from "react-network-diagrams-hso";
 
 import { stylesMap } from "../../styles/styles";
 

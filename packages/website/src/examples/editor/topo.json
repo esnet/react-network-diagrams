@@ -1,52 +1,55 @@
 {
-  "description":"Simple topo",
-  "name":"simple",
-  "nodes":[
+  "description": "Simple topo",
+  "name": "simple",
+  "nodes": [
     {
-      "label_dx":null,
-      "label_dy":null,
-      "label_position":"top",
-      "name":"Node1",
-      "type":"esnet_site",
-      "x":100,
-      "y":20
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "Node1",
+      "type": "esnet_site",
+      "x": 100,
+      "y": 20,
+      "id": "4966d64e-609c-4209-afa8-70a3a84d02a7"
     },
     {
-      "label_dx":null,
-      "label_dy":null,
-      "label_position":"top",
-      "name":"Node2",
-      "site":5,
-      "type":"esnet_site",
-      "x":50,
-      "y":80
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "Node2",
+      "site": 5,
+      "type": "esnet_site",
+      "x": 50,
+      "y": 80,
+      "id": "d35afefb-cf45-482f-b72c-7e5bbf5c40a2"
     },
     {
-      "label_dx":null,
-      "label_dy":null,
-      "label_position":"top",
-      "name":"Node3",
-      "site":5,
-      "type":"hub",
-      "x":150,
-      "y":80
+      "label_dx": null,
+      "label_dy": null,
+      "label_position": "top",
+      "name": "Node3",
+      "site": 5,
+      "type": "hub",
+      "x": 150,
+      "y": 80,
+      "id": "658f1855-2d91-4084-bdeb-c6455a7314f0"
     }
   ],
-  "edges":[
+  "edges": [
     {
-      "capacity":"100G",
-      "source":"Node1",
-      "target":"Node2"
+      "capacity": "100G",
+      "source": "4966d64e-609c-4209-afa8-70a3a84d02a7",
+      "target": "d35afefb-cf45-482f-b72c-7e5bbf5c40a2"
     },
     {
-      "capacity":"40G",
-      "source":"Node2",
-      "target":"Node3"
+      "capacity": "40G",
+      "source": "d35afefb-cf45-482f-b72c-7e5bbf5c40a2",
+      "target": "658f1855-2d91-4084-bdeb-c6455a7314f0"
     },
     {
-      "capacity":"10G",
-      "source":"Node3",
-      "target":"Node1"
+      "capacity": "10G",
+      "source": "658f1855-2d91-4084-bdeb-c6455a7314f0",
+      "target": "4966d64e-609c-4209-afa8-70a3a84d02a7"
     }
   ]
 }

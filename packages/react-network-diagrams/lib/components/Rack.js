@@ -249,7 +249,17 @@ var Rack = exports.Rack = function (_React$Component) {
 
                 if (child.props.rmu > 0) {
                     heightFromBottom = inchToRmu * (child.props.rmu - 1) * pxToInch;
-                    x = middle - equipmentPxWidth / 2;
+                    switch (child.props.side) {
+                        case "L":
+                            x = middle - equipmentPxWidth;
+                            break;
+                        case "R":
+                            x = middle;
+                            break;
+                        default:
+                            x = middle - equipmentPxWidth / 2;
+                            break;
+                    }
                 } else {
                     heightFromBottom = inchToRmu * 2 * pxToInch;
                     switch (child.props.side) {
@@ -316,7 +326,6 @@ var Rack = exports.Rack = function (_React$Component) {
                 var newChild = _react2.default.cloneElement(child, props);
                 return newChild;
             });
-
             return newChildren;
         }
     }, {
@@ -396,8 +405,8 @@ var Rack = exports.Rack = function (_React$Component) {
 
             if (_react2.default.Children.count(this.props.children) >= 1) {
                 var childMap = this.buildRmuArray(this.props.children, this.props.rackHeight, inchToRmu);
-                childElementsBottom = this.renderChildren(this.props.children, rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop, pxToInch, childMap);
-                childElementsTop = this.renderChildren(this.props.children, rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop, pxToInch, childMap);
+                childElementsBottom = this.renderChildren(bottomChildren, rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop, pxToInch, childMap);
+                childElementsTop = this.renderChildren(topChildren, rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop, pxToInch, childMap);
             }
             return (
                 // Draw in this order: Left Side, Right Side, Top Bar, Bottom Bar, RMU Units

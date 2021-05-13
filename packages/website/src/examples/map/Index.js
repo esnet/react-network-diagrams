@@ -11,7 +11,7 @@
 import React from "react";
 import _ from "underscore";
 import { TimeEvent } from "pondjs";
-import { TrafficMap } from "react-network-diagrams";
+import { TrafficMap } from "react-network-diagrams-hso";
 import * as Immutable from "immutable";
 
 import map_docs from "./map_docs.md";
@@ -67,6 +67,14 @@ class map extends React.Component {
             "10G": 3,
             "1G": 1.5,
             subG: 1
+        };
+
+        const edgeModeMap = {
+            'ELPA--SUNN': 'maintenance',
+            'ELPA--HOUS': 'dashed',
+            'HOUS--NASH': 'down',
+            'HOUS--KANS': 'nodata',
+            'KANS--CHIC': 'nodata'
         };
 
         // Maps edge name to edge shape. Current options are linear (default)
@@ -167,6 +175,7 @@ class map extends React.Component {
                             topology={topo}
                             traffic={traffic}
                             edgeColorMap={edgeColorMap}
+                            edgeModeMap={edgeModeMap}
                             edgeDrawingMethod="bidirectionalArrow"
                             edgeThinknessMap={edgeThinknessMap}
                             edgeShapeMap={edgeShapeMap}

@@ -56,27 +56,86 @@ var MapLegend = exports.MapLegend = function (_React$Component) {
             var elements = [];
             if (this.props.nodeTypes.length > 0) {
                 _underscore2.default.each(this.props.nodeTypes, function (node, i) {
-                    var textX = curX + _this2.props.exampleWidth;
-                    var textY = curY + lineCenter;
-                    var classed = "map-node " + node.classed;
-                    var style = { stroke: node.stroke, fill: node.fill };
-                    elements.push(_react2.default.createElement(
-                        "g",
-                        { key: "node-" + i },
-                        _react2.default.createElement("circle", {
-                            style: style,
-                            cx: curX,
-                            cy: textY,
-                            r: node.radius,
-                            className: classed
-                        }),
-                        _react2.default.createElement(
-                            "text",
-                            { x: textX, y: textY + 4, textAnchor: "begin" },
-                            node.text
-                        )
-                    ));
-                    curY += _this2.props.lineHeight;
+                    if (node.shape === "cloud") {
+                        var classed = "map-node-shape-cloud-" + node.classed;
+
+                        var cloudPath = "M" + curX + "," + (curY + 5);
+                        cloudPath += "l-25,0 c-10,0 -10,-10 -5,-15";
+                        cloudPath += "c5,-5 15,-5 15,0 c0,-15 25,-15 25,-5 c10,-10 25,15 10,20 Z";
+
+                        var style = { stroke: node.stroke, fill: node.fill };
+                        var textX = curX + _this2.props.exampleWidth;
+                        var textY = curY + lineCenter;
+
+                        elements.push(_react2.default.createElement(
+                            "g",
+                            { key: "node-" + i },
+                            _react2.default.createElement("path", {
+                                d: cloudPath,
+                                style: style,
+                                className: classed
+                            }),
+                            _react2.default.createElement(
+                                "text",
+                                { x: textX, y: textY + 4, textAnchor: "begin" },
+                                node.text
+                            )
+                        ));
+                        curY += _this2.props.lineHeight;
+                    } else if (node.shape === "square") {
+                        var _classed = "map-node-shape-square-" + node.classed;
+                        var x = curX - node.radius;
+                        var y = curY;
+                        var width = 2 * node.radius;
+                        var _style = { stroke: node.stroke, fill: node.fill };
+
+                        var _textX = curX + _this2.props.exampleWidth;
+                        var _textY = curY + lineCenter;
+
+                        elements.push(_react2.default.createElement(
+                            "g",
+                            { key: "node-" + i },
+                            _react2.default.createElement("rect", {
+                                x: x,
+                                y: y,
+                                rx: _this2.props.rx,
+                                ry: _this2.props.ry,
+                                width: width,
+                                height: width,
+                                style: _style,
+                                className: _classed
+                            }),
+                            _react2.default.createElement(
+                                "text",
+                                { x: _textX, y: _textY + 4, textAnchor: "begin" },
+                                node.text
+                            )
+                        ));
+                        curY += _this2.props.lineHeight;
+                    } else {
+                        var _textX2 = curX + _this2.props.exampleWidth;
+                        var _textY2 = curY + lineCenter;
+                        var _classed2 = "map-node-shape-circle-" + node.classed;
+                        var _style2 = { stroke: node.stroke, fill: node.fill };
+
+                        elements.push(_react2.default.createElement(
+                            "g",
+                            { key: "node-" + i },
+                            _react2.default.createElement("circle", {
+                                style: _style2,
+                                cx: curX,
+                                cy: _textY2,
+                                r: node.radius,
+                                className: _classed2
+                            }),
+                            _react2.default.createElement(
+                                "text",
+                                { x: _textX2, y: _textY2 + 4, textAnchor: "begin" },
+                                node.text
+                            )
+                        ));
+                        curY += _this2.props.lineHeight;
+                    }
                 });
 
                 if (this.props.columns) {
@@ -177,6 +236,9 @@ var MapLegend = exports.MapLegend = function (_React$Component) {
 MapLegend.propTypes = {
     x: _propTypes2.default.number,
     y: _propTypes2.default.number,
+    rx: _propTypes2.default.number,
+    ry: _propTypes2.default.number,
+    radius: _propTypes2.default.number,
     lineHeight: _propTypes2.default.number,
     columns: _propTypes2.default.bool,
     itemsPerColumn: _propTypes2.default.number,
@@ -192,6 +254,9 @@ MapLegend.propTypes = {
 MapLegend.defaultProps = {
     x: 0,
     y: 0,
+    rx: 0,
+    ry: 0,
+    radius: 5,
     lineHeight: 20,
     columns: true,
     itemsPerColumn: 4,

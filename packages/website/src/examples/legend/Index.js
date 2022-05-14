@@ -45,15 +45,17 @@ class legend extends React.Component {
             {color: "#3690c0", label: "1 - 2", range: [1, 2]},
             {color: "#74a9cf", label: "0 - 1", range: [0, 1]}
         ];
+
         const capacityMap = {
             "100 Gbps": 7,
             "40 Gbps": 4,
             "10 Gbps": 1,
             "1 Gbps": 0.5
         };
+
         const nodeLegendData = [
-            {color: "#B0B0B0", label: "Site", classed: "esnet_site", radius: 8},
-            {color: "#CBCBCB", label: "Hub", classed: "hub", radius: 7}
+            {color: "#B0B0B0", label: "Site", classed: "esnet_site", radius: 7, shape: "square"},
+            {color: "#CBCBCB", label: "Hub", classed: "hub", radius: 7, shape: "circle"},
         ];
 
         const edgeTypes = _.map(capacityMap, (width, name) => {
@@ -78,7 +80,8 @@ class legend extends React.Component {
                 stroke: nodeInfo.color,
                 fill: nodeInfo.color,
                 radius: nodeInfo.radius,
-                classed: nodeInfo.classed
+                classed: nodeInfo.classed,
+                shape: nodeInfo.shape,
             };
         });
 
@@ -90,13 +93,13 @@ class legend extends React.Component {
                             <MapLegend
                                 x={10}
                                 y={10}
-                               itemsPerColumn={4}
-                               edgeTypes={edgeTypes}
-                               nodeTypes={nodeTypes}
-                               colorSwatches={colorSwatches}
-                               edgeColor={"#6D6E71"}
-                               columnWidth={95}
-                               exampleWidth={15}
+                                itemsPerColumn={4}
+                                edgeTypes={edgeTypes}
+                                nodeTypes={nodeTypes}
+                                colorSwatches={colorSwatches}
+                                edgeColor={"#6D6E71"}
+                                columnWidth={95}
+                                exampleWidth={15}
                             />
                         </svg>
                     </div>

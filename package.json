@@ -1,5 +1,5 @@
 {
-	"scripts": {
+    "scripts": {
         "start": "cd packages/website && npm run start",
         "precommit": "lint-staged"
     },
@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "husky": "^0.13.3",
-        "lerna": "^2.0.0",
+        "lerna": "^2.11.0",
         "lint-staged": "^3.4.0",
         "prettier": "^1.7.0"
     },

@@ -21,25 +21,56 @@ export class MapLegend extends React.Component {
         const elements = [];
         if (this.props.nodeTypes.length > 0) {
             _.each(this.props.nodeTypes, (node, i) => {
-                const textX = curX + this.props.exampleWidth;
-                const textY = curY + lineCenter;
-                const classed = "map-node " + node.classed;
-                const style = { stroke: node.stroke, fill: node.fill };
-                elements.push(
-                    <g key={`node-${i}`}>
-                        <circle
-                            style={style}
-                            cx={curX}
-                            cy={textY}
-                            r={node.radius}
-                            className={classed}
-                        />
-                        <text x={textX} y={textY + 4} textAnchor={"begin"}>
-                            {node.text}
-                        </text>
-                    </g>
-                );
-                curY += this.props.lineHeight;
+                if (node.shape === "square") {
+                    const classed = "map-node-shape-square-" + node.classed;
+                    const x = curX - node.radius;
+                    const y = curY;
+                    const width = 2 * node.radius;
+                    const style = { stroke: node.stroke, fill: node.fill };
+                    
+                    const textX = curX + this.props.exampleWidth;
+                    const textY = curY + lineCenter;
+
+                    elements.push(
+                        <g key={`node-${i}`}>
+                            <rect
+                                x={x}
+                                y={y}
+                                rx={this.props.rx}
+                                ry={this.props.ry}
+                                width={width}
+                                height={width}
+                                style={style}
+                                className={classed}
+                            />
+                            <text x={textX} y={textY + 4} textAnchor={"begin"}>
+                                {node.text}
+                            </text>
+                        </g>
+                    );
+                    curY += this.props.lineHeight;
+                } else {
+                    const textX = curX + this.props.exampleWidth;
+                    const textY = curY + lineCenter;
+                    const classed = "map-node-shape-circle-" + node.classed;
+                    const style = { stroke: node.stroke, fill: node.fill };
+                    
+                    elements.push(
+                        <g key={`node-${i}`}>
+                            <circle
+                                style={style}
+                                cx={curX}
+                                cy={textY}
+                                r={node.radius}
+                                className={classed}
+                            />
+                            <text x={textX} y={textY + 4} textAnchor={"begin"}>
+                                {node.text}
+                            </text>
+                        </g>
+                    );
+                    curY += this.props.lineHeight;
+                }
             });
 
             if (this.props.columns) {
@@ -129,6 +160,9 @@ export class MapLegend extends React.Component {
 MapLegend.propTypes = {
     x: PropTypes.number,
     y: PropTypes.number,
+    rx: PropTypes.number,
+    ry: PropTypes.number,
+    radius: PropTypes.number,
     lineHeight: PropTypes.number,
     columns: PropTypes.bool,
     itemsPerColumn: PropTypes.number,
@@ -144,6 +178,9 @@ MapLegend.propTypes = {
 MapLegend.defaultProps = {
     x: 0,
     y: 0,
+    rx: 0,
+    ry: 0,
+    radius: 5,
     lineHeight: 20,
     columns: true,
     itemsPerColumn: 4,

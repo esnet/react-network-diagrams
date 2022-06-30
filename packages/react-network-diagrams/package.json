@@ -33,9 +33,8 @@
     "d3-scale": "^2.0.0",
     "keymirror": "^0.1.1",
     "prop-types": "^15.5.10",
-    "underscore": "^1.8.3",
-    "victor": "^1.1.0",
-    "react-select": "^1.2.1"
+    "underscore": "^1.12.1",
+    "victor": "^1.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

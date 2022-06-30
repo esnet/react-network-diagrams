@@ -1221,8 +1221,7 @@
               "name": "string"
             },
             {
-              "name": "custom",
-              "raw": "PropTypes.Number"
+              "name": "number"
             }
           ]
         },
@@ -1969,17 +1968,6 @@
           "value": "false",
           "computed": false
         }
-      },
-      "overlapStyle": {
-        "type": {
-          "name": "object"
-        },
-        "required": false,
-        "description": "In case two equipment ovelap, this is the style that will be used for them.",
-        "defaultValue": {
-          "value": "{\n    fill: \"#FD9D9D\"\n}",
-          "computed": false
-        }
       }
     }
   },
@@ -2609,6 +2597,17 @@
         "description": "",
         "defaultValue": {
           "value": "0",
+          "computed": false
+        }
+      },
+      "radius": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "5",
           "computed": false
         }
       },
@@ -3251,8 +3250,7 @@
               "name": "string"
             },
             {
-              "name": "custom",
-              "raw": "PropTypes.Number"
+              "name": "number"
             }
           ]
         },
@@ -3877,6 +3875,26 @@
         "returns": null
       },
       {
+        "name": "buildRmuArray",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "childElements",
+            "type": null
+          },
+          {
+            "name": "rmuCount",
+            "type": null
+          },
+          {
+            "name": "inchToRmu",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
         "name": "drawRack",
         "docblock": null,
         "modifiers": [],
@@ -3899,6 +3917,10 @@
           },
           {
             "name": "yOffsetTop",
+            "type": null
+          },
+          {
+            "name": "pxToInch",
             "type": null
           }
         ],
@@ -3923,6 +3945,10 @@
           },
           {
             "name": "initialY",
+            "type": null
+          },
+          {
+            "name": "pxToInch",
             "type": null
           }
         ],
@@ -3983,6 +4009,14 @@
           },
           {
             "name": "yOffsetTop",
+            "type": null
+          },
+          {
+            "name": "pxToInch",
+            "type": null
+          },
+          {
+            "name": "childMap",
             "type": null
           }
         ],
@@ -4072,9 +4106,9 @@
           "name": "object"
         },
         "required": false,
-        "description": "The general styling of the rack.",
+        "description": "",
         "defaultValue": {
-          "value": "{\n    fill: \"#D5D5D5\",\n    strokeWidth: 1,\n    stroke: \"#737373\"\n}",
+          "value": "{\n    stroke: \"#737373\",\n    strokeWidth: 1,\n    fill: \"#D5D5D5\"\n}",
           "computed": false
         }
       },

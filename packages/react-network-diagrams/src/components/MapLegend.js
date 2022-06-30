@@ -36,8 +36,6 @@ export class MapLegend extends React.Component {
                             <rect
                                 x={x}
                                 y={y}
-                                rx={this.props.rx}
-                                ry={this.props.ry}
                                 width={width}
                                 height={width}
                                 style={style}
@@ -160,8 +158,6 @@ export class MapLegend extends React.Component {
 MapLegend.propTypes = {
     x: PropTypes.number,
     y: PropTypes.number,
-    rx: PropTypes.number,
-    ry: PropTypes.number,
     radius: PropTypes.number,
     lineHeight: PropTypes.number,
     columns: PropTypes.bool,
@@ -178,8 +174,6 @@ MapLegend.propTypes = {
 MapLegend.defaultProps = {
     x: 0,
     y: 0,
-    rx: 0,
-    ry: 0,
     radius: 5,
     lineHeight: 20,
     columns: true,

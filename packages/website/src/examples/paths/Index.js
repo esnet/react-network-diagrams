@@ -245,8 +245,16 @@ class paths extends React.Component {
                             onChange={this.handleMapToggle}/>
                           <TrafficMap
                             topology={topo}
+                            style={{
+                                background: "#0a1d52",
+                                borderRadius: 5,
+                                borderStyle: "solid",
+                                borderWidth: 2,
+                                borderColor: "black"
+                            }}
                             traffic={traffic}
                             bounds={{x1: -5, y1: 5, x2: 240, y2: 120}}
+                            edgeColor="#4e6185"
                             edgeColorMap={edgeColorMap}
                             edgeDrawingMethod={drawingMethod}
                             edgeThinknessMap={edgeThinknessMap}

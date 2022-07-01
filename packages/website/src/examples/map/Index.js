@@ -165,6 +165,9 @@ class map extends React.Component {
                             autoSize={true}
                             bounds={{x1: -5, y1: 5, x2: 240, y2: 120}}
                             topology={topo}
+                            style={{
+                                background: "#ffffff"
+                            }}
                             traffic={traffic}
                             edgeColorMap={edgeColorMap}
                             edgeDrawingMethod="bidirectionalArrow"

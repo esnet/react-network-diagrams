@@ -2,6 +2,8 @@
   "name": [
     {
       "capacity": "100G",
+      "label_dx": null,
+      "label_dy": null,
       "label_position": "left",
       "name": "ALBQ",
       "site": null,

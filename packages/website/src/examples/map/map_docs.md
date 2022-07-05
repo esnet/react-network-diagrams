@@ -294,6 +294,9 @@ import { TrafficMap } from "react-network-diagrams";
             <TrafficMap
                 bounds={{x1: -5, y1: 5, x2: 240, y2: 120}}
                 topology={topology}
+                style={{
+                    background: "#ffffff"
+                }}
                 traffic={traffic}
                 edgeColorMap={edgeColorMap}
                 edgeDrawingMethod="bidirectionalArrow"

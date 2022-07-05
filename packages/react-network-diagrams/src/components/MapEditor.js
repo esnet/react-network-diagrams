@@ -762,7 +762,7 @@ MapEditor.propTypes = {
      * };
      * ```
      */
-     edgeThicknessMap: PropTypes.object,
+    edgeThicknessMap: PropTypes.object,
 
     /** Display the endpoint selected */
     selected: PropTypes.bool,

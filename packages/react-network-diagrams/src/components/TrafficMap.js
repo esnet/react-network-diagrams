@@ -376,8 +376,8 @@ TrafficMap.propTypes = {
      * };
      * ```
      */
-     edgeThicknessMap: PropTypes.object,
-    
+    edgeThicknessMap: PropTypes.object,
+
     /**
      * The default color for an edge which isn't colored using the `edgeColorMap`.
      */

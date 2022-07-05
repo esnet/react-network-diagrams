@@ -40,7 +40,7 @@ export class TrafficMap extends React.Component {
     }
 
     edgeThickness(capacity) {
-        return this.props.edgeThinknessMap[capacity] || 5;
+        return this.props.edgeThicknessMap[capacity] || 5;
     }
 
     edgeShape(name) {
@@ -303,7 +303,7 @@ export class TrafficMap extends React.Component {
 }
 
 TrafficMap.defaultProps = {
-    edgeThinknessMap: {
+    edgeThicknessMap: {
         "100G": 5,
         "10G": 3,
         "1G": 1.5,
@@ -368,7 +368,7 @@ TrafficMap.propTypes = {
      * Example:
      *
      * ```
-     * const edgeThinknessMap = {
+     * const edgeThicknessMap = {
      *     "100G": 5,
      *     "10G": 3,
      *     "1G": 1.5,
@@ -376,7 +376,7 @@ TrafficMap.propTypes = {
      * };
      * ```
      */
-    edgeThinknessMap: PropTypes.object,
+     edgeThicknessMap: PropTypes.object,
     
     /**
      * The default color for an edge which isn't colored using the `edgeColorMap`.

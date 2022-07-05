@@ -15,11 +15,11 @@ import { Label } from "./Label"; //17.52(w) 25.39(d) 24.49(h)
 
 /**
  * An equipment is an svg rect that needs to know its width, height, and style.
- * It receives its x and y starting position from the parent rack element, or a 
+ * It receives its x and y starting position from the parent rack element, or a
  * default derived from a specified offset value.
- * 
+ *
  * It takes a label as well in the form of a string or list of strings if multilines are desired
- */ 
+ */
 
 export class EquipmentBase extends React.Component {
     constructor(props) {
@@ -115,7 +115,8 @@ export class EquipmentBase extends React.Component {
             newLabelStyle.fontSize = this.props.pxToInch * 0.8;
         }
 
-        if ( this.props.label &&
+        if (
+            this.props.label &&
             (!(this.props.facing === "Front" && this.props.rackFacing === "Back") &&
                 !(this.props.facing === "Back" && this.props.rackFacing === "Front")) &&
             this.props.overlapping
@@ -206,8 +207,8 @@ export class EquipmentBase extends React.Component {
          * Default to the front view. Only show the back view if the
          * equipment is back facing on the front of the rack,
          * or front facing on the back of the rack
-         */ 
-        
+         */
+
         let eqStyle = frontStyle;
         if (this.props.overlapping) {
             eqStyle = overlapStyle;
@@ -261,4 +262,4 @@ export class EquipmentBase extends React.Component {
             );
         }
     }
-};
+}

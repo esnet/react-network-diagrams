@@ -256,15 +256,12 @@ export class TrafficMap extends React.Component {
             borderStyle: "solid",
             borderWidth: "thin",
             borderColor: "#E6E6E6"
-          };
+        };
         const style = this.props.style ? this.props.style : defaultStyle;
 
         if (autoSize) {
             return (
-                <Resizable
-                    aspect={aspect}
-                    style={style}
-                >
+                <Resizable aspect={aspect} style={style}>
                     <BaseMap
                         topology={topo}
                         paths={topo.paths}
@@ -382,7 +379,7 @@ TrafficMap.propTypes = {
      * The default color for an edge which isn't colored using the `edgeColorMap`.
      */
     edgeColor: PropTypes.string,
-    
+
     /**
      * A mapping of traffic on the link, in Gbps, to a color and label. The label is because the same
      * mapping can be used to create a legend for the map.

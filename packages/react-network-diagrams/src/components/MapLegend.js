@@ -27,7 +27,7 @@ export class MapLegend extends React.Component {
                     const y = curY;
                     const width = 2 * node.radius;
                     const style = { stroke: node.stroke, fill: node.fill };
-                    
+
                     const textX = curX + this.props.exampleWidth;
                     const textY = curY + lineCenter;
 
@@ -52,7 +52,7 @@ export class MapLegend extends React.Component {
                     const textY = curY + lineCenter;
                     const classed = "map-node-shape-circle-" + node.classed;
                     const style = { stroke: node.stroke, fill: node.fill };
-                    
+
                     elements.push(
                         <g key={`node-${i}`}>
                             <circle
@@ -164,7 +164,7 @@ MapLegend.propTypes = {
     /**
      * Controls the starting y co-ordinate
      */
-     y: PropTypes.number,
+    y: PropTypes.number,
 
     /**
      * Controls the height of the line
@@ -195,7 +195,7 @@ MapLegend.propTypes = {
     gutter: PropTypes.number,
 
     /**
-     * Color for the lines in the capacity map. The capacity map is a map where 
+     * Color for the lines in the capacity map. The capacity map is a map where
      * the key is the capacity and the value represents the width of the line
      * that is drawn on the map
      */
@@ -203,7 +203,7 @@ MapLegend.propTypes = {
 
     /**
      * An array that describes the different types of nodes on the map.
-     * 
+     *
      * Eg : [
      *      { classed: "esnet_site", fill: "#B0B0B0", radius: 7, shape: "square", stroke: "#B0B0B0", text: "Site"},
      *      { classed: "hub", fill: "#CBCBCB", radius: 7, shape: "circle", stroke: "#CBCBCB", text: "Hub" }
@@ -213,7 +213,7 @@ MapLegend.propTypes = {
 
     /**
      * An array that describes the different sizes of the edges on the map.
-     * 
+     *
      * Eg : [
      *      { strokeWidth: 7, text: "100 Gbps" }
      *      { strokeWidth: 4, text: "40 Gbps"}
@@ -224,7 +224,7 @@ MapLegend.propTypes = {
     /**
      * An array that describes the colors corresponding to the traffic on the map
      * and how to display that in the legend
-     * 
+     *
      * Eg : [
      *      { fill: "#990000", stroke: "#990000", text: "50+ Gbps" },
      *      { fill: "#bd0026", stroke: "#bd0026", text: "20 - 50" },

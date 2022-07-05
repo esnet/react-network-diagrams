@@ -62,7 +62,7 @@ class map extends React.Component {
         };
 
         // Maps link capacity to line thickness
-        const edgeThinknessMap = {
+        const edgeThicknessMap = {
             "100G": 5,
             "10G": 3,
             "1G": 1.5,
@@ -171,7 +171,7 @@ class map extends React.Component {
                             traffic={traffic}
                             edgeColorMap={edgeColorMap}
                             edgeDrawingMethod="bidirectionalArrow"
-                            edgeThinknessMap={edgeThinknessMap}
+                            edgeThicknessMap={edgeThicknessMap}
                             edgeShapeMap={edgeShapeMap}
                             nodeSizeMap={nodeSizeMap}
                             nodeShapeMap={nodeShapeMap}

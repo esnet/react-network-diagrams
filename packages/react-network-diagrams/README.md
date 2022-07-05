@@ -38,7 +38,7 @@ You can then `render()` the traffic map in your component:
                 traffic={traffic}
                 edgeColorMap={edgeColorMap}
                 edgeDrawingMethod="bidirectionalArrow"
-                edgeThinknessMap={edgeThinknessMap}
+                edgeThicknessMap={edgeThicknessMap}
                 edgeShapeMap={edgeShapeMap}
                 nodeSizeMap={nodeSizeMap}
                 nodeShapeMap={nodeShapeMap}

@@ -2486,7 +2486,11 @@
           "name": "object"
         },
         "required": false,
-        "description": "A mapping of the capacity field within the tologogy edge object\nto a line thickness for rendering the edges.\n\nExample:\n\n```\nconst edgeThinknessMap = {\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    \"subG\": 1\n};\n```"
+        "description": "A mapping of the capacity field within the tologogy edge object\nto a line thickness for rendering the edges.\n\nExample:\n\n```\nconst edgeThicknessMap = {\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    \"subG\": 1\n};\n```",
+        "defaultValue": {
+          "value": "{\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    subG: 1\n}",
+          "computed": false
+        }
       },
       "selected": {
         "type": {
@@ -2562,12 +2566,6 @@
         "description": "",
         "defaultValue": {
           "value": "0.25",
-          "computed": false
-        }
-      },
-      "edgeThinknessMap": {
-        "defaultValue": {
-          "value": "{\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    subG: 1\n}",
           "computed": false
         }
       }
@@ -4572,12 +4570,12 @@
           "computed": false
         }
       },
-      "edgeThinknessMap": {
+      "edgeThicknessMap": {
         "type": {
           "name": "object"
         },
         "required": false,
-        "description": "A mapping of the capacity field within the tologogy edge object\nto a line thickness for rendering the edges.\n\nExample:\n\n```\nconst edgeThinknessMap = {\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    \"subG\": 1\n};\n```",
+        "description": "A mapping of the capacity field within the tologogy edge object\nto a line thickness for rendering the edges.\n\nExample:\n\n```\nconst edgeThicknessMap = {\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    \"subG\": 1\n};\n```",
         "defaultValue": {
           "value": "{\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    subG: 1\n}",
           "computed": false

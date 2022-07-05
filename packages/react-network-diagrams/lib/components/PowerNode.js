@@ -141,8 +141,6 @@ var PowerNode = exports.PowerNode = function (_React$Component) {
     return PowerNode;
 }(_react2.default.Component);
 
-;
-
 PowerNode.propTypes = {
     radius: _propTypes2.default.number
 };

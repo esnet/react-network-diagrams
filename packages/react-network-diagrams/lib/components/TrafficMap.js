@@ -315,10 +315,7 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
             if (autoSize) {
                 return _react2.default.createElement(
                     _Resizable.Resizable,
-                    {
-                        aspect: aspect,
-                        style: style
-                    },
+                    { aspect: aspect, style: style },
                     _react2.default.createElement(_BaseMap.BaseMap, {
                         topology: topo,
                         paths: topo.paths,

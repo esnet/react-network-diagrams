@@ -105,7 +105,7 @@ class paths extends React.Component {
         };
         
         // Maps link capacity to line thickness
-        const edgeThinknessMap = {
+        const edgeThicknessMap = {
             "100G": 5,
             "10G": 3,
             "1G": 1.5,
@@ -245,11 +245,19 @@ class paths extends React.Component {
                             onChange={this.handleMapToggle}/>
                           <TrafficMap
                             topology={topo}
+                            style={{
+                                background: "#0a1d52",
+                                borderRadius: 5,
+                                borderStyle: "solid",
+                                borderWidth: 2,
+                                borderColor: "black"
+                            }}
                             traffic={traffic}
                             bounds={{x1: -5, y1: 5, x2: 240, y2: 120}}
+                            edgeColor="#4e6185"
                             edgeColorMap={edgeColorMap}
                             edgeDrawingMethod={drawingMethod}
-                            edgeThinknessMap={edgeThinknessMap}
+                            edgeThicknessMap={edgeThicknessMap}
                             edgeShapeMap={edgeShapeMap}
                             nodeSizeMap={nodeSizeMap}
                             nodeShapeMap={nodeShapeMap}

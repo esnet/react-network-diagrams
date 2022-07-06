@@ -74,7 +74,9 @@ var Rack = exports.Rack = function (_React$Component) {
                 var start = Number(childValues.rmu);
                 var end = start + rmuHeight;
 
-                var values = { name: childValues.label + "-" + childValues.rmu + "-" + childValues.facing };
+                var values = {
+                    name: childValues.label + "-" + childValues.rmu + "-" + childValues.facing
+                };
                 if (childValues.facing === "Front" && start !== 0) {
                     frontRmuArray.fill(values, start, end);
                 } else if (childValues.facing === "Back" && start !== 0) {
@@ -133,8 +135,8 @@ var Rack = exports.Rack = function (_React$Component) {
     }, {
         key: "drawHeightMarkers",
         value: function drawHeightMarkers(inchToRmu, middle, x, initialY, pxToInch) {
-            var x1 = x - 20 * pxToInch / 10;;
-            var x2 = x - 2 * pxToInch / 10;;
+            var x1 = x - 20 * pxToInch / 10;
+            var x2 = x - 2 * pxToInch / 10;
             var labelStyle = {
                 normal: {
                     fill: "#9D9D9D",
@@ -385,11 +387,11 @@ var Rack = exports.Rack = function (_React$Component) {
             this.props.children.forEach(function (child) {
                 if (_this3.props.facing === "Front" && child.props.facing === "Front") {
                     topChildren.push(child);
-                } else if (_this3.props.facing === "Front" && child.props.facing == "Back") {
+                } else if (_this3.props.facing === "Front" && child.props.facing === "Back") {
                     bottomChildren.push(child);
                 } else if (_this3.props.facing === "Back" && child.props.facing === "Back") {
                     topChildren.push(child);
-                } else if (_this3.props.facing === "Back" && child.props.facing == "Front") {
+                } else if (_this3.props.facing === "Back" && child.props.facing === "Front") {
                     bottomChildren.push(child);
                 }
             });
@@ -423,8 +425,6 @@ var Rack = exports.Rack = function (_React$Component) {
 
     return Rack;
 }(_react2.default.Component);
-
-;
 
 Rack.propTypes = {
     yOffsetTop: _propTypes2.default.number,

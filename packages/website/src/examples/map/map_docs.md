@@ -134,7 +134,24 @@ Like the edge traffic, the path traffic levels are mapped to colors with the `ed
 
 ## Styling
 
-The TrafficMap code is configured with a set of maps which give styling information to the map rendering code
+The TrafficMap code is configured with a set of maps which give styling information to the map rendering code.
+
+### style
+
+This controls the top level container that contains the map. You can pass inline CSS as this prop to change the
+background color or border styling of the map.
+
+Example:
+
+```js
+const style={{
+    borderRadius: 10,
+    background: "#f9f9f9",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "#CCC"
+}}
+```
 
 ### nodeSizeMap
 
@@ -149,14 +166,14 @@ const nodeSizeMap = {
 };
 ```
 
-### edgeThinknessMap
+### edgeThicknessMap
 
 A mapping of the `capacity` field within the tologogy edge object to a line thickness for rendering the edges.
 
 Example:
 
 ```js
-const edgeThinknessMap = {
+const edgeThicknessMap = {
     "100G": 5,
     "10G": 3,
     "1G": 1.5,
@@ -277,10 +294,13 @@ import { TrafficMap } from "react-network-diagrams";
             <TrafficMap
                 bounds={{x1: -5, y1: 5, x2: 240, y2: 120}}
                 topology={topology}
+                style={{
+                    background: "#ffffff"
+                }}
                 traffic={traffic}
                 edgeColorMap={edgeColorMap}
                 edgeDrawingMethod="bidirectionalArrow"
-                edgeThinknessMap={edgeThinknessMap}
+                edgeThicknessMap={edgeThicknessMap}
                 edgeShapeMap={edgeShapeMap}
                 nodeSizeMap={nodeSizeMap}
                 nodeShapeMap={nodeShapeMap}

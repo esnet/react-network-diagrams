@@ -149,14 +149,14 @@ const nodeSizeMap = {
 };
 ```
 
-### edgeThinknessMap
+### edgeThicknessMap
 
 A mapping of the `capacity` field within the tologogy edge object to a line thickness for rendering the edges.
 
 Example:
 
 ```js
-const edgeThinknessMap = {
+const edgeThicknessMap = {
     "100G": 5,
     "10G": 3,
     "1G": 1.5,
@@ -280,7 +280,7 @@ import { TrafficMap } from "react-network-diagrams";
                 traffic={traffic}
                 edgeColorMap={edgeColorMap}
                 edgeDrawingMethod="bidirectionalArrow"
-                edgeThinknessMap={edgeThinknessMap}
+                edgeThicknessMap={edgeThicknessMap}
                 edgeShapeMap={edgeShapeMap}
                 nodeSizeMap={nodeSizeMap}
                 nodeShapeMap={nodeShapeMap}

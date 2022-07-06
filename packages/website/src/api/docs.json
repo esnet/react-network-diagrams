@@ -1221,8 +1221,7 @@
               "name": "string"
             },
             {
-              "name": "custom",
-              "raw": "PropTypes.Number"
+              "name": "number"
             }
           ]
         },
@@ -1969,17 +1968,6 @@
           "value": "false",
           "computed": false
         }
-      },
-      "overlapStyle": {
-        "type": {
-          "name": "object"
-        },
-        "required": false,
-        "description": "In case two equipment ovelap, this is the style that will be used for them.",
-        "defaultValue": {
-          "value": "{\n    fill: \"#FD9D9D\"\n}",
-          "computed": false
-        }
       }
     }
   },
@@ -2498,7 +2486,11 @@
           "name": "object"
         },
         "required": false,
-        "description": "A mapping of the capacity field within the tologogy edge object\nto a line thickness for rendering the edges.\n\nExample:\n\n```\nconst edgeThinknessMap = {\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    \"subG\": 1\n};\n```"
+        "description": "A mapping of the capacity field within the tologogy edge object\nto a line thickness for rendering the edges.\n\nExample:\n\n```\nconst edgeThicknessMap = {\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    \"subG\": 1\n};\n```",
+        "defaultValue": {
+          "value": "{\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    subG: 1\n}",
+          "computed": false
+        }
       },
       "selected": {
         "type": {
@@ -2576,12 +2568,6 @@
           "value": "0.25",
           "computed": false
         }
-      },
-      "edgeThinknessMap": {
-        "defaultValue": {
-          "value": "{\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    subG: 1\n}",
-          "computed": false
-        }
       }
     }
   },
@@ -2595,7 +2581,7 @@
           "name": "number"
         },
         "required": false,
-        "description": "",
+        "description": "Controls the starting x co-ordinate",
         "defaultValue": {
           "value": "0",
           "computed": false
@@ -2606,7 +2592,7 @@
           "name": "number"
         },
         "required": false,
-        "description": "",
+        "description": "Controls the starting y co-ordinate",
         "defaultValue": {
           "value": "0",
           "computed": false
@@ -2617,7 +2603,7 @@
           "name": "number"
         },
         "required": false,
-        "description": "",
+        "description": "Controls the height of the line",
         "defaultValue": {
           "value": "20",
           "computed": false
@@ -2628,7 +2614,7 @@
           "name": "bool"
         },
         "required": false,
-        "description": "",
+        "description": "Boolean variable whether we want to have columns or not",
         "defaultValue": {
           "value": "true",
           "computed": false
@@ -2639,7 +2625,7 @@
           "name": "number"
         },
         "required": false,
-        "description": "",
+        "description": "If we have columns, how many items do we want in each column",
         "defaultValue": {
           "value": "4",
           "computed": false
@@ -2650,7 +2636,7 @@
           "name": "number"
         },
         "required": false,
-        "description": "",
+        "description": "Width of each column",
         "defaultValue": {
           "value": "100",
           "computed": false
@@ -2661,7 +2647,7 @@
           "name": "number"
         },
         "required": false,
-        "description": "",
+        "description": "Used to denote the width of a line when displaying the capacity or\nthe distance between the icon and the text in the legend",
         "defaultValue": {
           "value": "20",
           "computed": false
@@ -2683,7 +2669,7 @@
           "name": "string"
         },
         "required": false,
-        "description": "",
+        "description": "Color for the lines in the capacity map. The capacity map is a map where \nthe key is the capacity and the value represents the width of the line\nthat is drawn on the map",
         "defaultValue": {
           "value": "\"#333\"",
           "computed": false
@@ -2694,7 +2680,7 @@
           "name": "array"
         },
         "required": false,
-        "description": "",
+        "description": "An array that describes the different types of nodes on the map.\n\nEg : [\n     { classed: \"esnet_site\", fill: \"#B0B0B0\", radius: 7, shape: \"square\", stroke: \"#B0B0B0\", text: \"Site\"},\n     { classed: \"hub\", fill: \"#CBCBCB\", radius: 7, shape: \"circle\", stroke: \"#CBCBCB\", text: \"Hub\" }\n];",
         "defaultValue": {
           "value": "[]",
           "computed": false
@@ -2705,7 +2691,7 @@
           "name": "array"
         },
         "required": false,
-        "description": "",
+        "description": "An array that describes the different sizes of the edges on the map.\n\nEg : [\n     { strokeWidth: 7, text: \"100 Gbps\" }\n     { strokeWidth: 4, text: \"40 Gbps\"}\n];",
         "defaultValue": {
           "value": "[]",
           "computed": false
@@ -2716,7 +2702,7 @@
           "name": "array"
         },
         "required": false,
-        "description": "",
+        "description": "An array that describes the colors corresponding to the traffic on the map\nand how to display that in the legend\n\nEg : [\n     { fill: \"#990000\", stroke: \"#990000\", text: \"50+ Gbps\" },\n     { fill: \"#bd0026\", stroke: \"#bd0026\", text: \"20 - 50\" },\n     { fill: \"#cc4c02\", stroke: \"#cc4c02\", text: \"10 - 20\" }\n];",
         "defaultValue": {
           "value": "[]",
           "computed": false
@@ -3251,8 +3237,7 @@
               "name": "string"
             },
             {
-              "name": "custom",
-              "raw": "PropTypes.Number"
+              "name": "number"
             }
           ]
         },
@@ -3877,6 +3862,26 @@
         "returns": null
       },
       {
+        "name": "buildRmuArray",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "childElements",
+            "type": null
+          },
+          {
+            "name": "rmuCount",
+            "type": null
+          },
+          {
+            "name": "inchToRmu",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
         "name": "drawRack",
         "docblock": null,
         "modifiers": [],
@@ -3899,6 +3904,10 @@
           },
           {
             "name": "yOffsetTop",
+            "type": null
+          },
+          {
+            "name": "pxToInch",
             "type": null
           }
         ],
@@ -3923,6 +3932,10 @@
           },
           {
             "name": "initialY",
+            "type": null
+          },
+          {
+            "name": "pxToInch",
             "type": null
           }
         ],
@@ -3983,6 +3996,14 @@
           },
           {
             "name": "yOffsetTop",
+            "type": null
+          },
+          {
+            "name": "pxToInch",
+            "type": null
+          },
+          {
+            "name": "childMap",
             "type": null
           }
         ],
@@ -4072,9 +4093,9 @@
           "name": "object"
         },
         "required": false,
-        "description": "The general styling of the rack.",
+        "description": "",
         "defaultValue": {
-          "value": "{\n    fill: \"#D5D5D5\",\n    strokeWidth: 1,\n    stroke: \"#737373\"\n}",
+          "value": "{\n    stroke: \"#737373\",\n    strokeWidth: 1,\n    fill: \"#D5D5D5\"\n}",
           "computed": false
         }
       },
@@ -4549,14 +4570,25 @@
           "computed": false
         }
       },
-      "edgeThinknessMap": {
+      "edgeThicknessMap": {
         "type": {
           "name": "object"
         },
         "required": false,
-        "description": "A mapping of the capacity field within the tologogy edge object\nto a line thickness for rendering the edges.\n\nExample:\n\n```\nconst edgeThinknessMap = {\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    \"subG\": 1\n};\n```",
+        "description": "A mapping of the capacity field within the tologogy edge object\nto a line thickness for rendering the edges.\n\nExample:\n\n```\nconst edgeThicknessMap = {\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    \"subG\": 1\n};\n```",
         "defaultValue": {
           "value": "{\n    \"100G\": 5,\n    \"10G\": 3,\n    \"1G\": 1.5,\n    subG: 1\n}",
+          "computed": false
+        }
+      },
+      "edgeColor": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The default color for an edge which isn't colored using the `edgeColorMap`.",
+        "defaultValue": {
+          "value": "\"#DDD\"",
           "computed": false
         }
       },
@@ -4565,7 +4597,7 @@
           "name": "array"
         },
         "required": false,
-        "description": "",
+        "description": "A mapping of traffic on the link, in Gbps, to a color and label. The label is because the same\nmapping can be used to create a legend for the map.\n\nExample:\n\n```\nconst edgeColorMap = [\n    { color: \"#990000\", label: \">=50 Gbps\", range: [50, 100] },\n    { color: \"#bd0026\", label: \"20 - 50\", range: [20, 50] },\n    { color: \"#cc4c02\", label: \"10 - 20\", range: [10, 20] },\n    { color: \"#016c59\", label: \"5 - 10\", range: [5, 10] },\n    { color: \"#238b45\", label: \"2 - 5\", range: [2, 5] },\n    { color: \"#3690c0\", label: \"1 - 2\", range: [1, 2] },\n    { color: \"#74a9cf\", label: \"0 - 1\", range: [0, 1] }\n];\n```",
         "defaultValue": {
           "value": "[]",
           "computed": false

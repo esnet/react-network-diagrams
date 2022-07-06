@@ -8,14 +8,13 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Markdown from "react-markdown";
 
 import Examples from "../examples_entry.js";
 import Catalog from "../examples/catalog.json";
 
 export default class extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -55,9 +54,7 @@ export default class extends Component {
             return (
                 <div className="row">
                     <div className="col-md-12">
-                        <Markdown 
-                            source={this.state.markdown}
-                        />
+                        <Markdown source={this.state.markdown} />
                     </div>
                 </div>
             );
@@ -121,9 +118,7 @@ export default class extends Component {
                         <div className="row">
                             <div className="col-md-12">
                                 <h3 style={titleStyle}>{ExampleCatalogData.title}</h3>
-                                <p>
-                                    {ExampleCatalogData.description}
-                                </p>
+                                <p>{ExampleCatalogData.description}</p>
                                 <div>
                                     {ExampleCatalogData.tags.map(tag => (
                                         <span style={tagStyle} key={tag}>{tag}</span>

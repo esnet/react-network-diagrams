@@ -15,9 +15,9 @@ import { EquipmentBase } from "./EquipmentBase";
 
 /**
  * An equipment is an svg rect that needs to know its width, height, and style.
- * It receives its x and y starting position from the parent rack element, or a 
+ * It receives its x and y starting position from the parent rack element, or a
  * default derived from a specified offset value.
- * 
+ *
  * It takes a label as well in the form of a string or list of strings if multilines are desired
  */
 export class Equipment extends React.Component {
@@ -157,7 +157,7 @@ export class Equipment extends React.Component {
             </g>
         );
     }
-};
+}
 
 Equipment.propTypes = {
     noNavigate: PropTypes.bool,

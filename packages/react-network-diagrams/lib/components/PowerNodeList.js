@@ -46,7 +46,7 @@ var PowerNodeList = exports.PowerNodeList = function (_React$Component) {
         key: "assignPowerNodes",
         value: function assignPowerNodes(power) {
             /**
-             * Power nodes are positioned around a rack in one of 9 potential locations 
+             * Power nodes are positioned around a rack in one of 9 potential locations
              * in the format Vertical - Horizontal:
              * Above - Left
              * Above - Middle
@@ -57,7 +57,7 @@ var PowerNodeList = exports.PowerNodeList = function (_React$Component) {
              * Below - Left
              * Below - Middle
              * Below - Right
-             * 
+             *
              * There may be multiple nodes at each location, and will need to be rendered next to each other
              */
 
@@ -177,8 +177,6 @@ var PowerNodeList = exports.PowerNodeList = function (_React$Component) {
 
     return PowerNodeList;
 }(_react2.default.Component);
-
-;
 
 PowerNodeList.defaultProps = {
     xOffset: 10,

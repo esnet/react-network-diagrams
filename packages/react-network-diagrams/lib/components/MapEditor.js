@@ -125,7 +125,7 @@ var MapEditor = exports.MapEditor = function (_React$Component) {
     }, {
         key: "edgeThickness",
         value: function edgeThickness(capacity) {
-            return this.props.edgeThinknessMap[capacity] || 5;
+            return this.props.edgeThicknessMap[capacity] || 5;
         }
     }, {
         key: "edgeShape",
@@ -943,7 +943,7 @@ MapEditor.propTypes = {
      * Example:
      *
      * ```
-     * const edgeThinknessMap = {
+     * const edgeThicknessMap = {
      *     "100G": 5,
      *     "10G": 3,
      *     "1G": 1.5,
@@ -999,7 +999,7 @@ MapEditor.propTypes = {
 };
 
 MapEditor.defaultProps = {
-    edgeThinknessMap: {
+    edgeThicknessMap: {
         "100G": 5,
         "10G": 3,
         "1G": 1.5,

@@ -40,7 +40,7 @@ export class TrafficMap extends React.Component {
     }
 
     edgeThickness(capacity) {
-        return this.props.edgeThinknessMap[capacity] || 5;
+        return this.props.edgeThicknessMap[capacity] || 5;
     }
 
     edgeShape(name) {
@@ -217,6 +217,8 @@ export class TrafficMap extends React.Component {
                     });
                 });
                 _.each(topology.edges, edge => {
+                    edge.stroke = this.props.edgeColor ? this.props.edgeColor : "#DDD";
+
                     const sourceTargetName = `${edge.source}--${edge.target}`;
                     const targetSourceName = `${edge.target}--${edge.source}`;
                     if (_.has(edgeMap, sourceTargetName)) {
@@ -248,17 +250,18 @@ export class TrafficMap extends React.Component {
         const bounds = this.bounds();
         const aspect = (bounds.x2 - bounds.x1) / (bounds.y2 - bounds.y1);
         const autoSize = this.props.autoSize;
+
+        const defaultStyle = {
+            background: "#F6F6F6",
+            borderStyle: "solid",
+            borderWidth: "thin",
+            borderColor: "#E6E6E6"
+        };
+        const style = this.props.style ? this.props.style : defaultStyle;
+
         if (autoSize) {
             return (
-                <Resizable
-                    aspect={aspect}
-                    style={{
-                        background: "#F6F6F6",
-                        borderStyle: "solid",
-                        borderWidth: "thin",
-                        borderColor: "#E6E6E6"
-                    }}
-                >
+                <Resizable aspect={aspect} style={style}>
                     <BaseMap
                         topology={topo}
                         paths={topo.paths}
@@ -276,14 +279,7 @@ export class TrafficMap extends React.Component {
             );
         } else {
             return (
-                <div
-                    style={{
-                        background: "#F6F6F6",
-                        borderStyle: "solid",
-                        borderWidth: "thin",
-                        borderColor: "#E6E6E6"
-                    }}
-                >
+                <div style={style}>
                     <BaseMap
                         topology={topo}
                         paths={topo.paths}
@@ -304,12 +300,13 @@ export class TrafficMap extends React.Component {
 }
 
 TrafficMap.defaultProps = {
-    edgeThinknessMap: {
+    edgeThicknessMap: {
         "100G": 5,
         "10G": 3,
         "1G": 1.5,
         subG: 1
     },
+    edgeColor: "#DDD",
     edgeColorMap: [],
     nodeSizeMap: {},
     nodeShapeMap: {},
@@ -368,7 +365,7 @@ TrafficMap.propTypes = {
      * Example:
      *
      * ```
-     * const edgeThinknessMap = {
+     * const edgeThicknessMap = {
      *     "100G": 5,
      *     "10G": 3,
      *     "1G": 1.5,
@@ -376,8 +373,31 @@ TrafficMap.propTypes = {
      * };
      * ```
      */
-    edgeThinknessMap: PropTypes.object,
+    edgeThicknessMap: PropTypes.object,
 
+    /**
+     * The default color for an edge which isn't colored using the `edgeColorMap`.
+     */
+    edgeColor: PropTypes.string,
+
+    /**
+     * A mapping of traffic on the link, in Gbps, to a color and label. The label is because the same
+     * mapping can be used to create a legend for the map.
+     *
+     * Example:
+     *
+     * ```
+     * const edgeColorMap = [
+     *     { color: "#990000", label: ">=50 Gbps", range: [50, 100] },
+     *     { color: "#bd0026", label: "20 - 50", range: [20, 50] },
+     *     { color: "#cc4c02", label: "10 - 20", range: [10, 20] },
+     *     { color: "#016c59", label: "5 - 10", range: [5, 10] },
+     *     { color: "#238b45", label: "2 - 5", range: [2, 5] },
+     *     { color: "#3690c0", label: "1 - 2", range: [1, 2] },
+     *     { color: "#74a9cf", label: "0 - 1", range: [0, 1] }
+     * ];
+     * ```
+     */
     edgeColorMap: PropTypes.array,
 
     /**

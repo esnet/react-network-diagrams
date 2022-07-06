@@ -30,13 +30,12 @@ export class Rack extends React.Component {
         );
     }
 
-
     buildRmuArray(childElements, rmuCount, inchToRmu) {
         //initialize an array of objects the size of the rack for the front and back
-    
+
         const frontRmuArray = Array(rmuCount + 1).fill({});
         const rearRmuArray = Array(rmuCount + 1).fill({});
-    
+
         //Lets place the equipment at the RMU position on the front and on the back
         //and fill the other spots up to its height
         childElements.forEach(child => {
@@ -45,7 +44,9 @@ export class Rack extends React.Component {
             const start = Number(childValues.rmu);
             const end = start + rmuHeight;
 
-            const values = { name: `${childValues.label}-${childValues.rmu}-${childValues.facing}` };
+            const values = {
+                name: `${childValues.label}-${childValues.rmu}-${childValues.facing}`
+            };
             if (childValues.facing === "Front" && start !== 0) {
                 frontRmuArray.fill(values, start, end);
             } else if (childValues.facing === "Back" && start !== 0) {
@@ -64,7 +65,7 @@ export class Rack extends React.Component {
                 position: index
             };
         });
-    
+
         return {
             front: frontIndexedRmuArray,
             back: rearIndexedRmuArray
@@ -94,16 +95,12 @@ export class Rack extends React.Component {
             elements.push(this.drawHeightMarkers(inchToRmu, middle, x1, y3, pxToInch));
         }
 
-        return (
-            <g>
-                {elements}
-            </g>
-        );
+        return <g>{elements}</g>;
     }
 
     drawHeightMarkers(inchToRmu, middle, x, initialY, pxToInch) {
-        const x1 = x - 20 * pxToInch / 10;;
-        const x2 = x - 2 * pxToInch / 10;;
+        const x1 = x - 20 * pxToInch / 10;
+        const x2 = x - 2 * pxToInch / 10;
         const labelStyle = {
             normal: {
                 fill: "#9D9D9D",
@@ -209,7 +206,16 @@ export class Rack extends React.Component {
         return labelElement;
     }
 
-    renderChildren(childElements, rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop, pxToInch, childMap) {
+    renderChildren(
+        childElements,
+        rackPxHeight,
+        rackPxWidth,
+        rackPxOffset,
+        inchToRmu,
+        yOffsetTop,
+        pxToInch,
+        childMap
+    ) {
         const newChildren = React.Children.map(childElements, child => {
             let x;
             let heightFromBottom;
@@ -236,7 +242,6 @@ export class Rack extends React.Component {
                 }
             }
             const y = rackPxStart - equipmentPxHeight - heightFromBottom;
-
 
             // We get the position from the childMap where this child should sit in the rack
             // returning an array of U positions for front and back eg. [1,2]
@@ -267,7 +272,6 @@ export class Rack extends React.Component {
             }
             const overlapping = overlappingFront || overlappingBack;
 
-
             /*
             XXX Scott: What about other props like
                 selected={this.state.selectedStyle}
@@ -289,7 +293,7 @@ export class Rack extends React.Component {
             const newChild = React.cloneElement(child, props);
             return newChild;
         });
-        
+
         return newChildren;
     }
 
@@ -297,14 +301,14 @@ export class Rack extends React.Component {
         // 1 RMU is 1.75 inches
         const inchToRmu = 1.75;
 
-         // Minimum total width is 350 at px to inch of 10, so divide anything
-         // smaller than 350 by 35 to achieve the right ratio
-         let pxToInch;
-         if (this.props.width >= 350) {
-             pxToInch = this.props.pxToInch;
-         } else {
-             pxToInch = this.props.width / 35;
-         }
+        // Minimum total width is 350 at px to inch of 10, so divide anything
+        // smaller than 350 by 35 to achieve the right ratio
+        let pxToInch;
+        if (this.props.width >= 350) {
+            pxToInch = this.props.pxToInch;
+        } else {
+            pxToInch = this.props.width / 35;
+        }
 
         // total height of a 42U rack is 73.5 inches
         // Pixel height is 730px
@@ -342,8 +346,8 @@ export class Rack extends React.Component {
          * It uses the rmu prop and the equipment height on each child element to derive the position
          * in the rack. It then injects an x, y and pixel to inch ratio prop to each child.
          * Other style based props for the equipment are also injected.
-         */ 
-        
+         */
+
         // We render the child elements in a layering fashion to display back and front elements
         // If the rack facing is front, the bottom elements are back facing and top elements are front facing and vice versa
         let childElementsBottom;
@@ -355,17 +359,21 @@ export class Rack extends React.Component {
         this.props.children.forEach(child => {
             if (this.props.facing === "Front" && child.props.facing === "Front") {
                 topChildren.push(child);
-            } else if (this.props.facing === "Front" && child.props.facing == "Back") {
+            } else if (this.props.facing === "Front" && child.props.facing === "Back") {
                 bottomChildren.push(child);
             } else if (this.props.facing === "Back" && child.props.facing === "Back") {
                 topChildren.push(child);
-            } else if (this.props.facing === "Back" && child.props.facing == "Front") {
+            } else if (this.props.facing === "Back" && child.props.facing === "Front") {
                 bottomChildren.push(child);
             }
         });
 
         if (React.Children.count(this.props.children) >= 1) {
-            const childMap = this.buildRmuArray(this.props.children, this.props.rackHeight, inchToRmu);
+            const childMap = this.buildRmuArray(
+                this.props.children,
+                this.props.rackHeight,
+                inchToRmu
+            );
             childElementsBottom = this.renderChildren(
                 this.props.children,
                 rackPxHeight,
@@ -392,20 +400,27 @@ export class Rack extends React.Component {
             <div>
                 <svg className={className} style={svgStyle}>
                     <defs>{this.props.pattern}</defs>
-                    {this.drawRack(rackPxHeight, rackPxWidth, rackPxOffset, inchToRmu, yOffsetTop, pxToInch)}
+                    {this.drawRack(
+                        rackPxHeight,
+                        rackPxWidth,
+                        rackPxOffset,
+                        inchToRmu,
+                        yOffsetTop,
+                        pxToInch
+                    )}
                     {childElementsBottom}
                     {childElementsTop}
                 </svg>
             </div>
         );
     }
-};
+}
 
 Rack.propTypes = {
     yOffsetTop: PropTypes.number,
-    
+
     yOffsetBottom: PropTypes.number,
-    
+
     width: PropTypes.number,
 
     /** Expressed in RMU */
@@ -417,7 +432,7 @@ Rack.propTypes = {
     pxToInch: PropTypes.number,
 
     widthOffset: PropTypes.number,
-    
+
     rackStyle: PropTypes.object,
 
     labelStyle: PropTypes.object

@@ -35,9 +35,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 /**
  * An equipment is an svg rect that needs to know its width, height, and style.
- * It receives its x and y starting position from the parent rack element, or a 
+ * It receives its x and y starting position from the parent rack element, or a
  * default derived from a specified offset value.
- * 
+ *
  * It takes a label as well in the form of a string or list of strings if multilines are desired
  */
 var Equipment = exports.Equipment = function (_React$Component) {
@@ -200,8 +200,6 @@ var Equipment = exports.Equipment = function (_React$Component) {
 
     return Equipment;
 }(_react2.default.Component);
-
-;
 
 Equipment.propTypes = {
     noNavigate: _propTypes2.default.bool,

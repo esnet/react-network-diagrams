@@ -56,27 +56,58 @@ var MapLegend = exports.MapLegend = function (_React$Component) {
             var elements = [];
             if (this.props.nodeTypes.length > 0) {
                 _underscore2.default.each(this.props.nodeTypes, function (node, i) {
-                    var textX = curX + _this2.props.exampleWidth;
-                    var textY = curY + lineCenter;
-                    var classed = "map-node " + node.classed;
-                    var style = { stroke: node.stroke, fill: node.fill };
-                    elements.push(_react2.default.createElement(
-                        "g",
-                        { key: "node-" + i },
-                        _react2.default.createElement("circle", {
-                            style: style,
-                            cx: curX,
-                            cy: textY,
-                            r: node.radius,
-                            className: classed
-                        }),
-                        _react2.default.createElement(
-                            "text",
-                            { x: textX, y: textY + 4, textAnchor: "begin" },
-                            node.text
-                        )
-                    ));
-                    curY += _this2.props.lineHeight;
+                    if (node.shape === "square") {
+                        var classed = "map-node-shape-square-" + node.classed;
+                        var x = curX - node.radius;
+                        var y = curY;
+                        var width = 2 * node.radius;
+                        var style = { stroke: node.stroke, fill: node.fill };
+
+                        var textX = curX + _this2.props.exampleWidth;
+                        var textY = curY + lineCenter;
+
+                        elements.push(_react2.default.createElement(
+                            "g",
+                            { key: "node-" + i },
+                            _react2.default.createElement("rect", {
+                                x: x,
+                                y: y,
+                                width: width,
+                                height: width,
+                                style: style,
+                                className: classed
+                            }),
+                            _react2.default.createElement(
+                                "text",
+                                { x: textX, y: textY + 4, textAnchor: "begin" },
+                                node.text
+                            )
+                        ));
+                        curY += _this2.props.lineHeight;
+                    } else {
+                        var _textX = curX + _this2.props.exampleWidth;
+                        var _textY = curY + lineCenter;
+                        var _classed = "map-node-shape-circle-" + node.classed;
+                        var _style = { stroke: node.stroke, fill: node.fill };
+
+                        elements.push(_react2.default.createElement(
+                            "g",
+                            { key: "node-" + i },
+                            _react2.default.createElement("circle", {
+                                style: _style,
+                                cx: curX,
+                                cy: _textY,
+                                r: node.radius,
+                                className: _classed
+                            }),
+                            _react2.default.createElement(
+                                "text",
+                                { x: _textX, y: _textY + 4, textAnchor: "begin" },
+                                node.text
+                            )
+                        ));
+                        curY += _this2.props.lineHeight;
+                    }
                 });
 
                 if (this.props.columns) {
@@ -175,17 +206,81 @@ var MapLegend = exports.MapLegend = function (_React$Component) {
 }(_react2.default.Component);
 
 MapLegend.propTypes = {
+    /**
+     * Controls the starting x co-ordinate
+     */
     x: _propTypes2.default.number,
+
+    /**
+     * Controls the starting y co-ordinate
+     */
     y: _propTypes2.default.number,
+
+    /**
+     * Controls the height of the line
+     */
     lineHeight: _propTypes2.default.number,
+
+    /**
+     * Boolean variable whether we want to have columns or not
+     */
     columns: _propTypes2.default.bool,
+
+    /**
+     * If we have columns, how many items do we want in each column
+     */
     itemsPerColumn: _propTypes2.default.number,
+
+    /**
+     * Width of each column
+     */
     columnWidth: _propTypes2.default.number,
+
+    /**
+     * Used to denote the width of a line when displaying the capacity or
+     * the distance between the icon and the text in the legend
+     */
     exampleWidth: _propTypes2.default.number,
+
     gutter: _propTypes2.default.number,
+
+    /**
+     * Color for the lines in the capacity map. The capacity map is a map where
+     * the key is the capacity and the value represents the width of the line
+     * that is drawn on the map
+     */
     edgeColor: _propTypes2.default.string,
+
+    /**
+     * An array that describes the different types of nodes on the map.
+     *
+     * Eg : [
+     *      { classed: "esnet_site", fill: "#B0B0B0", radius: 7, shape: "square", stroke: "#B0B0B0", text: "Site"},
+     *      { classed: "hub", fill: "#CBCBCB", radius: 7, shape: "circle", stroke: "#CBCBCB", text: "Hub" }
+     * ];
+     */
     nodeTypes: _propTypes2.default.array,
+
+    /**
+     * An array that describes the different sizes of the edges on the map.
+     *
+     * Eg : [
+     *      { strokeWidth: 7, text: "100 Gbps" }
+     *      { strokeWidth: 4, text: "40 Gbps"}
+     * ];
+     */
     edgeTypes: _propTypes2.default.array,
+
+    /**
+     * An array that describes the colors corresponding to the traffic on the map
+     * and how to display that in the legend
+     *
+     * Eg : [
+     *      { fill: "#990000", stroke: "#990000", text: "50+ Gbps" },
+     *      { fill: "#bd0026", stroke: "#bd0026", text: "20 - 50" },
+     *      { fill: "#cc4c02", stroke: "#cc4c02", text: "10 - 20" }
+     * ];
+     */
     colorSwatches: _propTypes2.default.array
 };
 

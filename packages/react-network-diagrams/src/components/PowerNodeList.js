@@ -16,7 +16,7 @@ import { PowerNode } from "./PowerNode";
 export class PowerNodeList extends React.Component {
     assignPowerNodes(power) {
         /**
-         * Power nodes are positioned around a rack in one of 9 potential locations 
+         * Power nodes are positioned around a rack in one of 9 potential locations
          * in the format Vertical - Horizontal:
          * Above - Left
          * Above - Middle
@@ -27,10 +27,10 @@ export class PowerNodeList extends React.Component {
          * Below - Left
          * Below - Middle
          * Below - Right
-         * 
+         *
          * There may be multiple nodes at each location, and will need to be rendered next to each other
-         */ 
-        
+         */
+
         const nodes = {
             "Above-Left": [],
             "Above-Center": [],
@@ -137,7 +137,7 @@ export class PowerNodeList extends React.Component {
             </div>
         );
     }
-};
+}
 
 PowerNodeList.defaultProps = {
     xOffset: 10,

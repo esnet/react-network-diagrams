@@ -85,7 +85,7 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
     }, {
         key: "edgeThickness",
         value: function edgeThickness(capacity) {
-            return this.props.edgeThinknessMap[capacity] || 5;
+            return this.props.edgeThicknessMap[capacity] || 5;
         }
     }, {
         key: "edgeShape",
@@ -266,6 +266,8 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
                         });
                     });
                     _underscore2.default.each(topology.edges, function (edge) {
+                        edge.stroke = _this3.props.edgeColor ? _this3.props.edgeColor : "#DDD";
+
                         var sourceTargetName = edge.source + "--" + edge.target;
                         var targetSourceName = edge.target + "--" + edge.source;
                         if (_underscore2.default.has(edgeMap, sourceTargetName)) {
@@ -301,18 +303,19 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
             var bounds = this.bounds();
             var aspect = (bounds.x2 - bounds.x1) / (bounds.y2 - bounds.y1);
             var autoSize = this.props.autoSize;
+
+            var defaultStyle = {
+                background: "#F6F6F6",
+                borderStyle: "solid",
+                borderWidth: "thin",
+                borderColor: "#E6E6E6"
+            };
+            var style = this.props.style ? this.props.style : defaultStyle;
+
             if (autoSize) {
                 return _react2.default.createElement(
                     _Resizable.Resizable,
-                    {
-                        aspect: aspect,
-                        style: {
-                            background: "#F6F6F6",
-                            borderStyle: "solid",
-                            borderWidth: "thin",
-                            borderColor: "#E6E6E6"
-                        }
-                    },
+                    { aspect: aspect, style: style },
                     _react2.default.createElement(_BaseMap.BaseMap, {
                         topology: topo,
                         paths: topo.paths,
@@ -330,14 +333,7 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
             } else {
                 return _react2.default.createElement(
                     "div",
-                    {
-                        style: {
-                            background: "#F6F6F6",
-                            borderStyle: "solid",
-                            borderWidth: "thin",
-                            borderColor: "#E6E6E6"
-                        }
-                    },
+                    { style: style },
                     _react2.default.createElement(_BaseMap.BaseMap, {
                         topology: topo,
                         paths: topo.paths,
@@ -360,12 +356,13 @@ var TrafficMap = exports.TrafficMap = function (_React$Component) {
 }(_react2.default.Component);
 
 TrafficMap.defaultProps = {
-    edgeThinknessMap: {
+    edgeThicknessMap: {
         "100G": 5,
         "10G": 3,
         "1G": 1.5,
         subG: 1
     },
+    edgeColor: "#DDD",
     edgeColorMap: [],
     nodeSizeMap: {},
     nodeShapeMap: {},
@@ -424,7 +421,7 @@ TrafficMap.propTypes = {
      * Example:
      *
      * ```
-     * const edgeThinknessMap = {
+     * const edgeThicknessMap = {
      *     "100G": 5,
      *     "10G": 3,
      *     "1G": 1.5,
@@ -432,8 +429,31 @@ TrafficMap.propTypes = {
      * };
      * ```
      */
-    edgeThinknessMap: _propTypes2.default.object,
+    edgeThicknessMap: _propTypes2.default.object,
 
+    /**
+     * The default color for an edge which isn't colored using the `edgeColorMap`.
+     */
+    edgeColor: _propTypes2.default.string,
+
+    /**
+     * A mapping of traffic on the link, in Gbps, to a color and label. The label is because the same
+     * mapping can be used to create a legend for the map.
+     *
+     * Example:
+     *
+     * ```
+     * const edgeColorMap = [
+     *     { color: "#990000", label: ">=50 Gbps", range: [50, 100] },
+     *     { color: "#bd0026", label: "20 - 50", range: [20, 50] },
+     *     { color: "#cc4c02", label: "10 - 20", range: [10, 20] },
+     *     { color: "#016c59", label: "5 - 10", range: [5, 10] },
+     *     { color: "#238b45", label: "2 - 5", range: [2, 5] },
+     *     { color: "#3690c0", label: "1 - 2", range: [1, 2] },
+     *     { color: "#74a9cf", label: "0 - 1", range: [0, 1] }
+     * ];
+     * ```
+     */
     edgeColorMap: _propTypes2.default.array,
 
     /**

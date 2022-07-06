@@ -100,7 +100,7 @@ export class PowerNode extends React.Component {
             </g>
         );
     }
-};
+}
 
 PowerNode.propTypes = {
     radius: PropTypes.number

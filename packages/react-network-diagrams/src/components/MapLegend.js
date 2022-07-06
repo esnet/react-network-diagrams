@@ -21,25 +21,54 @@ export class MapLegend extends React.Component {
         const elements = [];
         if (this.props.nodeTypes.length > 0) {
             _.each(this.props.nodeTypes, (node, i) => {
-                const textX = curX + this.props.exampleWidth;
-                const textY = curY + lineCenter;
-                const classed = "map-node " + node.classed;
-                const style = { stroke: node.stroke, fill: node.fill };
-                elements.push(
-                    <g key={`node-${i}`}>
-                        <circle
-                            style={style}
-                            cx={curX}
-                            cy={textY}
-                            r={node.radius}
-                            className={classed}
-                        />
-                        <text x={textX} y={textY + 4} textAnchor={"begin"}>
-                            {node.text}
-                        </text>
-                    </g>
-                );
-                curY += this.props.lineHeight;
+                if (node.shape === "square") {
+                    const classed = "map-node-shape-square-" + node.classed;
+                    const x = curX - node.radius;
+                    const y = curY;
+                    const width = 2 * node.radius;
+                    const style = { stroke: node.stroke, fill: node.fill };
+
+                    const textX = curX + this.props.exampleWidth;
+                    const textY = curY + lineCenter;
+
+                    elements.push(
+                        <g key={`node-${i}`}>
+                            <rect
+                                x={x}
+                                y={y}
+                                width={width}
+                                height={width}
+                                style={style}
+                                className={classed}
+                            />
+                            <text x={textX} y={textY + 4} textAnchor={"begin"}>
+                                {node.text}
+                            </text>
+                        </g>
+                    );
+                    curY += this.props.lineHeight;
+                } else {
+                    const textX = curX + this.props.exampleWidth;
+                    const textY = curY + lineCenter;
+                    const classed = "map-node-shape-circle-" + node.classed;
+                    const style = { stroke: node.stroke, fill: node.fill };
+
+                    elements.push(
+                        <g key={`node-${i}`}>
+                            <circle
+                                style={style}
+                                cx={curX}
+                                cy={textY}
+                                r={node.radius}
+                                className={classed}
+                            />
+                            <text x={textX} y={textY + 4} textAnchor={"begin"}>
+                                {node.text}
+                            </text>
+                        </g>
+                    );
+                    curY += this.props.lineHeight;
+                }
             });
 
             if (this.props.columns) {
@@ -127,17 +156,81 @@ export class MapLegend extends React.Component {
 }
 
 MapLegend.propTypes = {
+    /**
+     * Controls the starting x co-ordinate
+     */
     x: PropTypes.number,
+
+    /**
+     * Controls the starting y co-ordinate
+     */
     y: PropTypes.number,
+
+    /**
+     * Controls the height of the line
+     */
     lineHeight: PropTypes.number,
+
+    /**
+     * Boolean variable whether we want to have columns or not
+     */
     columns: PropTypes.bool,
+
+    /**
+     * If we have columns, how many items do we want in each column
+     */
     itemsPerColumn: PropTypes.number,
+
+    /**
+     * Width of each column
+     */
     columnWidth: PropTypes.number,
+
+    /**
+     * Used to denote the width of a line when displaying the capacity or
+     * the distance between the icon and the text in the legend
+     */
     exampleWidth: PropTypes.number,
+
     gutter: PropTypes.number,
+
+    /**
+     * Color for the lines in the capacity map. The capacity map is a map where
+     * the key is the capacity and the value represents the width of the line
+     * that is drawn on the map
+     */
     edgeColor: PropTypes.string,
+
+    /**
+     * An array that describes the different types of nodes on the map.
+     *
+     * Eg : [
+     *      { classed: "esnet_site", fill: "#B0B0B0", radius: 7, shape: "square", stroke: "#B0B0B0", text: "Site"},
+     *      { classed: "hub", fill: "#CBCBCB", radius: 7, shape: "circle", stroke: "#CBCBCB", text: "Hub" }
+     * ];
+     */
     nodeTypes: PropTypes.array,
+
+    /**
+     * An array that describes the different sizes of the edges on the map.
+     *
+     * Eg : [
+     *      { strokeWidth: 7, text: "100 Gbps" }
+     *      { strokeWidth: 4, text: "40 Gbps"}
+     * ];
+     */
     edgeTypes: PropTypes.array,
+
+    /**
+     * An array that describes the colors corresponding to the traffic on the map
+     * and how to display that in the legend
+     *
+     * Eg : [
+     *      { fill: "#990000", stroke: "#990000", text: "50+ Gbps" },
+     *      { fill: "#bd0026", stroke: "#bd0026", text: "20 - 50" },
+     *      { fill: "#cc4c02", stroke: "#cc4c02", text: "10 - 20" }
+     * ];
+     */
     colorSwatches: PropTypes.array
 };
 

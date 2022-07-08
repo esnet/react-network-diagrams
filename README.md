@@ -53,7 +53,7 @@ See the examples for more information.
 Examples
 --------
 
-To run the examples yourself you first need to run:
+To run the examples yourself, from the main directory, you first need to run:
 
     npm install lerna
     lerna bootstrap
@@ -68,8 +68,26 @@ And now, for the magic, point your browser to:
 
     http://localhost:3000/
 
-From now on, if you change the source code, the examples bundle will be rebuilt and the browser will refresh itself. Errors will also be reported in the browser window.
+From now on, if you change the source code for the examples, the examples bundle will be rebuilt and the browser will refresh itself. Errors will also be reported in the browser window.
 
 Before committing back, run:
 
     npm run build
+    npm run docs (if there's changes to the documentation)
+    
+Once this is done, you can make a pull request to merge this code into the master branch
+
+Release Process
+--------
+
+Merge all the changes you want to deploy into the master branch.
+
+Make sure to add release notes in [CHANGELOG.md](https://github.com/esnet/react-network-diagrams/blob/master/CHANGELOG.md)
+
+Then, from the top level directory, run
+
+    lerna publish
+
+As part of this command, it will ask you the version number you want to pick. 
+
+Once that is selected, it will update the relevant package.json files and push code to github as well as deploy a new release to npm.

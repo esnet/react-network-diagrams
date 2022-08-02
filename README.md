@@ -53,12 +53,13 @@ See the examples for more information.
 Examples
 --------
 
-To run the examples yourself, from the main directory, you first need to run:
+To run the examples yourself, from the main directory, you first need to run these commands in the specific order:
 
     npm install lerna
+    lerna exec npm install
     lerna bootstrap
 
-This will install the development dependencies into your node_modules directory.
+This will bootstrap the packages in the current Lerna repo and install the development dependencies into your node_modules directory.
 
 You can then start up the test server, as well as automatic source building, by doing:
 
@@ -68,17 +69,23 @@ And now, for the magic, point your browser to:
 
     http://localhost:3000/
 
-From now on, if you change the source code for the examples, the examples bundle will be rebuilt and the browser will refresh itself. Errors will also be reported in the browser window.
+From now on, if you change the source code for the `examples` section, the examples bundle will be rebuilt and the browser will refresh itself. Errors will also be reported in the browser window.
 
-Before committing back, run:
+If you want to change the `react-network-diagrams` code, you will need to run `npm run build` after working on your changes and then, the browser running the examples should reflect the changes.
+
+For changes within the main library, run the following commands before committing the code:
 
     npm run build
-    npm run docs (if there's changes to the documentation)
-    
+    npm run docs (if there's changes to the API documentation)
+
+If there are changes to the website, run `npm run build` from the `packages/website` directory before merging to master.
+
 Once this is done, you can make a pull request to merge this code into the master branch
 
 Release Process
 --------
+
+### Deploying a new version
 
 Merge all the changes you want to deploy into the master branch.
 
@@ -91,3 +98,9 @@ Then, from the top level directory, run
 As part of this command, it will ask you the version number you want to pick. 
 
 Once that is selected, it will update the relevant package.json files and push code to github as well as deploy a new release to npm.
+
+### Deploying the website
+
+Currently, the website that hosts the examples and documentation can be found here - http://software.es.net/react-network-diagrams
+
+This is being served via github pages, from the branch `gh-pages-latest`. Make sure to merge the latest code from master into this branch and it should automatically deploy the latest website.
